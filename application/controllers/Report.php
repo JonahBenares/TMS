@@ -48,4 +48,28 @@ class Report extends CI_Controller {
         $this->load->view('report/report_list');
         $this->load->view('template/footer');
     }
+
+    public function pending_list()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('report/pending_list');
+        $this->load->view('template/footer');
+    }
+
+    public function completed_list()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('report/completed_list');
+        $this->load->view('template/footer');
+    }
+
+    public function cancelled_list()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('report/cancelled_list');
+        $this->load->view('template/footer');
+    }
 }

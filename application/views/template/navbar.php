@@ -1,11 +1,11 @@
 
 <body class="skin-default-dark fixed-layout">
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
             <p class="loader__label">TASK MONITORING SYSTEM</p>
         </div>
-    </div>
+    </div> -->
     <div id="main-wrapper">
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
@@ -30,11 +30,11 @@
                             </form>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tachometer"></i></a>
+                            <a class="nav-link text-muted waves-effect waves-dark" href="" title="Dashboard"><i class="fa fa-tachometer"></i></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                            <div class="dropleft dropdown-menu shadow drop-left">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Masterfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-key"></i></a>
+                            <div class="dropleft dropdown-menu drop-left">
                               <span class="dropdown-item bg-dark text-white" disable><center><small>MASTERFILE</small></center></span>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>index.php/masterfile/company_list/">Company</a>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>index.php/masterfile/department_list/">Department</a>
@@ -42,22 +42,24 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-pencil-square-o"></i></a>
-                            <div class="dropleft dropdown-menu shadow drop-left">
-                              <span class="dropdown-item bg-dark text-white" disable><center><small>TASK</small></center></span>
-                              <a class="dropdown-item" href="#">Add New</a>
-                              <a class="dropdown-item" href="#">List</a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>index.php/task/add_task/" title="Add New Task"><i class="fa fa-pencil-square-o"></i></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tasks"></i></a>
+                            <div class="dropleft dropdown-menu drop-left">
+                              <span class="dropdown-item bg-dark text-white" disable><center><small>TASK REPORT</small></center></span>
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>index.php/report/pending_list/">
+                                <span class="text-warning fa fa-circle"></span> Pending</a>
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>index.php/report/completed_list/">
+                                <span class="text-success fa fa-circle"></span> Completed</a>
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>index.php/report/cancelled_list/">
+                                <span class="text-danger fa fa-circle"></span> Cancelled</a>
                             </div>
                         </li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
-                            <div class="dropleft dropdown-menu shadow ">
-                              <span class="dropdown-item bg-warning text-white" disable><center>MASTERFILE</center></span>
-                              <a class="dropdown-item" href="#">My Settings</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>index.php/masterfile/user_logout">Logout</a>
-                            </div>
+                        <li class="nav-item ">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>index.php/reminder/reminder_list" title="Reminder"><i class="fa fa-bell animated infinite headShake"></i></a>
                         </li>
                         <li class="nav-item dropdown" style="border-left:1px solid rgba(0, 0, 0, 0.1)"></li>
                         <li class="nav-item dropdown">

@@ -20,7 +20,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#myTable').DataTable({
-                "lengthMenu": [[20, 35, 50, -1], [20, 35, 50, "All"]]
+                "lengthMenu": [[50, 70, 100, -1], [50, 70, 100, "All"]]
             });
         });
     </script>
