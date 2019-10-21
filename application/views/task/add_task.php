@@ -1,3 +1,6 @@
+    <?php
+    $ci =& get_instance();
+    ?>
 
 <div class="page-wrapper">
     <div class="container-fluid">
@@ -20,8 +23,10 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="tab">
-                          <button class="tablinks" onclick="openCity(event, 'add_project')" id="defaultOpen">Add Project</button>
-                          <button class="tablinks" onclick="openCity(event, 'project_updates')">Project Updates</button>
+                          <button class="tablinks" onclick="openCity(event, 'add_project')" <?php echo (empty($update) ? " id='defaultOpen'" : ""); ?>>Add Project</button>
+                          <?php if(!empty($project_id)){ ?>
+                          <button class="tablinks" onclick="openCity(event, 'project_updates')" <?php echo (!empty($update) ? " id='defaultOpen'" : ""); ?>>Project Updates</button>
+                          <?php } ?>
                         </div>
                         <div id="add_project" class="tabcontent">
                             <?php 
@@ -69,7 +74,7 @@
                                                 <?php foreach($employee AS $emp){ ?>
 
                                                     <option value="<?php echo $emp->employee_id; ?>"
-                                                   <?php echo (!empty($employee_id) ? ((strstr( $employee_id, $emp->employee_id)) ? ' selected' : '') : ''); ?>
+                                                   <?php echo (!empty($project_id) ? ((strstr( $employee_id, $emp->employee_id)) ? ' selected' : '') : ''); ?>
                                                         ><?php echo $emp->employee_name; ?></option>
                                                 <?php } ?>
                                             </select>
@@ -123,42 +128,111 @@
                             <div class="p-25">
                                 <div class="row">
                                     <div class="col-lg-4"> 
+
                                         <h3 class="proj-title"><?php echo $project_title; ?></h3>
                                         <h6>Start Date: <?php echo date('F j, Y', strtotime($start_date)); ?></h6>
                                         <h6>Completion Date: <?php echo date('F j, Y', strtotime($completion_date)); ?></h6>
+                                     
+                                        <?php if($priority_no==1){ ?>
+                                        <span class="text-warning fa fa-flag"></span>
+                                        <span class="text-warning fa fa-flag"></span>
+                                        <span class="text-warning fa fa-flag"></span>
+                                        <?php } else if($priority_no==2) { ?>
+                                         <span class="text-warning fa fa-flag"></span>
+                                        <span class="text-warning fa fa-flag"></span>
+                                        <?php } else if($priority_no==3) { ?>
+                                         <span class="text-warning fa fa-flag"></span>
+                                        <?php } ?>
+                                       
+
                                         <hr>
+                                         <?php
+                                        $msg_updates= $this->session->flashdata('msg_updates');  
+                                        if($msg_updates){
+                                         ?>
+                                         <div class="col-lg-12">
+                                            <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                                <center><?php echo $msg_updates; ?></center>                    
+                                            </div>
+                                        </div>
+                                        <?php } 
+
+                                        if(empty($pd_id)) {
+                                            $url_2 = base_url().'task/update_project';
+                                        } else {
+                                            $url_2 = base_url().'task/update_changes_project';
+                                        } ?>
+
+
+                                        <form method='POST' action="<?php echo $url_2; ?>">
                                           <div class="form-group">
-                                            <input placeholder="Update Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                            <input placeholder="Update Date" class="form-control" name='update_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"  value="<?php echo (!empty($pd_id) ? $upd_date : ''); ?>">
                                         </div> 
                                         <div class="form-group">
-                                            <textarea class="form-control" rows="5" placeholder="Remarks"></textarea>
+                                            <textarea class="form-control" rows="5" placeholder="Remarks" name='remarks'><?php echo (!empty($pd_id) ? $remarks : ''); ?></textarea>
                                         </div>  
                                         <div class="form-group">
-                                            <input type="number" class="form-control" name="" placeholder="Status Percentage">
+                                            <input type="number" class="form-control" name="percentage" placeholder="Status Percentage"  min="<?php echo (!empty($pd_id) ? 0 : $current_percent); ?>" value="<?php echo (!empty($pd_id) ? $percent : $current_percent); ?>">
                                         </div>  
+                                          <div class="form-group">
+                                            <select class="custom-select" multiple name="updated_by[]">
+                                                <option value="">-Updated By-</option>
+                                                <?php foreach($employee AS $emp){ ?>
+
+                                                    <option value="<?php echo $emp->employee_id; ?>"  <?php echo (!empty($pd_id) ? ((strstr($updated_by, $emp->employee_id)) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            
+                                        </div>
                                       
                                         <div class="form-group">
-                                            <input type="button" name="" class="btn btn-success btn-block"  value="Save Update">
+                                            <input type="submit" name="" class="btn btn-success btn-block"  value="Save Update">
+                                             <input type='hidden' name='project_id' value="<?php echo $project_id; ?>">
+                                             <?php if(!empty($pd_id)){ ?>
+                                                <input type='hidden' name='pd_id' value="<?php echo $pd_id; ?>">
+                                             <?php } ?>
                                         </div>
                                     </div>
+                                    </form>
                                     <div class="col-lg-8">
                                         <div class="progress progress-bar-animated active">
-                                            <div class="progress-bar progress-bar-striped bg-primary " role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+                                            <div class="progress-bar progress-bar-striped bg-primary " role="progressbar" aria-valuenow="<?php echo $current_percent; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $current_percent; ?>%"><?php echo $current_percent.'%'; ?></div>
                                         </div>
 
                                         <div class="table-responsive m-t-10">                            
                                             <table id="myTable" class="table table-hover table-bordered" >
                                                 <thead>
                                                     <tr>
-                                                        <th width="90%" class="text-center">Date </span></th>
-                                                        <th >Update Description</th>
+                                                        <th class="text-center">Date </span></th>
+                                                        <th class="text-center">% </span></th>
+                                                        <th>Update Description</th>
+                                                        <th>Updated By</th>
+                                                        <th><span class="fa fa-bars"></span></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php foreach($updates AS $upd){ 
+                                                        $updated_by = explode(", ", $upd->updated_by);  
+                                                     
+                                                        $count = count($updated_by);
+                                                        $upda='';
+                                                         for($x=0;$x<$count;$x++){
+                                                            $upda.= $ci->get_updated_name($updated_by[$x]). ", ";
+                                                         } 
+                                                         $updated = substr($upda, 0, -2);
+                                                        ?>
                                                     <tr>
-                                                        <td class="text-center">MM-DD-YY</td>
-                                                        <td>Desc</td>
+                                                        <td class="text-center"><?php echo date('M d, Y', strtotime($upd->update_date)); ?></td>
+                                                        <td class="text-center"><?php echo $upd->status_percentage."%"; ?></td>
+                                                        <td><?php echo $upd->remarks; ?></td>
+                                                        <td><?php echo $updated; ?></td>
+                                                        <td>
+                                                            <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update/<?php echo $upd->pd_id; ?>" class="btn btn-primary btn-xs bor-radius "  title="Add Project Update" ><span class="fa fa-pencil"></span>
+                                                            </a>
+                                                        </td>
                                                     </tr>
+                                                <?php } ?>
+
                                                 </tbody>
                                             </table>
                                         </div>

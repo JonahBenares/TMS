@@ -44,7 +44,11 @@ class Task extends CI_Controller {
     public function add_task()
     {
         $project_id = $this->uri->segment(3);
+        $update = $this->uri->segment(4);
+        $pd_id = $this->uri->segment(5);
         $data['project_id'] = $project_id;
+        $data['pd_id'] = $pd_id;
+        $data['update'] = $update;
         $data['company'] = $this->super_model->select_all_order_by("company", "company_name", "ASC");
         $data['department'] = $this->super_model->select_all_order_by("department", "department_name", "ASC");
         $data['employee'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
@@ -60,10 +64,34 @@ class Task extends CI_Controller {
             $data['project_desc']=$proj->project_description;
 
         }
+
+        $data['current_percent']=$this->project_percent($project_id);
+       
+
+        $data['updates'] = $this->super_model->select_custom_where("project_details","project_id='$project_id' ORDER BY update_date DESC");
+
+       foreach($this->super_model->select_row_where("project_details","pd_id","$pd_id") AS $pd){
+           $data['upd_date'] = $pd->update_date;
+           $data['remarks'] = $pd->remarks;
+           $data['percent'] = $pd->status_percentage;
+           $data['updated_by'] = $pd->updated_by;
+       }
+       
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('task/add_task', $data);
         $this->load->view('template/footer');
+    }
+
+    public function project_percent($project_id){
+           $rows_detail = $this->super_model->count_rows_where("project_details", "project_id", $project_id);
+        if($rows_detail==0){
+            $current_percent=0;
+        } else {
+            $pd_id = $this->super_model->custom_query_single("pd_id", "SELECT pd_id FROM project_details WHERE update_date= (SELECT MAX(update_date) FROM project_details WHERE project_id = '$project_id')");
+            $current_percent = $this->super_model->select_column_where("project_details", "status_percentage", "pd_id", $pd_id);
+        }
+        return $current_percent;
     }
 
     public function insert_task(){
@@ -105,7 +133,7 @@ class Task extends CI_Controller {
 
         if($this->super_model->insert_into("project_head", $data)){
               $this->session->set_flashdata('msg', 'Project successfully added!');
-              redirect(base_url().'task/add_task/'.$project_id);
+              redirect(base_url().'task/add_task/'.$project_id.'/update');
         }
     }
 
@@ -146,6 +174,64 @@ class Task extends CI_Controller {
         }
 
     }
+
+    public function update_project(){
+
+        $project_id = $this->input->post('project_id');
+        $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
+        $create_date = date('Y-m-d H:i:s');
+        $emp = $this->input->post('updated_by');
+        $empid='';
+        $count= count($this->input->post('updated_by'));
+        for($x=0; $x<$count;$x++){
+            $empid .= $emp[$x].", ";
+        }
+        $empid = substr($empid, 0, -2);
+
+        $data = array(
+            'project_id'=>$project_id,
+            'remarks'=>utf8_encode($this->input->post('remarks')),
+            'status_percentage'=>$this->input->post('percentage'),
+            'update_date'=>$update_date,
+            'updated_by'=>$empid,
+            'create_date'=>$create_date,
+        );
+          if($this->super_model->insert_into("project_details", $data)){
+              $this->session->set_flashdata('msg_updates', 'Project updates successfully added!');
+              redirect(base_url().'task/add_task/'.$project_id.'/update');
+        }
+    }
+
+    public function update_changes_project(){
+        $project_id = $this->input->post('project_id');
+        $pd_id = $this->input->post('pd_id');
+        $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
+        $create_date = date('Y-m-d H:i:s');
+        $emp = $this->input->post('updated_by');
+        $empid='';
+        $count= count($this->input->post('updated_by'));
+        for($x=0; $x<$count;$x++){
+            $empid .= $emp[$x].", ";
+        }
+        $empid = substr($empid, 0, -2);
+
+        $data = array(
+            'remarks'=>utf8_encode($this->input->post('remarks')),
+            'status_percentage'=>$this->input->post('percentage'),
+            'update_date'=>$update_date,
+            'updated_by'=>$empid,
+            'create_date'=>$create_date,
+        );
+          if($this->super_model->update_where("project_details", $data, "pd_id", $pd_id)){
+              $this->session->set_flashdata('msg_updates', 'Project updates successfully changed!');
+              redirect(base_url().'task/add_task/'.$project_id.'/update');
+        }
+    }
+
+    public function get_updated_name($employee_id){
+        $name = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee_id);
+        return $name;
+    }   
 
     public function task_list()
     {
