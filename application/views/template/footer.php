@@ -24,6 +24,47 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        function confirmationDelete(anchor){
+            var conf = confirm('Are you sure you want to delete this record?');
+            if(conf)
+            window.location=anchor.attr("href");
+        }
+
+        $(document).on("click", "#updateComp_button", function () {
+             var company_id = $(this).attr("data-id");
+             var company_name = $(this).attr("data-name");
+             $("#company_id").val(company_id);
+             $("#company_name").val(company_name);
+        });
+
+        $(document).on("click", "#updateDept_button", function () {
+             var department_id = $(this).attr("data-id");
+             var department = $(this).attr("data-name");
+             $("#department_id").val(department_id);
+             $("#department").val(department);
+        });
+
+        $(document).on("click", "#updateEmp_button", function () {
+             var employee_id = $(this).attr("data-id");
+             var employee = $(this).attr("data-name");
+             $("#employee_id").val(employee_id);
+             $("#employee").val(employee);
+        });
+
+        $(document).on("click", "#updateRem_button", function () {
+             var reminder_id = $(this).attr("data-id");
+             var notes = $(this).attr("data-name");
+             var employee = $(this).attr("data-aa");
+             var due_date = $(this).attr("data-bb");
+             var status = $(this).attr("data-cc");
+             $("#reminder_id").val(reminder_id);
+             $("#notes").val(notes);
+             $("#employee").val(employee);
+             $("#due_date").val(due_date);
+             $("#status").val(status);
+        });
+    </script>
 </body>
 
 </html>

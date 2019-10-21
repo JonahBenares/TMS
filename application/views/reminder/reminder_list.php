@@ -8,15 +8,39 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    Reminder Name
-                    <input type="text" name="" class="form-control">
+
+            <form method="POST" action="<?php echo base_url(); ?>reminder/insert_reminder">
+                <div class="modal-body">
+                    <div class="form-group">
+                        Employee Name
+                        <select name="employee" class="form-control">
+                            <option value = "">--Select Employee--</option>
+                            <?php foreach($employee AS $e){ ?>
+                            <option value = "<?php echo $e->employee_id; ?>"><?php echo $e->employee_name; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        Notes
+                        <textarea name="notes" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        Due Date
+                        <input type="date" name="due_date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        Status
+                        <select name="status" class="form-control">
+                            <option value = "">--Select Status--</option>
+                            <option value = "0">Active</option>
+                            <option value = "1">Cancelled</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">                                        
-                <button type="button" class="btn btn-primary btn-block">Add</button>
-            </div>
+                <div class="modal-footer">                                        
+                    <button type="submit" class="btn btn-primary btn-block">Add</button>
+                </div>  
+            </form>
         </div>
     </div>
 </div>
@@ -31,15 +55,39 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    Reminder Name
-                    <input type="text" name="" class="form-control">
+            <form method="POST" action="<?php echo base_url(); ?>reminder/edit_reminder">
+                <div class="modal-body">
+                    <div class="form-group">
+                        Employee Name
+                        <select name="employee" class="form-control" id = "employee">
+                            <option value = "">--Select Employee--</option>
+                            <?php foreach($employee AS $e){ ?>
+                            <option value = "<?php echo $e->employee_id; ?>"><?php echo $e->employee_name; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        Notes
+                        <textarea name="notes" class="form-control" id = "notes"></textarea>
+                    </div>
+                    <div class="form-group">
+                        Due Date
+                        <input type="date" name="due_date" class="form-control" id = "due_date">
+                    </div>
+                    <div class="form-group">
+                        Status
+                        <select name="status" class="form-control" id = "status">
+                            <option value = "">--Select Status--</option>
+                            <option value = "0">Active</option>
+                            <option value = "1">Cancelled</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">                                        
-                <button type="button" class="btn btn-info btn-block">Update</button>
-            </div>
+                <input type="hidden" name="reminder_id" id = "reminder_id" class="form-control">
+                <div class="modal-footer">                                        
+                    <button type="submit" class="btn btn-info btn-block">Update</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -80,31 +128,40 @@
                             <table id="myTable" class="table table-hover table-bordered" >
                                 <thead>
                                     <tr>
-                                        <th>Reminder Name</th>
                                         <th width="15%">Due Date</th>
+                                        <th>Notes</th>
                                         <th>Employee</th>
+                                        <th>Status</th>
+                                        <th>Days Left</th>
                                         <th width="7%" class="text-center"><span class="fa fa-bars"></span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php 
+                                        if(!empty($reminders)){ 
+                                            foreach($reminders AS $r){ 
+                                    ?>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><?php echo date('F d, Y', strtotime($r['due_date'])); ?></td>
+                                        <td><?php echo $r['notes']; ?></td>
+                                        <td><?php echo $r['employee']; ?></td>
+                                        <td><?php echo ($r['status']==0) ? 'Active' : 'Cancelled'; ?></td>
+                                        <td><?php echo $r['days_left']; ?></td>
                                         <td>                                            
                                             <div class="table-data-feature">
                                                 <span data-toggle="modal" data-target="#updateCompany">
-                                                    <a  class="btn btn-info item btn-sm" data-toggle="tooltip" data-placement="top" title="Update" >
+                                                    <a  class="btn btn-info item btn-sm" data-toggle="tooltip" data-id = "<?php echo $r['reminder_id']; ?>" data-name = "<?php echo $r['notes']; ?>" data-aa = "<?php echo $r['employee_id']; ?>" data-bb = "<?php echo $r['due_date']; ?>" data-cc = "<?php echo $r['status']; ?>"  id = "updateRem_button" data-placement="top" title="Update" >
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </span>
                                                 
-                                                <a href="" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
+                                                <a href="<?php echo base_url(); ?>reminder/delete_reminder/<?php echo $r['reminder_id']; ?>" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
                                         </td>                                        
                                     </tr>
+                                    <?php } } ?>
                                 </tbody>
                             </table>
                         </div>

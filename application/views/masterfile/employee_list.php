@@ -8,15 +8,17 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    Employee Name
-                    <input type="text" name="" class="form-control">
+            <form method="POST" action = "<?php echo base_url(); ?>masterfile/insert_employee">
+                <div class="modal-body">
+                    <div class="form-group">
+                        Employee Name
+                        <input type="text" name="employee" class="form-control">
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">                                        
-                <button type="button" class="btn btn-primary btn-block">Add</button>
-            </div>
+                <div class="modal-footer">                                        
+                    <button type="submit" class="btn btn-primary btn-block">Add</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -31,15 +33,18 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    Employee Name
-                    <input type="text" name="" class="form-control">
+            <form method="POST" action = "<?php echo base_url(); ?>masterfile/edit_employee">
+                <div class="modal-body">
+                    <div class="form-group">
+                        Employee Name
+                        <input type="text" name="employee" id = "employee" class="form-control">
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">                                        
-                <button type="button" class="btn btn-info btn-block">Update</button>
-            </div>
+                <input type="hidden" name="employee_id" id = "employee_id" class="form-control">
+                <div class="modal-footer">                                        
+                    <button type="submit" class="btn btn-info btn-block">Update</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -84,22 +89,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach($employee AS $e){ ?>
                                     <tr>
-                                        <td></td>
+                                        <td><?php echo $e->employee_name; ?></td>
                                         <td>                                            
                                             <div class="table-data-feature">
                                                 <span data-toggle="modal" data-target="#updateCompany">
-                                                    <a  class="btn btn-info item btn-sm" data-toggle="tooltip" data-placement="top" title="Update" >
+                                                    <a  class="btn btn-info item btn-sm" data-toggle="tooltip" data-id = "<?php echo $e->employee_id; ?>" data-name = "<?php echo $e->employee_name; ?>" id = "updateEmp_button" data-placement="top" title="Update" >
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </span>
                                                 
-                                                <a href="" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
+                                                <a href="<?php echo base_url(); ?>masterfile/delete_employee/<?php echo $e->employee_id; ?>" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
                                         </td>                                        
                                     </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
