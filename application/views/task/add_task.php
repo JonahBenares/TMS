@@ -123,9 +123,9 @@
                             <div class="p-25">
                                 <div class="row">
                                     <div class="col-lg-4"> 
-                                        <h3 class="proj-title">PROJECT TITLE</h3>
-                                        <h6>Start Date:</h6>
-                                        <h6>Completion Date:</h6>
+                                        <h3 class="proj-title"><?php echo $project_title; ?></h3>
+                                        <h6>Start Date: <?php echo date('F j, Y', strtotime($start_date)); ?></h6>
+                                        <h6>Completion Date: <?php echo date('F j, Y', strtotime($completion_date)); ?></h6>
                                         <hr>
                                           <div class="form-group">
                                             <input placeholder="Update Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">

@@ -53,8 +53,8 @@ class Task extends CI_Controller {
             $data['company_id']=$proj->company_id;
             $data['department_id']=$proj->department_id;
             $data['employee_id']=$proj->employee;
-            $data['start_date']=date('d / m / Y', strtotime($proj->start_date));
-            $data['completion_date']=date('d / m / Y', strtotime($proj->completion_date));
+            $data['start_date']=$proj->start_date;
+            $data['completion_date']=$proj->completion_date;
             $data['priority_no']=$proj->priority_no;
             $data['project_title']=$proj->project_title;
             $data['project_desc']=$proj->project_description;
