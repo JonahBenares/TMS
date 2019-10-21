@@ -10839,7 +10839,7 @@ Preloader
     color: #fff; }
 
 .btn-secondary {
-  border-color: #dee2e6; }
+  /*border-color: #dee2e6;*/ }
 
 .btn-outline-secondary {
   color: #212529;
@@ -21964,6 +21964,9 @@ File: scss
 }
 .text-dfault {
     color: #6c757d;
+}
+.text-dfault2 {
+    color: #d8d8d8!important;
 }
 .tab {
   overflow: hidden;

@@ -1,3 +1,33 @@
+<!-- modals -->
+<div class="modal fade" id="project_updates" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Reminder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Remarks"></textarea>
+                </div>  
+                <div class="form-group">
+                    <input type="number" class="form-control" name="" placeholder="Status Percentage">
+                </div>  
+                <div class="form-group">
+                    <input placeholder="Updated Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                </div> 
+                
+            </div>
+            <div class="form-group">
+                <input type="button" name="" class="btn btn-success btn-block"  value="Save Update">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row page-titles">
@@ -20,20 +50,47 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
+                    <div class="progress m-b-20">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+                        </div> 
                     <div class="card-body">
+
                         <div class="row">
                             <div class="col-lg-2">
-                                <label class="label label-warning pull-right">Pending</label>
-                                <!-- <label class="label label-danger pull-right">Cancelled</label>
-                                <label class="label label-success pull-right">Completed</label> -->
+                                <div class="pull-right">
+                                    <label class="label label-warning">Pending</label>
+                                    <!-- <label class="label label-danger">Cancelled</label>
+                                    <label class="label label-success">Completed</label> -->
+                                    <br>
+                                   <!-- priority 3 -->
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-dfault2 fa fa-flag"></span>
+                                    <span class="text-dfault2 fa fa-flag"></span>
+
+                                    <!-- 
+
+                                    priority 2 
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-dfault2 fa fa-flag"></span>
+                                    
+                                    priority 1 
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-warning fa fa-flag"></span>
+
+                                    no priority  
+                                    <span class="text-dfault2 fa fa-flag"></span>
+                                    <span class="text-dfault2 fa fa-flag"></span>
+                                    <span class="text-dfault2 fa fa-flag"></span> -->
+                                    
+                                </div>
                             </div>
                             <div class="col-lg-8">
                                 <h3 class="proj-title m-b-0">PROJECT TITLE</h3>
                                 <small class="proj-title">EMployees</small>
                                 <div>Lorem Ipsum is simply It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</div>
-                                <div class="progress m-b-20">
-                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"><h6 class="m-t-5 m-b-5">75%</h6></div>
-                                </div>                                
+                                                               
                                 <div class="steamline m-t-40">
                                     <div class="sl-item">
                                         <div class="sl-right">
@@ -41,7 +98,7 @@
                                             <div class="desc">Lorem Ipsum is simply It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                                             </div>
                                             <div class="progress m-b-20">
-                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height:5px;width: 75%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -51,26 +108,28 @@
                                             <div class="desc">Lorem Ipsum is is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                             </div>
                                             <div class="progress m-b-20">
-                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height:5px;width: 75%"></div>
                                             </div>
-                                        </div>
-                                    </div>
-                                     <div class="sl-item">
-                                        <div class="sl-right">
-                                            <div class="font-medium">Send documents to Clark</div>
-                                            <div class="desc">Lorem Ipsum is simply </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-2">
-                                <small class="proj-title">Start Date:</small><br>
-                                <span class="">10-10-19</span>
-                                <br>
-                                <br>
-                                <small class="proj-title">Completed Date: </small><br>
-                                <span class="">January 10, 2019</span>
+                                <div style="text-align: right" class="btn-block">
+                                    <small class="proj-title">Start Date:</small><br>
+                                    <span class="">10-10-19</span>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">Completion Date: </small><br>
+                                    <span class="">January 10, 2019</span>
+                                </div>
+                                
+
+                                
                             </div>
+                            <a href="#" class="btn btn-primary btn-sm bor-radius " style="position: fixed; left: 0;bottom: 0; margin: 50px" data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
+                                Add Project Update
+                            </a>
                         </div>
                     </div>
                 </div>
