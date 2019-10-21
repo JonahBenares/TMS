@@ -53,15 +53,19 @@
                                                             <span class="text-dfault2 fa fa-flag"></span>
                                                             <span class="text-dfault2 fa fa-flag"></span>
                                                             <span class="text-dfault2 fa fa-flag"></span> -->
+
                                                         </td>
                                                         <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0">PROJECT TITLE PITO</h4><small class="proj-title">JASON</small>    
-                                                        <div class="progress progress-bar-animated active">
-                                                                <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"><h4 class="m-t-10 m-b-10">75%</h4></div>
-                                                            </div>                                                    
+
                                                         </td>
-                                                        <td class="bg-hovr" width="29%" class="nobor-top">                                                            
-                                                            <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right">MM-DD-YY</span></small>
-                                                            <small class="proj-title btn-block m-0">COMPLETION DATE: <span class="pull-right">MM-DD-YY</span></small>
+                                                        <td class="bg-hovr" width="29%" class="nobor-top">  
+
+                                                        <div class="progress progress-bar-animated active">
+                                                            <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"><h6 class="m-t-5 m-b-5">75%</h6></div>
+                                                        </div>     
+                                                        <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right">MM-DD-YY</span></small>
+                                                            <small class="proj-title btn-block m-0">COMPLETION DATE: <span class="pull-right">MM-DD-YY</span></small>                                                       
+                                                            
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -73,7 +77,7 @@
                             </table>
 
                     </div>
-                    <div class="card-body bg-light">
+                    <!-- <div class="card-body bg-light">
                         <div class="row text-center m-b-20">
                             <div class="col-lg-4 col-md-4 m-t-20">
                                 <h2 class="m-b-0 font-light">6000</h2><span class="text-muted">Total sale</span>
@@ -85,49 +89,21 @@
                                 <h2 class="m-b-0 font-light">2000</h2><span class="text-muted">Ipad</span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Today's Schedule</h5>
+                        <h5 class="card-title">Reminder</h5>
                         <h6 class="card-subtitle">check out your daily schedule</h6>
-                        <div class="steamline m-t-40">
+                        <div class="steamline m-0">
                             <div class="sl-item">
-                                <div class="sl-left bg-success"> <i class="fa fa-user"></i></div>
+                            <button class="btn-xs btn sl-left bg-info" style="background-image: url('../../assets/images/check.png'); position: 100% center; background-repeat: no-repeat;"></button>
                                 <div class="sl-right">
-                                    <div class="font-medium">Meeting today <span class="sl-date"> 5pm</span></div>
-                                    <div class="desc">you can write anything </div>
-                                </div>
-                            </div>
-                            <div class="sl-item">
-                                <div class="sl-left bg-info"><i class="fa fa-image"></i></div>
-                                <div class="sl-right">
-                                    <div class="font-medium">Send documents to Clark</div>
-                                    <div class="desc">Lorem Ipsum is simply </div>
-                                </div>
-                            </div>
-                            <div class="sl-item">
-                                <div class="sl-left"> <img class="img-circle" alt="user" src="<?php echo base_url(); ?>assets/images/users/1.jpg"> </div>
-                                <div class="sl-right">
-                                    <div class="font-medium">John Doe <span class="sl-date"> 5pm</span></div>
-                                    <div class="desc">Call today with gohn doe </div>
-                                </div>
-                            </div>
-                            <div class="sl-item">
-                                <div class="sl-left"> <img class="img-circle" alt="user" src="<?php echo base_url(); ?>assets/images/users/2.jpg"> </div>
-                                <div class="sl-right">
-                                    <div class="font-medium">Go to the Doctor <span class="sl-date">5 minutes ago</span></div>
-                                    <div class="desc">Contrary to popular belief</div>
-                                </div>
-                            </div>
-                            <div class="sl-item">
-                                <div class="sl-left"> <img class="img-circle" alt="user" src="<?php echo base_url(); ?>assets/images/users/3.jpg"> </div>
-                                <div class="sl-right">
-                                    <div><a href="#">Tiger Sroff</a> <span class="sl-date">5 minutes ago</span></div>
-                                    <div class="desc">Approve meeting with tiger
-                                        <br><a href="javascript:void(0)" class="btn m-t-10 m-r-5 btn-rounded btn-outline-success">Apporve</a> <a href="javascript:void(0)" class="btn m-t-10 btn-rounded btn-outline-danger">Refuse</a> </div>
+                                    <h5 class="font-medium m-0">Meeting today </h5>
+                                    <small class="desc m-b-5 btn-block">Employee</small> 
+                                    <span class="sl-date"> Due date</span>
                                 </div>
                             </div>
                         </div>
