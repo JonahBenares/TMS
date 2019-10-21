@@ -36,7 +36,7 @@
                                 <!-- <img src="<?php echo base_url(); ?>assets/images/logo-nameb.png" class="m-b-20" style="width:350px"> -->
                             </center>
                                                       
-                            <form method="POST" action="<?php echo base_url(); ?>index.php/masterfile/login">
+                            <form method="POST" action="<?php echo base_url(); ?>masterfile/login">
                                 <div class="form-group ">
                                     <input class="form-control shadow" type="text" name="username" placeholder="Username">
                                 </div>
