@@ -43,6 +43,7 @@ class Task extends CI_Controller {
 
     public function add_task()
     {
+        $this->super_model->select_all_order_by("company", "company_name", ASC);
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('task/add_task');
