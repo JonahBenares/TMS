@@ -1,4 +1,6 @@
-<!-- modals -->
+    <?php
+    $ci =& get_instance();
+    ?>
 <div class="modal fade" id="project_updates" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -83,14 +85,24 @@
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="pull-right">
+                                    <?php if($status == 'Pending') { ?>
                                     <label class="label label-warning">Pending</label>
-                                    <!-- <label class="label label-danger">Cancelled</label>
-                                    <label class="label label-success">Completed</label> -->
+                                    <?php } else if ($status == 'Cancelled') { ?>
+                                    <label class="label label-danger">Cancelled</label>
+                                    <?php } else if ($status == 'Done') { ?>
+                                    <label class="label label-success">Completed</label> 
+                                   <?php } ?>
                                     <br>
-                                   <!-- priority 3 -->
+                                   <?php if($priority_no==1){ ?>
                                     <span class="text-warning fa fa-flag"></span>
-                                    <span class="text-dfault2 fa fa-flag"></span>
-                                    <span class="text-dfault2 fa fa-flag"></span>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <?php } else if($priority_no==2){ ?>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <?php } else if($priority_no==3) { ?>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <?php } ?>
 
                                     <!-- 
 
@@ -112,8 +124,17 @@
                                 </div>
                             </div>
                             <div class="col-lg-8">
-                                <h3 class="proj-title m-b-0">PROJECT TITLE</h3>
-                                <small class="proj-title">EMployees</small>
+                                <h3 class="proj-title m-b-0"><?php echo $project_title; ?></h3>
+                                   <?php $employee = explode(", ", $employee);  
+                                                     
+                                    $count = count($employee);
+                                    $emp='';
+                                     for($x=0;$x<$count;$x++){
+                                        $emp.= $ci->get_updated_name($employee[$x]). ", ";
+                                     } 
+                                     $employees = substr($emp, 0, -2);
+                                      ?>
+                                <small class="proj-title"><?php echo $employees; ?></small>
                                 <div>Lorem Ipsum is simply It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</div>
                                                                
                                 <div class="steamline m-t-40">

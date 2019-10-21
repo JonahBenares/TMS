@@ -101,11 +101,30 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function get_updated_name($employee_id){
+        $name = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee_id);
+        return $name;
+    }   
+
+   public function project_percent($project_id){
+           $rows_detail = $this->super_model->count_rows_where("project_details", "project_id", $project_id);
+        if($rows_detail==0){
+            $current_percent=0;
+        } else {
+            $pd_id = $this->super_model->custom_query_single("pd_id", "SELECT pd_id FROM project_details WHERE update_date= (SELECT MAX(update_date) FROM project_details WHERE project_id = '$project_id') AND project_id = '$project_id'");
+       
+            $current_percent = $this->super_model->select_column_where("project_details", "status_percentage", "pd_id", $pd_id);
+        }
+        return $current_percent;
+    }
+    
     public function dashboard()
     {
+
+        $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' ORDER BY completion_date ASC");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('masterfile/dashboard');
+        $this->load->view('masterfile/dashboard', $data);
         $this->load->view('template/footer');
     }
 }

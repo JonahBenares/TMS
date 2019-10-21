@@ -66,7 +66,7 @@ class Task extends CI_Controller {
         }
 
         $data['current_percent']=$this->project_percent($project_id);
-       
+     
 
         $data['updates'] = $this->super_model->select_custom_where("project_details","project_id='$project_id' ORDER BY update_date DESC");
 
@@ -88,7 +88,8 @@ class Task extends CI_Controller {
         if($rows_detail==0){
             $current_percent=0;
         } else {
-            $pd_id = $this->super_model->custom_query_single("pd_id", "SELECT pd_id FROM project_details WHERE update_date= (SELECT MAX(update_date) FROM project_details WHERE project_id = '$project_id')");
+            $pd_id = $this->super_model->custom_query_single("pd_id", "SELECT pd_id FROM project_details WHERE update_date= (SELECT MAX(update_date) FROM project_details WHERE project_id = '$project_id') AND project_id = '$project_id'");
+       
             $current_percent = $this->super_model->select_column_where("project_details", "status_percentage", "pd_id", $pd_id);
         }
         return $current_percent;
@@ -163,7 +164,6 @@ class Task extends CI_Controller {
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
             'employee'=>$empid,
-            'status'=>1,
             'create_date'=>$create_date
         );
 
@@ -188,6 +188,13 @@ class Task extends CI_Controller {
         }
         $empid = substr($empid, 0, -2);
 
+        if($this->input->post('percentage')=='100'){
+            $data_head = array(
+                'status'=>1
+            );
+
+            $this->super_model->update_where("project_head", $data_head, "project_id", $project_id);
+        }
         $data = array(
             'project_id'=>$project_id,
             'remarks'=>utf8_encode($this->input->post('remarks')),

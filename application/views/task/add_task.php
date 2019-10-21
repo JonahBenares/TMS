@@ -172,7 +172,7 @@
                                             <textarea class="form-control" rows="5" placeholder="Remarks" name='remarks'><?php echo (!empty($pd_id) ? $remarks : ''); ?></textarea>
                                         </div>  
                                         <div class="form-group">
-                                            <input type="number" class="form-control" name="percentage" placeholder="Status Percentage"  min="<?php echo (!empty($pd_id) ? 0 : $current_percent); ?>" value="<?php echo (!empty($pd_id) ? $percent : $current_percent); ?>">
+                                            <input type="number" class="form-control" name="percentage" placeholder="Status Percentage"  min="<?php echo (!empty($pd_id) ? 0 : $current_percent); ?>" max ='100' value="<?php echo (!empty($pd_id) ? $percent : $current_percent); ?>">
                                         </div>  
                                           <div class="form-group">
                                             <select class="custom-select" multiple name="updated_by[]">

@@ -1,3 +1,6 @@
+    <?php
+    $ci =& get_instance();
+    ?>
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row page-titles">
@@ -30,44 +33,43 @@
                                         <td class="p-0">
                                             <a class="text-dfault"  href="<?php echo base_url(); ?>index.php/report/view_task/" >
                                                 <table width="100%" >
+                                                    <?php foreach($projects AS $proj){
+                                                      $employee = explode(", ", $proj->employee);  
+                                                     
+                                                        $count = count($employee);
+                                                        $emp='';
+                                                         for($x=0;$x<$count;$x++){
+                                                            $emp.= $ci->get_updated_name($employee[$x]). ", ";
+                                                         } 
+                                                         $employees = substr($emp, 0, -2);
+                                                          ?>
                                                     <tr>
                                                         <td width="8%">
-                                                            <!-- priority 3 -->
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            <span class="text-warning fa fa-flag"></span>
-
-                                                            <!-- 
-
-                                                            priority 2 
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            
-                                                            priority 1 
+                                                            <?php if($proj->priority_no==1){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
-
-                                                            no priority  
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span> -->
-
+                                                            <?php } else if($proj->priority_no==2){ ?>
+                                                            <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-warning fa fa-flag"></span>
+                                                            <?php } else if($proj->priority_no==3) { ?>
+                                                            <span class="text-warning fa fa-flag"></span>
+                                                            <?php } ?>
                                                         </td>
-                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0">PROJECT TITLE PITO</h4><small class="proj-title">JASON</small>    
+                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4><small class="proj-title"><?php echo $employees; ?></small>    
 
                                                         </td>
                                                         <td class="bg-hovr" width="29%" class="nobor-top">  
 
                                                         <div class="progress progress-bar-animated active">
-                                                            <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"><h6 class="m-t-5 m-b-5">75%</h6></div>
+                                                            <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%"><h6 class="m-t-5 m-b-5"><?php echo $ci->project_percent($proj->project_id); ?>%</h6></div>
                                                         </div>     
                                                         <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right">MM-DD-YY</span></small>
                                                             <small class="proj-title btn-block m-0">COMPLETION DATE: <span class="pull-right">MM-DD-YY</span></small>                                                       
                                                             
                                                         </td>
                                                     </tr>
+                                                    <?php } ?>
                                                 </table>
                                             </a> 
                                         </td>                                       

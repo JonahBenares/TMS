@@ -73,11 +73,34 @@ class Report extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function get_updated_name($employee_id){
+        $name = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee_id);
+        return $name;
+    }   
+    
     public function view_task()
     {
+        $project_id = $this->uri->segment(3);
+        foreach($this->super_model->select_row_where('project_head', 'project_id', $project_id) AS $proj){
+            $data['start_date']=$proj->start_date;
+            $data['completion_date']=$proj->completion_date;
+            $data['project_title']=$proj->project_title;
+            $data['project_description']=$proj->project_description;
+            $data['priority_no']=$proj->priority_no;
+            $data['company']=$this->super_model->select_column_where("company", "company_name", "company_id", $proj->company_id);
+            $data['department']=$this->super_model->select_column_where("department", "department_name", "department_id", $proj->department_id);
+            $data['employee']=$proj->employee;
+            if($proj->status==0){
+                $data['status']='Pending';
+            } else if($proj->status==1){
+                $data['status']='Done';
+            } else if($proj->status==2){
+                $data['status']='Cancelled';
+            }
+        }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('report/view_task');
+        $this->load->view('report/view_task',$data);
         $this->load->view('template/footer');
     }
 }
