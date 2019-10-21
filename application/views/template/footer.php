@@ -20,6 +20,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#myTable').DataTable({
+                "order":[0, "desc"],
                 "lengthMenu": [[50, 70, 100, -1], [50, 70, 100, "All"]]
             });
         });

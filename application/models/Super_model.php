@@ -139,6 +139,7 @@ class super_model extends CI_Model
             return $result->$column;
         }
     }
+    
      public function select_column_join_where($column, $table1,$table2, $where,$group_id)
     {
         $this->db->select($table2.".".$column);

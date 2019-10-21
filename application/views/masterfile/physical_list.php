@@ -104,10 +104,10 @@
                                         <td><?php echo $dep->condition_name;?></td>
                                         <td>                                            
                                             <div class="table-data-feature">
-                                                <a href="<?php echo base_url(); ?>index.php/masterfile/physical_update/<?php echo $dep->physical_id?>" class="btn btn-info item btn-sm" data-toggle="tooltip" data-placement="top" title="Update">
+                                                <a href="<?php echo base_url(); ?>masterfile/physical_update/<?php echo $dep->physical_id?>" class="btn btn-info item btn-sm" data-toggle="tooltip" data-placement="top" title="Update">
                                                     <i class="fa fa-pencil-square-o"></i>
                                                 </a>
-                                                <a href="<?php echo base_url(); ?>index.php/masterfile/delete_physical/<?php echo $dep->physical_id;?>" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
+                                                <a href="<?php echo base_url(); ?>masterfile/delete_physical/<?php echo $dep->physical_id;?>" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>

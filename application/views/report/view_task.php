@@ -18,11 +18,36 @@
                 <div class="form-group">
                     <input placeholder="Updated Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
                 </div> 
-                
+                <div class="form-group">
+                    <input type="button" name="" class="btn btn-success btn-block"  value="Save Update">
+                </div>
             </div>
-            <div class="form-group">
-                <input type="button" name="" class="btn btn-success btn-block"  value="Save Update">
+            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancel_proj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cancel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Reason"></textarea>
+                </div>  
+                <div class="form-group">
+                    <input placeholder="Date Cancelled" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                </div> 
+                <div class="form-group">
+                    <input type="button" name="" class="btn btn-danger btn-block"  value="Cancel">
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
@@ -88,23 +113,24 @@
                             </div>
                             <div class="col-lg-8">
                                 <h3 class="proj-title m-b-0">PROJECT TITLE</h3>
-                                <small class="proj-title">EMployees</small>
+                                <small class="proj-title btn-block m-b-10">EMployees</small>
                                 <div>Lorem Ipsum is simply It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</div>
                                                                
                                 <div class="steamline m-t-40">
+                                    <!-- reason for cancell -->
+                                    <div class="sl-item">
+                                        <div class="sl-right">
+                                            <div class="font-medium text-danger">January 20, 2019</div>
+                                            <div class="desc text-danger">Lorem Ipsum is simply It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                    <!-- reason for cancell -->
+                                    <!-- loop start-->
                                     <div class="sl-item">
                                         <div class="sl-right">
                                             <div class="font-medium">January 20, 2019</div>
-                                            <div class="desc">Lorem Ipsum is simply It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                            </div>
-                                            <div class="progress m-b-20">
-                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height:5px;width: 75%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="sl-item">
-                                        <div class="sl-right">
-                                            <div class="font-medium">Send documents to Clark</div>
+                                             <span ><small class="proj-title">Updated By: Jonah Faye</small></span>
                                             <div class="desc">Lorem Ipsum is is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                             </div>
                                             <div class="progress m-b-20">
@@ -112,10 +138,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- loop end-->
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div style="text-align: right" class="btn-block">
+                                    <small class="proj-title">Company:</small><br>
+                                    <span class="proj-title"><b>CENPRI</b></span>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">Department:</small><br>
+                                    <span class="">ADMIN</span>
+                                    <br>
+                                    <br>
                                     <small class="proj-title">Start Date:</small><br>
                                     <span class="">10-10-19</span>
                                     <br>
@@ -127,9 +162,15 @@
 
                                 
                             </div>
-                            <a href="#" class="btn btn-primary btn-sm bor-radius " style="position: fixed; left: 0;bottom: 0; margin: 50px" data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
-                                Add Project Update
-                            </a>
+                            <div style="position: fixed; left: 0;bottom: 0; margin: 50px">
+                                <a href="#" class="btn btn-primary btn-sm bor-radius "  data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
+                                    Add Project Update
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm bor-radius "  data-toggle="modal" data-target="#cancel_proj" title="Cancel" >
+                                    Cancel
+                                </a>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
