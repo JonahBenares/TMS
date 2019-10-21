@@ -113,7 +113,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <h3 class="proj-title m-b-0">PROJECT TITLE</h3>
-                                <small class="proj-title">EMployees</small>
+                                <small class="proj-title btn-block m-b-10">EMployees</small>
                                 <div>Lorem Ipsum is simply It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</div>
                                                                
                                 <div class="steamline m-t-40">
@@ -143,6 +143,14 @@
                             </div>
                             <div class="col-lg-2">
                                 <div style="text-align: right" class="btn-block">
+                                    <small class="proj-title">Company:</small><br>
+                                    <span class="proj-title"><b>CENPRI</b></span>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">Department:</small><br>
+                                    <span class="">ADMIN</span>
+                                    <br>
+                                    <br>
                                     <small class="proj-title">Start Date:</small><br>
                                     <span class="">10-10-19</span>
                                     <br>
