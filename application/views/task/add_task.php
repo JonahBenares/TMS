@@ -1,3 +1,31 @@
+<!-- modals -->
+<div class="modal fade" id="mdal_proj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Reminder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Remarks"></textarea>
+                </div>  
+                <div class="form-group">
+                    <input type="number" class="form-control" name="" placeholder="Status Percentage">
+                </div>  
+                <div class="form-group">
+                    <input placeholder="Updated Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                </div> 
+                <div class="form-group">
+                    <input type="button" name="" class="btn btn-success btn-block"  value="Save Update">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
 
 <div class="page-wrapper">
     <div class="container-fluid">
@@ -124,8 +152,31 @@
                                 <div class="row">
                                     <div class="col-lg-4"> 
                                         <h3 class="proj-title">PROJECT TITLE</h3>
+
                                         <h6>Start Date:</h6>
                                         <h6>Completion Date:</h6>
+
+                                        <!-- priority 3 -->
+                                        <span class="text-warning fa fa-flag"></span>
+                                        <span class="text-dfault2 fa fa-flag"></span>
+                                        <span class="text-dfault2 fa fa-flag"></span>
+
+                                        <!-- 
+
+                                        priority 2 
+                                        <span class="text-warning fa fa-flag"></span>
+                                        <span class="text-warning fa fa-flag"></span>
+                                        <span class="text-dfault2 fa fa-flag"></span>
+                                        
+                                        priority 1 
+                                        <span class="text-warning fa fa-flag"></span>
+                                        <span class="text-warning fa fa-flag"></span>
+                                        <span class="text-warning fa fa-flag"></span>
+
+                                        no priority  
+                                        <span class="text-dfault2 fa fa-flag"></span>
+                                        <span class="text-dfault2 fa fa-flag"></span>
+                                        <span class="text-dfault2 fa fa-flag"></span> -->
                                         <hr>
                                           <div class="form-group">
                                             <input placeholder="Update Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
@@ -151,14 +202,22 @@
                                                 <thead>
                                                     <tr>
                                                         <th width="90%" class="text-center">Date </span></th>
+                                                        <th width="10%" class="text-center">% </span></th>
                                                         <th >Update Description</th>
+                                                        <th width="10%"><span class="fa fa-bars"></span></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-center">MM-DD-YY</td>
+                                                        <td class="text-center">90%</td>
                                                         <td>Desc</td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-primary btn-xs bor-radius " data-toggle="modal" data-target="#mdal_proj" title="Add Project Update" ><span class="fa fa-pencil"></span>
+                                                            </a>
+                                                        </td>
                                                     </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
