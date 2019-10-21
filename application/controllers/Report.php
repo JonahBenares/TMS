@@ -72,4 +72,12 @@ class Report extends CI_Controller {
         $this->load->view('report/cancelled_list');
         $this->load->view('template/footer');
     }
+
+    public function view_task()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('report/view_task');
+        $this->load->view('template/footer');
+    }
 }

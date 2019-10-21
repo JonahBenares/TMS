@@ -35,7 +35,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="p-0">
-                                            <a class="text-dfault"  href="<?php echo base_url(); ?>index.php/masterfile/dashboard/" >
+                                            <a class="text-dfault"  href="<?php echo base_url(); ?>index.php/report/view_task/" >
                                                 <table width="100%" >
                                                     <tr>
                                                         <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0">PROJECT TITLE PITO</h4><small class="proj-title">JASON</small></td>
@@ -52,6 +52,7 @@
                                             </a> 
                                         </td>                                       
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
