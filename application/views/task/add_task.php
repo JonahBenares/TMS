@@ -44,12 +44,21 @@
                                                 <option>123</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <input placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input placeholder="Completion Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <input placeholder="Completion Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
-                                        </div>
+                                            <input type="text" placeholder="Priority Number" class="form-control" name="">
+                                        </div>                                        
                                         <div class="form-group">                                            
                                             <textarea placeholder="Project Title" class="form-control"></textarea>
                                         </div>

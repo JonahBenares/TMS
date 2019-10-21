@@ -10681,7 +10681,7 @@ Preloader
   width: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border: 0 solid #ff7b02;
+  border: 0 solid green;
   border-radius: 50%;
   -webkit-animation: loader-figure 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
   -moz-animation: loader-figure 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -10699,7 +10699,7 @@ Preloader
   font-size: 0.875em;
   letter-spacing: 0.1em;
   line-height: 1.5em;
-  color: #ff7b02;
+  color:green ;
   white-space: nowrap;
   -webkit-animation: loader-label 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
   -moz-animation: loader-label 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -21840,15 +21840,7 @@ File: scss
 .bg-dark {
     background: #23262e !important;
 }
-.text-white {
-    color: #fff;
-}
-.back-white {
-    background-color: #fff;
-}
-.text-dark {
-    color: #343a40;
-}
+
 
 .shadow-login{
     box-shadow: 0px 10px 10px 5px #14161b;
@@ -21948,9 +21940,9 @@ File: scss
   color: #f62d51;
 }
 .text-success
-{
-  color: #36bea6;
-}
+/*{
+  color: green!important;
+}*/
 .text-info
 {
   color: #009efb;
@@ -21958,6 +21950,18 @@ File: scss
 .text-warning
 {
   color: #ffbc34
+}
+.text-white {
+    color: #fff;
+}
+.back-white {
+    background-color: #fff;
+}
+.text-dark {
+    color: #343a40;
+}
+.text-dfault {
+    color: #6c757d;
 }
 .tab {
   overflow: hidden;
@@ -22008,3 +22012,43 @@ File: scss
   border-top: 0px!important;
 }
 
+a table tr:hover{
+  background-color: #495056!important;
+  color: white!important;
+  -webkit-animation-duration: 1s;
+  /* box-shadow: 0 0 0 10px rgba(219, 52, 59, 0)!important;*/
+ /* animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite; 
+  -webkit-animation-name: pulse_warning;
+  animation-name: pulse_warning;   */
+}
+
+/*
+@-webkit-keyframes pulse_warning {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(219, 52, 59, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px rgba(219, 52, 59, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(219, 52, 59, 0);
+  }
+}
+@keyframes pulse_warning {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(219, 52, 59, 0.4);
+    box-shadow: 0 0 0 0 rgba(219, 52, 59, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(219, 52, 59, 0);
+      box-shadow: 0 0 0 10px rgba(219, 52, 59, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(219, 52, 59, 0);
+      box-shadow: 0 0 0 0 rgba(219, 52, 59, 0);
+  }
+}*/
