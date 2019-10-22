@@ -153,9 +153,10 @@
                                                             <small class="proj-title btn-block m-0">COMPLETED DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($ci->project_completed($proj->project_id))); ?></span></small></td>
                                                         <td class="bg-hovr" width="29%" class="nobor-top">
                                                             <div class="progress progress-bar-animated active">
-                                                                <div class="progress-bar bg-success progress-bar-striped" style="padding: 5px" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
-                                                                <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    
+                                                               <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>%" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
+                                                                    <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    
                                                                 </div>
+
                                                                     <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;color: #6c757d!important">
                                                                         <?php echo $ci->project_percent($proj->project_id); ?>%
                                                                     </span>

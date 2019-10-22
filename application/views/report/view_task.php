@@ -135,7 +135,7 @@
                                      $employees = substr($emp, 0, -2);
                                       ?>
                                 <small class="proj-title "><?php echo $employees; ?></small><br>
-                            <div class="m-t-10"><?php echo $project_description; ?></div>                                            
+                            <div class="m-t-10"><?php echo nl2br($project_description); ?></div>                                            
                                 <div class="steamline m-t-40">
                                     <?php
                                         $msg_updates= $this->session->flashdata('msg_updates');  
