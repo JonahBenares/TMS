@@ -12,11 +12,15 @@
                 </button>
             </div>
 
-            <form method="POST" >
+            <form method="POST" action="<?php echo base_url(); ?>masterfile/insert_reminder">
                 <div class="modal-body">
                     <div class="form-group">
                         Employee Name
                         <select name="employee" class="form-control">
+                            <option value = "">--Select Employee--</option>
+                            <?php foreach($employees AS $e){ ?>
+                            <option value = "<?php echo $e->employee_id; ?>"><?php echo $e->employee_name; ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -27,14 +31,7 @@
                         Due Date
                         <input type="date" name="due_date" class="form-control">
                     </div>
-                    <div class="form-group">
-                        Status
-                        <select name="status" class="form-control">
-                            <option value = "">--Select Status--</option>
-                            <option value = "0">Active</option>
-                            <option value = "1">Cancelled</option>
-                        </select>
-                    </div>
+                  
                 </div>
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-primary btn-block">Add</button>
@@ -218,19 +215,25 @@
                                     <span class="sl-date"> 
                                         <?php echo $r['due_date']; ?>
                                         <span class="m-l-5 text-danger"><?php echo $r['days_left']; ?></span>
-                                        <div class="pull-right">
+
+                                        <?php if($r['reminder_id']!=0){ ?>
+                                        <span data-toggle="modal" data-target="#cancel_reminder" class="pull-right">
+                                            <a data-id = "<?php echo ($r['project_id']!=0) ? $r['project_id'] : $r['reminder_id'] ; ?>" data-name = "<?php echo ($r['project_id']!=0) ? 'Project' : 'Reminder' ; ?>" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Cancel" title="Cancel" alt='Cancel'>
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </span>
+                                           <div class="pull-right">
                                             <span >
-                                                <a  class="btn btn-success item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Done" title="Done" alt='Done'>
+                                                <a  href="<?php echo base_url(); ?>masterfile/done_reminder/<?php echo $r['reminder_id']; ?>" onclick="return confirm('Are you sure?')" class="btn btn-success item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Done" title="Done" alt='Done'>
                                                     <i class="fa fa-check"></i>
                                                 </a>
                                             </span>
-                                            <span data-toggle="modal" data-target="#cancel_reminder" >
-                                                <a data-id = "<?php echo ($r['project_id']!=0) ? $r['project_id'] : $r['reminder_id'] ; ?>" data-name = "<?php echo ($r['project_id']!=0) ? 'Project' : 'Reminder' ; ?>" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Cancel" title="Cancel" alt='Cancel'>
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </span>
+                                           
                                             
                                         </div>
+                                        <?php } ?>
+
+                                     
 
                                         
                                     </span>
