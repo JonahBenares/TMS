@@ -155,11 +155,16 @@
                         <div class="steamline m-0">
                             <?php foreach($reminders AS $r){ ?>
                             <div class="sl-item">
+                                <div class=""></div>
                             <button class="btn-xs btn sl-left bg-info" style="background-image: url('../../assets/images/check.png'); position: 100% center; background-repeat: no-repeat;"></button>
                                 <div class="sl-right">
                                     <h5 class="font-medium m-0"><?php echo $r['notes']; ?></h5>
                                     <small class="desc m-b-5 btn-block"><?php echo $r['employee']; ?></small> 
-                                    <span class="sl-date"><?php echo $r['due_date']; ?></span>
+                                    <span class="sl-date"> 
+                                        <?php echo $r['due_date']; ?>
+                                        <span class="m-l-5 text-danger">2 days left</span>
+                                        <button class="btn btn-xs btn-danger pull-right"><span class="fa fa-times"></span></button>
+                                    </span>
                                 </div>
                             </div>
                             <?php } ?>
