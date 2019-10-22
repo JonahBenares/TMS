@@ -135,10 +135,20 @@ class Report extends CI_Controller {
         }
 
         if(!empty($this->input->post('employee'))){
-            $employee = $this->input->post('employee');
-            $sql.=" employee LIKE '%$employee%' AND";
-            $emp = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee);
-            $filter .= "Employees - ".$emp.", ";
+            $emp='';
+            for($x = 0; $x < count($this->input->post('employee')); $x++ ){   
+                $emp.= $this->input->post('employee['.$x.']'). ", "; 
+            }
+
+            $employees = substr($emp, 0, -2);  
+            $sql.=" instr(employee , '$employees') AND";
+            $emps = $this->super_model->select_column_custom_where("employees", "employee_name", "instr(employee_id , '$employees')");
+            $filter .= "Employees - ".$emps.", ";
+
+            //$employee = $this->input->post('employee');
+            /*$sql.=" employee LIKE '%$employees%' AND";
+            $emps = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee);
+            $filter .= "Employees - ".$employees.", ";*/
         }
 
         if(!empty($this->input->post('priority'))){
