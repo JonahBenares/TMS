@@ -43,6 +43,43 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="cancel_reminder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cancel Reminder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="">
+                <div class="modal-body">
+                    <div class="form-group">
+                        Reason
+                        <textarea name="reason" class="form-control" id = "reason"></textarea>
+                    </div>
+                    <div class="form-group">
+                        Cancel Date
+                        <input type="date" name="" class="form-control" id = "">
+                    </div>
+                </div>
+                <div class="modal-footer">                                        
+                    <button type="submit" class="btn btn-danger btn-block">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row page-titles">
@@ -161,14 +198,18 @@
                             foreach($reminders AS $r){ ?>
                             <div class="sl-item">
                                 <div class=""></div>
-                            <button class="btn-xs btn sl-left bg-info" style="background-image: url('../../assets/images/check.png'); position: 100% center; background-repeat: no-repeat;"></button>
+                                <button class="btn-xs btn sl-left bg-info" style="background-image: url('../../assets/images/check.png'); position: 100% center; background-repeat: no-repeat;"></button>
                                 <div class="sl-right">
                                     <h5 class="font-medium m-0"><?php echo $r['notes']; ?></h5>
                                     <small class="desc m-b-5 btn-block"><?php echo $r['employee']; ?></small> 
                                     <span class="sl-date"> 
                                         <?php echo $r['due_date']; ?>
                                         <span class="m-l-5 text-danger">2 days left</span>
-                                        <button class="btn btn-xs btn-danger pull-right"><span class="fa fa-times"></span></button>
+                                        <span data-toggle="modal" data-target="#cancel_reminder" class="pull-right">
+                                            <a href="#" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" title="Cancel" title="Cancel" alt='Cancel'>
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </span>
                                     </span>
                                 </div>
                             </div>

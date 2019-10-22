@@ -86,6 +86,35 @@
 </div>
 
 
+<div class="modal fade" id="cancel_reminder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cancel Reminder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="">
+                <div class="modal-body">
+                    <div class="form-group">
+                        Reason
+                        <textarea name="reason" class="form-control" id = "reason"></textarea>
+                    </div>
+                    <div class="form-group">
+                        Cancel Date
+                        <input type="date" name="" class="form-control" id = "">
+                    </div>
+                </div>
+                <div class="modal-footer">                                        
+                    <button type="submit" class="btn btn-danger btn-block">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 
 
@@ -159,8 +188,12 @@
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </span>
-                                                
-                                              
+
+                                                <span data-toggle="modal" data-target="#cancel_reminder">
+                                                    <a href="#" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Cancel" title="Cancel" alt='Cancel'>
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                </span>
                                             </div>
                                         </td>                                        
                                     </tr>
