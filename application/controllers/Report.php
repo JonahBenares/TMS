@@ -49,12 +49,68 @@ class Report extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function pending_list()
-    {
+    public function pending_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('report/pending_list');
+        foreach($this->super_model->select_custom_where("project_head","status ='0' ORDER BY start_date ASC") AS $pen) {
+            $data['pending'][]=array(
+                'project_id'=>$pen->project_id,
+                'project_title'=>$pen->project_title,
+                'start_date'=>$pen->start_date,
+                'employee'=>$pen->employee,
+                'completion_date'=>$pen->completion_date,
+                'priority_no'=>$pen->priority_no,
+                'current_percent'=>$this->project_percent($pen->project_id),
+            );
+        }
+        $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
+    }
+
+    public function search_pending(){
+        if(!empty($this->input->post('start_date'))){
+            $data['start_date'] = $this->input->post('start_date');
+        } else {
+            $data['start_date']= "null";
+        }
+
+        if(!empty($this->input->post('completion_date'))){
+            $data['completion_date'] = $this->input->post('completion_date');
+        } else {
+            $data['completion_date']= "null";
+        }
+
+        if(!empty($this->input->post('company'))){
+            $data['company'] = $this->input->post('company');
+        } else {
+            $data['company']= "null";
+        }
+
+        if(!empty($this->input->post('department'))){
+            $data['department'] = $this->input->post('department');
+        } else {
+            $data['department']= "null";
+        }
+
+        if(!empty($this->input->post('employee'))){
+            $data['employee'] = $this->input->post('employee');
+        } else {
+            $data['employee']= "null";
+        }
+
+        if(!empty($this->input->post('priority'))){
+            $data['priority'] = $this->input->post('priority');
+        } else {
+            $data['priority']= "null";
+        }
+
+        if(!empty($this->input->post('title'))){
+            $data['title'] = $this->input->post('title');
+        } else {
+            $data['title']= "null";
+        }
+
+        
     }
 
     public function completed_list()
@@ -76,7 +132,19 @@ class Report extends CI_Controller {
     public function get_updated_name($employee_id){
         $name = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee_id);
         return $name;
-    }   
+    } 
+
+    public function project_percent($project_id){
+           $rows_detail = $this->super_model->count_rows_where("project_details", "project_id", $project_id);
+        if($rows_detail==0){
+            $current_percent=0;
+        } else {
+            $pd_id = $this->super_model->custom_query_single("pd_id", "SELECT pd_id FROM project_details WHERE update_date= (SELECT MAX(update_date) FROM project_details WHERE project_id = '$project_id') AND project_id = '$project_id'");
+       
+            $current_percent = $this->super_model->select_column_where("project_details", "status_percentage", "pd_id", $pd_id);
+        }
+        return $current_percent;
+    }  
 
     public function view_task()
     {

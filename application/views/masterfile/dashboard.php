@@ -100,14 +100,16 @@
                         <h5 class="card-title">Reminder</h5>
                         <h6 class="card-subtitle">check out your daily schedule</h6>
                         <div class="steamline m-0">
+                            <?php foreach($reminders AS $r){ ?>
                             <div class="sl-item">
                             <button class="btn-xs btn sl-left bg-info" style="background-image: url('../../assets/images/check.png'); position: 100% center; background-repeat: no-repeat;"></button>
                                 <div class="sl-right">
-                                    <h5 class="font-medium m-0">Meeting today </h5>
-                                    <small class="desc m-b-5 btn-block">Employee</small> 
-                                    <span class="sl-date"> Due date</span>
+                                    <h5 class="font-medium m-0"><?php echo $r['notes']; ?></h5>
+                                    <small class="desc m-b-5 btn-block"><?php echo $r['employee']; ?></small> 
+                                    <span class="sl-date"><?php echo $r['due_date']; ?></span>
                                 </div>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

@@ -208,6 +208,15 @@ class Masterfile extends CI_Controller {
     {
 
         $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' ORDER BY completion_date ASC");
+        foreach($this->super_model->select_custom_where("reminders","status = '0' ORDER BY due_date ASC") AS $rem){
+            $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
+            $data['reminders'][]=array(
+                'reminder_id'=>$rem->reminder_id,
+                'notes'=>$rem->notes,
+                'employee'=>$employee,
+                'due_date'=>$rem->due_date,
+            );
+        }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('masterfile/dashboard', $data);
