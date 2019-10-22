@@ -41,11 +41,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-<<<<<<< HEAD
-                        <select class="form-control" placeholder="Employee" class="custom-select" multiple name="employee[]">
-=======
+
                         <select  class="form-control" placeholder="Employee" class="custom-select" multiple name="employee[]">
->>>>>>> 287440b2d57bef2b6e693720df1706d8e1fbfd30
                             <option value = "">--Select Employee--</option>
                             <?php foreach($employee AS $e){ ?>
                             <option value = "<?php echo $e->employee_id; ?>"><?php echo $e->employee_name; ?></option>
