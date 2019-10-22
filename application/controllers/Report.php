@@ -52,7 +52,7 @@ class Report extends CI_Controller {
     public function pending_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        foreach($this->super_model->select_custom_where("project_head","status ='0' ORDER BY start_date ASC") AS $pen) {
+        foreach($this->super_model->select_custom_where("project_head","status ='0' ORDER BY start_date DESC") AS $pen) {
             $data['pending'][]=array(
                 'project_id'=>$pen->project_id,
                 'project_title'=>$pen->project_title,
@@ -136,17 +136,6 @@ class Report extends CI_Controller {
         return $name;
     } 
 
-    public function project_percent($project_id){
-           $rows_detail = $this->super_model->count_rows_where("project_details", "project_id", $project_id);
-        if($rows_detail==0){
-            $current_percent=0;
-        } else {
-            $pd_id = $this->super_model->custom_query_single("pd_id", "SELECT pd_id FROM project_details WHERE update_date= (SELECT MAX(update_date) FROM project_details WHERE project_id = '$project_id') AND project_id = '$project_id'");
-       
-            $current_percent = $this->super_model->select_column_where("project_details", "status_percentage", "pd_id", $pd_id);
-        }
-        return $current_percent;
-    }  
 
     public function project_percent($project_id){
            $rows_detail = $this->super_model->count_rows_where("project_details", "project_id", $project_id);

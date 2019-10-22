@@ -217,6 +217,24 @@ class Masterfile extends CI_Controller {
                 'due_date'=>$rem->due_date,
             );
         }
+
+        foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE DATEDIFF(completion_date, NOW()) <= '30'") AS $due){
+             $employee = explode(", ", $due->employee);  
+                             
+            $count = count($employee);
+            $emp='';
+             for($x=0;$x<$count;$x++){
+                $emp.= $this->get_updated_name($employee[$x]). ", ";
+             } 
+             $employees = substr($emp, 0, -2);
+
+            $data['reminders'][]=array(
+                'reminder_id'=>0,
+                'notes'=>$due->project_title,
+                'employee'=>$employees,
+                'due_date'=>$due->completion_date,
+            );
+        }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('masterfile/dashboard', $data);

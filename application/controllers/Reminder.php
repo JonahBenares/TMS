@@ -76,15 +76,15 @@ class Reminder extends CI_Controller {
         $employee = trim($this->input->post('employee')," ");
         $notes = trim($this->input->post('notes')," ");
         $due_date = trim($this->input->post('due_date')," ");
-        $status = trim($this->input->post('status')," ");
         $data = array(
             'employee_id'=>$employee,
             'notes'=>$notes,
             'due_date'=>$due_date,
-            'status'=>$status,
+            'status'=>0,
         );
         if($this->super_model->insert_into("reminders", $data)){
-            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."reminder/reminder_list'; </script>";
+             $this->session->set_flashdata('msg', 'Reminder successfully added!');
+             redirect(base_url().'reminder/reminder_list/');
         }
     }
 
@@ -101,14 +101,10 @@ class Reminder extends CI_Controller {
         );
         $reminder_id = $this->input->post('reminder_id');
         if($this->super_model->update_where('reminders', $data, 'reminder_id', $reminder_id)){
-            echo "<script>alert('Successfully Updated!'); window.location ='".base_url()."reminder/reminder_list';</script>";
+            $this->session->set_flashdata('msg', 'Reminder successfully updated!');
+            redirect(base_url().'reminder/reminder_list/');
         }
     }
 
-    public function delete_reminder(){
-        $id=$this->uri->segment(3);
-        if($this->super_model->delete_where('reminders', 'reminder_id', $id)){
-            echo "<script>alert('Succesfully Deleted'); window.location ='".base_url()."reminder/reminder_list'; </script>";
-        }
-    }
+   
 }

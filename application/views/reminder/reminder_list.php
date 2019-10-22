@@ -28,14 +28,7 @@
                         Due Date
                         <input type="date" name="due_date" class="form-control">
                     </div>
-                    <div class="form-group">
-                        Status
-                        <select name="status" class="form-control">
-                            <option value = "">--Select Status--</option>
-                            <option value = "0">Active</option>
-                            <option value = "1">Cancelled</option>
-                        </select>
-                    </div>
+                 
                 </div>
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-primary btn-block">Add</button>
@@ -122,7 +115,19 @@
                                     <span class="fa fa-plus" ></span>
                                 </a>
                             </span>
-                        </h4>                        
+                        </h4>    
+                         <?php
+                            $msg= $this->session->flashdata('msg');  
+                            if($msg){
+                             ?>
+                            <div class="row">
+                             <div class="col-lg-12">
+                                <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                    <center><?php echo $msg; ?></center>                    
+                                </div>
+                            </div>
+                        </div>
+                        <?php }  ?>        
                         <h6 class="card-subtitle"><br></h6>
                         <div class="table-responsive">                            
                             <table id="myTable" class="table table-hover table-bordered" >
@@ -155,9 +160,7 @@
                                                     </a>
                                                 </span>
                                                 
-                                                <a href="<?php echo base_url(); ?>reminder/delete_reminder/<?php echo $r['reminder_id']; ?>" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
+                                              
                                             </div>
                                         </td>                                        
                                     </tr>
