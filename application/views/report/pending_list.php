@@ -150,8 +150,19 @@
                                                         </td>
                                                         <td class="bg-hovr" width="29%%" class="nobor-top">
                                                             <div class="progress progress-bar-animated active">
-                                                                <div class="progress-bar bg-warning progress-bar-striped" style="padding: 5px" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($p->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($p->project_id); ?>"><h6 class="m-t-10 m-b-10"><?php echo $ci->project_percent($p->project_id); ?>%</h6>
+                                                                <div class="progress-bar bg-warning progress-bar-striped"  role="progressbar" aria-valuenow="<?php echo $ci->project_percent($p->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($p->project_id); ?>%">
+                                                                <?php if($ci->project_percent($p->project_id) <= '50') { ?>    
                                                                 </div>
+
+                                                                    <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;color: #6c757d!important">
+                                                                        <?php echo $ci->project_percent($p->project_id); ?>%
+                                                                    </span>
+                                                                <?php } else { ?>
+                                                                    <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;">
+                                                                        <?php echo $ci->project_percent($p->project_id); ?>%
+                                                                    </span>
+                                                                </div>
+                                                                <?php } ?>
                                                             </div>
                                                             <small class="proj-title"><b><?php echo $ci->get_name("company", "company_name", "company_id", $p->company_id); ?></b></small> 
                                                         </td>
