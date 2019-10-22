@@ -10,38 +10,55 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">                
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <input placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+            <form method="POST" action = "<?php echo base_url(); ?>report/search_completion">
+                <div class="modal-body">                
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" name="start_date">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input placeholder="Completion Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" name="completion_date">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <input placeholder="Completion Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
-                        </div>
+                    <div class="form-group">
+                        <select name="company" class="form-control" placeholder="Company">
+                            <option value = "">--Select Company--</option>
+                            <?php foreach($company AS $c){ ?>
+                            <option value = "<?php echo $c->company_id; ?>"><?php echo $c->company_name; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="department" class="form-control" placeholder="Department">
+                            <option value = "">--Select Department--</option>
+                            <?php foreach($department AS $d){ ?>
+                            <option value = "<?php echo $d->department_id; ?>"><?php echo $d->department_name; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="employee" class="form-control" placeholder="Employee" class="custom-select" multiple name="employee[]">
+                            <option value = "">--Select Employee--</option>
+                            <?php foreach($employee AS $e){ ?>
+                            <option value = "<?php echo $e->employee_id; ?>"><?php echo $e->employee_name; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="priority" class="form-control" placeholder="Priority Number">
+                    </div>
+                    <div class="form-group">
+                        <textarea  name="title" class="form-control" placeholder="Title" rows="5"></textarea> 
                     </div>
                 </div>
-                <div class="form-group">
-                    <input type="text" name="" class="form-control" placeholder="Company">
+                <div class="modal-footer">                                        
+                    <button type="submit" class="btn btn-secondary btn-block">Filter</button>
                 </div>
-                <div class="form-group">
-                    <input type="text" name="" class="form-control" placeholder="Department">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="" class="form-control" placeholder="Employee">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="" class="form-control" placeholder="Priority Number">
-                </div>
-                <div class="form-group">
-                    <textarea  name="" class="form-control" placeholder="Title" rows="5"></textarea> 
-                </div>
-            </div>
-            <div class="modal-footer">                                        
-                <button type="button" class="btn btn-secondary btn-block">Filter</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -81,7 +98,10 @@
                         </h4>        
                                         
                         <h6 class="card-subtitle"><br></h6>
-                        <div class="table-responsive">                            
+                        <div class="table-responsive">   
+                            <?php if(!empty($filt)){ ?>     
+                                <span class='btn btn-success disabled'>Filter Applied</span><?php echo $filt ?>, <a href='<?php echo base_url(); ?>report/completed_list' class='remove_filter alert-link pull-right btn'><span class="fa fa-times"></span></a>
+                            <?php } ?>                         
                             <table id="myTable" class="table" >
                                 <thead >
                                     <tr class="nobor-top">
