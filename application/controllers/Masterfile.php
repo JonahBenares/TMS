@@ -213,40 +213,84 @@ class Masterfile extends CI_Controller {
         }
     }
 
+    public function dateDifference($date_1 , $date_2){
+        $datetime2 = date_create($date_2);
+        $datetime1 = date_create($date_1 );
+        $interval = date_diff($datetime2, $datetime1);
+        return $interval->format('%R%a');  
+    }
+
     public function dashboard()
     {
 
         $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' ORDER BY completion_date ASC");
         foreach($this->super_model->select_custom_where("reminders","status = '0' ORDER BY due_date ASC") AS $rem){
             $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
+            $today=date("Y-m-d");
+            $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
             $data['reminders'][]=array(
                 'reminder_id'=>$rem->reminder_id,
+                'project_id'=>0,
                 'notes'=>$rem->notes,
                 'employee'=>$employee,
                 'due_date'=>$rem->due_date,
+                'days_left'=>$days_left,
             );
         }
 
-        foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE DATEDIFF(completion_date, NOW()) <= '30'") AS $due){
-             $employee = explode(", ", $due->employee);  
+        foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status!='2' AND DATEDIFF(completion_date, NOW()) <= '30'") AS $due){
+            $employee = explode(", ", $due->employee);  
                              
             $count = count($employee);
             $emp='';
-             for($x=0;$x<$count;$x++){
+            for($x=0;$x<$count;$x++){
                 $emp.= $this->get_updated_name($employee[$x]). ", ";
-             } 
-             $employees = substr($emp, 0, -2);
-
+            } 
+            $employees = substr($emp, 0, -2);
+            $today=date("Y-m-d");
+            $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
             $data['reminders'][]=array(
                 'reminder_id'=>0,
+                'project_id'=>$due->project_id,
                 'notes'=>$due->project_title,
                 'employee'=>$employees,
                 'due_date'=>$due->completion_date,
+                'due_date'=>$due->completion_date,
+                'days_left'=>$days_left,
             );
         }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('masterfile/dashboard', $data);
         $this->load->view('template/footer');
+    }
+
+    public function cancel_reminder(){
+        $reason = trim($this->input->post('reason')," ");
+        $cancel_date = trim($this->input->post('cancel_date')," ");
+        $trigger = $this->input->post('trigger');
+        if($trigger=='Reminder'){
+            $data = array(
+                'cancel_reason'=>$reason,
+                'cancel_date'=>$cancel_date,
+                'status'=>1,
+            );
+            $id = $this->input->post('reminder_id');
+            if($this->super_model->update_where('reminders', $data, 'reminder_id', $id)){
+                $this->session->set_flashdata('msg', 'Successfully Cancelled 1!');
+                redirect(base_url().'index.php/masterfile/dashboard/');
+            }
+        }else {
+            $data = array(
+                'cancel_reason'=>$reason,
+                'cancel_date'=>$cancel_date,
+                'status'=>2,
+            );
+            $id = $this->input->post('reminder_id');
+            if($this->super_model->update_where('project_head', $data, 'project_id', $id)){
+                $this->session->set_flashdata('msg', 'Successfully Cancelled 2!');
+                redirect(base_url().'index.php/masterfile/dashboard/');
+            }
+        }
     }
 }

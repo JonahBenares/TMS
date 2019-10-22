@@ -34,7 +34,9 @@
 
         $(document).on("click", "#updateCancel_button", function () {
              var reminder_id = $(this).attr("data-id");
+             var trigger = $(this).attr("data-name");
              $("#reminder_id1").val(reminder_id);
+             $("#trigger").val(trigger);
         });
 
         $(document).on("click", "#updateComp_button", function () {

@@ -95,7 +95,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action="">
+            <form method="POST" action="<?php echo base_url(); ?>reminder/cancel_reminder">
                 <div class="modal-body">
                     <div class="form-group">
                         Reason
@@ -103,10 +103,10 @@
                     </div>
                     <div class="form-group">
                         Cancel Date
-                        <input type="date" name="cancel_date" class="form-control" id = "">
+                        <input type="date" name="cancel_date" class="form-control" id = "cancel_date">
                     </div>
                 </div>
-                <input type="text" name="reminder_id" id = "reminder_id1" class="form-control">
+                <input type="hidden" name="reminder_id" id = "reminder_id1" class="form-control">
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-danger btn-block">Cancel</button>
                 </div>
@@ -180,7 +180,7 @@
                                         <td><?php echo date('F d, Y', strtotime($r['due_date'])); ?></td>
                                         <td><?php echo $r['notes']; ?></td>
                                         <td><?php echo $r['employee']; ?></td>
-                                        <td><?php echo ($r['status']==0) ? 'Active' : 'Cancelled'; ?></td>
+                                        <td><?php echo ($r['status']==0) ? 'Active' : '<span style = "color:red">Cancelled</span>'; ?></td>
                                         <td><?php echo $r['days_left']; ?></td>
                                         <td>                                            
                                             <div class="table-data-feature">
@@ -189,7 +189,6 @@
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </span>
-
                                                 <span data-toggle="modal" data-target="#cancel_reminder">
                                                     <a class="btn btn-danger item btn-sm" data-toggle="tooltip" data-id = "<?php echo $r['reminder_id']; ?>" id = "updateCancel_button" data-placement="top" title="Cancel" title="Cancel" alt='Cancel'>
                                                         <i class="fa fa-times"></i>
