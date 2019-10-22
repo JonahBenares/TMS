@@ -99,9 +99,14 @@
                                         
                         <h6 class="card-subtitle"><br></h6>
                         <div class="table-responsive">     
-                          <?php if(!empty($filt)){ ?>      
-                                <span class='btn btn-success disabled'>Filter Applied</span><?php echo $filt; ?> <a href='<?php echo base_url(); ?>report/alltask_list' class='remove_filter alert-link pull-right btn'><span class="fa fa-times"></span></a>
-                             <?php } ?>           
+                            <?php if(!empty($filt)){ ?>      
+                            <div class="alert alert-info" role="alert">
+                                <span class='btn btn-xs btn-info disabled'>Filter Applied</span> <?php echo $filt; ?>
+                                <a href='<?php echo base_url(); ?>report/alltask_list' class='remove_filter alert-link pull-right btn btn-xs'>
+                                    <span class="fa fa-times"></span>
+                                </a>
+                            </div>                                
+                            <?php } ?>           
                             <table id="myTable" class="table" >
                                 <thead >
                                     <tr class="nobor-top">
@@ -126,7 +131,8 @@
                                                          $employees = substr($emp, 0, -2);
                                                           ?>
                                                     <tr>
-                                                        <td width="6%">
+                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4>
+                                                            <small class="proj-title"><?php echo $employees; ?></small><br>
                                                             <?php if($proj->priority_no==1){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
@@ -134,13 +140,13 @@
                                                             <?php } else if($proj->priority_no==2){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-dfault2 fa fa-flag"></span>
                                                             <?php } else if($proj->priority_no==3) { ?>
                                                             <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-dfault2 fa fa-flag"></span>
+                                                            <span class="text-dfault2 fa fa-flag"></span>                                                            
                                                             <?php } ?>
-                                                        </td>
-                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4>
-                                                            <small class="proj-title"><?php echo $employees; ?></small><br>
-                                                            <small class="proj-title"><b><?php echo $ci->get_name("company", "company_name", "company_id", $proj->company_id); ?></b></small>
+                                                            
                                                         </td>
                                                         <td class="bg-hovr" width="%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
@@ -152,7 +158,7 @@
                                                             <?php } ?>
                                                         </td>
 
-                                                        <td class="bg-hovr" width="29%" class="nobor-top">
+                                                        <td class="bg-hovr" width="35%" class="nobor-top">
                                                             <div class="progress progress-bar-animated active">
                                                                 <?php if($proj->status == 0){
                                                                     $bg= "bg-warning";
@@ -161,8 +167,21 @@
                                                                 } else if($proj->status == 2){
                                                                      $bg= "bg-danger";
                                                                 } ?>
-                                                                <div class="progress-bar <?php echo $bg; ?> progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>%" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%"><h4 class="m-t-10 m-b-10"><?php echo $ci->project_percent($proj->project_id); ?>%</h4></div>
+                                                                <div class="progress-bar <?php echo $bg; ?> progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>%" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
+                                                                    <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    
+                                                                </div>
+
+                                                                    <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;color: #6c757d!important">
+                                                                        <?php echo $ci->project_percent($proj->project_id); ?>%
+                                                                    </span>
+                                                                <?php } else { ?>
+                                                                    <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;">
+                                                                        <?php echo $ci->project_percent($proj->project_id); ?>%
+                                                                    </span>
+                                                                </div>
+                                                                <?php } ?>
                                                             </div>
+                                                            <small class="proj-title"><b><?php echo $ci->get_name("company", "company_name", "company_id", $proj->company_id); ?></b></small>
                                                         </td>
                                                     </tr>
                                                 </table>

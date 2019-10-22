@@ -130,7 +130,7 @@
                                     <div class="col-lg-4"> 
 
                                         <h3 class="proj-title"><?php echo $project_title; ?></h3>
-                                        <br><small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small>
+                                        <small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small>
                                         <h6>Start Date: <?php echo date('F j, Y', strtotime($start_date)); ?></h6>
                                         <h6>Due Date: <?php echo date('F j, Y', strtotime($completion_date)); ?></h6>
                                      
@@ -200,7 +200,18 @@
                                     </form>
                                     <div class="col-lg-8">
                                         <div class="progress progress-bar-animated active">
-                                            <div class="progress-bar progress-bar-striped bg-primary " role="progressbar" aria-valuenow="<?php echo $current_percent; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $current_percent; ?>%"><?php echo $current_percent.'%'; ?></div>
+                                            <div class="progress-bar progress-bar-striped bg-primary " role="progressbar" aria-valuenow="<?php echo $current_percent; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $current_percent; ?>%">
+                                            <?php if(($current_percent) <= '50') { ?>    
+                                            </div>
+                                                <span class="m-l-5" style="color: #6c757d!important">
+                                                    <?php echo $current_percent; ?>%
+                                                </span>
+                                            <?php } else { ?>
+                                                <span class="m-l-5" style="">
+                                                    <?php echo $current_percent; ?>%
+                                                </span>
+                                            </div>
+                                            <?php } ?>
                                         </div>
 
                                         <div class="table-responsive m-t-10">                            

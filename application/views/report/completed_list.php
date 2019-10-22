@@ -100,7 +100,12 @@
                         <h6 class="card-subtitle"><br></h6>
                         <div class="table-responsive">   
                             <?php if(!empty($filt)){ ?>     
-                                <span class='btn btn-success disabled'>Filter Applied</span><?php echo $filt ?>, <a href='<?php echo base_url(); ?>report/completed_list' class='remove_filter alert-link pull-right btn'><span class="fa fa-times"></span></a>
+                                <div class="alert alert-info" role="alert">
+                                    <span class='btn btn-xs btn-info disabled'>Filter Applied</span> <?php echo $filt; ?>
+                                    <a href='<?php echo base_url(); ?>report/alltask_list' class='remove_filter alert-link pull-right btn btn-xs'>
+                                        <span class="fa fa-times"></span>
+                                    </a>
+                                </div>
                             <?php } ?>                         
                             <table id="myTable" class="table" >
                                 <thead >
@@ -151,7 +156,6 @@
                                                                 <div class="progress-bar bg-success progress-bar-striped" style="padding: 5px" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
                                                                 <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    
                                                                 </div>
-
                                                                     <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;color: #6c757d!important">
                                                                         <?php echo $ci->project_percent($proj->project_id); ?>%
                                                                     </span>

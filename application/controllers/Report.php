@@ -471,27 +471,27 @@ class Report extends CI_Controller {
         if(!empty($this->input->post('start_date'))){
             $start_date = $this->input->post('start_date');
             $sql.=" start_date LIKE '%$start_date%' AND";
-            $filter .= "Start Date - ".$start_date.", ";
+            $filter .= "<b>Start Date</b> - ".$start_date.", ";
         }
 
         if(!empty($this->input->post('completion_date'))){
             $completion_date = $this->input->post('completion_date');
             $sql.=" completion_date LIKE '%$completion_date%' AND";
-            $filter .= "Completion Date - ".$completion_date.", ";
+            $filter .= "<b>Completion Date</b>- ".$completion_date.", ";
         }
 
         if(!empty($this->input->post('company'))){
             $company = $this->input->post('company');
             $sql.=" company_id = '$company' AND";
             $comp = $this->super_model->select_column_where("company", "company_name", "company_id", $company);
-            $filter .= "Company - ".$comp.", ";
+            $filter .= "<b>Company</b> - ".$comp.", ";
         }
 
         if(!empty($this->input->post('department'))){
             $department = $this->input->post('department');
             $sql.=" department_id = '$department' AND";
             $dept = $this->super_model->select_column_where("department", "department_name", "department_id", $department);
-            $filter .= "Department - ".$dept.", ";
+            $filter .= "<b>Department</b> - ".$dept.", ";
         }
 
         if(!empty($this->input->post('employee'))){
@@ -506,7 +506,7 @@ class Report extends CI_Controller {
             $emp = substr($emp, 0, -2);
             $sql.=" $q AND";
         
-            $filter .= "Employees - ".$emp.", ";
+            $filter .= "<b>Employees</b> - ".$emp.", ";
         }
 
         if(!empty($this->input->post('priority'))){

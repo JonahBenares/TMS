@@ -94,7 +94,18 @@
                 <div class="card">
                     <div class="progress m-b-20">
                             <div class="progress-bar <?php if($status == 'Pending') { ?> bg-warning <?php } else if ($status == 'Cancelled') { ?>
-                                        bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%"><p class="m-0" style="font-size: 13px"><?php echo $ci->project_percent($project_id); ?>%</p></div>
+                                        bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%">
+                            <?php if($ci->project_percent($project_id) <= '50') { ?>    
+                            </div>
+                                <span class=" m-l-5 " style="font-size:12px;color: #6c757d!important">
+                                    <?php echo $ci->project_percent($project_id); ?>%
+                                </span>
+                            <?php } else { ?>
+                                <span class=" m-l-5 " style="font-size:12px;">
+                                    <?php echo $ci->project_percent($project_id); ?>%
+                                </span>
+                            </div>
+                            <?php } ?>            
                         </div> 
                     <div class="card-body">
 
@@ -102,7 +113,7 @@
                             <div class="col-lg-2">
                                 <div style="text-align: right">
                                     <small class="proj-title">Company:</small><br>
-                                    <span class="proj-title"><b><?php echo $company; ?></b></span>
+                                    <span class="proj-title"><b style="font-weight: 500"><?php echo $company; ?></b></span>
                                     <br>
                                     <br>
                                     <small class="proj-title">Department:</small><br>
@@ -113,8 +124,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-8">
-
-                                <h3 class="proj-title m-b-0"><?php echo $project_title; ?></h3>
+                                <h3 class="proj-title m-b-0" style="font-weight: 600"><?php echo $project_title; ?></h3>
                                    <?php $employee = explode(", ", $employee);  
                                                      
                                     $count = count($employee);
@@ -124,38 +134,34 @@
                                      } 
                                      $employees = substr($emp, 0, -2);
                                       ?>
-                                <small class="proj-title"><?php echo $employees; ?></small>
-
-                                <div><?php echo $project_description; ?></div>
-                                            
-                                 <div class="steamline m-t-40">
-
-                                     <?php
+                                <small class="proj-title "><?php echo $employees; ?></small><br>
+                            <div class="m-t-10"><?php echo $project_description; ?></div>                                            
+                                <div class="steamline m-t-40">
+                                    <?php
                                         $msg_updates= $this->session->flashdata('msg_updates');  
                                         if($msg_updates){
                                          ?>
                                         <div class="row">
-                                         <div class="col-lg-12">
-                                            <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
-                                                <center><?php echo $msg_updates; ?></center>                    
+                                            <div class="col-lg-12">
+                                                <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                                    <center><?php echo $msg_updates; ?></center>                    
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                         <?php } 
 
                                          $msg_cancel= $this->session->flashdata('msg_cancel');  
                                         if($msg_cancel){
                                          ?>
                                         <div class="row">
-                                         <div class="col-lg-12">
-                                            <div class="success bor-radius10 shadow alert-danger alert-shake animated headShake" style='padding:10px'>
-                                                <center><?php echo $msg_cancel; ?></center>                    
+                                            <div class="col-lg-12">
+                                                <div class="success bor-radius10 shadow alert-danger alert-shake animated headShake" style='padding:10px'>
+                                                    <center><?php echo $msg_cancel; ?></center>                    
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                         <?php } 
-                                 if($status == 'Cancelled'){ ?>                   
-                              
+                                    if($status == 'Cancelled'){ ?>  
                                     <div class="sl-item">
                                         <div class="sl-right">
                                             <div class="font-medium text-danger"><?php echo date('F j, Y', strtotime($cancel_date)); ?></div>
@@ -163,33 +169,39 @@
                                             </div>                                            
                                         </div>
                                     </div>
-                                <?php } 
-                                   
-                                   
-                                   foreach($details AS $det){ 
-
-                                     $updated = explode(", ", $det->updated_by);  
-                                                     
+                                    <?php }       
+                                    foreach($details AS $det){ 
+                                    $updated = explode(", ", $det->updated_by);                                                       
                                     $count_upd = count($updated);
                                     $upd='';
-                                     for($x=0;$x<$count_upd;$x++){
+                                    for($x=0;$x<$count_upd;$x++){
                                         $upd.= $ci->get_updated_name($updated[$x]). ", ";
-                                     } 
-                                     $updated_by = substr($upd, 0, -2);
-                                      ?>
+                                    } 
+                                    $updated_by = substr($upd, 0, -2);
+                                    ?>
                                     <div class="sl-item">
                                         <div class="sl-right">
                                             <div class="font-medium"><?php echo date('F j, Y', strtotime($det->update_date)); ?></div>
-                                             <span ><small class="proj-title">Updated By: <?php echo $updated_by; ?></small></span>
-                                            <div class="desc"><?php echo nl2br($det->remarks); ?>
+                                            <span></span> <small class="proj-title">Updated By: <?php echo $updated_by; ?></small></span>
+                                            <div class="desc m-t-20"><?php echo nl2br($det->remarks); ?>
                                             </div>
                                             <div class="progress m-b-20">
-                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="<?php echo $det->status_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="height:15px;width: <?php echo $det->status_percentage; ?>%"><?php echo $det->status_percentage; ?>%</div>
+                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="<?php echo $det->status_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="height:15px;width: <?php echo $det->status_percentage; ?>%">
+                                                <?php if(($det->status_percentage) <= '50') { ?>    
+                                                </div>
+                                                    <span class="m-l-5" style="color: #6c757d!important">
+                                                        <?php echo $det->status_percentage; ?>%
+                                                    </span>
+                                                <?php } else { ?>
+                                                    <span class="m-l-5" >
+                                                        <?php echo $det->status_percentage; ?>%
+                                                    </span>
+                                                </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
-                                <?php } ?>
-                                    <!-- loop end-->
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -215,8 +227,6 @@
                                     <span class="text-dfault2 fa fa-flag"></span>
                                     <span class="text-dfault2 fa fa-flag"></span>
                                     <?php } ?>
-
-
                                     <br>
                                     <br>
                                     <small class="proj-title">Start Date:</small><br>
@@ -231,12 +241,7 @@
                                     <small class="proj-title">Date Completed: </small><br>
                                     <span class=""><?php echo date('M j, Y', strtotime($ci->project_completed($project_id))); ?></span>
                                     <?php } ?>
-                                  
-                                    
-                                </div>
-                                
-
-                                
+                                </div>                                
                             </div>
                             <?php if($status == 'Pending') { ?>
                             <div style="position: fixed; left: 0;bottom: 0; margin: 50px">
