@@ -25,16 +25,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="company" class="form-control" placeholder="Company">
+                        <select name="company" class="form-control" placeholder="Company">
+                            <option value = "">--Select Company--</option>
+                            <?php foreach($company AS $c){ ?>
+                            <option value = "<?php echo $c->company_id; ?>"><?php echo $c->company_name; ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="department" class="form-control" placeholder="Department">
+                        <select name="department" class="form-control" placeholder="Department">
+                            <option value = "">--Select Department--</option>
+                            <?php foreach($department AS $d){ ?>
+                            <option value = "<?php echo $d->department_id; ?>"><?php echo $d->department_name; ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="employee" class="form-control" placeholder="Employee">
+                        <select name="employee" class="form-control" placeholder="Employee" class="custom-select" multiple name="employee[]">
+                            <option value = "">--Select Employee--</option>
+                            <?php foreach($employee AS $e){ ?>
+                            <option value = "<?php echo $e->employee_id; ?>"><?php echo $e->employee_name; ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="priority" class="form-control" placeholder="Priority Number">
+                        <input type="number" name="priority" class="form-control" placeholder="Priority Number">
                     </div>
                     <div class="form-group">
                         <textarea  name="title" class="form-control" placeholder="Title" rows="5"></textarea> 
@@ -82,7 +97,10 @@
                             </div>
                         </h4>        
                         <h6 class="card-subtitle"><br></h6>
-                        <div class="table-responsive">                            
+                        <div class="table-responsive">  
+                            <?php if(!empty($filt)){ ?>     
+                                <span class='btn btn-success disabled'>Filter Applied</span><?php echo $filt ?>, <a href='<?php echo base_url(); ?>report/pending_list' class='remove_filter alert-link pull-right btn'><span class="fa fa-times"></span></a>
+                            <?php } ?>                          
                             <table id="myTable" class="table" >
                                 <thead >
                                     <tr class="nobor-top">
@@ -94,47 +112,49 @@
                                     <tr>
                                         <td class="p-0">
                                             <?php 
+                                                if(!empty($pending)){
                                                 foreach($pending AS $p){ 
-                                                    $employees = explode(", ", $p['employee']);  
+                                                    $employees = explode(", ", $p->employee);  
                                                     $count = count($employees);
                                                     $emp='';
                                                     for($x=0;$x<$count;$x++){
                                                         $emp.= $ci->get_updated_name($employees[$x]). ", ";
                                                     } 
                                                     $employee = substr($emp, 0, -2);
-                                            ?>
-                                            <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $p['project_id']; ?>" >
+                                            ?>  
+                                            <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $p->project_id; ?>" >
                                                 <table width="100%" >
                                                     <tr>
                                                         <td width="6%">
-                                                            <?php if($p['priority_no']==1){ ?>
+                                                            <?php if($p->priority_no==1){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
-                                                            <?php } else if($p['priority_no']==2){ ?>
+                                                            <?php } else if($p->priority_no==2){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
-                                                            <?php } else if($p['priority_no']==3) { ?>
+                                                            <?php } else if($p->priority_no==3) { ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <?php } ?>
                                                         </td>
-                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $p['project_title']; ?></h4>
+                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $p->project_title; ?></h4>
                                                             <small class="proj-title"><?php echo $employee; ?></small>                                                            
                                                         </td>
                                                         <td class="bg-hovr" width="%" class="nobor-top">
-                                                            <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date("M. d, Y", strtotime($p['start_date'])); ?></span></small>
-                                                            <small class="proj-title btn-block m-0">COMPLETION DATE: <span class="pull-right"><?php echo date("M. d, Y", strtotime($p['completion_date'])); ?></span></small>
+                                                            <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->start_date)); ?></span></small>
+                                                            <small class="proj-title btn-block m-0">COMPLETION DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->completion_date)); ?></span></small>
+                                                            <small class="proj-title btn-block m-0">COMPLETED DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($ci->project_completed($p->project_id))); ?></span></small>
                                                         </td>
                                                         <td class="bg-hovr" width="29%%" class="nobor-top">
                                                             <div class="progress progress-bar-animated active">
-                                                                <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $p['current_percent']; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $p['current_percent']; ?>"><h4 class="m-t-10 m-b-10"><?php echo $p['current_percent']."%"; ?></h4></div>
+                                                                <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($p->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($p->project_id); ?>"><h4 class="m-t-10 m-b-10"><?php echo $ci->project_percent($p->project_id); ?>%</h4></div>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                    
                                                 </table>
                                             </a> 
-                                             <?php } ?>
+                                             <?php } } ?>
                                         </td>                                       
                                     </tr>
                                     <!-- loop here -->
