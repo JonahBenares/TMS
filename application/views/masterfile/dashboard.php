@@ -218,11 +218,21 @@
                                     <span class="sl-date"> 
                                         <?php echo $r['due_date']; ?>
                                         <span class="m-l-5 text-danger"><?php echo $r['days_left']; ?></span>
-                                        <span data-toggle="modal" data-target="#cancel_reminder" class="pull-right">
-                                            <a data-id = "<?php echo ($r['project_id']!=0) ? $r['project_id'] : $r['reminder_id'] ; ?>" data-name = "<?php echo ($r['project_id']!=0) ? 'Project' : 'Reminder' ; ?>" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Cancel" title="Cancel" alt='Cancel'>
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                        </span>
+                                        <div class="pull-right">
+                                            <span >
+                                                <a  class="btn btn-success item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Done" title="Done" alt='Done'>
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            </span>
+                                            <span data-toggle="modal" data-target="#cancel_reminder" >
+                                                <a data-id = "<?php echo ($r['project_id']!=0) ? $r['project_id'] : $r['reminder_id'] ; ?>" data-name = "<?php echo ($r['project_id']!=0) ? 'Project' : 'Reminder' ; ?>" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Cancel" title="Cancel" alt='Cancel'>
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </span>
+                                            
+                                        </div>
+
+                                        
                                     </span>
                                 </div>
                             </div>
