@@ -32,6 +32,11 @@
             window.location=anchor.attr("href");
         }
 
+        $(document).on("click", "#updateCancel_button", function () {
+             var reminder_id = $(this).attr("data-id");
+             $("#reminder_id1").val(reminder_id);
+        });
+
         $(document).on("click", "#updateComp_button", function () {
              var company_id = $(this).attr("data-id");
              var company_name = $(this).attr("data-name");

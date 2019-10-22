@@ -52,10 +52,12 @@ class Report extends CI_Controller {
     public function pending_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
+
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
         $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
+
         $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
     }
@@ -158,7 +160,7 @@ class Report extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
+        $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND $query");
         $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
     }
@@ -397,6 +399,7 @@ class Report extends CI_Controller {
         $name = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee_id);
         return $name;
     } 
+
 
     public function project_percent($project_id){
            $rows_detail = $this->super_model->count_rows_where("project_details", "project_id", $project_id);

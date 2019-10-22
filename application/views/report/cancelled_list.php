@@ -113,7 +113,7 @@
                                        <?php foreach($projects AS $proj){ ?>
                                     <tr>
                                         <td class="p-0">
-                                            <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/" >
+                                            <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $proj->project_id; ?>" >
                                                 <table width="100%" >
                                                      <?php $employee = explode(", ", $proj->employee);  
                                                      

@@ -146,7 +146,7 @@
                                                         </td>
                                                         <td class="bg-hovr" width="%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->start_date)); ?></span></small>
-                                                            <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->completion_date)); ?></span></small>                                                           
+                                                            <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->completion_date)); ?></span></small>
                                                         </td>
                                                         <td class="bg-hovr" width="29%%" class="nobor-top">
                                                             <div class="progress progress-bar-animated active">

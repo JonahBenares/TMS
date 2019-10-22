@@ -78,7 +78,19 @@
                                     <span class="fa fa-plus" ></span>
                                 </a>
                             </span>
-                        </h4>                        
+                        </h4>       
+                         <?php
+                            $msg= $this->session->flashdata('msg');  
+                            if($msg){
+                             ?>
+                            <div class="row">
+                             <div class="col-lg-12">
+                                <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                    <center><?php echo $msg; ?></center>                    
+                                </div>
+                            </div>
+                        </div>
+                        <?php }  ?>                      
                         <h6 class="card-subtitle"><br></h6>
                         <div class="table-responsive">                            
                             <table id="myTable" class="table table-hover table-bordered" >
