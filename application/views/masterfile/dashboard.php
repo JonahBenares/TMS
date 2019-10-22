@@ -1,6 +1,48 @@
     <?php
     $ci =& get_instance();
     ?>
+
+<div class="modal fade" id="addCompany" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Reminder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" >
+                <div class="modal-body">
+                    <div class="form-group">
+                        Employee Name
+                        <select name="employee" class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        Notes
+                        <textarea name="notes" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        Due Date
+                        <input type="date" name="due_date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        Status
+                        <select name="status" class="form-control">
+                            <option value = "">--Select Status--</option>
+                            <option value = "0">Active</option>
+                            <option value = "1">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">                                        
+                    <button type="submit" class="btn btn-primary btn-block">Add</button>
+                </div>  
+            </form>
+        </div>
+    </div>
+</div>
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row page-titles">
@@ -45,8 +87,13 @@
                                                          $employees = substr($emp, 0, -2);
                                                           ?>
                                                     <tr>
-                                                        <td width="8%">
-                                                            <?php if($proj->priority_no==1){ ?>
+                                                        <!-- <td width="8%">
+                                                            
+                                                        </td> -->
+                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4><small class="proj-title"><?php echo $employees; ?></small>   
+                                                            <br>
+
+                                                        <?php if($proj->priority_no==1){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
@@ -55,15 +102,13 @@
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <?php } else if($proj->priority_no==3) { ?>
                                                             <span class="text-warning fa fa-flag"></span>
-                                                            <?php } ?>
-                                                        </td>
-                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4><small class="proj-title"><?php echo $employees; ?></small>    
+                                                            <?php } ?> 
 
                                                         </td>
-                                                        <td class="bg-hovr" width="29%" class="nobor-top">  
+                                                        <td class="bg-hovr" width="37%" class="nobor-top">  
 
                                                         <div class="progress progress-bar-animated active">
-                                                            <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%"><h6 class="m-t-5 m-b-5"><?php echo $ci->project_percent($proj->project_id); ?>%</h6></div>
+                                                            <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%"><h6 style="font-size: 12px" class="m-t-5 m-b-5"><?php echo $ci->project_percent($proj->project_id); ?>%</h6></div>
                                                         </div>     
                                                         <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
                                                             <small class="proj-title btn-block m-0">COMPLETION DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>                                                       
@@ -99,7 +144,13 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Reminder</h5>
+                        <h5 class="card-title">Reminder
+                            <span data-toggle="modal" data-target="#addCompany" class="pull-right">
+                                <a href="#" class="btn btn-primary btn-sm bor-radius" data-toggle="tooltip" data-placement="top" title="Add Reminder" >
+                                    <span class="fa fa-plus" ></span>
+                                </a>
+                            </span>
+                        </h5>
                         <h6 class="card-subtitle">check out your daily schedule</h6>
                         <div class="steamline m-0">
                             <?php 
@@ -109,11 +160,16 @@
 
                             foreach($reminders AS $r){ ?>
                             <div class="sl-item">
+                                <div class=""></div>
                             <button class="btn-xs btn sl-left bg-info" style="background-image: url('../../assets/images/check.png'); position: 100% center; background-repeat: no-repeat;"></button>
                                 <div class="sl-right">
                                     <h5 class="font-medium m-0"><?php echo $r['notes']; ?></h5>
                                     <small class="desc m-b-5 btn-block"><?php echo $r['employee']; ?></small> 
-                                    <span class="sl-date"><?php echo $r['due_date']; ?></span>
+                                    <span class="sl-date"> 
+                                        <?php echo $r['due_date']; ?>
+                                        <span class="m-l-5 text-danger">2 days left</span>
+                                        <button class="btn btn-xs btn-danger pull-right"><span class="fa fa-times"></span></button>
+                                    </span>
                                 </div>
                             </div>
                             <?php }

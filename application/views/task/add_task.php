@@ -88,7 +88,7 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <input placeholder="Completion Date" class="form-control"  name="completion_date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" value="<?php echo (!empty($project_id) ? $completion_date : ''); ?>">
+                                                    <input placeholder="Due Date" class="form-control"  name="completion_date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" value="<?php echo (!empty($project_id) ? $completion_date : ''); ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -131,7 +131,7 @@
 
                                         <h3 class="proj-title"><?php echo $project_title; ?></h3>
                                         <h6>Start Date: <?php echo date('F j, Y', strtotime($start_date)); ?></h6>
-                                        <h6>Completion Date: <?php echo date('F j, Y', strtotime($completion_date)); ?></h6>
+                                        <h6>Due Date: <?php echo date('F j, Y', strtotime($completion_date)); ?></h6>
                                      
                                         <?php if($priority_no==1){ ?>
                                         <span class="text-warning fa fa-flag"></span>
