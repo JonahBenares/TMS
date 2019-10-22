@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2019 at 08:13 AM
+-- Generation Time: Oct 22, 2019 at 08:03 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `company` (
 `company_id` int(11) NOT NULL,
   `company_name` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company`
@@ -50,7 +50,7 @@ INSERT INTO `company` (`company_id`, `company_name`) VALUES
 CREATE TABLE IF NOT EXISTS `department` (
 `department_id` int(11) NOT NULL,
   `department_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `department`
@@ -82,7 +82,6 @@ INSERT INTO `employees` (`employee_id`, `employee_name`) VALUES
 (2, 'Hennelen Tanan'),
 (3, 'Mila Arana'),
 (4, 'Syndey Sinoro'),
-(5, 'Zyndyryn Rosales'),
 (6, 'Maylen Cabaylo'),
 (7, 'Stephine Severino'),
 (8, 'Jason Flor');
@@ -99,9 +98,19 @@ CREATE TABLE IF NOT EXISTS `project_details` (
   `remarks` text,
   `status_percentage` decimal(10,2) NOT NULL DEFAULT '0.00',
   `update_date` varchar(20) DEFAULT NULL,
-  `updated_by` int(11) NOT NULL DEFAULT '0',
+  `updated_by` varchar(100) DEFAULT NULL,
   `create_date` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `project_details`
+--
+
+INSERT INTO `project_details` (`pd_id`, `project_id`, `remarks`, `status_percentage`, `update_date`, `updated_by`, `create_date`) VALUES
+(1, 1, 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '10.00', '2019-10-24', '2, 1', '2019-10-22 04:18:34'),
+(2, 2, '1. number 1\r\n2. number 2\r\n3. number 3', '15.00', '2019-10-22', '3', '2019-10-22 04:20:42'),
+(3, 1, 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \r\n\r\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', '100.00', '2019-10-31', '2', '2019-10-22 04:54:00'),
+(4, 3, 'hello hello', '18.00', '2019-10-22', '8', '2019-10-22 05:22:12');
 
 -- --------------------------------------------------------
 
@@ -122,6 +131,7 @@ CREATE TABLE IF NOT EXISTS `project_head` (
   `status` int(11) DEFAULT '0' COMMENT '0=pending, 1=done, 2=cancelled',
   `cancel_date` varchar(20) DEFAULT NULL,
   `cancel_reason` text,
+  `cancel_timestamp` varchar(20) DEFAULT NULL,
   `create_date` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
@@ -129,10 +139,10 @@ CREATE TABLE IF NOT EXISTS `project_head` (
 -- Dumping data for table `project_head`
 --
 
-INSERT INTO `project_head` (`project_id`, `start_date`, `completion_date`, `project_title`, `project_description`, `priority_no`, `company_id`, `department_id`, `employee`, `status`, `cancel_date`, `cancel_reason`, `create_date`) VALUES
-(1, '1970-01-01', '1970-01-01', 'Sample Project', '', 1, 1, 1, '4', 1, NULL, NULL, '2019-10-21 07:22:57'),
-(2, '1970-01-01', '1970-01-01', 'title1', '', 1, 1, 4, '0', 1, NULL, NULL, '2019-10-21 07:28:12'),
-(3, '1970-01-01', '1970-01-01', 'hello2', 'fgdfg', 1, 2, 4, '2, 8, 1, 4', 1, NULL, NULL, '2019-10-21 08:07:59');
+INSERT INTO `project_head` (`project_id`, `start_date`, `completion_date`, `project_title`, `project_description`, `priority_no`, `company_id`, `department_id`, `employee`, `status`, `cancel_date`, `cancel_reason`, `cancel_timestamp`, `create_date`) VALUES
+(1, '2019-10-22', '2019-11-15', 'IT Deployment of Systems', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ', 1, 1, 2, '2, 1', 1, NULL, NULL, NULL, '2019-10-22 04:17:44'),
+(2, '2019-09-01', '2020-01-31', 'Accounting Chuva Ek ek', 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\r\n\r\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n1. hello\r\n2. hi\r\n3. kamusta', 2, 2, 1, '3', 2, '2019-10-22', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', '2019-10-22 04:54:53', '2019-10-22 04:19:54'),
+(3, '2019-10-01', '2019-10-31', 'Title 1', 'Project Description 1', 1, 1, 4, '8, 7', 2, '2019-10-22', 'test', NULL, '2019-10-22 05:21:49');
 
 -- --------------------------------------------------------
 
@@ -145,10 +155,21 @@ CREATE TABLE IF NOT EXISTS `reminders` (
   `notes` text,
   `employee_id` varchar(50) DEFAULT NULL,
   `due_date` varchar(20) DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0= active, 1= cancelled',
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0= active, 1= cancelled, 2 = done',
+  `done_date` varchar(20) DEFAULT NULL,
   `cancel_date` varchar(20) DEFAULT NULL,
   `cancel_reason` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reminders`
+--
+
+INSERT INTO `reminders` (`reminder_id`, `notes`, `employee_id`, `due_date`, `status`, `done_date`, `cancel_date`, `cancel_reason`) VALUES
+(1, 'test', '2', '2019-12-20', 1, NULL, '2019-10-23', 'ghdh'),
+(2, 'adasd', '2', '2019-10-31', 1, NULL, '2019-10-23', 'aafdf'),
+(3, 'afsdfsdf', '3', '2019-10-31', 1, NULL, '2019-11-01', 'sdfsdf'),
+(4, 'dsfsg', '8', '2019-10-25', 2, '2019-10-22 07:52:39', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -228,12 +249,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `employees`
 --
@@ -243,7 +264,7 @@ MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT for table `project_details`
 --
 ALTER TABLE `project_details`
-MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `project_head`
 --
@@ -253,7 +274,7 @@ MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `reminders`
 --
 ALTER TABLE `reminders`
-MODIFY `reminder_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `reminder_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
