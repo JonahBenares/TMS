@@ -99,25 +99,18 @@
 
                         <div class="row">
                             <div class="col-lg-2">
-                                <div class="pull-right">
-                                    <?php if($status == 'Pending') { ?>
-                                    <label class="label label-warning">Pending</label>
-                                    <?php } else if ($status == 'Cancelled') { ?>
-                                    <label class="label label-danger">Cancelled</label>
-                                    <?php } else if ($status == 'Done') { ?>
-                                    <label class="label label-success">Completed</label> 
-                                   <?php } ?>
+                                <div style="text-align: right">
+                                    <small class="proj-title">Company:</small><br>
+                                    <span class="proj-title"><b><?php echo $company; ?></b></span>
                                     <br>
-                                   <?php if($priority_no==1){ ?>
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <?php } else if($priority_no==2){ ?>
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <?php } else if($priority_no==3) { ?>
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <?php } ?>
+                                    <br>
+                                    <small class="proj-title">Department:</small><br>
+                                    <span class=""><?php echo $department; ?></span>
+
+                                    <br>
+                                    <br>
+
+                                    
 
                                     <!-- 
 
@@ -136,6 +129,8 @@
                                     <span class="text-dfault2 fa fa-flag"></span>
                                     <span class="text-dfault2 fa fa-flag"></span> -->
                                     
+                                    
+
                                 </div>
                             </div>
                             <div class="col-lg-8">
@@ -210,7 +205,7 @@
                                             <div class="desc"><?php echo $det->remarks; ?>
                                             </div>
                                             <div class="progress m-b-20">
-                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="<?php echo $det->status_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="height:5px;width: <?php echo $det->status_percentage; ?>%"></div>
+                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="<?php echo $det->status_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="height:15px;width: <?php echo $det->status_percentage; ?>%"><?php echo $det->status_percentage; ?>%</div>
                                             </div>
                                         </div>
                                     </div>
@@ -219,21 +214,45 @@
                                 </div>
                             </div>
                             <div class="col-lg-2">
-                                <div style="text-align: right" class="btn-block">
-                                    <small class="proj-title">Company:</small><br>
-                                    <span class="proj-title"><b><?php echo $company; ?></b></span>
+                                <div style="text-align: left" class="btn-block">
+                                    <?php if($status == 'Pending') { ?>
+                                    <label class="label label-warning">Pending</label>
+                                    <?php } else if ($status == 'Cancelled') { ?>
+                                    <label class="label label-danger">Cancelled</label>
+                                    <?php } else if ($status == 'Done') { ?>
+                                    <label class="label label-success">Completed</label> 
+                                    <?php } ?>
                                     <br>
-                                    <br>
-                                    <small class="proj-title">Department:</small><br>
-                                    <span class=""><?php echo $department; ?></span>
+                                    <?php if($priority_no==1){ ?>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <?php } else if($priority_no==2){ ?>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <?php } else if($priority_no==3) { ?>
+                                    <span class="text-warning fa fa-flag"></span>
+                                    <?php } ?>
+
+
                                     <br>
                                     <br>
                                     <small class="proj-title">Start Date:</small><br>
                                     <span class=""><?php echo date('M j, Y', strtotime($start_date)); ?></span>
                                     <br>
                                     <br>
-                                    <small class="proj-title">Completion Date: </small><br>
+                                    <small class="proj-title">Due Date: </small><br>
+                                    <span class=""><b><?php echo date('M j, Y', strtotime($completion_date)); ?></b></span>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">Date Completed: </small><br>
                                     <span class=""><?php echo date('M j, Y', strtotime($completion_date)); ?></span>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">Date Cancelled: </small><br>
+                                    <span class=""><?php echo date('M j, Y', strtotime($completion_date)); ?></span>
+                                    
+                                    
                                 </div>
                                 
 
