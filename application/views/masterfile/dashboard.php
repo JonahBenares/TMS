@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="reminder_id" id = "reminder_id1" class="form-control">
-                <input type="text" name="trigger" id = "trigger" class="form-control">
+                <input type="hidden" name="trigger" id = "trigger" class="form-control">
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-danger btn-block">Cancel</button>
                 </div>
