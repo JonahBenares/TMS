@@ -138,10 +138,13 @@
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <?php } ?>
                                                         </td>
-                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4><small class="proj-title"><?php echo $employees; ?></small></td>
+                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4>
+                                                            <small class="proj-title"><?php echo $employees; ?></small><br>
+                                                            <small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small>
+                                                        </td>
                                                         <td class="bg-hovr" width="%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
-                                                            <small class="proj-title btn-block m-0">COMPLETION DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>
+                                                            <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>
                                                             <small class="proj-title btn-block m-0">COMPLETED DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($ci->project_completed($proj->project_id))); ?></span></small></td>
                                                         <td class="bg-hovr" width="29%" class="nobor-top">
                                                             <div class="progress progress-bar-animated active">
