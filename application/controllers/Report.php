@@ -513,12 +513,7 @@ class Report extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
 
-        $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
-        $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
-        $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
-
-        $this->load->view('report/pending_list',$data);
+        $this->load->view('report/alltask_list');
         $this->load->view('template/footer');
     }
 }
