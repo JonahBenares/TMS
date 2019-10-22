@@ -82,7 +82,8 @@ class Reminder extends CI_Controller {
             'due_date'=>$due_date,
         );
         if($this->super_model->insert_into("reminders", $data)){
-            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."reminder/reminder_list'; </script>";
+             $this->session->set_flashdata('msg', 'Reminder successfully added!');
+             redirect(base_url().'reminder/reminder_list/');
         }
     }
 
@@ -97,10 +98,10 @@ class Reminder extends CI_Controller {
         );
         $reminder_id = $this->input->post('reminder_id');
         if($this->super_model->update_where('reminders', $data, 'reminder_id', $reminder_id)){
-            echo "<script>alert('Successfully Updated!'); window.location ='".base_url()."reminder/reminder_list';</script>";
+            $this->session->set_flashdata('msg', 'Reminder successfully updated!');
+            redirect(base_url().'reminder/reminder_list/');
         }
     }
-
     public function cancel_reminder(){
     	$reason = trim($this->input->post('reason')," ");
         $notes = trim($this->input->post('notes')," ");

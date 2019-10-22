@@ -190,7 +190,12 @@
                         </h5>
                         <h6 class="card-subtitle">check out your daily schedule</h6>
                         <div class="steamline m-0">
-                            <?php foreach($reminders AS $r){ ?>
+                            <?php 
+                            if(!empty($reminders)){
+                                $columns = array_column($reminders, 'due_date');
+                                $a = array_multisort($columns, SORT_ASC, $reminders);
+
+                            foreach($reminders AS $r){ ?>
                             <div class="sl-item">
                                 <div class=""></div>
                                 <button class="btn-xs btn sl-left bg-info" style="background-image: url('../../assets/images/check.png'); position: 100% center; background-repeat: no-repeat;"></button>
@@ -208,7 +213,8 @@
                                     </span>
                                 </div>
                             </div>
-                            <?php } ?>
+                            <?php }
+                            } ?>
                         </div>
                     </div>
                 </div>

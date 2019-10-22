@@ -202,7 +202,7 @@
                                         <div class="sl-right">
                                             <div class="font-medium"><?php echo date('F j, Y', strtotime($det->update_date)); ?></div>
                                              <span ><small class="proj-title">Updated By: <?php echo $updated_by; ?></small></span>
-                                            <div class="desc"><?php echo $det->remarks; ?>
+                                            <div class="desc"><?php echo nl2br($det->remarks); ?>
                                             </div>
                                             <div class="progress m-b-20">
                                                 <div class="progress-bar bg-default" role="progressbar" aria-valuenow="<?php echo $det->status_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="height:15px;width: <?php echo $det->status_percentage; ?>%"><?php echo $det->status_percentage; ?>%</div>
