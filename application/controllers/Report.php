@@ -52,6 +52,7 @@ class Report extends CI_Controller {
     public function pending_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
+
         foreach($this->super_model->select_custom_where("project_head","status ='0' ORDER BY start_date DESC") AS $pen) {
             $data['pending'][]=array(
                 'project_id'=>$pen->project_id,
@@ -63,6 +64,12 @@ class Report extends CI_Controller {
                 'current_percent'=>$this->project_percent($pen->project_id),
             );
         }
+
+        $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
+        $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
+        $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
+        $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
+
         $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
     }
@@ -110,11 +117,71 @@ class Report extends CI_Controller {
             $data['title']= "null";
         }
 
-        
+        $sql="";
+        $filter = "";
+
+        if(!empty($this->input->post('start_date'))){
+            $start_date = $this->input->post('start_date');
+            $sql.=" start_date LIKE '%$start_date%' AND";
+            $filter .= "Start Date - ".$start_date.", ";
+        }
+
+        if(!empty($this->input->post('completion_date'))){
+            $completion_date = $this->input->post('completion_date');
+            $sql.=" completion_date LIKE '%$completion_date%' AND";
+            $filter .= "Completion Date - ".$completion_date.", ";
+        }
+
+        if(!empty($this->input->post('company'))){
+            $company = $this->input->post('company');
+            $sql.=" company_id = '$company' AND";
+            $comp = $this->super_model->select_column_where("company", "company_name", "company_id", $company);
+            $filter .= "Company - ".$comp.", ";
+        }
+
+        if(!empty($this->input->post('department'))){
+            $department = $this->input->post('department');
+            $sql.=" department_id = '$department' AND";
+            $dept = $this->super_model->select_column_where("department", "department_name", "department_id", $department);
+            $filter .= "Department - ".$dept.", ";
+        }
+
+        if(!empty($this->input->post('employee'))){
+            $employee = $this->input->post('employee');
+            $sql.=" employee LIKE '%$employee%' AND";
+            $emp = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee);
+            $filter .= "Employees - ".$emp.", ";
+        }
+
+        if(!empty($this->input->post('priority'))){
+            $priority = $this->input->post('priority');
+            $sql.=" priority_no = '$priority' AND";
+            $filter .= "Priority No. - ".$priority.", ";
+        }
+
+        if(!empty($this->input->post('title'))){
+            $title = $this->input->post('title');
+            $sql.=" project_title LIKE '%$title%' AND";
+            $filter .= "Project Title - ".$title.", ";
+        }
+
+        $query=substr($sql, 0, -3);
+        $data['filt']=substr($filter, 0, -2);
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
+        $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
+        $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
+        $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
+        $this->load->view('report/pending_list',$data);
+        $this->load->view('template/footer');
     }
 
     public function completed_list()
-    {
+    {   
+        $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
+        $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
+        $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
         $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' ORDER BY start_date DESC");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
@@ -122,12 +189,221 @@ class Report extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function search_completion(){
+        if(!empty($this->input->post('start_date'))){
+            $data['start_date'] = $this->input->post('start_date');
+        } else {
+            $data['start_date']= "null";
+        }
+
+        if(!empty($this->input->post('completion_date'))){
+            $data['completion_date'] = $this->input->post('completion_date');
+        } else {
+            $data['completion_date']= "null";
+        }
+
+        if(!empty($this->input->post('company'))){
+            $data['company'] = $this->input->post('company');
+        } else {
+            $data['company']= "null";
+        }
+
+        if(!empty($this->input->post('department'))){
+            $data['department'] = $this->input->post('department');
+        } else {
+            $data['department']= "null";
+        }
+
+        if(!empty($this->input->post('employee'))){
+            $data['employee'] = $this->input->post('employee');
+        } else {
+            $data['employee']= "null";
+        }
+
+        if(!empty($this->input->post('priority'))){
+            $data['priority'] = $this->input->post('priority');
+        } else {
+            $data['priority']= "null";
+        }
+
+        if(!empty($this->input->post('title'))){
+            $data['title'] = $this->input->post('title');
+        } else {
+            $data['title']= "null";
+        }
+
+        $sql="";
+        $filter = "";
+
+        if(!empty($this->input->post('start_date'))){
+            $start_date = $this->input->post('start_date');
+            $sql.=" start_date LIKE '%$start_date%' AND";
+            $filter .= "Start Date - ".$start_date.", ";
+        }
+
+        if(!empty($this->input->post('completion_date'))){
+            $completion_date = $this->input->post('completion_date');
+            $sql.=" completion_date LIKE '%$completion_date%' AND";
+            $filter .= "Completion Date - ".$completion_date.", ";
+        }
+
+        if(!empty($this->input->post('company'))){
+            $company = $this->input->post('company');
+            $sql.=" company_id = '$company' AND";
+            $comp = $this->super_model->select_column_where("company", "company_name", "company_id", $company);
+            $filter .= "Company - ".$comp.", ";
+        }
+
+        if(!empty($this->input->post('department'))){
+            $department = $this->input->post('department');
+            $sql.=" department_id = '$department' AND";
+            $dept = $this->super_model->select_column_where("department", "department_name", "department_id", $department);
+            $filter .= "Department - ".$dept.", ";
+        }
+
+        if(!empty($this->input->post('employee'))){
+            $employee = $this->input->post('employee');
+            $sql.=" employee LIKE '%$employee%' AND";
+            $emp = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee);
+            $filter .= "Employees - ".$emp.", ";
+        }
+
+        if(!empty($this->input->post('priority'))){
+            $priority = $this->input->post('priority');
+            $sql.=" priority_no = '$priority' AND";
+            $filter .= "Priority No. - ".$priority.", ";
+        }
+
+        if(!empty($this->input->post('title'))){
+            $title = $this->input->post('title');
+            $sql.=" project_title LIKE '%$title%' AND";
+            $filter .= "Project Title - ".$title.", ";
+        }
+
+        $query=substr($sql, 0, -3);
+        $data['filt']=substr($filter, 0, -2);
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
+        $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
+        $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
+        $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND $query");
+        $this->load->view('report/completed_list',$data);
+        $this->load->view('template/footer');
+    }
+
     public function cancelled_list()
     {
+        $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
+        $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
+        $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
         $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' ORDER BY start_date DESC");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('report/cancelled_list', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function search_cancelled(){
+        if(!empty($this->input->post('start_date'))){
+            $data['start_date'] = $this->input->post('start_date');
+        } else {
+            $data['start_date']= "null";
+        }
+
+        if(!empty($this->input->post('completion_date'))){
+            $data['completion_date'] = $this->input->post('completion_date');
+        } else {
+            $data['completion_date']= "null";
+        }
+
+        if(!empty($this->input->post('company'))){
+            $data['company'] = $this->input->post('company');
+        } else {
+            $data['company']= "null";
+        }
+
+        if(!empty($this->input->post('department'))){
+            $data['department'] = $this->input->post('department');
+        } else {
+            $data['department']= "null";
+        }
+
+        if(!empty($this->input->post('employee'))){
+            $data['employee'] = $this->input->post('employee');
+        } else {
+            $data['employee']= "null";
+        }
+
+        if(!empty($this->input->post('priority'))){
+            $data['priority'] = $this->input->post('priority');
+        } else {
+            $data['priority']= "null";
+        }
+
+        if(!empty($this->input->post('title'))){
+            $data['title'] = $this->input->post('title');
+        } else {
+            $data['title']= "null";
+        }
+
+        $sql="";
+        $filter = "";
+
+        if(!empty($this->input->post('start_date'))){
+            $start_date = $this->input->post('start_date');
+            $sql.=" start_date LIKE '%$start_date%' AND";
+            $filter .= "Start Date - ".$start_date.", ";
+        }
+
+        if(!empty($this->input->post('completion_date'))){
+            $completion_date = $this->input->post('completion_date');
+            $sql.=" completion_date LIKE '%$completion_date%' AND";
+            $filter .= "Completion Date - ".$completion_date.", ";
+        }
+
+        if(!empty($this->input->post('company'))){
+            $company = $this->input->post('company');
+            $sql.=" company_id = '$company' AND";
+            $comp = $this->super_model->select_column_where("company", "company_name", "company_id", $company);
+            $filter .= "Company - ".$comp.", ";
+        }
+
+        if(!empty($this->input->post('department'))){
+            $department = $this->input->post('department');
+            $sql.=" department_id = '$department' AND";
+            $dept = $this->super_model->select_column_where("department", "department_name", "department_id", $department);
+            $filter .= "Department - ".$dept.", ";
+        }
+
+        if(!empty($this->input->post('employee'))){
+            $employee = $this->input->post('employee');
+            $sql.=" employee LIKE '%$employee%' AND";
+            $emp = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee);
+            $filter .= "Employees - ".$emp.", ";
+        }
+
+        if(!empty($this->input->post('priority'))){
+            $priority = $this->input->post('priority');
+            $sql.=" priority_no = '$priority' AND";
+            $filter .= "Priority No. - ".$priority.", ";
+        }
+
+        if(!empty($this->input->post('title'))){
+            $title = $this->input->post('title');
+            $sql.=" project_title LIKE '%$title%' AND";
+            $filter .= "Project Title - ".$title.", ";
+        }
+
+        $query=substr($sql, 0, -3);
+        $data['filt']=substr($filter, 0, -2);
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
+        $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
+        $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
+        $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND $query");
+        $this->load->view('report/cancelled_list',$data);
         $this->load->view('template/footer');
     }
 
@@ -147,11 +423,10 @@ class Report extends CI_Controller {
             $current_percent = $this->super_model->select_column_where("project_details", "status_percentage", "pd_id", $pd_id);
         }
         return $current_percent;
-    }
+    }  
 
-      public function project_completed($project_id){
-    
-         $completed_date = $this->super_model->custom_query_single("completed_date", "SELECT MAX(update_date) AS completed_date FROM project_details WHERE project_id = '$project_id'");
+    public function project_completed($project_id){
+        $completed_date = $this->super_model->custom_query_single("completed_date", "SELECT MAX(update_date) AS completed_date FROM project_details WHERE project_id = '$project_id'");
        
         return $completed_date;
     }
