@@ -53,18 +53,6 @@ class Report extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
 
-        foreach($this->super_model->select_custom_where("project_head","status ='0' ORDER BY start_date DESC") AS $pen) {
-            $data['pending'][]=array(
-                'project_id'=>$pen->project_id,
-                'project_title'=>$pen->project_title,
-                'start_date'=>$pen->start_date,
-                'employee'=>$pen->employee,
-                'completion_date'=>$pen->completion_date,
-                'priority_no'=>$pen->priority_no,
-                'current_percent'=>$this->project_percent($pen->project_id),
-            );
-        }
-
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");

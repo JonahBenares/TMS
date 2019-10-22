@@ -94,7 +94,8 @@ class Masterfile extends CI_Controller {
             'employee_name'=>$employee,
         );
         if($this->super_model->insert_into("employees", $data)){
-            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."masterfile/employee_list'; </script>";
+             $this->session->set_flashdata('msg', 'Employee successfully added!');
+             redirect(base_url().'masterfile/employee_list');
         }
     }
 
@@ -104,14 +105,16 @@ class Masterfile extends CI_Controller {
         );
         $employee_id = $this->input->post('employee_id');
         if($this->super_model->update_where('employees', $data, 'employee_id', $employee_id)){
-            echo "<script>alert('Successfully Updated!'); window.location ='".base_url()."masterfile/employee_list';</script>";
+             $this->session->set_flashdata('msg', 'Employee successfully updated!');
+             redirect(base_url().'masterfile/employee_list');
         }
     }
 
     public function delete_employee(){
         $id=$this->uri->segment(3);
         if($this->super_model->delete_where('employees', 'employee_id', $id)){
-            echo "<script>alert('Succesfully Deleted'); window.location ='".base_url()."masterfile/employee_list'; </script>";
+             $this->session->set_flashdata('msg', 'Employee successfully deleted!');
+             redirect(base_url().'masterfile/employee_list');
         }
     }
 
@@ -129,7 +132,8 @@ class Masterfile extends CI_Controller {
             'company_name'=>$company,
         );
         if($this->super_model->insert_into("company", $data)){
-            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."masterfile/company_list'; </script>";
+            $this->session->set_flashdata('msg', 'Company successfully added!');
+             redirect(base_url().'masterfile/company_list');
         }
     }
 
@@ -139,14 +143,16 @@ class Masterfile extends CI_Controller {
         );
         $company_id = $this->input->post('company_id');
         if($this->super_model->update_where('company', $data, 'company_id', $company_id)){
-            echo "<script>alert('Successfully Updated!'); window.location ='".base_url()."masterfile/company_list';</script>";
+            $this->session->set_flashdata('msg', 'Company successfully updated!');
+             redirect(base_url().'masterfile/company_list');
         }
     }
 
     public function delete_company(){
         $id=$this->uri->segment(3);
         if($this->super_model->delete_where('company', 'company_id', $id)){
-            echo "<script>alert('Succesfully Deleted'); window.location ='".base_url()."masterfile/company_list'; </script>";
+            $this->session->set_flashdata('msg', 'Company successfully deleted!');
+             redirect(base_url().'masterfile/company_list');
         }
     }
 
@@ -183,7 +189,8 @@ class Masterfile extends CI_Controller {
             'department_name'=>$department,
         );
         if($this->super_model->insert_into("department", $data)){
-            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."masterfile/department_list'; </script>";
+            $this->session->set_flashdata('msg', 'Department successfully added!');
+             redirect(base_url().'masterfile/department_list');
         }
     }
 
@@ -193,14 +200,16 @@ class Masterfile extends CI_Controller {
         );
         $department_id = $this->input->post('department_id');
         if($this->super_model->update_where('department', $data, 'department_id', $department_id)){
-            echo "<script>alert('Successfully Updated!'); window.location ='".base_url()."masterfile/department_list';</script>";
+            $this->session->set_flashdata('msg', 'Department successfully updated!');
+             redirect(base_url().'masterfile/department_list');
         }
     }
 
     public function delete_department(){
         $id=$this->uri->segment(3);
         if($this->super_model->delete_where('department', 'department_id', $id)){
-            echo "<script>alert('Succesfully Deleted'); window.location ='".base_url()."masterfile/department_list'; </script>";
+            $this->session->set_flashdata('msg', 'Department successfully deleted!');
+             redirect(base_url().'masterfile/department_list');
         }
     }
 
