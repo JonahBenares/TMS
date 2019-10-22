@@ -180,9 +180,10 @@
                                         <td><?php echo date('F d, Y', strtotime($r['due_date'])); ?></td>
                                         <td><?php echo $r['notes']; ?></td>
                                         <td><?php echo $r['employee']; ?></td>
-                                        <td><?php echo ($r['status']==0) ? 'Active' : '<span style = "color:red">Cancelled</span>'; ?></td>
+                                        <td><?php echo ($r['status']==0) ? 'Active' : '<span style = "color:red; font-size:11px">Cancelled / '.$r['cancel_date'] .' / ' . $r['cancel_reason'] .'</span>'; ?></td>
                                         <td><?php echo $r['days_left']; ?></td>
-                                        <td>                                            
+                                        <td>       
+                                        <?php if($r['status']==0){ ?>                                     
                                             <div class="table-data-feature">
                                                 <span data-toggle="modal" data-target="#updateCompany">
                                                     <a  class="btn btn-info item btn-sm" data-toggle="tooltip" data-id = "<?php echo $r['reminder_id']; ?>" data-name = "<?php echo $r['notes']; ?>" data-aa = "<?php echo $r['employee_id']; ?>" data-bb = "<?php echo $r['due_date']; ?>" data-cc = "<?php echo $r['status']; ?>"  id = "updateRem_button" data-placement="top" title="Update" >
@@ -195,6 +196,7 @@
                                                     </a>
                                                 </span>
                                             </div>
+                                        <?php } ?>
                                         </td>                                        
                                     </tr>
                                     <?php } } ?>

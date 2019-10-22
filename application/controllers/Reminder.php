@@ -65,6 +65,8 @@ class Reminder extends CI_Controller {
 				"employee"=>$employee,
 				"status"=>$rem->status,
 				"days_left"=>$days_left,
+                "cancel_date"=>$rem->cancel_date,
+                "cancel_reason"=>$rem->cancel_reason
 			);
 		}
 		$data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
@@ -113,8 +115,8 @@ class Reminder extends CI_Controller {
         );
         $reminder_id = $this->input->post('reminder_id');
         if($this->super_model->update_where('reminders', $data, 'reminder_id', $reminder_id)){
-            $this->session->set_flashdata('msg', 'Successfully Cancelled!');
-            redirect(base_url().'index.php/reminder/reminder_list/');
+            $this->session->set_flashdata('msg', 'Reminder successfully cancelled!');
+            redirect(base_url().'reminder/reminder_list/');
         }
     }
 }

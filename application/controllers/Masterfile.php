@@ -238,7 +238,7 @@ class Masterfile extends CI_Controller {
             );
         }
 
-        foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status!='2' AND DATEDIFF(completion_date, NOW()) <= '30'") AS $due){
+        foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '30'") AS $due){
             $employee = explode(", ", $due->employee);  
                              
             $count = count($employee);
@@ -255,14 +255,30 @@ class Masterfile extends CI_Controller {
                 'notes'=>$due->project_title,
                 'employee'=>$employees,
                 'due_date'=>$due->completion_date,
-                'due_date'=>$due->completion_date,
                 'days_left'=>$days_left,
             );
         }
+
+         $data['employees'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('masterfile/dashboard', $data);
         $this->load->view('template/footer');
+    }
+
+    public function insert_reminder(){
+        $employee = trim($this->input->post('employee')," ");
+        $notes = trim($this->input->post('notes')," ");
+        $due_date = trim($this->input->post('due_date')," ");
+        $data = array(
+            'employee_id'=>$employee,
+            'notes'=>$notes,
+            'due_date'=>$due_date,
+        );
+        if($this->super_model->insert_into("reminders", $data)){
+             $this->session->set_flashdata('msg', 'Reminder successfully added!');
+             redirect(base_url().'masterfile/dashboard');
+        }
     }
 
     public function cancel_reminder(){
@@ -277,7 +293,7 @@ class Masterfile extends CI_Controller {
             );
             $id = $this->input->post('reminder_id');
             if($this->super_model->update_where('reminders', $data, 'reminder_id', $id)){
-                $this->session->set_flashdata('msg', 'Successfully Cancelled 1!');
+                $this->session->set_flashdata('msg', 'Reminder successfully cancelled!');
                 redirect(base_url().'index.php/masterfile/dashboard/');
             }
         }else {
@@ -288,7 +304,7 @@ class Masterfile extends CI_Controller {
             );
             $id = $this->input->post('reminder_id');
             if($this->super_model->update_where('project_head', $data, 'project_id', $id)){
-                $this->session->set_flashdata('msg', 'Successfully Cancelled 2!');
+                $this->session->set_flashdata('msg', 'Reminder cuccessfully cancelled!');
                 redirect(base_url().'index.php/masterfile/dashboard/');
             }
         }
