@@ -93,7 +93,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="progress m-b-20">
-                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%"><?php echo $ci->project_percent($project_id); ?>%</div>
+                            <div class="progress-bar <?php if($status == 'Pending') { ?> bg-warning <?php } else if ($status == 'Cancelled') { ?>
+                                        bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%"><p class="m-0" style="font-size: 13px"><?php echo $ci->project_percent($project_id); ?>%</p></div>
                         </div> 
                     <div class="card-body">
 
@@ -108,29 +109,7 @@
                                     <span class=""><?php echo $department; ?></span>
 
                                     <br>
-                                    <br>
-
-                                    
-
-                                    <!-- 
-
-                                    priority 2 
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <span class="text-dfault2 fa fa-flag"></span>
-                                    
-                                    priority 1 
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <span class="text-warning fa fa-flag"></span>
-                                    <span class="text-warning fa fa-flag"></span>
-
-                                    no priority  
-                                    <span class="text-dfault2 fa fa-flag"></span>
-                                    <span class="text-dfault2 fa fa-flag"></span>
-                                    <span class="text-dfault2 fa fa-flag"></span> -->
-                                    
-                                    
-
+                                    <br>       
                                 </div>
                             </div>
                             <div class="col-lg-8">
@@ -230,8 +209,11 @@
                                     <?php } else if($priority_no==2){ ?>
                                     <span class="text-warning fa fa-flag"></span>
                                     <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-dfault2 fa fa-flag"></span>
                                     <?php } else if($priority_no==3) { ?>
                                     <span class="text-warning fa fa-flag"></span>
+                                    <span class="text-dfault2 fa fa-flag"></span>
+                                    <span class="text-dfault2 fa fa-flag"></span>
                                     <?php } ?>
 
 

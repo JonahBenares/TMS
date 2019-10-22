@@ -130,6 +130,7 @@
                                     <div class="col-lg-4"> 
 
                                         <h3 class="proj-title"><?php echo $project_title; ?></h3>
+                                        <br><small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small>
                                         <h6>Start Date: <?php echo date('F j, Y', strtotime($start_date)); ?></h6>
                                         <h6>Due Date: <?php echo date('F j, Y', strtotime($completion_date)); ?></h6>
                                      
@@ -140,8 +141,11 @@
                                         <?php } else if($priority_no==2) { ?>
                                          <span class="text-warning fa fa-flag"></span>
                                         <span class="text-warning fa fa-flag"></span>
+                                        <span class="text-dfault2 fa fa-flag"></span>
                                         <?php } else if($priority_no==3) { ?>
                                          <span class="text-warning fa fa-flag"></span>
+                                         <span class="text-dfault2 fa fa-flag"></span>
+                                         <span class="text-dfault2 fa fa-flag"></span>
                                         <?php } ?>
                                        
 
