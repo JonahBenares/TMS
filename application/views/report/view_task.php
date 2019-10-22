@@ -5,24 +5,37 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Reminder</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Project Update</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+                <form method="POST" action="<?php echo base_url(); ?>report/update_project">
                 <div class="form-group">
-                    <textarea class="form-control" rows="5" placeholder="Remarks"></textarea>
-                </div>  
-                <div class="form-group">
-                    <input type="number" class="form-control" name="" placeholder="Status Percentage">
-                </div>  
-                <div class="form-group">
-                    <input placeholder="Updated Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                    <input placeholder="Updated Date" class="form-control" name='update_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
                 </div> 
                 <div class="form-group">
-                    <input type="button" name="" class="btn btn-success btn-block"  value="Save Update">
+                    <textarea class="form-control" rows="5" placeholder="Remarks" name="remarks"></textarea>
+                </div>  
+                <div class="form-group">
+                    <input type="number" class="form-control" name="percentage" placeholder="Status Percentage" min="<?php echo $ci->project_percent($project_id); ?>" max="100" value="<?php echo $ci->project_percent($project_id); ?>">
+                </div>  
+                <div class="form-group">
+                    <select class="custom-select" multiple name="updated_by[]">
+                        <option value="">-Select Accountable Employee-</option>
+                        <?php foreach($employees AS $emp){ ?>
+
+                            <option value="<?php echo $emp->employee_id; ?>" ><?php echo $emp->employee_name; ?></option>
+                        <?php } ?>
+                    </select>
+                    
                 </div>
+                <div class="form-group">
+                    <input type="submit" name="" class="btn btn-success btn-block"  value="Save Update">
+                    <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+                </div>
+            </form>
             </div>
             
         </div>
@@ -38,18 +51,20 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <form method='POST' action="<?php echo base_url(); ?>report/cancel_project">
             <div class="modal-body">
                 <div class="form-group">
-                    <textarea class="form-control" rows="5" placeholder="Reason"></textarea>
+                    <textarea class="form-control" rows="5" placeholder="Reason" name='cancel_reason'></textarea>
                 </div>  
                 <div class="form-group">
-                    <input placeholder="Date Cancelled" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                    <input placeholder="Date Cancelled" class="form-control" name='cancel_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
                 </div> 
                 <div class="form-group">
-                    <input type="button" name="" class="btn btn-danger btn-block"  value="Cancel">
+                    <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+                    <input type="submit" name="" class="btn btn-danger btn-block"  value="Cancel">
                 </div>
             </div>
-            
+            </form>
         </div>
     </div>
 </div>
@@ -78,7 +93,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="progress m-b-20">
-                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%"><?php echo $ci->project_percent($project_id); ?>%</div>
                         </div> 
                     <div class="card-body">
 
@@ -140,7 +155,32 @@
                                 <div><?php echo $project_description; ?></div>
                                             
                                  <div class="steamline m-t-40">
-                                <?php if($status == 'Cancelled'){ ?>                   
+
+                                     <?php
+                                        $msg_updates= $this->session->flashdata('msg_updates');  
+                                        if($msg_updates){
+                                         ?>
+                                        <div class="row">
+                                         <div class="col-lg-12">
+                                            <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                                <center><?php echo $msg_updates; ?></center>                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <?php } 
+
+                                         $msg_cancel= $this->session->flashdata('msg_cancel');  
+                                        if($msg_cancel){
+                                         ?>
+                                        <div class="row">
+                                         <div class="col-lg-12">
+                                            <div class="success bor-radius10 shadow alert-danger alert-shake animated headShake" style='padding:10px'>
+                                                <center><?php echo $msg_cancel; ?></center>                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <?php } 
+                                 if($status == 'Cancelled'){ ?>                   
                               
                                     <div class="sl-item">
                                         <div class="sl-right">
@@ -149,20 +189,32 @@
                                             </div>                                            
                                         </div>
                                     </div>
-                                <?php } ?>
-                                    <!-- reason for cancell -->
-                                    <!-- loop start-->
+                                <?php } 
+                                   
+                                   
+                                   foreach($details AS $det){ 
+
+                                     $updated = explode(", ", $det->updated_by);  
+                                                     
+                                    $count_upd = count($updated);
+                                    $upd='';
+                                     for($x=0;$x<$count_upd;$x++){
+                                        $upd.= $ci->get_updated_name($updated[$x]). ", ";
+                                     } 
+                                     $updated_by = substr($upd, 0, -2);
+                                      ?>
                                     <div class="sl-item">
                                         <div class="sl-right">
-                                            <div class="font-medium">January 20, 2019</div>
-                                             <span ><small class="proj-title">Updated By: Jonah Faye</small></span>
-                                            <div class="desc">Lorem Ipsum is is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                            <div class="font-medium"><?php echo date('F j, Y', strtotime($det->update_date)); ?></div>
+                                             <span ><small class="proj-title">Updated By: <?php echo $updated_by; ?></small></span>
+                                            <div class="desc"><?php echo $det->remarks; ?>
                                             </div>
                                             <div class="progress m-b-20">
-                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height:5px;width: 75%"></div>
+                                                <div class="progress-bar bg-default" role="progressbar" aria-valuenow="<?php echo $det->status_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="height:5px;width: <?php echo $det->status_percentage; ?>%"></div>
                                             </div>
                                         </div>
                                     </div>
+                                <?php } ?>
                                     <!-- loop end-->
                                 </div>
                             </div>
@@ -187,6 +239,7 @@
 
                                 
                             </div>
+                            <?php if($status == 'Pending') { ?>
                             <div style="position: fixed; left: 0;bottom: 0; margin: 50px">
                                 <a href="#" class="btn btn-primary btn-sm bor-radius "  data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
                                     Add Project Update
@@ -195,7 +248,7 @@
                                     Cancel
                                 </a>
                             </div>
-                            
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

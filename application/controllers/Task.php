@@ -128,7 +128,7 @@ class Task extends CI_Controller {
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
             'employee'=>$empid,
-            'status'=>1,
+            'status'=>0,
             'create_date'=>$create_date
         );
 
@@ -229,7 +229,7 @@ class Task extends CI_Controller {
             'updated_by'=>$empid,
             'create_date'=>$create_date,
         );
-          if($this->super_model->update_where("project_details", $data, "pd_id", $pd_id)){
+        if($this->super_model->update_where("project_details", $data, "pd_id", $pd_id)){
               $this->session->set_flashdata('msg_updates', 'Project updates successfully changed!');
               redirect(base_url().'task/add_task/'.$project_id.'/update');
         }
