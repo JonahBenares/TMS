@@ -74,14 +74,14 @@
                         Due Date
                         <input type="date" name="due_date" class="form-control" id = "due_date">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         Status
                         <select name="status" class="form-control" id = "status">
                             <option value = "">--Select Status--</option>
                             <option value = "0">Active</option>
                             <option value = "1">Cancelled</option>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
                 <input type="hidden" name="reminder_id" id = "reminder_id" class="form-control">
                 <div class="modal-footer">                                        
@@ -110,9 +110,10 @@
                     </div>
                     <div class="form-group">
                         Cancel Date
-                        <input type="date" name="" class="form-control" id = "">
+                        <input type="date" name="cancel_date" class="form-control" id = "">
                     </div>
                 </div>
+                <input type="text" name="reminder_id" id = "reminder_id1" class="form-control">
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-danger btn-block">Cancel</button>
                 </div>
@@ -184,7 +185,7 @@
                                                     </a>
                                                 </span>
                                                 <span data-toggle="modal" data-target="#cancel_reminder">
-                                                    <a href="#" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Cancel" title="Cancel" alt='Cancel'>
+                                                    <a class="btn btn-danger item btn-sm" data-toggle="tooltip" data-id = "<?php echo $r['reminder_id']; ?>" id = "updateCancel_button" data-placement="top" title="Cancel" title="Cancel" alt='Cancel'>
                                                         <i class="fa fa-times"></i>
                                                     </a>
                                                 </span>

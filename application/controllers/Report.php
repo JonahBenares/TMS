@@ -158,7 +158,7 @@ class Report extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
+        $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND $query");
         $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
     }
