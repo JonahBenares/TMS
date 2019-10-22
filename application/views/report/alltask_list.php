@@ -114,11 +114,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- loop here -->
-                                      <?php foreach($projects AS $proj){ ?>
+                                    <?php foreach($projects AS $proj){ ?>
                                     <tr>
-                                        <td class="p-0">
-                                         
+                                        <td class="p-0">                                         
                                             <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $proj->project_id; ?>" >
                                                 <table width="100%" >
                                                       <?php $employee = explode(", ", $proj->employee);  
@@ -132,6 +130,7 @@
                                                           ?>
                                                     <tr>
                                                         <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4>
+                                                            <small class="proj-title"><b><?php echo $ci->get_name("company", "company_name", "company_id", $proj->company_id); ?></b></small><br>
                                                             <small class="proj-title"><?php echo $employees; ?></small><br>
                                                             <?php if($proj->priority_no==1){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
@@ -145,8 +144,7 @@
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-dfault2 fa fa-flag"></span>
                                                             <span class="text-dfault2 fa fa-flag"></span>                                                            
-                                                            <?php } ?>
-                                                            
+                                                            <?php } ?>                                                            
                                                         </td>
                                                         <td class="bg-hovr" width="%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
@@ -180,8 +178,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <?php } ?>
-                                                            </div>
-                                                            <small class="proj-title"><b><?php echo $ci->get_name("company", "company_name", "company_id", $proj->company_id); ?></b></small>
+                                                            </div>                                                            
                                                         </td>
                                                     </tr>
                                                 </table>

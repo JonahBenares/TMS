@@ -113,24 +113,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- loop here -->
+                                    <?php 
+                                    if(!empty($pending)){
+                                    foreach($pending AS $p){ 
+                                        $employees = explode(", ", $p->employee);  
+                                        $count = count($employees);
+                                        $emp='';
+                                        for($x=0;$x<$count;$x++){
+                                            $emp.= $ci->get_updated_name($employees[$x]). ", ";
+                                        } 
+                                        $employee = substr($emp, 0, -2);
+                                    ?>  
                                     <tr>
-                                        <td class="p-0">
-                                            <?php 
-                                                if(!empty($pending)){
-                                                foreach($pending AS $p){ 
-                                                    $employees = explode(", ", $p->employee);  
-                                                    $count = count($employees);
-                                                    $emp='';
-                                                    for($x=0;$x<$count;$x++){
-                                                        $emp.= $ci->get_updated_name($employees[$x]). ", ";
-                                                    } 
-                                                    $employee = substr($emp, 0, -2);
-                                            ?>  
+                                        <td class="p-0">                                            
                                             <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $p->project_id; ?>" >
                                                 <table width="100%" >
                                                     <tr>
-                                                        <td width="6%">
+                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $p->project_title; ?></h4>
+                                                            <small class="proj-title"><b><?php echo $ci->get_name("company", "company_name", "company_id", $p->company_id); ?></b></small> <br>           
+                                                            <small class="proj-title"><?php echo $employee; ?></small><br>
                                                             <?php if($p->priority_no==1){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
@@ -145,15 +146,11 @@
                                                             <span class="text-dfault2 fa fa-flag"></span>
                                                             <?php } ?>
                                                         </td>
-                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $p->project_title; ?></h4>
-                                                            <small class="proj-title"><?php echo $employee; ?></small><br>
-                                                                                                                       
-                                                        </td>
                                                         <td class="bg-hovr" width="%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->start_date)); ?></span></small>
                                                             <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->completion_date)); ?></span></small>
                                                         </td>
-                                                        <td class="bg-hovr" width="29%%" class="nobor-top">
+                                                        <td class="bg-hovr" width="35%" class="nobor-top">
                                                             <div class="progress progress-bar-animated active">
                                                                 <div class="progress-bar bg-warning progress-bar-striped"  role="progressbar" aria-valuenow="<?php echo $ci->project_percent($p->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($p->project_id); ?>%">
                                                                 <?php if($ci->project_percent($p->project_id) <= '50') { ?>    
@@ -168,17 +165,14 @@
                                                                     </span>
                                                                 </div>
                                                                 <?php } ?>
-                                                            </div>
-                                                            <small class="proj-title"><b><?php echo $ci->get_name("company", "company_name", "company_id", $p->company_id); ?></b></small> 
+                                                            </div>                                                            
                                                         </td>
-                                                    </tr>
-                                                   
+                                                    </tr>                                                   
                                                 </table>
                                             </a> 
-                                             <?php } } ?>
                                         </td>                                       
                                     </tr>
-                                    <!-- loop here -->
+                                    <?php } } ?>
                                 </tbody>
                             </table>
                         </div>
