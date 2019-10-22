@@ -503,4 +503,9 @@ class Report extends CI_Controller {
               redirect(base_url().'report/view_task/'.$project_id);
         }
     }
+
+     public function get_name($table, $name, $column, $value){
+        $col = $this->super_model->select_column_where($table, $name, $column, $value);
+        return $col;
+    }   
 }
