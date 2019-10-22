@@ -411,8 +411,7 @@ class Report extends CI_Controller {
     }  
 
     public function project_completed($project_id){
-    
-         $completed_date = $this->super_model->custom_query_single("completed_date", "SELECT MAX(update_date) AS completed_date FROM project_details WHERE project_id = '$project_id'");
+        $completed_date = $this->super_model->custom_query_single("completed_date", "SELECT MAX(update_date) AS completed_date FROM project_details WHERE project_id = '$project_id'");
        
         return $completed_date;
     }
