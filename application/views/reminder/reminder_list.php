@@ -180,7 +180,14 @@
                                         <td><?php echo date('F d, Y', strtotime($r['due_date'])); ?></td>
                                         <td><?php echo $r['notes']; ?></td>
                                         <td><?php echo $r['employee']; ?></td>
-                                        <td><?php echo ($r['status']==0) ? 'Active' : '<span style = "color:red; font-size:11px">Cancelled / '.$r['cancel_date'] .' / ' . $r['cancel_reason'] .'</span>'; ?></td>
+                                        <td><?php if($r['status']==0) {
+                                                echo 'Active';
+                                            } else if($r['status']==1) {
+                                                echo '<span style = "color:red; font-size:11px">Cancelled / '.$r['cancel_date'] .' / ' . $r['cancel_reason'] .'</span>';
+                                            } else if($r['status']==2) { 
+                                                echo '<span style = "color:green; font-size:11px">Done / '.$r['done_date'] .'</span>';
+                                            } ?>
+                                            </td>
                                         <td><?php echo $r['days_left']; ?></td>
                                         <td>       
                                         <?php if($r['status']==0){ ?>                                     

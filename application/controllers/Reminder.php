@@ -66,7 +66,8 @@ class Reminder extends CI_Controller {
 				"status"=>$rem->status,
 				"days_left"=>$days_left,
                 "cancel_date"=>$rem->cancel_date,
-                "cancel_reason"=>$rem->cancel_reason
+                "cancel_reason"=>$rem->cancel_reason,
+                "done_date"=>$rem->done_date
 			);
 		}
 		$data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");

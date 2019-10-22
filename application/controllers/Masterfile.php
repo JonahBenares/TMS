@@ -281,6 +281,19 @@ class Masterfile extends CI_Controller {
         }
     }
 
+     public function done_reminder(){
+        $reminder_id = $this->uri->segment(3);
+        $timestamp = date('Y-m-d H:i:s');
+        $data = array(
+            'status'=>2,
+            'done_date'=>$timestamp,
+        );
+        if($this->super_model->update_where("reminders", $data, "reminder_id",$reminder_id)){
+             $this->session->set_flashdata('msg', 'Reminder tagged as done.');
+             redirect(base_url().'masterfile/dashboard');
+        }
+    }
+
     public function cancel_reminder(){
         $reason = trim($this->input->post('reason')," ");
         $cancel_date = trim($this->input->post('cancel_date')," ");

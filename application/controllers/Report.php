@@ -508,4 +508,12 @@ class Report extends CI_Controller {
         $col = $this->super_model->select_column_where($table, $name, $column, $value);
         return $col;
     }   
+
+    public function alltask_list(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+
+        $this->load->view('report/alltask_list');
+        $this->load->view('template/footer');
+    }
 }
