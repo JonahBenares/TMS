@@ -142,7 +142,7 @@
                                                         </td>
                                                         <td class="bg-hovr" width="37%" class="nobor-top">  
                                                         <div class="progress progress-bar-animated active">
-                                                            <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%"><h6 style="font-size: 12px" class="m-t-5 m-b-5"><?php echo $ci->project_percent($proj->project_id); ?>%</h6></div>
+                                                            <div class="progress-bar bg-warning progress-bar-striped" style="padding: 5px" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%"><h6 class="m-t-5 m-b-5"><?php echo $ci->project_percent($proj->project_id); ?>%</h6></div>
                                                         </div>     
                                                              <small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small> 
                                                         <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
@@ -208,7 +208,7 @@
                             foreach($reminders AS $r){ ?>
                             <div class="sl-item">
                                 <div class=""></div>
-                                <a href='' class="btn-xs btn sl-left bg-info" style="background-image: url('../../assets/images/check.png'); position: 100% center; background-repeat: no-repeat;"></a>
+                                <button class="btn-xs btn sl-left " ></button>
                                 <div class="sl-right">
                                     <h5 class="font-medium m-0"><?php echo $r['notes']; ?></h5>
                                     <small class="desc m-b-5 btn-block"><?php echo $r['employee']; ?></small> 
