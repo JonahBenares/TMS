@@ -77,7 +77,7 @@ class Report extends CI_Controller {
         $name = $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee_id);
         return $name;
     }   
-    
+
     public function view_task()
     {
         $project_id = $this->uri->segment(3);
@@ -97,6 +97,8 @@ class Report extends CI_Controller {
             } else if($proj->status==2){
                 $data['status']='Cancelled';
             }
+            $data['cancel_reason'] = $proj->cancel_reason;
+            $data['cancel_date'] = $proj->cancel_date;
         }
         $this->load->view('template/header');
         $this->load->view('template/navbar');

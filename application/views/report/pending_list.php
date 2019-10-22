@@ -66,7 +66,7 @@
                     <div class="card-body">
                         <h4 class="card-title"><span class="text-warning fa fa-circle"></span> PENDING TASKS
                             <div class="pull-right">
-                                <a href="<?php echo base_url(); ?>index.php/task/add_task" class="btn btn-primary btn-sm bor-radius " data-toggle="tooltip" data-placement="top" title="Add Tasks" >
+                                <a href="<?php echo base_url(); ?>task/add_task" class="btn btn-primary btn-sm bor-radius " data-toggle="tooltip" data-placement="top" title="Add Tasks" >
                                     <span class="fa fa-plus" ></span>
                                 </a>
                                 <span data-toggle="modal" data-target="#filter">
@@ -89,7 +89,7 @@
                                     <!-- loop here -->
                                     <tr>
                                         <td class="p-0">
-                                            <a class="text-dfault"  href="<?php echo base_url(); ?>index.php/report/view_task/" >
+                                            <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/" >
                                                 <table width="100%" >
                                                     <tr>
                                                         <td width="6%">

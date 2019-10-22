@@ -124,6 +124,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-8">
+
                                 <h3 class="proj-title m-b-0"><?php echo $project_title; ?></h3>
                                    <?php $employee = explode(", ", $employee);  
                                                      
@@ -135,17 +136,20 @@
                                      $employees = substr($emp, 0, -2);
                                       ?>
                                 <small class="proj-title"><?php echo $employees; ?></small>
-                                <div>Lorem Ipsum is simply It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</div>
-                                                               
-                                <div class="steamline m-t-40">
-                                    <!-- reason for cancell -->
+
+                                <div><?php echo $project_description; ?></div>
+                                            
+                                 <div class="steamline m-t-40">
+                                <?php if($status == 'Cancelled'){ ?>                   
+                              
                                     <div class="sl-item">
                                         <div class="sl-right">
-                                            <div class="font-medium text-danger">January 20, 2019</div>
-                                            <div class="desc text-danger">Lorem Ipsum is simply It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                            <div class="font-medium text-danger"><?php echo date('F j, Y', strtotime($cancel_date)); ?></div>
+                                            <div class="desc text-danger"><?php echo $cancel_reason; ?>
                                             </div>                                            
                                         </div>
                                     </div>
+                                <?php } ?>
                                     <!-- reason for cancell -->
                                     <!-- loop start-->
                                     <div class="sl-item">
@@ -164,12 +168,20 @@
                             </div>
                             <div class="col-lg-2">
                                 <div style="text-align: right" class="btn-block">
+                                    <small class="proj-title">Company:</small><br>
+                                    <span class="proj-title"><b><?php echo $company; ?></b></span>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">Department:</small><br>
+                                    <span class=""><?php echo $department; ?></span>
+                                    <br>
+                                    <br>
                                     <small class="proj-title">Start Date:</small><br>
-                                    <span class="">10-10-19</span>
+                                    <span class=""><?php echo date('M j, Y', strtotime($start_date)); ?></span>
                                     <br>
                                     <br>
                                     <small class="proj-title">Completion Date: </small><br>
-                                    <span class="">January 10, 2019</span>
+                                    <span class=""><?php echo date('M j, Y', strtotime($completion_date)); ?></span>
                                 </div>
                                 
 

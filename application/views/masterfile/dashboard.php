@@ -31,7 +31,7 @@
                                     <!-- loop here -->
                                     <tr>
                                         <td class="p-0">
-                                            <a class="text-dfault"  href="<?php echo base_url(); ?>index.php/report/view_task/" >
+                                            <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/" >
                                                 <table width="100%" >
                                                     <?php foreach($projects AS $proj){
                                                       $employee = explode(", ", $proj->employee);  
