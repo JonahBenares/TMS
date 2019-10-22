@@ -140,8 +140,11 @@
                                                             <?php } else if($proj->priority_no==2){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-dfault2 fa fa-flag"></span>
                                                             <?php } else if($proj->priority_no==3) { ?>
                                                             <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-dfault2 fa fa-flag"></span>
+                                                            <span class="text-dfault2 fa fa-flag"></span>
                                                             <?php } ?> 
 
                                                         </td>
