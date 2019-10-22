@@ -1,6 +1,48 @@
     <?php
     $ci =& get_instance();
     ?>
+
+<div class="modal fade" id="addCompany" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Reminder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" >
+                <div class="modal-body">
+                    <div class="form-group">
+                        Employee Name
+                        <select name="employee" class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        Notes
+                        <textarea name="notes" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        Due Date
+                        <input type="date" name="due_date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        Status
+                        <select name="status" class="form-control">
+                            <option value = "">--Select Status--</option>
+                            <option value = "0">Active</option>
+                            <option value = "1">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">                                        
+                    <button type="submit" class="btn btn-primary btn-block">Add</button>
+                </div>  
+            </form>
+        </div>
+    </div>
+</div>
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row page-titles">
@@ -99,7 +141,13 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Reminder</h5>
+                        <h5 class="card-title">Reminder
+                            <span data-toggle="modal" data-target="#addCompany" class="pull-right">
+                                <a href="#" class="btn btn-primary btn-sm bor-radius" data-toggle="tooltip" data-placement="top" title="Add Reminder" >
+                                    <span class="fa fa-plus" ></span>
+                                </a>
+                            </span>
+                        </h5>
                         <h6 class="card-subtitle">check out your daily schedule</h6>
                         <div class="steamline m-0">
                             <?php foreach($reminders AS $r){ ?>
