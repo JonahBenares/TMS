@@ -41,7 +41,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <select name="employee" class="form-control" placeholder="Employee" class="custom-select" multiple name="employee[]">
+                        <select class="form-control" placeholder="Employee" class="custom-select" multiple name="employee[]">
                             <option value = "">--Select Employee--</option>
                             <?php foreach($employee AS $e){ ?>
                             <option value = "<?php echo $e->employee_id; ?>"><?php echo $e->employee_name; ?></option>
@@ -144,7 +144,7 @@
                                                         </td>
                                                         <td class="bg-hovr" width="%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
-                                                            <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>
+                                                            <small class="proj-title btn-block m-0">DUE DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>
                                                             <small class="proj-title btn-block m-0">COMPLETED DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($ci->project_completed($proj->project_id))); ?></span></small></td>
                                                         <td class="bg-hovr" width="29%" class="nobor-top">
                                                             <div class="progress progress-bar-animated active">

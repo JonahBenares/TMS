@@ -41,7 +41,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <select name="employee" class="form-control" placeholder="Employee" class="custom-select" multiple name="employee[]">
+                        <select  class="form-control" placeholder="Employee" class="custom-select" multiple name="employee[]">
                             <option value = "">--Select Employee--</option>
                             <?php foreach($employee AS $e){ ?>
                             <option value = "<?php echo $e->employee_id; ?>"><?php echo $e->employee_name; ?></option>
