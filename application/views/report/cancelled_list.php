@@ -139,7 +139,7 @@
                                                         </td>
                                                         <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4>
                                                             <small class="proj-title"><?php echo $employees; ?></small><br>
-                                                            <small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small>
+                                                            <small class="proj-title"><b><?php echo $ci->get_name("company", "company_name", "company_id", $proj->company_id); ?></b></small>
                                                         </td>
                                                         <td class="bg-hovr" width="%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>

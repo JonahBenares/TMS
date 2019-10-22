@@ -102,14 +102,14 @@ class Reminder extends CI_Controller {
             redirect(base_url().'reminder/reminder_list/');
         }
     }
+    
     public function cancel_reminder(){
     	$reason = trim($this->input->post('reason')," ");
-        $notes = trim($this->input->post('notes')," ");
-        $due_date = trim($this->input->post('due_date')," ");
+        $cancel_date = trim($this->input->post('cancel_date')," ");
         $data = array(
-            'employee_id'=>$employee,
-            'notes'=>$notes,
-            'due_date'=>$due_date,
+            'cancel_reason'=>$reason,
+            'cancel_date'=>$cancel_date,
+            'status'=>1,
         );
         $reminder_id = $this->input->post('reminder_id');
         if($this->super_model->update_where('reminders', $data, 'reminder_id', $reminder_id)){

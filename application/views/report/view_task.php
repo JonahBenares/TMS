@@ -226,14 +226,12 @@
                                     <small class="proj-title">Due Date: </small><br>
                                     <span class=""><b><?php echo date('M j, Y', strtotime($completion_date)); ?></b></span>
                                     <br>
+                                    <?php if($status == 'Done'){ ?>
                                     <br>
                                     <small class="proj-title">Date Completed: </small><br>
-                                    <span class=""><?php echo date('M j, Y', strtotime($completion_date)); ?></span>
-                                    <br>
-                                    <br>
-                                    <small class="proj-title">Date Cancelled: </small><br>
-                                    <span class=""><?php echo date('M j, Y', strtotime($completion_date)); ?></span>
-                                    
+                                    <span class=""><?php echo date('M j, Y', strtotime($ci->project_completed($project_id))); ?></span>
+                                    <?php } ?>
+                                  
                                     
                                 </div>
                                 
