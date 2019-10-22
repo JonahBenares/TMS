@@ -54,7 +54,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action="">
+            <form method="POST" action="<?php echo base_url(); ?>masterfile/cancel_reminder">
                 <div class="modal-body">
                     <div class="form-group">
                         Reason
@@ -62,9 +62,11 @@
                     </div>
                     <div class="form-group">
                         Cancel Date
-                        <input type="date" name="" class="form-control" id = "">
+                        <input type="date" name="cancel_date" class="form-control" id = "cancel_date">
                     </div>
                 </div>
+                <input type="hidden" name="reminder_id" id = "reminder_id1" class="form-control">
+                <input type="text" name="trigger" id = "trigger" class="form-control">
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-danger btn-block">Cancel</button>
                 </div>
@@ -72,13 +74,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 <div class="page-wrapper">
     <div class="container-fluid">
@@ -189,6 +184,18 @@
                             </span>
                         </h5>
                         <h6 class="card-subtitle">check out your daily schedule</h6>
+                        <?php
+                            $msg= $this->session->flashdata('msg');  
+                            if($msg){
+                             ?>
+                            <div class="row">
+                                 <div class="col-lg-12">
+                                    <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                        <center><?php echo $msg; ?></center>                    
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }  ?> 
                         <div class="steamline m-0">
                             <?php 
                             if(!empty($reminders)){
@@ -204,9 +211,9 @@
                                     <small class="desc m-b-5 btn-block"><?php echo $r['employee']; ?></small> 
                                     <span class="sl-date"> 
                                         <?php echo $r['due_date']; ?>
-                                        <span class="m-l-5 text-danger">2 days left</span>
+                                        <span class="m-l-5 text-danger"><?php echo $r['days_left']; ?></span>
                                         <span data-toggle="modal" data-target="#cancel_reminder" class="pull-right">
-                                            <a href="#" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" title="Cancel" title="Cancel" alt='Cancel'>
+                                            <a data-id = "<?php echo ($r['project_id']!=0) ? $r['project_id'] : $r['reminder_id'] ; ?>" data-name = "<?php echo ($r['project_id']!=0) ? 'Project' : 'Reminder' ; ?>" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Cancel" title="Cancel" alt='Cancel'>
                                                 <i class="fa fa-times"></i>
                                             </a>
                                         </span>
