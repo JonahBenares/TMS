@@ -2161,15 +2161,7 @@ background-repeat: no-repeat;}
 background-color: #4285F4 !important;
 color: #fff !important; }
 .btn-primary:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #5a95f5; }
 .btn-primary:focus, .btn-primary:active, .btn-primary.active {
 background-color: #0d5fe6; }
 .btn-primary.dropdown-toggle {
@@ -2197,15 +2189,7 @@ border-color: #4285F4 !important; }
 background-color: #ff3547 !important;
 color: #fff !important; }
 .btn-danger:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #ff4f5e; }
 .btn-danger:focus, .btn-danger:active, .btn-danger.active {
 background-color: #f20016; }
 .btn-danger.dropdown-toggle {
@@ -2232,16 +2216,8 @@ border-color: #ff3547 !important; }
 .btn-warning {
 background-color: #FF8800 !important;
 color: #fff !important; }
-.btn-warning:hover{
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+.btn-warning:hover {
+background-color: #ff941a; }
 .btn-warning:focus, .btn-warning:active, .btn-warning.active {
 background-color: #bd6500; }
 .btn-warning.dropdown-toggle {
@@ -2269,15 +2245,7 @@ border-color: #FF8800 !important; }
 background-color: #00C851 !important;
 color: #fff !important; }
 .btn-success:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #00e25b; }
 .btn-success:focus, .btn-success:active, .btn-success.active {
 background-color: #008636; }
 .btn-success.dropdown-toggle {
@@ -2305,15 +2273,7 @@ border-color: #00C851 !important; }
 background-color: #33b5e5 !important;
 color: #fff !important; }
 .btn-info:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #4abde8; }
 .btn-info:focus, .btn-info:active, .btn-info.active {
 background-color: #1891be; }
 .btn-info.dropdown-toggle {
@@ -2341,15 +2301,7 @@ border-color: #33b5e5 !important; }
 background-color: #2BBBAD !important;
 color: #fff !important; }
 .btn-default:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #30cfc0; }
 .btn-default:focus, .btn-default:active, .btn-default.active {
 background-color: #1f857b; }
 .btn-default.dropdown-toggle {
@@ -2377,15 +2329,7 @@ border-color: #2BBBAD !important; }
 background-color: #aa66cc !important;
 color: #fff !important; }
 .btn-secondary:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #b579d2; }
 .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active {
 background-color: #8c3cb4; }
 .btn-secondary.dropdown-toggle {
@@ -2413,15 +2357,7 @@ border-color: #aa66cc !important; }
 background-color: #2E2E2E !important;
 color: #fff !important; }
 .btn-elegant:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #3b3b3b; }
 .btn-elegant:focus, .btn-elegant:active, .btn-elegant.active {
 background-color: #0d0d0d; }
 .btn-elegant.dropdown-toggle {
@@ -2449,15 +2385,7 @@ border-color: #2E2E2E !important; }
 background-color: #880e4f !important;
 color: #fff !important; }
 .btn-unique:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #9f105c; }
 .btn-unique:focus, .btn-unique:active, .btn-unique.active {
 background-color: #4c082c; }
 .btn-unique.dropdown-toggle {
@@ -2485,15 +2413,7 @@ border-color: #880e4f !important; }
 background-color: #388E3C !important;
 color: #fff !important; }
 .btn-dark-green:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #3fa044; }
 .btn-dark-green:focus, .btn-dark-green:active, .btn-dark-green.active {
 background-color: #255e28; }
 .btn-dark-green.dropdown-toggle {
@@ -2521,15 +2441,7 @@ border-color: #388E3C !important; }
 background-color: #59698D !important;
 color: #fff !important; }
 .btn-mdb-color:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #63759d; }
 .btn-mdb-color:focus, .btn-mdb-color:active, .btn-mdb-color.active {
 background-color: #3f4b64; }
 .btn-mdb-color.dropdown-toggle {
@@ -2557,15 +2469,7 @@ border-color: #59698D !important; }
 background-color: #D32F2F !important;
 color: #fff !important; }
 .btn-red:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #d74444; }
 .btn-red:focus, .btn-red:active, .btn-red.active {
 background-color: #9e2121; }
 .btn-red.dropdown-toggle {
@@ -2593,15 +2497,7 @@ border-color: #D32F2F !important; }
 background-color: #ec407a !important;
 color: #fff !important; }
 .btn-pink:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #ee578a; }
 .btn-pink:focus, .btn-pink:active, .btn-pink.active {
 background-color: #d51556; }
 .btn-pink.dropdown-toggle {
@@ -2629,15 +2525,7 @@ border-color: #ec407a !important; }
 background-color: #8e24aa !important;
 color: #fff !important; }
 .btn-purple:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #a028bf; }
 .btn-purple:focus, .btn-purple:active, .btn-purple.active {
 background-color: #601873; }
 .btn-purple.dropdown-toggle {
@@ -2665,15 +2553,7 @@ border-color: #8e24aa !important; }
 background-color: #512da8 !important;
 color: #fff !important; }
 .btn-deep-purple:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #5b32bc; }
 .btn-deep-purple:focus, .btn-deep-purple:active, .btn-deep-purple.active {
 background-color: #381f74; }
 .btn-deep-purple.dropdown-toggle {
@@ -2701,15 +2581,7 @@ border-color: #512da8 !important; }
 background-color: #3f51b5 !important;
 color: #fff !important; }
 .btn-indigo:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #4d5ec1; }
 .btn-indigo:focus, .btn-indigo:active, .btn-indigo.active {
 background-color: #2e3b84; }
 .btn-indigo.dropdown-toggle {
@@ -2737,15 +2609,7 @@ border-color: #3f51b5 !important; }
 background-color: #1976D2 !important;
 color: #fff !important; }
 .btn-blue:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #2083e4; }
 .btn-blue:focus, .btn-blue:active, .btn-blue.active {
 background-color: #125597; }
 .btn-blue.dropdown-toggle {
@@ -2773,15 +2637,7 @@ border-color: #1976D2 !important; }
 background-color: #82B1FF !important;
 color: #fff !important; }
 .btn-light-blue:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #9cc1ff; }
 .btn-light-blue:focus, .btn-light-blue:active, .btn-light-blue.active {
 background-color: #4088ff; }
 .btn-light-blue.dropdown-toggle {
@@ -2809,15 +2665,7 @@ border-color: #82B1FF !important; }
 background-color: #00bcd4 !important;
 color: #fff !important; }
 .btn-cyan:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #00d3ee; }
 .btn-cyan:focus, .btn-cyan:active, .btn-cyan.active {
 background-color: #008192; }
 .btn-cyan.dropdown-toggle {
@@ -2845,15 +2693,7 @@ border-color: #00bcd4 !important; }
 background-color: #00796b !important;
 color: #fff !important; }
 .btn-teal:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #009382; }
 .btn-teal:focus, .btn-teal:active, .btn-teal.active {
 background-color: #003730; }
 .btn-teal.dropdown-toggle {
@@ -2881,15 +2721,7 @@ border-color: #00796b !important; }
 background-color: #388E3C !important;
 color: #fff !important; }
 .btn-green:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #3fa044; }
 .btn-green:focus, .btn-green:active, .btn-green.active {
 background-color: #255e28; }
 .btn-green.dropdown-toggle {
@@ -2917,15 +2749,7 @@ border-color: #388E3C !important; }
 background-color: #8bc34a !important;
 color: #fff !important; }
 .btn-light-green:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #97c95d; }
 .btn-light-green:focus, .btn-light-green:active, .btn-light-green.active {
 background-color: #699832; }
 .btn-light-green.dropdown-toggle {
@@ -2953,15 +2777,7 @@ border-color: #8bc34a !important; }
 background-color: #afb42b !important;
 color: #fff !important; }
 .btn-lime:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #c3c930; }
 .btn-lime:focus, .btn-lime:active, .btn-lime.active {
 background-color: #7b7e1e; }
 .btn-lime.dropdown-toggle {
@@ -2989,15 +2805,7 @@ border-color: #afb42b !important; }
 background-color: #fbc02d !important;
 color: #fff !important; }
 .btn-yellow:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #fbc846; }
 .btn-yellow:focus, .btn-yellow:active, .btn-yellow.active {
 background-color: #e1a204; }
 .btn-yellow.dropdown-toggle {
@@ -3025,15 +2833,7 @@ border-color: #fbc02d !important; }
 background-color: #ffa000 !important;
 color: #fff !important; }
 .btn-amber:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #ffaa1a; }
 .btn-amber:focus, .btn-amber:active, .btn-amber.active {
 background-color: #bd7600; }
 .btn-amber.dropdown-toggle {
@@ -3061,15 +2861,7 @@ border-color: #ffa000 !important; }
 background-color: #f57c00 !important;
 color: #fff !important; }
 .btn-orange:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #ff8910; }
 .btn-orange:focus, .btn-orange:active, .btn-orange.active {
 background-color: #b35a00; }
 .btn-orange.dropdown-toggle {
@@ -3097,15 +2889,7 @@ border-color: #f57c00 !important; }
 background-color: #ff7043 !important;
 color: #fff !important; }
 .btn-deep-orange:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #ff835d; }
 .btn-deep-orange:focus, .btn-deep-orange:active, .btn-deep-orange.active {
 background-color: #ff3e01; }
 .btn-deep-orange.dropdown-toggle {
@@ -3133,15 +2917,7 @@ border-color: #ff7043 !important; }
 background-color: #795548 !important;
 color: #fff !important; }
 .btn-brown:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #896052; }
 .btn-brown:focus, .btn-brown:active, .btn-brown.active {
 background-color: #4f382f; }
 .btn-brown.dropdown-toggle {
@@ -3169,15 +2945,7 @@ border-color: #795548 !important; }
 background-color: #616161 !important;
 color: #fff !important; }
 .btn-grey:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #6e6e6e; }
 .btn-grey:focus, .btn-grey:active, .btn-grey.active {
 background-color: #404040; }
 .btn-grey.dropdown-toggle {
@@ -3205,15 +2973,7 @@ border-color: #616161 !important; }
 background-color: #78909c !important;
 color: #fff !important; }
 .btn-blue-grey:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #879ca7; }
 .btn-blue-grey:focus, .btn-blue-grey:active, .btn-blue-grey.active {
 background-color: #596e79; }
 .btn-blue-grey.dropdown-toggle {
@@ -3241,15 +3001,7 @@ border-color: #78909c !important; }
 background-color: #212121 !important;
 color: #fff !important; }
 .btn-dark:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #2e2e2e; }
 .btn-dark:focus, .btn-dark:active, .btn-dark.active {
 background-color: black; }
 .btn-dark.dropdown-toggle {
@@ -3277,15 +3029,7 @@ border-color: #212121 !important; }
 background-color: #e0e0e0 !important;
 color: #000 !important; }
 .btn-light:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #ededed; }
 .btn-light:focus, .btn-light:active, .btn-light.active {
 background-color: #bfbfbf; }
 .btn-light.dropdown-toggle {
@@ -3313,15 +3057,7 @@ border-color: #e0e0e0 !important; }
 background-color: #fff !important;
 color: #000 !important; }
 .btn-white:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: white; }
 .btn-white:focus, .btn-white:active, .btn-white.active {
 background-color: #dedede; }
 .btn-white.dropdown-toggle {
@@ -3349,15 +3085,7 @@ border-color: #fff !important; }
 background-color: #000 !important;
 color: #fff !important; }
 .btn-black:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}
+background-color: #0d0d0d; }
 .btn-black:focus, .btn-black:active, .btn-black.active {
 background-color: black; }
 .btn-black.dropdown-toggle {
@@ -3386,15 +3114,8 @@ border-color: #000 !important; }
   background-color: #7460ee;
   border-color: #7460ee; }
   .btn-primary:hover {
--webkit-animation-duration: 1s;
-animation-duration: 1s;
--webkit-animation-fill-mode: both;
-animation-fill-mode: both;
--webkit-animation-iteration-count: infinite;
-animation-iteration-count: infinite; 
--webkit-animation-name: tada;
-animation-name: tada;   
-}: #563dea;
+    color: #fff;
+    background-color: #563dea;
     border-color: #4c32e9; }
   .btn-primary:focus, .btn-primary.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 96, 238, 0.5);
@@ -5563,37 +5284,31 @@ tbody.collapse.show {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-size: 200px 200px; }
+  background-size: 200px 200px; 
+  -webkit-animation: mymove 0.1s linear infinite;
+  animation: mymove 0.1s infinite;
+}
+
+@keyframes mymove {
+    from {left: -95px;}
+    to {left: 230px;}
+}
 
 .progress-bar-animated {
-  -webkit-animation: mymove 0.1s linear infinite;
-  animation: mymove 0.1s linear infinite; }
+   }
 
-  @-webkit-keyframes cdd {
+  @-webkit-keyframes progress {
   from {
     background-position: auto 0; }
   to {
     background-position: 0 0; } }
 
-@keyframes cdd {
+@keyframes progress {
   from {
     background-position: auto 0; }
   to {
     background-position: 0 0; } }
 
-
-
-div.moving-obj{
-        font-size: 15px;        
-        position: relative;
-        padding: 7px 0px 1px;
-        animation: mymove 10s infinite;
-    }
-
-    @keyframes mymove {
-        from {left: -95px;}
-        to {left: 230px;}
-    }
 .media {
   display: -webkit-box;
   display: -ms-flexbox;
