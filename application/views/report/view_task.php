@@ -94,7 +94,7 @@
                 <div class="card">
                     <div class="progress m-b-20">
                             <div class="progress-bar <?php if($status == 'Pending') { ?> bg-warning <?php } else if ($status == 'Cancelled') { ?>
-                                        bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%">
+                                        bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%">
                             <?php if($ci->project_percent($project_id) <= '50') { ?>    
                             </div>
                                 <span class=" m-l-5 " style="font-size:12px;color: #6c757d!important">

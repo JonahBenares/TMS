@@ -2161,7 +2161,15 @@ background-repeat: no-repeat;}
 background-color: #4285F4 !important;
 color: #fff !important; }
 .btn-primary:hover {
-background-color: #5a95f5; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-primary:focus, .btn-primary:active, .btn-primary.active {
 background-color: #0d5fe6; }
 .btn-primary.dropdown-toggle {
@@ -2189,7 +2197,15 @@ border-color: #4285F4 !important; }
 background-color: #ff3547 !important;
 color: #fff !important; }
 .btn-danger:hover {
-background-color: #ff4f5e; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-danger:focus, .btn-danger:active, .btn-danger.active {
 background-color: #f20016; }
 .btn-danger.dropdown-toggle {
@@ -2216,8 +2232,16 @@ border-color: #ff3547 !important; }
 .btn-warning {
 background-color: #FF8800 !important;
 color: #fff !important; }
-.btn-warning:hover {
-background-color: #ff941a; }
+.btn-warning:hover{
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-warning:focus, .btn-warning:active, .btn-warning.active {
 background-color: #bd6500; }
 .btn-warning.dropdown-toggle {
@@ -2245,7 +2269,15 @@ border-color: #FF8800 !important; }
 background-color: #00C851 !important;
 color: #fff !important; }
 .btn-success:hover {
-background-color: #00e25b; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-success:focus, .btn-success:active, .btn-success.active {
 background-color: #008636; }
 .btn-success.dropdown-toggle {
@@ -2273,7 +2305,15 @@ border-color: #00C851 !important; }
 background-color: #33b5e5 !important;
 color: #fff !important; }
 .btn-info:hover {
-background-color: #4abde8; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-info:focus, .btn-info:active, .btn-info.active {
 background-color: #1891be; }
 .btn-info.dropdown-toggle {
@@ -2301,7 +2341,15 @@ border-color: #33b5e5 !important; }
 background-color: #2BBBAD !important;
 color: #fff !important; }
 .btn-default:hover {
-background-color: #30cfc0; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-default:focus, .btn-default:active, .btn-default.active {
 background-color: #1f857b; }
 .btn-default.dropdown-toggle {
@@ -2329,7 +2377,15 @@ border-color: #2BBBAD !important; }
 background-color: #aa66cc !important;
 color: #fff !important; }
 .btn-secondary:hover {
-background-color: #b579d2; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active {
 background-color: #8c3cb4; }
 .btn-secondary.dropdown-toggle {
@@ -2357,7 +2413,15 @@ border-color: #aa66cc !important; }
 background-color: #2E2E2E !important;
 color: #fff !important; }
 .btn-elegant:hover {
-background-color: #3b3b3b; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-elegant:focus, .btn-elegant:active, .btn-elegant.active {
 background-color: #0d0d0d; }
 .btn-elegant.dropdown-toggle {
@@ -2385,7 +2449,15 @@ border-color: #2E2E2E !important; }
 background-color: #880e4f !important;
 color: #fff !important; }
 .btn-unique:hover {
-background-color: #9f105c; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-unique:focus, .btn-unique:active, .btn-unique.active {
 background-color: #4c082c; }
 .btn-unique.dropdown-toggle {
@@ -2413,7 +2485,15 @@ border-color: #880e4f !important; }
 background-color: #388E3C !important;
 color: #fff !important; }
 .btn-dark-green:hover {
-background-color: #3fa044; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-dark-green:focus, .btn-dark-green:active, .btn-dark-green.active {
 background-color: #255e28; }
 .btn-dark-green.dropdown-toggle {
@@ -2441,7 +2521,15 @@ border-color: #388E3C !important; }
 background-color: #59698D !important;
 color: #fff !important; }
 .btn-mdb-color:hover {
-background-color: #63759d; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-mdb-color:focus, .btn-mdb-color:active, .btn-mdb-color.active {
 background-color: #3f4b64; }
 .btn-mdb-color.dropdown-toggle {
@@ -2469,7 +2557,15 @@ border-color: #59698D !important; }
 background-color: #D32F2F !important;
 color: #fff !important; }
 .btn-red:hover {
-background-color: #d74444; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-red:focus, .btn-red:active, .btn-red.active {
 background-color: #9e2121; }
 .btn-red.dropdown-toggle {
@@ -2497,7 +2593,15 @@ border-color: #D32F2F !important; }
 background-color: #ec407a !important;
 color: #fff !important; }
 .btn-pink:hover {
-background-color: #ee578a; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-pink:focus, .btn-pink:active, .btn-pink.active {
 background-color: #d51556; }
 .btn-pink.dropdown-toggle {
@@ -2525,7 +2629,15 @@ border-color: #ec407a !important; }
 background-color: #8e24aa !important;
 color: #fff !important; }
 .btn-purple:hover {
-background-color: #a028bf; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-purple:focus, .btn-purple:active, .btn-purple.active {
 background-color: #601873; }
 .btn-purple.dropdown-toggle {
@@ -2553,7 +2665,15 @@ border-color: #8e24aa !important; }
 background-color: #512da8 !important;
 color: #fff !important; }
 .btn-deep-purple:hover {
-background-color: #5b32bc; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-deep-purple:focus, .btn-deep-purple:active, .btn-deep-purple.active {
 background-color: #381f74; }
 .btn-deep-purple.dropdown-toggle {
@@ -2581,7 +2701,15 @@ border-color: #512da8 !important; }
 background-color: #3f51b5 !important;
 color: #fff !important; }
 .btn-indigo:hover {
-background-color: #4d5ec1; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-indigo:focus, .btn-indigo:active, .btn-indigo.active {
 background-color: #2e3b84; }
 .btn-indigo.dropdown-toggle {
@@ -2609,7 +2737,15 @@ border-color: #3f51b5 !important; }
 background-color: #1976D2 !important;
 color: #fff !important; }
 .btn-blue:hover {
-background-color: #2083e4; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-blue:focus, .btn-blue:active, .btn-blue.active {
 background-color: #125597; }
 .btn-blue.dropdown-toggle {
@@ -2637,7 +2773,15 @@ border-color: #1976D2 !important; }
 background-color: #82B1FF !important;
 color: #fff !important; }
 .btn-light-blue:hover {
-background-color: #9cc1ff; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-light-blue:focus, .btn-light-blue:active, .btn-light-blue.active {
 background-color: #4088ff; }
 .btn-light-blue.dropdown-toggle {
@@ -2665,7 +2809,15 @@ border-color: #82B1FF !important; }
 background-color: #00bcd4 !important;
 color: #fff !important; }
 .btn-cyan:hover {
-background-color: #00d3ee; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-cyan:focus, .btn-cyan:active, .btn-cyan.active {
 background-color: #008192; }
 .btn-cyan.dropdown-toggle {
@@ -2693,7 +2845,15 @@ border-color: #00bcd4 !important; }
 background-color: #00796b !important;
 color: #fff !important; }
 .btn-teal:hover {
-background-color: #009382; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-teal:focus, .btn-teal:active, .btn-teal.active {
 background-color: #003730; }
 .btn-teal.dropdown-toggle {
@@ -2721,7 +2881,15 @@ border-color: #00796b !important; }
 background-color: #388E3C !important;
 color: #fff !important; }
 .btn-green:hover {
-background-color: #3fa044; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-green:focus, .btn-green:active, .btn-green.active {
 background-color: #255e28; }
 .btn-green.dropdown-toggle {
@@ -2749,7 +2917,15 @@ border-color: #388E3C !important; }
 background-color: #8bc34a !important;
 color: #fff !important; }
 .btn-light-green:hover {
-background-color: #97c95d; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-light-green:focus, .btn-light-green:active, .btn-light-green.active {
 background-color: #699832; }
 .btn-light-green.dropdown-toggle {
@@ -2777,7 +2953,15 @@ border-color: #8bc34a !important; }
 background-color: #afb42b !important;
 color: #fff !important; }
 .btn-lime:hover {
-background-color: #c3c930; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-lime:focus, .btn-lime:active, .btn-lime.active {
 background-color: #7b7e1e; }
 .btn-lime.dropdown-toggle {
@@ -2805,7 +2989,15 @@ border-color: #afb42b !important; }
 background-color: #fbc02d !important;
 color: #fff !important; }
 .btn-yellow:hover {
-background-color: #fbc846; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-yellow:focus, .btn-yellow:active, .btn-yellow.active {
 background-color: #e1a204; }
 .btn-yellow.dropdown-toggle {
@@ -2833,7 +3025,15 @@ border-color: #fbc02d !important; }
 background-color: #ffa000 !important;
 color: #fff !important; }
 .btn-amber:hover {
-background-color: #ffaa1a; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-amber:focus, .btn-amber:active, .btn-amber.active {
 background-color: #bd7600; }
 .btn-amber.dropdown-toggle {
@@ -2861,7 +3061,15 @@ border-color: #ffa000 !important; }
 background-color: #f57c00 !important;
 color: #fff !important; }
 .btn-orange:hover {
-background-color: #ff8910; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-orange:focus, .btn-orange:active, .btn-orange.active {
 background-color: #b35a00; }
 .btn-orange.dropdown-toggle {
@@ -2889,7 +3097,15 @@ border-color: #f57c00 !important; }
 background-color: #ff7043 !important;
 color: #fff !important; }
 .btn-deep-orange:hover {
-background-color: #ff835d; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-deep-orange:focus, .btn-deep-orange:active, .btn-deep-orange.active {
 background-color: #ff3e01; }
 .btn-deep-orange.dropdown-toggle {
@@ -2917,7 +3133,15 @@ border-color: #ff7043 !important; }
 background-color: #795548 !important;
 color: #fff !important; }
 .btn-brown:hover {
-background-color: #896052; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-brown:focus, .btn-brown:active, .btn-brown.active {
 background-color: #4f382f; }
 .btn-brown.dropdown-toggle {
@@ -2945,7 +3169,15 @@ border-color: #795548 !important; }
 background-color: #616161 !important;
 color: #fff !important; }
 .btn-grey:hover {
-background-color: #6e6e6e; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-grey:focus, .btn-grey:active, .btn-grey.active {
 background-color: #404040; }
 .btn-grey.dropdown-toggle {
@@ -2973,7 +3205,15 @@ border-color: #616161 !important; }
 background-color: #78909c !important;
 color: #fff !important; }
 .btn-blue-grey:hover {
-background-color: #879ca7; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-blue-grey:focus, .btn-blue-grey:active, .btn-blue-grey.active {
 background-color: #596e79; }
 .btn-blue-grey.dropdown-toggle {
@@ -3001,7 +3241,15 @@ border-color: #78909c !important; }
 background-color: #212121 !important;
 color: #fff !important; }
 .btn-dark:hover {
-background-color: #2e2e2e; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-dark:focus, .btn-dark:active, .btn-dark.active {
 background-color: black; }
 .btn-dark.dropdown-toggle {
@@ -3029,7 +3277,15 @@ border-color: #212121 !important; }
 background-color: #e0e0e0 !important;
 color: #000 !important; }
 .btn-light:hover {
-background-color: #ededed; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-light:focus, .btn-light:active, .btn-light.active {
 background-color: #bfbfbf; }
 .btn-light.dropdown-toggle {
@@ -3057,7 +3313,15 @@ border-color: #e0e0e0 !important; }
 background-color: #fff !important;
 color: #000 !important; }
 .btn-white:hover {
-background-color: white; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-white:focus, .btn-white:active, .btn-white.active {
 background-color: #dedede; }
 .btn-white.dropdown-toggle {
@@ -3085,7 +3349,15 @@ border-color: #fff !important; }
 background-color: #000 !important;
 color: #fff !important; }
 .btn-black:hover {
-background-color: #0d0d0d; }
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}
 .btn-black:focus, .btn-black:active, .btn-black.active {
 background-color: black; }
 .btn-black.dropdown-toggle {
@@ -3114,8 +3386,15 @@ border-color: #000 !important; }
   background-color: #7460ee;
   border-color: #7460ee; }
   .btn-primary:hover {
-    color: #fff;
-    background-color: #563dea;
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-fill-mode: both;
+animation-fill-mode: both;
+-webkit-animation-iteration-count: infinite;
+animation-iteration-count: infinite; 
+-webkit-animation-name: tada;
+animation-name: tada;   
+}: #563dea;
     border-color: #4c32e9; }
   .btn-primary:focus, .btn-primary.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 96, 238, 0.5);
@@ -5287,21 +5566,34 @@ tbody.collapse.show {
   background-size: 200px 200px; }
 
 .progress-bar-animated {
-  -webkit-animation: progress 0.1s linear infinite;
-  animation: progress 0.1s linear infinite; }
+  -webkit-animation: mymove 0.1s linear infinite;
+  animation: mymove 0.1s linear infinite; }
 
-  @-webkit-keyframes progress {
+  @-webkit-keyframes cdd {
   from {
     background-position: auto 0; }
   to {
     background-position: 0 0; } }
 
-@keyframes progress {
+@keyframes cdd {
   from {
     background-position: auto 0; }
   to {
     background-position: 0 0; } }
 
+
+
+div.moving-obj{
+        font-size: 15px;        
+        position: relative;
+        padding: 7px 0px 1px;
+        animation: mymove 10s infinite;
+    }
+
+    @keyframes mymove {
+        from {left: -95px;}
+        to {left: 230px;}
+    }
 .media {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -10681,7 +10973,7 @@ Preloader
   width: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border: 0 solid green;
+  border: 0 solid #4a5157;
   border-radius: 50%;
   -webkit-animation: loader-figure 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
   -moz-animation: loader-figure 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -10699,7 +10991,7 @@ Preloader
   font-size: 0.875em;
   letter-spacing: 0.1em;
   line-height: 1.5em;
-  color:green ;
+  color:#4a5157 ;
   white-space: nowrap;
   -webkit-animation: loader-label 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
   -moz-animation: loader-label 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -11546,7 +11838,7 @@ Display Classes
         .topbar .top-navbar .navbar-header .navbar-brand .light-logo {
           display: none; }
     .topbar .top-navbar .navbar-nav > .nav-item.show {
-      background: rgb(35, 38, 46); }
+      background: #495056!important; }
     .topbar .top-navbar .navbar-nav > .nav-item > .nav-link {
       padding-left: 15px;
       padding-right: 15px;
@@ -21843,9 +22135,13 @@ File: scss
 .bg-default{
    background: #6c757d;
 }
+.bg-main{
+   background: #495056!important;
+}
+
 
 .shadow-login{
-    box-shadow: 0px 10px 10px 5px #14161b;
+    box-shadow: 1px 1px 3px 0px #50575e;
 }
 .shadow{
     box-shadow:0px 2px 5px 1px #d0d0d0!important;
@@ -21995,7 +22291,7 @@ File: scss
 
 /* Create an active/current "tab button" class */
 .tab button.active {
-  background-color: #00c851;
+  background-color: #4a5157;
   color: #fff;
 }
 
