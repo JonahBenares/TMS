@@ -110,20 +110,15 @@
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-lg-2">
+                            <!-- <div class="col-lg-2">
                                 <div style="text-align: right">
-                                    <small class="proj-title">Company:</small><br>
-                                    <span class="proj-title"><b style="font-weight: 500"><?php echo $company; ?></b></span>
-                                    <br>
-                                    <br>
-                                    <small class="proj-title">Department:</small><br>
-                                    <span class=""><?php echo $department; ?></span>
+                                    
 
                                     <br>
                                     <br>       
                                 </div>
-                            </div>
-                            <div class="col-lg-8">
+                            </div> -->
+                            <div class="col-lg-9">
                                 <h3 class="proj-title m-b-0" style="font-weight: 600"><?php echo $project_title; ?></h3>
                                    <?php $employee = explode(", ", $employee);  
                                                      
@@ -204,7 +199,7 @@
                                     <?php } ?>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <div style="text-align: left" class="btn-block">
                                     <?php if($status == 'Pending') { ?>
                                     <label class="label label-warning">Pending</label>
@@ -228,6 +223,16 @@
                                     <span class="text-dfault2 fa fa-flag"></span>
                                     <?php } ?>
                                     <br>
+                                    <br>
+                                    <small class="proj-title">Company:</small><br>
+                                    <span class="proj-title"><b style="font-weight: 500"><?php echo $company; ?></b></span>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">Department:</small><br>
+                                    <span class=""><?php echo $department; ?></span>
+                                    <br>
+                                    
+                                    
                                     <br>
                                     <small class="proj-title">Start Date:</small><br>
                                     <span class=""><?php echo date('M j, Y', strtotime($start_date)); ?></span>
