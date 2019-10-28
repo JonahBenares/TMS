@@ -84,7 +84,6 @@
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
-                   <!--  <a class="btn btn-success d-none d-lg-block m-l-15" href="https://wrappixel.com/templates/elegant-admin/"> Upgrade To Pro</a> -->
                 </div>
             </div>
         </div>
@@ -93,91 +92,72 @@
                 <div class="card oh">
                     <div class="card-body">
                         <table id="myTable" class="table" >
-                                <thead >
-                                    <tr class="nobor-top">
-                                        <th class="nobor-top"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- loop here -->
-                                    <tr>
-                                        <td class="p-0">
-                                               <?php foreach($projects AS $proj){ ?>
-                                            <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $proj->project_id; ?>" >
-                                                <table width="100%" >
-                                                 
-                                                      <?php $employee = explode(", ", $proj->employee);  
-                                                     
-                                                        $count = count($employee);
-                                                        $emp='';
-                                                         for($x=0;$x<$count;$x++){
-                                                            $emp.= $ci->get_updated_name($employee[$x]). ", ";
-                                                         } 
-                                                         $employees = substr($emp, 0, -2);
-                                                          ?>
-                                                    <tr>
-                                                        <!-- <td width="8%">
-                                                            
-                                                        </td> -->
-                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4><small class="proj-title"><?php echo $employees; ?></small>  
-                                                        <br>
-                                                           
-                                                            <br>
-
-
+                            <thead >
+                                <tr class="nobor-top">
+                                    <th class="nobor-top"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-0">
+                                           <?php foreach($projects AS $proj){ ?>
+                                        <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $proj->project_id; ?>" >
+                                            <table width="100%" >                                             
+                                                    <?php $employee = explode(", ", $proj->employee);                                                   
+                                                    $count = count($employee);
+                                                    $emp='';
+                                                    for($x=0;$x<$count;$x++){
+                                                    $emp.= $ci->get_updated_name($employee[$x]). ", ";
+                                                    } 
+                                                    $employees = substr($emp, 0, -2);
+                                                    ?>
+                                                <tr>
+                                                    <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4>
+                                                        <small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small><br>
+                                                        <small class="proj-title"><?php echo $employees; ?></small>  
+                                                    <br>
                                                         <?php if($proj->priority_no==1){ ?>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <?php } else if($proj->priority_no==2){ ?>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            <?php } else if($proj->priority_no==3) { ?>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            <?php } ?> 
-
-                                                        </td>
-                                                        <td class="bg-hovr" width="37%" class="nobor-top">  
-                                                        <div class="progress progress-bar-animated active">
-                                                            <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
-
-                                                            <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    
-                                                            </div>
-
-                                                                <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;color: #6c757d!important">
-                                                                    <?php echo $ci->project_percent($proj->project_id); ?>%
-                                                                </span>
-                                                            <?php } else { ?>
-                                                                <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;">
-                                                                    <?php echo $ci->project_percent($proj->project_id); ?>%
-                                                                </span>
-                                                            </div>
-                                                            <?php } ?>
-                                                               
-
-
-                                                            
-
-                                                        </div>     
-                                                             <small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small> 
-                                                        <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
-                                                            <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>                                                       
-                                                            
-                                                        </td>
-                                                    </tr>
-                                                  
-                                                </table>
-                                                  <?php } ?>
-                                            </a> 
-                                        </td>                                       
-                                    </tr>
-                                    <!-- loop here -->
-                                </tbody>
-                            </table>
-
+                                                        <span class="text-warning fa fa-flag"></span>
+                                                        <span class="text-warning fa fa-flag"></span>
+                                                        <span class="text-warning fa fa-flag"></span>
+                                                        <?php } else if($proj->priority_no==2){ ?>
+                                                        <span class="text-warning fa fa-flag"></span>
+                                                        <span class="text-warning fa fa-flag"></span>
+                                                        <span class="text-dfault2 fa fa-flag"></span>
+                                                        <?php } else if($proj->priority_no==3) { ?>
+                                                        <span class="text-warning fa fa-flag"></span>
+                                                        <span class="text-dfault2 fa fa-flag"></span>
+                                                        <span class="text-dfault2 fa fa-flag"></span>
+                                                        <?php } ?> 
+                                                    </td>
+                                                    <td class="bg-hovr" width="37%" class="nobor-top">  
+                                                    <div class="progress progress-bar-animated active">
+                                                        <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
+                                                        <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    
+                                                        </div>
+                                                            <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;color: #6c757d!important">
+                                                                <?php echo $ci->project_percent($proj->project_id); ?>%
+                                                            </span>
+                                                        <?php } else { ?>
+                                                            <span class="m-t-10 m-l-5 m-b-10" style="font-size: 15px;">
+                                                                <?php echo $ci->project_percent($proj->project_id); ?>%
+                                                            </span>
+                                                        </div>
+                                                        <?php } ?>
+                                                    </div>     
+                                                         
+                                                    <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
+                                                        <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>
+                                                    </td>
+                                                </tr>
+                                              
+                                            </table>
+                                              <?php } ?>
+                                        </a> 
+                                    </td>                                       
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <!-- <div class="card-body bg-light">
                         <div class="row text-center m-b-20">
@@ -222,7 +202,7 @@
                             if(!empty($reminders)){
                                 $columns = array_column($reminders, 'due_date');
                                 $a = array_multisort($columns, SORT_ASC, $reminders);
-
+                                 $today = date('Y-m-d');
                             foreach($reminders AS $r){ ?>
                             <div class="sl-item">
                                 <div class=""></div>
@@ -232,8 +212,12 @@
                                     <small class="desc m-b-5 btn-block"><?php echo $r['employee']; ?></small> 
                                     <span class="sl-date"> 
                                         <?php echo $r['due_date']; ?>
+                                        <?php                                        
+                                        if($r['due_date']<=$today){?>
                                         <span class="m-l-5 text-danger"><?php echo $r['days_left']; ?></span>
-
+                                        <?php }else{ ?>
+                                        <span class="m-l-5 text-info"><?php echo $r['days_left']; ?></span>
+                                        <?php } ?>
                                         <?php if($r['reminder_id']!=0){ ?>
                                         <span data-toggle="modal" data-target="#cancel_reminder" class="pull-right">
                                             <a data-id = "<?php echo ($r['project_id']!=0) ? $r['project_id'] : $r['reminder_id'] ; ?>" data-name = "<?php echo ($r['project_id']!=0) ? 'Project' : 'Reminder' ; ?>" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Cancel" title="Cancel" alt='Cancel'>
@@ -245,15 +229,9 @@
                                                 <a  href="<?php echo base_url(); ?>masterfile/done_reminder/<?php echo $r['reminder_id']; ?>" onclick="return confirm('Are you sure?')" class="btn btn-success item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Done" title="Done" alt='Done'>
                                                     <i class="fa fa-check"></i>
                                                 </a>
-                                            </span>
-                                           
-                                            
+                                            </span>  
                                         </div>
                                         <?php } ?>
-
-                                     
-
-                                        
                                     </span>
                                 </div>
                             </div>
