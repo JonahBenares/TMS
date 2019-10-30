@@ -265,7 +265,6 @@
                                     </div>
                                     <br>
                                     <?php if($status == 'Done'){ ?>
-                                    <br>
                                     <small class="proj-title">Date Completed: </small><br>
                                     <span class=""><?php echo date('M j, Y', strtotime($ci->project_completed($project_id))); ?></span>
                                     <?php } ?>
