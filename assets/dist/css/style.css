@@ -355,6 +355,12 @@ h5, .h5 {
 h6, .h6 {
   font-size: 14px; }
 
+h7, .h7 {
+  font-size: 12px; }
+
+h8, .h8 {
+  font-size: 10px; }
+
 .lead {
   font-size: 1.09375rem;
   font-weight: 300; }
@@ -2242,14 +2248,14 @@ background-color: transparent !important;
 border-color: #FF8800 !important; }
 
 .btn-success {
-background-color: #00C851 !important;
+background-color: #36bea6  !important;
 color: #fff !important; }
 .btn-success:hover {
 background-color: #00e25b; }
 .btn-success:focus, .btn-success:active, .btn-success.active {
 background-color: #008636; }
 .btn-success.dropdown-toggle {
-background-color: #00C851 !important; }
+background-color: #36bea6  !important; }
 .btn-success.dropdown-toggle:hover, .btn-success.dropdown-toggle:focus {
 background-color: #00e25b !important; }
 .btn-success:not([disabled]):not(.disabled):active, .btn-success:not([disabled]):not(.disabled).active,
@@ -12751,7 +12757,7 @@ File: scss
 
 .steamline .sl-item {
   border-bottom: 1px solid #e9ecef;
-  margin: 20px 0; }
+  margin: 10px 0; }
 
 .sl-date {
   font-size: 10px;
@@ -21848,7 +21854,7 @@ File: scss
     background: #23262e !important;
 }
 .bg-default{
-   background: #6c757d;
+   background: #8e9296;
 }
 .bg-main{
    background: #495056!important;
@@ -22069,3 +22075,74 @@ a table tr:hover{
       box-shadow: 0 0 0 0 rgba(219, 52, 59, 0);
   }
 }*/
+
+@keyframes glowing {
+  0% { box-shadow: 0 0 -10px red; }
+  40% { box-shadow: 0 0 20px red; }
+  60% { box-shadow: 0 0 20px red; }
+  100% { box-shadow: 0 0 -10px red; }
+}
+
+.button-glow {
+  animation: glowing 900ms infinite;
+}
+.fw500{
+  font-weight: 500;
+}
+.fw600{
+  font-weight: 600;
+}
+.fw700{
+  font-weight: 700;
+}
+.fw800{
+  font-weight: 800;
+}
+.fw900{
+  font-weight: 900;
+}
+.fw1000{
+  font-weight: 1000;
+}
+
+/*-----------------------accordion----------------------*/ 
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.accordion-ex {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 10px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+.panel-body{
+  padding: 10px 0px;
+}
+
+/*-----------------------accordion----------------------*/ 

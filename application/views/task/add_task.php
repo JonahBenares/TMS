@@ -68,6 +68,28 @@
                                                 <?php } ?>
                                             </select>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <div class="form-group">
+                                                    <select class="form-control" name='department'>
+                                                        <option value="">-Select Monitor Person-</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <select class="form-control" name='department'>
+                                                        <option value="">-From-</option>
+                                                        <option value="">Verbally</option>
+                                                        <option value="">Emailed</option>
+                                                        <option value="">Memo </option>
+                                                        <option value="">Meeting</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
                                         <div class="form-group">
                                             <select class="custom-select" multiple name="employee[]">
                                                 <option value="">-Select Accountable Employee-</option>

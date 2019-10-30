@@ -112,23 +112,26 @@
                                                     $employees = substr($emp, 0, -2);
                                                     ?>
                                                 <tr>
-                                                    <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4>
-                                                        <small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small><br>
+                                                    <td class="bg-hovr" width="50%" class="nobor-top">
+                                                        <h4 class="proj-title m-0 fw500"><?php echo $proj->project_title; ?></h4>
+                                                        <div class="proj-title fw500 h7 m-b-10">#099 | Central Negros POWER REALIABILITY INC.</div>
                                                         <small class="proj-title"><?php echo $employees; ?></small>  
-                                                    <br>
-                                                        <?php if($proj->priority_no==1){ ?>
-                                                        <span class="text-warning fa fa-flag"></span>
-                                                        <span class="text-warning fa fa-flag"></span>
-                                                        <span class="text-warning fa fa-flag"></span>
-                                                        <?php } else if($proj->priority_no==2){ ?>
-                                                        <span class="text-warning fa fa-flag"></span>
-                                                        <span class="text-warning fa fa-flag"></span>
-                                                        <span class="text-dfault2 fa fa-flag"></span>
-                                                        <?php } else if($proj->priority_no==3) { ?>
-                                                        <span class="text-warning fa fa-flag"></span>
-                                                        <span class="text-dfault2 fa fa-flag"></span>
-                                                        <span class="text-dfault2 fa fa-flag"></span>
-                                                        <?php } ?> 
+                                                        <br>
+                                                        <h6 class="proj-title">
+                                                            <?php if($proj->priority_no==1){ ?>
+                                                            <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-warning fa fa-flag"></span>
+                                                            <?php } else if($proj->priority_no==2){ ?>
+                                                            <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-dfault2 fa fa-flag"></span>
+                                                            <?php } else if($proj->priority_no==3) { ?>
+                                                            <span class="text-warning fa fa-flag"></span>
+                                                            <span class="text-dfault2 fa fa-flag"></span>
+                                                            <span class="text-dfault2 fa fa-flag"></span>
+                                                            <?php } ?> 
+                                                        </h6>                                                        
                                                     </td>
                                                     <td class="bg-hovr" width="37%" class="nobor-top">  
                                                         <div class="progress progress-bar-animated active">
@@ -196,17 +199,22 @@
                                 </div>
                             </div>
                         <?php }  ?> 
-                        <div class="steamline m-0">
-                            <?php 
+                        <?php 
                             if(!empty($reminders)){
                                 $columns = array_column($reminders, 'due_date');
                                 $a = array_multisort($columns, SORT_ASC, $reminders);
                                  $today = date('Y-m-d');
                             foreach($reminders AS $r){ ?>
-                            <div class="sl-item">
+                        <div class="steamline m-0" <?php if($r['due_date']<=$today){?> style="border-left:1px solid red; " <?php } ?>>
+                            <div class="sl-item" <?php if($r['due_date']<=$today){?> style="border-bottom:1px solid red; " <?php } ?>>
                                 <div class=""></div>
-                                <button class="btn-xs btn sl-left " ></button>
-                                <div class="sl-right">
+                                <?php                                        
+                                if($r['due_date']<=$today){?>
+                                <button class="btn-xs btn sl-left btn-danger button-glow" data-toggle="tooltip" data-placement="top" title="OVERDUE" ></button>
+                                <?php }else{ ?>
+                                <button class="btn-xs btn sl-left "></button>                                  
+                                <?php } ?>
+                                <div class="sl-right p-t-5 " <?php if($r['due_date']<=$today){?> style="background:#fdeded " <?php } ?>>
                                     <h5 class="font-medium m-0"><?php echo $r['notes']; ?></h5>
                                     <small class="desc m-b-5 btn-block"><?php echo $r['employee']; ?></small> 
                                     <span class="sl-date"> 
@@ -215,15 +223,15 @@
                                         if($r['due_date']<=$today){?>
                                         <span class="m-l-5 text-danger"><?php echo $r['days_left']; ?></span>
                                         <?php }else{ ?>
-                                        <span class="m-l-5 text-info"><?php echo $r['days_left']; ?></span>
+                                        <span class="m-l-5 text-info"><?php echo $r['days_left']; ?></span>                                       
                                         <?php } ?>
                                         <?php if($r['reminder_id']!=0){ ?>
-                                        <span data-toggle="modal" data-target="#cancel_reminder" class="pull-right">
-                                            <a data-id = "<?php echo ($r['project_id']!=0) ? $r['project_id'] : $r['reminder_id'] ; ?>" data-name = "<?php echo ($r['project_id']!=0) ? 'Project' : 'Reminder' ; ?>" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Cancel" title="Cancel" alt='Cancel'>
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                        </span>
-                                           <div class="pull-right">
+                                        <div class="pull-right">
+                                            <span data-toggle="modal" data-target="#cancel_reminder" class="pull-right">
+                                                <a data-id = "<?php echo ($r['project_id']!=0) ? $r['project_id'] : $r['reminder_id'] ; ?>" data-name = "<?php echo ($r['project_id']!=0) ? 'Project' : 'Reminder' ; ?>" class="btn btn-danger item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Cancel" title="Cancel" alt='Cancel'>
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </span>                                           
                                             <span >
                                                 <a  href="<?php echo base_url(); ?>masterfile/done_reminder/<?php echo $r['reminder_id']; ?>" onclick="return confirm('Are you sure?')" class="btn btn-success item btn-xs" data-toggle="tooltip" data-placement="top" id = "updateCancel_button"  title="Done" title="Done" alt='Done'>
                                                     <i class="fa fa-check"></i>
@@ -233,10 +241,9 @@
                                         <?php } ?>
                                     </span>
                                 </div>
-                            </div>
-                            <?php }
-                            } ?>
+                            </div>                            
                         </div>
+                        <?php }  } ?>
                     </div>
                 </div>
             </div>

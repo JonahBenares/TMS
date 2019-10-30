@@ -129,22 +129,26 @@
                                                          $employees = substr($emp, 0, -2);
                                                           ?>
                                                     <tr>
-                                                        <td class="bg-hovr" width="50%" class="nobor-top"><h4 class="proj-title m-0"><?php echo $proj->project_title; ?></h4>
-                                                            <small class="proj-title"><b><?php echo $ci->get_name("company", "company_name", "company_id", $proj->company_id); ?></b></small><br>
-                                                            <small class="proj-title"><?php echo $employees; ?></small><br>
-                                                            <?php if($proj->priority_no==1){ ?>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <?php } else if($proj->priority_no==2){ ?>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            <?php } else if($proj->priority_no==3) { ?>
-                                                            <span class="text-warning fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span>
-                                                            <span class="text-dfault2 fa fa-flag"></span>                                                            
-                                                            <?php } ?>                                                            
+                                                        <td class="bg-hovr" width="50%" class="nobor-top">
+                                                            <h4 class="proj-title m-0 fw500"><?php echo $proj->project_title; ?></h4>
+                                                            <div class="proj-title fw500 h7 m-b-10">#099 | <?php echo $ci->get_name("company", "company_name", "company_id", $proj->company_id); ?></div>
+                                                            <small class="proj-title"><?php echo $employees; ?></small>  
+                                                            <br>
+                                                            <h6 class="proj-title">
+                                                                <?php if($proj->priority_no==1){ ?>
+                                                                <span class="text-warning fa fa-flag"></span>
+                                                                <span class="text-warning fa fa-flag"></span>
+                                                                <span class="text-warning fa fa-flag"></span>
+                                                                <?php } else if($proj->priority_no==2){ ?>
+                                                                <span class="text-warning fa fa-flag"></span>
+                                                                <span class="text-warning fa fa-flag"></span>
+                                                                <span class="text-dfault2 fa fa-flag"></span>
+                                                                <?php } else if($proj->priority_no==3) { ?>
+                                                                <span class="text-warning fa fa-flag"></span>
+                                                                <span class="text-dfault2 fa fa-flag"></span>
+                                                                <span class="text-dfault2 fa fa-flag"></span>
+                                                                <?php } ?> 
+                                                            </h6>                                                                        
                                                         </td>
                                                         <td class="bg-hovr" width="%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>

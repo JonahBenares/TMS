@@ -28,9 +28,11 @@
 
                             <option value="<?php echo $emp->employee_id; ?>" ><?php echo $emp->employee_name; ?></option>
                         <?php } ?>
-                    </select>
-                    
+                    </select>                    
                 </div>
+                <div class="form-group">
+                    <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="followup_date">
+                </div> 
                 <div class="form-group">
                     <input type="submit" name="" class="btn btn-success btn-block"  value="Save Update">
                     <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
@@ -70,6 +72,32 @@
 </div>
 
 
+<div class="modal fade" id="extend_proj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Extend Project Date</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method='POST' action="<?php echo base_url(); ?>report/">
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Reason" name=''></textarea>
+                </div>  
+                <div class="form-group">
+                    <input placeholder="Extend Date" class="form-control" name='cancel_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                </div> 
+                <div class="form-group">
+                    <input type="submit" name="" class="btn btn-success btn-block"  value="Extend">
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row page-titles">
@@ -77,9 +105,7 @@
                 <div class="d-flex  align-items-center"> <!-- justify-content-end -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>index.php/masterfile/dashboard/">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>index.php/report/pending_list/">Pending List</a></li>
-                        <!-- <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>index.php/report/completed_list/">Completed List</a></li>
-                        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>index.php/report/cancelled_list/">Cancelled List</a></li> -->
+                        <li class="breadcrumb-item"><a href="#" onclick="window.history.go(-1);">List</a></li>
                         <li class="breadcrumb-item active">View task</li>
                         <li class="breadcrumb-item">
                         </li>
@@ -107,17 +133,8 @@
                             </div>
                             <?php } ?>            
                         </div> 
-                    <div class="card-body">
-
+                    <div class="card-body p-b-100">
                         <div class="row">
-                            <!-- <div class="col-lg-2">
-                                <div style="text-align: right">
-                                    
-
-                                    <br>
-                                    <br>       
-                                </div>
-                            </div> -->
                             <div class="col-lg-9">
                                 <h3 class="proj-title m-b-0" style="font-weight: 600"><?php echo $project_title; ?></h3>
                                    <?php $employee = explode(", ", $employee);  
@@ -130,7 +147,10 @@
                                      $employees = substr($emp, 0, -2);
                                       ?>
                                 <small class="proj-title "><?php echo $employees; ?></small><br>
-                            <div class="m-t-10"><?php echo nl2br($project_description); ?></div>                                            
+                                <div class="m-t-10"><?php echo nl2br($project_description); ?></div>
+                                <center>
+                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: 10/10/19</label>
+                                </center>                                            
                                 <div class="steamline m-t-40">
                                     <?php
                                         $msg_updates= $this->session->flashdata('msg_updates');  
@@ -201,6 +221,15 @@
                             </div>
                             <div class="col-lg-3">
                                 <div style="text-align: left" class="btn-block">
+                                    <small class="proj-title">Company:</small><br>
+                                    <span class="proj-title"><b style="font-weight: 500"><?php echo $company; ?></b></span>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">Department:</small><br>
+                                    <span class=""><?php echo $department; ?></span>
+                                    <br>  
+                                    <br>
+                                    <h3 class="proj-title m-b-20" style="font-weight: 500">#099</h3>
                                     <?php if($status == 'Pending') { ?>
                                     <label class="label label-warning">Pending</label>
                                     <?php } else if ($status == 'Cancelled') { ?>
@@ -223,41 +252,73 @@
                                     <span class="text-dfault2 fa fa-flag"></span>
                                     <?php } ?>
                                     <br>
-                                    <br>
-                                    <small class="proj-title">Company:</small><br>
-                                    <span class="proj-title"><b style="font-weight: 500"><?php echo $company; ?></b></span>
-                                    <br>
-                                    <br>
-                                    <small class="proj-title">Department:</small><br>
-                                    <span class=""><?php echo $department; ?></span>
-                                    <br>
-                                    
-                                    
-                                    <br>
-                                    <small class="proj-title">Start Date:</small><br>
-                                    <span class=""><?php echo date('M j, Y', strtotime($start_date)); ?></span>
-                                    <br>
-                                    <br>
-                                    <small class="proj-title">Due Date: </small><br>
-                                    <span class=""><b><?php echo date('M j, Y', strtotime($completion_date)); ?></b></span>
+                                    <br>                                    
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <small class="proj-title">Start Date:</small><br>
+                                            <span class=""><?php echo date('M j, Y', strtotime($start_date)); ?></span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <small class="proj-title">Due Date: </small><br>
+                                            <span class=""><b><?php echo date('M j, Y', strtotime($completion_date)); ?></b></span>
+                                        </div>
+                                    </div>
                                     <br>
                                     <?php if($status == 'Done'){ ?>
                                     <br>
                                     <small class="proj-title">Date Completed: </small><br>
                                     <span class=""><?php echo date('M j, Y', strtotime($ci->project_completed($project_id))); ?></span>
                                     <?php } ?>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">From: Verbally</small><br>
+                                    <small class="proj-title">Monitoring Person: Hennelen Tanan</small>
+                                    <hr class="m-t-10">
+                                    <div>
+                                        Follow Up Dates:<br>
+                                        <small class="p-l-10">January 10, 2019</small><br>
+                                        <small class="p-l-10">October 10, 2019</small><br>
+                                        <small class="p-l-10">January 10, 2019</small><br>
+                                        <small class="p-l-10">January 10, 2019</small><br>
+                                        <small class="p-l-10">January 10, 2019</small><br>
+                                        <small class="p-l-10">January 10, 2019</small><br>
+                                    </div>
+                                    <hr class="m-t-50">
+                                    <div>
+                                        Extension Dates:<br>
+                                        <button class="accordion-ex"><small>January 10, 2019</small></button>
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <b>Reason:</b><br>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                            </div>                                          
+                                        </div>
+                                        <button class="accordion-ex"><small>January 10, 2019</small></button>
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <b>Reason:</b><br>
+                                                <p>Lorem ipsum dolor sit amet, coasdasdsnsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                            </div>                                          
+                                        </div>
+                                    </div>
+
                                 </div>                                
                             </div>
-                            <?php if($status == 'Pending') { ?>
-                            <div style="position: fixed; left: 0;bottom: 0; margin: 50px">
-                                <a href="#" class="btn btn-primary btn-sm bor-radius "  data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
-                                    Add Project Update
+                            <div style="position: fixed; left: 0;bottom: 0; margin: 50px; background: white">
+                                <?php if($status == 'Pending') { ?>
+                                    <a href="#" class="btn btn-primary btn-sm bor-radius "  data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
+                                        Add Project Update
+                                    </a>
+                                <?php } ?>
+                                <a href="#" class="btn btn-success btn-sm bor-radius "  data-toggle="modal" data-target="#extend_proj" title="Extend Date" >
+                                    Extend Date
                                 </a>
+                                <?php if($status == 'Pending') { ?>
                                 <a href="#" class="btn btn-danger btn-sm bor-radius "  data-toggle="modal" data-target="#cancel_proj" title="Cancel" >
                                     Cancel
                                 </a>
-                            </div>
                             <?php } ?>
+                            </div>
                         </div>
                     </div>
                 </div>
