@@ -71,19 +71,23 @@
                                         <div class="row">
                                             <div class="col-lg-8">
                                                 <div class="form-group">
-                                                    <select class="form-control" name='department'>
+                                                    <select class="form-control" name='monitor'>
                                                         <option value="">-Select Monitor Person-</option>
+                                                        <?php foreach($employee AS $em){ ?>
+                                                            <option value="<?php echo $em->employee_id; ?>" <?php echo (!empty($project_id) ? (($monitor_person == $em->employee_id) ? ' selected' : '') : ''); ?>><?php echo $em->employee_name; ?>
+                                                            </option>
+                                                        <?php } ?>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <select class="form-control" name='department'>
+                                                    <select class="form-control" name='from'>
                                                         <option value="">-From-</option>
-                                                        <option value="">Verbally</option>
-                                                        <option value="">Emailed</option>
-                                                        <option value="">Memo </option>
-                                                        <option value="">Meeting</option>
+                                                        <option value="Verbally" <?php echo (!empty($project_id) ? (($from == 'Verbally') ? ' selected' : '') : ''); ?>>Verbally</option>
+                                                        <option value="Emailed" <?php echo (!empty($project_id) ? (($from == "Emailed") ? ' selected' : '') : ''); ?>>Emailed</option>
+                                                        <option value="Memo" <?php echo (!empty($project_id) ? (($from == "Memo") ? ' selected' : '') : ''); ?>>Memo </option>
+                                                        <option value="Meeting" <?php echo (!empty($project_id) ? (($from == "Meeting") ? ' selected' : '') : ''); ?>>Meeting</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -152,7 +156,7 @@
                                     <div class="col-lg-4"> 
 
                                         <h3 class="proj-title"><?php echo $project_title; ?></h3>
-                                        <small class="proj-title"><b>Central Negros POWER REALIABILITY INC.</b></small>
+                                        <small class="proj-title"><b><?php echo $companys; ?></b></small>
                                         <h6>Start Date: <?php echo date('F j, Y', strtotime($start_date)); ?></h6>
                                         <h6>Due Date: <?php echo date('F j, Y', strtotime($completion_date)); ?></h6>
                                      
@@ -191,7 +195,7 @@
 
 
                                         <form method='POST' action="<?php echo $url_2; ?>">
-                                          <div class="form-group">
+                                        <div class="form-group">
                                             <input placeholder="Update Date" class="form-control" name='update_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"  value="<?php echo (!empty($pd_id) ? $upd_date : ''); ?>">
                                         </div> 
                                         <div class="form-group">
@@ -208,15 +212,16 @@
                                                     <option value="<?php echo $emp->employee_id; ?>"  <?php echo (!empty($pd_id) ? ((strstr($updated_by, $emp->employee_id)) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?></option>
                                                 <?php } ?>
                                             </select>
-                                            
                                         </div>
-                                      
+                                        <div class="form-group">
+                                            <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"  value="<?php echo (!empty($pd_id) ? $followup_date : ''); ?>">
+                                        </div>
                                         <div class="form-group">
                                             <input type="submit" name="" class="btn btn-success btn-block"  value="Save Update">
-                                             <input type='hidden' name='project_id' value="<?php echo $project_id; ?>">
-                                             <?php if(!empty($pd_id)){ ?>
+                                            <input type='hidden' name='project_id' value="<?php echo $project_id; ?>">
+                                            <?php if(!empty($pd_id)){ ?>
                                                 <input type='hidden' name='pd_id' value="<?php echo $pd_id; ?>">
-                                             <?php } ?>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     </form>
@@ -244,6 +249,7 @@
                                                         <th class="text-center">% </span></th>
                                                         <th>Update Description</th>
                                                         <th>Updated By</th>
+                                                        <th>Follow Up Date</th>
                                                         <th><span class="fa fa-bars"></span></th>
                                                     </tr>
                                                 </thead>
@@ -263,6 +269,7 @@
                                                         <td class="text-center"><?php echo $upd->status_percentage."%"; ?></td>
                                                         <td><?php echo $upd->remarks; ?></td>
                                                         <td><?php echo $updated; ?></td>
+                                                        <td class="text-center"><?php echo date('M d, Y', strtotime($upd->followup_date)); ?></td>
                                                         <td>
                                                             <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update/<?php echo $upd->pd_id; ?>" class="btn btn-primary btn-xs bor-radius "  title="Add Project Update" ><span class="fa fa-pencil"></span>
                                                             </a>

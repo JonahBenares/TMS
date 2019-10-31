@@ -114,7 +114,7 @@
                                                 <tr>
                                                     <td class="bg-hovr" class="nobor-top">
                                                         <h4 class="proj-title m-0 fw500"><?php echo $proj->project_title; ?></h4>
-                                                        <div class="proj-title fw500 h7 m-b-10">#099 | Central Negros POWER REALIABILITY INC.</div>
+                                                        <div class="proj-title fw500 h7 m-b-10">#<?php echo $proj->task_no; ?> | <?php echo $ci->get_company_name($proj->company_id); ?></div>
                                                         <small class="proj-title"><?php echo $employees; ?></small>  
                                                         <br>
                                                         <h6 class="proj-title">
@@ -185,18 +185,34 @@
                             </span> -->
                         </h5>
                         <h6 class="card-subtitle">check out your weekly schedule</h6>
+                        <?php 
+                            if(!empty($followup)){
+                                $columns = array_column($followup, 'followup_date');
+                                $a = array_multisort($columns, SORT_ASC, $followup);
+                                $today = date('Y-m-d');
+                                foreach($followup AS $r){ 
+                        ?>
                         <div class="steamline m-t-40">
                             <div class="sl-item">
                                 <div class="sl-left bg-success"></div>
                                 <div class="sl-right">
-                                    <div class="font-medium">Project Title</div>
-                                    <div class="h7">Company</div>
-                                    <div class="h7">Monitoring Person:</div>
+                                    <div class="font-medium"><?php echo $r['notes']; ?></div>
+                                    <div class="h7"><?php echo $ci->get_company_name($r['company_id']); ?></div>
+                                    <div class="h7">Monitoring Person: <?php echo $r['employee']; ?></div>
                                     <br>                                    
-                                    <small> October 31, 2019</small>
+                                    <small> 
+                                        <?php echo $r['followup_date']; ?>
+                                        <?php                                        
+                                        if($r['followup_date']<=$today){?>
+                                            <span class="m-l-5 text-danger"><?php echo $r['days_left']; ?></span>
+                                        <?php }else{ ?>
+                                            <span class="m-l-5 text-info"><?php echo $r['days_left']; ?></span>
+                                        <?php } ?>
+                                    </small>
                                 </div>
                             </div>
                         </div>
+                        <?php } } ?>
                     </div>
                 </div>
             </div>

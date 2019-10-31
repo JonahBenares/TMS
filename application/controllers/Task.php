@@ -55,8 +55,11 @@ class Task extends CI_Controller {
 
         foreach($this->super_model->select_row_where("project_head", "project_id", $project_id) AS $proj){
             $data['company_id']=$proj->company_id;
+            $data['companys']=$this->super_model->select_column_where("company","company_name","company_id",$proj->company_id);
+            $data['from']=$proj->from;
             $data['department_id']=$proj->department_id;
             $data['employee_id']=$proj->employee;
+            $data['monitor_person']=$proj->monitor_person;
             $data['start_date']=$proj->start_date;
             $data['completion_date']=$proj->completion_date;
             $data['priority_no']=$proj->priority_no;
@@ -72,6 +75,7 @@ class Task extends CI_Controller {
 
        foreach($this->super_model->select_row_where("project_details","pd_id","$pd_id") AS $pd){
            $data['upd_date'] = $pd->update_date;
+           $data['followup_date'] = $pd->followup_date;
            $data['remarks'] = $pd->remarks;
            $data['percent'] = $pd->status_percentage;
            $data['updated_by'] = $pd->updated_by;
@@ -105,12 +109,23 @@ class Task extends CI_Controller {
             $project_id = $max+1;
         }
 
+        $taskno_count = $this->super_model->count_rows("project_head");
+        if($taskno_count==0){
+            $task_no1 =1;
+        }else{
+            $maxno = $this->super_model->get_max("project_head", "task_no");
+            $task_no1 = $maxno+1;
+        }
+
+        $task_no = "00".$task_no1;
         $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
         $completion_date = date('Y-m-d', strtotime($this->input->post('completion_date')));
         $project_title = utf8_encode($this->input->post('project_title'));
         $project_desc = utf8_encode($this->input->post('project_desc'));
         $create_date = date('Y-m-d H:i:s');
         $emp = $this->input->post('employee');
+        $monitor = $this->input->post('monitor');
+        $from = $this->input->post('from');
         $empid='';
         $count= count($this->input->post('employee'));
         for($x=0; $x<$count;$x++){
@@ -124,6 +139,9 @@ class Task extends CI_Controller {
             'completion_date'=>$completion_date,
             'project_title'=>$project_title,
             'project_description'=>$project_desc,
+            'task_no'=>$task_no,
+            'monitor_person'=>$monitor,
+            'from'=>$from,
             'priority_no'=>$this->input->post('priority_no'),
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
@@ -147,6 +165,8 @@ class Task extends CI_Controller {
         $project_desc = utf8_encode($this->input->post('project_desc'));
         $create_date = date('Y-m-d H:i:s');
         $emp = $this->input->post('employee');
+        $from = $this->input->post('from');
+        $monitor = $this->input->post('monitor');
         $empid='';
         $count= count($this->input->post('employee'));
         for($x=0; $x<$count;$x++){
@@ -160,6 +180,8 @@ class Task extends CI_Controller {
             'completion_date'=>$completion_date,
             'project_title'=>$project_title,
             'project_description'=>$project_desc,
+            'monitor_person'=>$monitor,
+            'from'=>$from,
             'priority_no'=>$this->input->post('priority_no'),
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
@@ -179,6 +201,7 @@ class Task extends CI_Controller {
 
         $project_id = $this->input->post('project_id');
         $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
+        $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
         $create_date = date('Y-m-d H:i:s');
         $emp = $this->input->post('updated_by');
         $empid='';
@@ -200,6 +223,7 @@ class Task extends CI_Controller {
             'remarks'=>utf8_encode($this->input->post('remarks')),
             'status_percentage'=>$this->input->post('percentage'),
             'update_date'=>$update_date,
+            'followup_date'=>$followup_date,
             'updated_by'=>$empid,
             'create_date'=>$create_date,
         );
@@ -213,6 +237,7 @@ class Task extends CI_Controller {
         $project_id = $this->input->post('project_id');
         $pd_id = $this->input->post('pd_id');
         $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
+        $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
         $create_date = date('Y-m-d H:i:s');
         $emp = $this->input->post('updated_by');
         $empid='';
@@ -226,6 +251,7 @@ class Task extends CI_Controller {
             'remarks'=>utf8_encode($this->input->post('remarks')),
             'status_percentage'=>$this->input->post('percentage'),
             'update_date'=>$update_date,
+            'followup_date'=>$followup_date,
             'updated_by'=>$empid,
             'create_date'=>$create_date,
         );

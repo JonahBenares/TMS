@@ -566,6 +566,9 @@ class Report extends CI_Controller {
         foreach($this->super_model->select_row_where('project_head', 'project_id', $project_id) AS $proj){
             $data['start_date']=$proj->start_date;
             $data['completion_date']=$proj->completion_date;
+            $data['task_no']=$proj->task_no;
+            $data['from']=$proj->from;
+            $data['monitor_person']=$this->super_model->select_column_where("employees", "employee_name", "employee_id", $proj->monitor_person);
             $data['project_title']=$proj->project_title;
             $data['project_description']=$proj->project_description;
             $data['priority_no']=$proj->priority_no;
@@ -585,7 +588,12 @@ class Report extends CI_Controller {
 
         $data['employees'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $data['details'] = $this->super_model->select_custom_where("project_details", "project_id='$project_id' ORDER BY update_date DESC");
-
+        $data['followup_date']=$this->super_model->select_column_custom_where("project_details", "followup_date", "project_id = '$project_id' ORDER BY followup_date DESC");
+        foreach($this->super_model->select_custom_where("project_details", "project_id='$project_id' ORDER BY followup_date DESC") AS $fol){
+            $data['followup'][]=array(
+                "followup_date"=>$fol->followup_date,
+            );
+        }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('report/view_task',$data);

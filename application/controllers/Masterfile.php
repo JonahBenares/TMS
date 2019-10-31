@@ -170,7 +170,12 @@ class Masterfile extends CI_Controller {
         return $name;
     }   
 
-   public function project_percent($project_id){
+    public function get_company_name($company_id){
+        $compname = $this->super_model->select_column_where("company", "company_name", "company_id", $company_id);
+        return $compname;
+    }
+
+    public function project_percent($project_id){
            $rows_detail = $this->super_model->count_rows_where("project_details", "project_id", $project_id);
         if($rows_detail==0){
             $current_percent=0;
@@ -224,6 +229,8 @@ class Masterfile extends CI_Controller {
     {
 
         $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' ORDER BY completion_date ASC");
+        $company_id = $this->super_model->select_column_custom_where("project_head","company_id","status='0' AND priority_no = '1' ORDER BY completion_date ASC");
+        $data['companys']=$this->super_model->select_column_where("company","company_name","company_id",$company_id);
         foreach($this->super_model->select_custom_where("reminders","status = '0' ORDER BY due_date ASC") AS $rem){
             $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
             $today=date("Y-m-d");
@@ -232,15 +239,16 @@ class Masterfile extends CI_Controller {
                 'reminder_id'=>$rem->reminder_id,
                 'project_id'=>0,
                 'notes'=>$rem->notes,
+                'followup_date'=>'',
                 'employee'=>$employee,
                 'due_date'=>$rem->due_date,
+                'company_id'=>0,
                 'days_left'=>$days_left,
             );
         }
 
         foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '30'") AS $due){
-            $employee = explode(", ", $due->employee);  
-                             
+            $employee = explode(", ", $due->employee);              
             $count = count($employee);
             $emp='';
             for($x=0;$x<$count;$x++){
@@ -249,17 +257,35 @@ class Masterfile extends CI_Controller {
             $employees = substr($emp, 0, -2);
             $today=date("Y-m-d");
             $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
+            //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
             $data['reminders'][]=array(
                 'reminder_id'=>0,
                 'project_id'=>$due->project_id,
                 'notes'=>$due->project_title,
+                'followup_date'=>'',
                 'employee'=>$employees,
                 'due_date'=>$due->completion_date,
+                'company_id'=>$due->company_id,
                 'days_left'=>$days_left,
             );
         }
 
-         $data['employees'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        foreach($this->super_model->custom_query("SELECT * FROM project_details WHERE DATEDIFF(followup_date, NOW()) <= '7'") AS $fol){
+            $today=date("Y-m-d");
+            $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
+            foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
+                $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
+                $data['followup'][]=array(
+                    'notes'=>$head->project_title,
+                    'followup_date'=>$fol->followup_date,
+                    'employee'=>$employees,
+                    'company_id'=>$head->company_id,
+                    'days_left'=>$days_left,
+                );
+            }
+        }
+
+        $data['employees'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('masterfile/dashboard', $data);

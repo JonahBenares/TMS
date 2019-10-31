@@ -149,7 +149,7 @@
                                 <small class="proj-title "><?php echo $employees; ?></small><br>
                                 <div class="m-t-10"><?php echo nl2br($project_description); ?></div>
                                 <center>
-                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: 10/10/19</label>
+                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: <?php echo date('M j, Y', strtotime($followup_date)); ?></label>
                                 </center>                                            
                                 <div class="steamline m-t-40">
                                     <?php
@@ -229,7 +229,7 @@
                                     <span class=""><?php echo $department; ?></span>
                                     <br>  
                                     <br>
-                                    <h3 class="proj-title m-b-20" style="font-weight: 500">#099</h3>
+                                    <h3 class="proj-title m-b-20" style="font-weight: 500">#<?php echo $task_no; ?></h3>
                                     <?php if($status == 'Pending') { ?>
                                     <label class="label label-warning">Pending</label>
                                     <?php } else if ($status == 'Cancelled') { ?>
@@ -270,17 +270,21 @@
                                     <?php } ?>
                                     <br>
                                     <br>
-                                    <small class="proj-title">From: Verbally</small><br>
-                                    <small class="proj-title">Monitoring Person: Hennelen Tanan</small>
+                                    <small class="proj-title">From: <?php echo $from; ?></small><br>
+                                    <small class="proj-title">Monitoring Person: <?php echo $monitor_person; ?></small>
                                     <hr class="m-t-10">
                                     <div>
                                         Follow Up Dates:<br>
+                                        <?php 
+                                            if(!empty($followup)){
+                                            foreach($followup AS $f){ ?>
+                                                <small class="p-l-10"><?php echo date('M j, Y', strtotime($f['followup_date'])); ?></small><br>
+                                        <?php } } ?>
+                                        <!-- <small class="p-l-10">October 10, 2019</small><br>
                                         <small class="p-l-10">January 10, 2019</small><br>
-                                        <small class="p-l-10">October 10, 2019</small><br>
                                         <small class="p-l-10">January 10, 2019</small><br>
                                         <small class="p-l-10">January 10, 2019</small><br>
-                                        <small class="p-l-10">January 10, 2019</small><br>
-                                        <small class="p-l-10">January 10, 2019</small><br>
+                                        <small class="p-l-10">January 10, 2019</small><br> -->
                                     </div>
                                     <hr class="m-t-50">
                                     <div>

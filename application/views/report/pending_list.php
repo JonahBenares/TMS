@@ -131,7 +131,7 @@
                                                     <tr>
                                                         <td class="bg-hovr" width="50%" class="nobor-top">
                                                             <h4 class="proj-title m-0 fw500"><?php echo $p->project_title; ?></h4>
-                                                            <div class="proj-title fw500 h7 m-b-10">#099 | <?php echo $ci->get_name("company", "company_name", "company_id", $p->company_id); ?></div>
+                                                            <div class="proj-title fw500 h7 m-b-10">#<?php echo $p->task_no; ?> | <?php echo $ci->get_name("company", "company_name", "company_id", $p->company_id); ?></div>
                                                             <small class="proj-title"><?php echo $employee; ?></small>  
                                                             <br>
                                                             <h6 class="proj-title">
