@@ -24,6 +24,12 @@
                 "lengthMenu": [[50, 70, 100, -1], [50, 70, 100, "All"]]
             });
         });
+
+        $(document).ready(function(){
+            $('#prior').DataTable({
+                "lengthMenu": false
+            });
+        });
     </script>
     <script type="text/javascript">
         function confirmationDelete(anchor){
