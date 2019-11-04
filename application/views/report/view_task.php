@@ -149,7 +149,7 @@
                                 <small class="proj-title "><?php echo $employees; ?></small><br>
                                 <div class="m-t-10"><?php echo nl2br($project_description); ?></div>
                                 <center>
-                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: <?php echo date('M j, Y', strtotime($followup_date)); ?></label>
+                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: <?php echo (!empty($followup_date)) ? date('M j, Y', strtotime($followup_date)) : ''; ?></label>
                                 </center>                                            
                                 <div class="steamline m-t-40">
                                     <?php
@@ -278,7 +278,7 @@
                                         <?php 
                                             if(!empty($followup)){
                                             foreach($followup AS $f){ ?>
-                                                <small class="p-l-10"><?php echo date('M j, Y', strtotime($f['followup_date'])); ?></small><br>
+                                                <small class="p-l-10"><?php echo (!empty($f['followup_date'])) ? date('M j, Y', strtotime($f['followup_date'])) : ''; ?></small><br>
                                         <?php } } ?>
                                         <!-- <small class="p-l-10">October 10, 2019</small><br>
                                         <small class="p-l-10">January 10, 2019</small><br>
