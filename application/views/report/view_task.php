@@ -33,6 +33,14 @@
                 <div class="form-group">
                     <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="followup_date">
                 </div> 
+
+                <div class="form-group">
+                    <input placeholder="Extend Date" class="form-control" name='cancel_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                </div> 
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Reason For Extension" name=''></textarea>
+                </div>                  
+
                 <div class="form-group">
                     <input type="submit" name="" class="btn btn-success btn-block"  value="Save Update">
                     <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
@@ -136,6 +144,7 @@
                     <div class="card-body p-b-100">
                         <div class="row">
                             <div class="col-lg-9">
+                                <h3 class="proj-title m-b-20" style="font-weight: 500">#<?php echo $task_no; ?></h3>
                                 <h3 class="proj-title m-b-0" style="font-weight: 600"><?php echo $project_title; ?></h3>
                                    <?php $employee = explode(", ", $employee);  
                                                      
@@ -200,6 +209,14 @@
                                             <span></span> <small class="proj-title">Updated By: <?php echo $updated_by; ?></small></span>
                                             <div class="desc m-t-20"><?php echo nl2br($det->remarks); ?>
                                             </div>
+                                            <br>
+                                            <small class="proj-title h7"><b>Follow Up Date:</b> October 19, 2019</small><br>
+                                            <small class="proj-title h7"><b>Extension Date:</b> October 19, 2019</small><br>
+                                            <div class="m-l-20">
+                                                <small class="proj-title">Reason for Extension:</small><br>
+                                                <small class="proj-title">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</small>
+                                            </div>
+                                            <br>                                            
                                             <div class="progress m-b-20">
                                                 <div class="progress-bar bg-default" role="progressbar" aria-valuenow="<?php echo $det->status_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="height:15px;width: <?php echo $det->status_percentage; ?>%">
                                                 <?php if(($det->status_percentage) <= '50') { ?>    
@@ -229,7 +246,7 @@
                                     <span class=""><?php echo $department; ?></span>
                                     <br>  
                                     <br>
-                                    <h3 class="proj-title m-b-20" style="font-weight: 500">#<?php echo $task_no; ?></h3>
+                                    
                                     <?php if($status == 'Pending') { ?>
                                     <label class="label label-warning">Pending</label>
                                     <?php } else if ($status == 'Cancelled') { ?>
@@ -273,18 +290,13 @@
                                     <small class="proj-title">From: <?php echo $from; ?></small><br>
                                     <small class="proj-title">Monitoring Person: <?php echo $monitor_person; ?></small>
                                     <hr class="m-t-10">
-                                    <div>
+                                   <!--  <div>
                                         Follow Up Dates:<br>
                                         <?php 
                                             if(!empty($followup)){
                                             foreach($followup AS $f){ ?>
                                                 <small class="p-l-10"><?php echo date('M j, Y', strtotime($f['followup_date'])); ?></small><br>
                                         <?php } } ?>
-                                        <!-- <small class="p-l-10">October 10, 2019</small><br>
-                                        <small class="p-l-10">January 10, 2019</small><br>
-                                        <small class="p-l-10">January 10, 2019</small><br>
-                                        <small class="p-l-10">January 10, 2019</small><br>
-                                        <small class="p-l-10">January 10, 2019</small><br> -->
                                     </div>
                                     <hr class="m-t-50">
                                     <div>
@@ -303,7 +315,7 @@
                                                 <p>Lorem ipsum dolor sit amet, coasdasdsnsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                                             </div>                                          
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                 </div>                                
                             </div>
@@ -312,15 +324,10 @@
                                     <a href="#" class="btn btn-primary btn-sm bor-radius "  data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
                                         Add Project Update
                                     </a>
+                                    <a href="#" class="btn btn-danger btn-sm bor-radius "  data-toggle="modal" data-target="#cancel_proj" title="Cancel" >
+                                        Cancel
+                                    </a>
                                 <?php } ?>
-                                <a href="#" class="btn btn-success btn-sm bor-radius "  data-toggle="modal" data-target="#extend_proj" title="Extend Date" >
-                                    Extend Date
-                                </a>
-                                <?php if($status == 'Pending') { ?>
-                                <a href="#" class="btn btn-danger btn-sm bor-radius "  data-toggle="modal" data-target="#cancel_proj" title="Cancel" >
-                                    Cancel
-                                </a>
-                            <?php } ?>
                             </div>
                         </div>
                     </div>
