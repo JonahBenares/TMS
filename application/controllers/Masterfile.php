@@ -348,4 +348,11 @@ class Masterfile extends CI_Controller {
             }
         }
     }
+
+    public function user_list(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/user_list');
+        $this->load->view('template/footer');
+    }
 }

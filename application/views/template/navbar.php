@@ -64,11 +64,16 @@
                                 <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="fa fa-times"></i></a>
                             </form>
                         </li>
+                        <li class="nav-item ">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/user_list" title="Reminder"><i class="fa fa-user "></i></a>
+                        </li>
                         <li class="nav-item dropdown" style="border-left:1px solid rgba(0, 0, 0, 0.1)"></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog"></span></a>
                             <div class="dropdown-menu shadow ">
-                              <a class="dropdown-item" href="#">My Settings</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Update Profile</a>
+                              <hr class="m-0">
+                              
                               <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/user_logout">Logout</a>
                             </div>
                         </li>
@@ -77,6 +82,60 @@
                 </div>
             </nav>
         </header>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Profile </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action = "<?php echo base_url(); ?>masterfile/">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                Employee Name
+                                <input type="text" name="employee" id = "employee" class="form-control">
+                            </div>                            
+                            <div class="form-group">
+                                Company
+                                <input type="text" name="employee" id = "employee" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                Department
+                                <input type="text" name="employee" id = "employee" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                Email
+                                <input type="email" name="employee" id = "employee" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                Username
+                                <input type="text" name="employee" id = "employee" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                Old Password
+                                <input type="text" name="employee" id = "employee" class="form-control">
+                                <center><a href="" class="text-danger">Reset Password</a></center>
+                            </div>
+                            <div class="form-group">
+                                New Password
+                                <input type="text" name="employee" id = "employee" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                Retype New Password
+                                <input type="text" name="employee" id = "employee" class="form-control">
+                            </div>
+                        </div>
+                        <input type="hidden" name="employee_id" id = "employee_id" class="form-control">
+                        <div class="modal-footer">                                        
+                            <button type="submit" class="btn btn-info btn-block">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <!-- <aside class="left-sidebar">
             <div class="d-flex no-block nav-text-box align-items-center">
                 <span><img src="<?php echo base_url(); ?>assets/images/logo-icon.png" alt="elegant admin template"></span>
