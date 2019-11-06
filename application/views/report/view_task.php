@@ -35,10 +35,10 @@
                 </div> 
 
                 <div class="form-group">
-                    <input placeholder="Extend Date" class="form-control" name='cancel_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                    <input placeholder="Extend Date" class="form-control" name='extend_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
                 </div> 
                 <div class="form-group">
-                    <textarea class="form-control" rows="5" placeholder="Reason For Extension" name=''></textarea>
+                    <textarea class="form-control" rows="5" placeholder="Reason For Extension" name='extension_reason'></textarea>
                 </div>                  
 
                 <div class="form-group">
@@ -80,7 +80,7 @@
 </div>
 
 
-<div class="modal fade" id="extend_proj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="extend_proj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -104,7 +104,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="page-wrapper">
     <div class="container-fluid">
@@ -157,9 +157,12 @@
                                       ?>
                                 <small class="proj-title "><?php echo $employees; ?></small><br>
                                 <div class="m-t-10"><?php echo nl2br($project_description); ?></div>
+
+                                <?php if(!empty($followup_date)) { ?>
                                 <center>
-                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: <?php echo (!empty($followup_date)) ? date('M j, Y', strtotime($followup_date)) : ''; ?></label>
-                                </center>                                            
+                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: <?php echo date('M j, Y', strtotime($followup_date)); ?></label>
+                                </center>    
+                                <?php } ?>                                        
                                 <div class="steamline m-t-40">
                                     <?php
                                         $msg_updates= $this->session->flashdata('msg_updates');  
@@ -202,6 +205,7 @@
                                         $upd.= $ci->get_updated_name($updated[$x]). ", ";
                                     } 
                                     $updated_by = substr($upd, 0, -2);
+
                                     ?>
                                     <div class="sl-item">
                                         <div class="sl-right">
@@ -211,11 +215,18 @@
                                             </div>
                                             <br>
                                             <small class="proj-title h7"><b>Follow Up Date:</b> October 19, 2019</small><br>
-                                            <small class="proj-title h7"><b>Extension Date:</b> October 19, 2019</small><br>
+                                            <?php 
+                                            if(!empty($ci->project_extension($det->pd_id))){ 
+                                              foreach($ci->project_extension($det->pd_id) AS $e){
+                                             ?>
+                                            <small class="proj-title h7"><b>Extension Date:</b> <?php echo date('F j, Y', strtotime($e['extension_date'])); ?></small><br>
                                             <div class="m-l-20">
                                                 <small class="proj-title">Reason for Extension:</small><br>
-                                                <small class="proj-title">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</small>
+                                                <small class="proj-title"><?php echo $e['extension_reason']; ?></small>
                                             </div>
+                                            <?php 
+                                                }
+                                            } ?>
                                             <br>                                            
                                             <div class="progress m-b-20">
                                                 <div class="progress-bar bg-default" role="progressbar" aria-valuenow="<?php echo $det->status_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="height:15px;width: <?php echo $det->status_percentage; ?>%">
@@ -277,11 +288,28 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <small class="proj-title">Due Date: </small><br>
-                                            <span class=""><b><?php echo date('M j, Y', strtotime($completion_date)); ?></b></span>
+                                            <span class=""><b><?php 
+                                            if(empty($ci->latest_extension($project_id))){
+                                                echo date('M j, Y', strtotime($completion_date)); 
+                                            } else {
+                                                 echo date('M j, Y', strtotime($ci->latest_extension($project_id))); 
+                                            } ?></b></span>
                                         </div>
                                     </div>
                                     <br>
+                                    <?php  if(!empty($ci->latest_extension($project_id))){ ?>
+                                        <small class="proj-title"><b>EXTENSION DETAILS:</b></small><br>
+                                        
+                                        <?php 
+                                        $ct = count($extension);
+                                        foreach($extension AS $ex){ ?>
+                                             <small class="proj-title"><?php echo $ci->ordinal($ct); ?> Extension: <?php echo date('M j, Y', strtotime($ex->extension_date)); ?></small><br>
+                                        <?php $ct--; } ?>
+                                        <small class="proj-title">Original Due Date: <?php echo date('M j, Y', strtotime($completion_date)); ?></small><br>
+                                    <?php } ?>
+                                   
                                     <?php if($status == 'Done'){ ?>
+                                    <br>
                                     <small class="proj-title">Date Completed: </small><br>
                                     <span class=""><?php echo date('M j, Y', strtotime($ci->project_completed($project_id))); ?></span>
                                     <?php } ?>

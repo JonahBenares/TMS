@@ -588,22 +588,53 @@ class Report extends CI_Controller {
 
         $data['employees'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $data['details'] = $this->super_model->select_custom_where("project_details", "project_id='$project_id' ORDER BY update_date DESC");
+        $data['extension'] = $this->super_model->select_custom_where("project_extension", "project_id='$project_id' ORDER BY extension_date DESC");
         $data['followup_date']=$this->super_model->select_column_custom_where("project_details", "followup_date", "project_id = '$project_id' ORDER BY followup_date DESC");
         foreach($this->super_model->select_custom_where("project_details", "project_id='$project_id' ORDER BY followup_date DESC") AS $fol){
             $data['followup'][]=array(
                 "followup_date"=>$fol->followup_date,
             );
         }
+
+
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('report/view_task',$data);
         $this->load->view('template/footer');
     }
 
+    public function project_extension($pd_id){
+        $ext=array();
+        foreach($this->super_model->select_row_where('project_extension', 'pd_id', $pd_id) AS $proj){
+            $ext[] = array(
+                'extension_date'=>$proj->extension_date,
+                'extension_reason'=>$proj->extension_reason
+            );
+        
+        }
+
+        return $ext;
+    }
+
+    public function ordinal($number) {
+        $ends = array('th','st','nd','rd','th','th','th','th','th','th');
+        if ((($number % 100) >= 11) && (($number%100) <= 13))
+            return $number. 'th';
+        else
+            return $number. $ends[$number % 10];
+    }
+
+    public function latest_extension($project_id){
+        $due = $this->super_model->custom_query_single("due","SELECT MAX(extension_date) as due FROM project_extension WHERE project_id = '$project_id'");
+        return $due;
+    }
+
     public function update_project(){
 
         $project_id = $this->input->post('project_id');
         $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
+        $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
+        $extend_date = $this->input->post('extend_date');
         $create_date = date('Y-m-d H:i:s');
         $emp = $this->input->post('updated_by');
         $empid='';
@@ -620,13 +651,37 @@ class Report extends CI_Controller {
 
             $this->super_model->update_where("project_head", $data_head, "project_id", $project_id);
         }
+
+        $details_count = $this->super_model->count_rows_where("project_details", "project_id", $project_id);
+        if($details_count==0){
+            $pd_id =1;
+        }else{
+            $maxno = $this->super_model->get_max_where("project_details", "pd_id", "project_id = '$project_id'");
+            $pd_id = $maxno+1;
+        }
+
+        if(!empty($extend_date)){
+            $extend_date = date('Y-m-d', strtotime($extend_date));
+            $extension_reason = $this->input->post('extension_reason');
+            $data_details =  array(
+                'project_id'=>$project_id,
+                'pd_id'=>$pd_id,
+                'extension_date'=>$extend_date,
+                'extension_reason'=>$extension_reason
+            );
+            $this->super_model->insert_into("project_extension", $data_details);
+        }
+
+
         $data = array(
             'project_id'=>$project_id,
+            'pd_id'=>$pd_id,
             'remarks'=>utf8_encode($this->input->post('remarks')),
             'status_percentage'=>$this->input->post('percentage'),
             'update_date'=>$update_date,
             'updated_by'=>$empid,
             'create_date'=>$create_date,
+            'followup_date'=>$followup_date
         );
           if($this->super_model->insert_into("project_details", $data)){
               $this->session->set_flashdata('msg_updates', 'Project updates successfully added!');
