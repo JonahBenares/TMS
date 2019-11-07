@@ -219,10 +219,10 @@
                                             if(!empty($ci->project_extension($det->pd_id))){ 
                                               foreach($ci->project_extension($det->pd_id) AS $e){
                                              ?>
-                                            <small class="proj-title h7"><b>Extension Date:</b> <?php echo date('F j, Y', strtotime($e['extension_date'])); ?></small><br>
+                                            <small class="proj-title h7 text-secondary"><b>Extension Date:</b> <?php echo date('F j, Y', strtotime($e['extension_date'])); ?></small><br>
                                             <div class="m-l-20">
-                                                <small class="proj-title">Reason for Extension:</small><br>
-                                                <small class="proj-title"><?php echo $e['extension_reason']; ?></small>
+                                                <small class="proj-title text-secondary">Reason for Extension:</small><br>
+                                                <small class="proj-title text-secondary"><?php echo $e['extension_reason']; ?></small>
                                             </div>
                                             <?php 
                                                 }

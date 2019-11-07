@@ -8176,8 +8176,8 @@ button.bg-purple:focus {
 a.text-primary:hover, a.text-primary:focus {
   color: #4c32e9 !important; }
 
-.text-secondary {
-  color: #f8f9fa !important; }
+/*.text-secondary {
+  color: #f8f9fa !important; }*/
 
 a.text-secondary:hover, a.text-secondary:focus {
   color: #dae0e5 !important; }
@@ -11486,6 +11486,9 @@ Labels
 
 .label-default {
   background-color: #f8f9fa; }
+
+.label-secondary {
+background-color: #aa66cc; }
 
 /*******************
 Display Classes
@@ -21969,6 +21972,10 @@ File: scss
 .text-warning
 {
   color: #ffbc34
+}
+.text-secondary
+{
+  color: #aa66cc;
 }
 .text-white {
     color: #fff;
