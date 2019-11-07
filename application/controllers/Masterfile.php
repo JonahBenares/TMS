@@ -350,9 +350,68 @@ class Masterfile extends CI_Controller {
     }
 
     public function user_list(){
+        $data['company'] =  $this->super_model->select_all_order_by('company', 'company_name', 'ASC');
+        $data['department'] =  $this->super_model->select_all_order_by('department', 'department_name', 'ASC');
+        foreach($this->super_model->select_all_order_by('users','fullname', 'ASC') AS $users){
+            $data['users'][]=array(
+                'id'=>$users->user_id,
+                'fullname'=>$users->fullname,
+                'username'=>$users->username,
+                'company'=>$this->super_model->select_column_where("company","company_name","company_id",$users->company_id),
+                'department'=>$this->super_model->select_column_where("department","department_name","department_id",$users->department_id),
+                'status'=>$users->status,
+                'email'=>$users->email,
+                'usertype'=>$users->usertype,
+                'company_id'=>$users->company_id,
+                'department_id'=>$users->department_id,
+            );
+        }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('masterfile/user_list');
+        $this->load->view('masterfile/user_list', $data);
         $this->load->view('template/footer');
+    }
+
+    public function checkusername(){
+        $username = $this->input->post('username');
+        $count_exist = $this->super_model->count_rows_where('users', 'username', $username);
+        if($count_exist>0){
+            echo '1';
+        } else {
+            echo '0';
+        }
+    }
+
+    public function add_user(){
+        $data=array(
+            'fullname'=>$this->input->post('employee_name'),
+            'username'=>$this->input->post('username'),
+            'password'=>'12345',
+            'company_id'=>$this->input->post('company'),
+            'department_id'=>$this->input->post('department'),
+            'status'=>$this->input->post('status'),
+            'email'=>$this->input->post('email'),
+            'usertype'=>$this->input->post('usertype'),
+        );
+        if($this->super_model->insert_into("users", $data)){
+             redirect(base_url().'masterfile/user_list');
+        }
+
+    }
+
+     public function update_user(){
+        $id = $this->input->post('user_id');
+        $data=array(
+            'fullname'=>$this->input->post('employee_name'),
+            'company_id'=>$this->input->post('company'),
+            'department_id'=>$this->input->post('department'),
+            'status'=>$this->input->post('status'),
+            'email'=>$this->input->post('email'),
+            'usertype'=>$this->input->post('usertype'),
+        );
+        if($this->super_model->update_where("users", $data, "user_id", $id)){
+             redirect(base_url().'masterfile/user_list');
+        }
+
     }
 }
