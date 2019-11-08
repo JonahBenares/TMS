@@ -1,11 +1,11 @@
 
 <body class="skin-default-dark fixed-layout">
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
             <p class="loader__label">TASK MONITORING SYSTEM</p>
         </div>
-    </div>
+    </div> -->
     <div id="main-wrapper">
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">

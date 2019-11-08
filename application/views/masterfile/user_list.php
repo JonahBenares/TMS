@@ -177,19 +177,31 @@
                             <table id="myTable" class="table table-hover table-bordered" >
                                 <thead>
                                     <tr>
+                                        <th width="1%"></th>
                                         <th>Employee Name</th>
                                         <th>Username</th>
                                         <th>Company</th>
                                         <th>Department</th>
                                         <th>Email</th>
-                                        <th width="7%">Status</th>
-                                        <th width="7%" class="text-center"><span class="fa fa-bars"></span></th>
+                                        <th width="1%">Status</th>
+                                        <th width="2%" class="text-center"><span class="fa fa-bars"></span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     <?php if($usertype==1){ 
                                         foreach($users AS $us){ ?>
                                             <tr>
+                                                 <td align="right">
+                                                    <?php
+                                                     if($us['usertype']==1){ ?>
+                                                         <label class="label label-warning">Admin</label>
+                                                    <?php } else if($us['usertype']==2){ ?>
+                                                         <label class="label label-secondary">Head</label>
+                                                    <?php } else if($us['usertype']==3){ ?>
+                                                         <label class="label label-secondary">Employee</label>
+                                                    <?php } ?>
+                                                </td>
                                                 <td><?php echo $us['fullname']; ?></td>
                                                 <td><?php echo $us['username']; ?></td>
                                                 <td><?php echo $us['company']; ?></td>
@@ -200,13 +212,9 @@
                                                     <label class="label label-success">Active</label>
                                                     <?php } else { ?>
                                                     <label class="label label-default bg-default">Inactive</label>
-                                                    <?php } 
+                                                    <?php }  ?>
                                                     
-                                                     if($us['usertype']==1){ ?>
-                                                         <label class="label label-warning">Admin</label>
-                                                    <?php } else { ?>
-                                                         <label class="label label-secondary">Employee</label>
-                                                    <?php } ?>
+                                                 
                                                 </td>
                                                 <td>      
                                                 <center>                                      
@@ -224,6 +232,9 @@
                                             </tr>
                                     <?php }
                                     }  ?>
+
+                                  
+
                                 </tbody>
                             </table>
                         </div>
