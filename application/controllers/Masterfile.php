@@ -564,7 +564,7 @@ class Masterfile extends CI_Controller {
         $newpw = $this->input->post('new_password');
         $userid = $this->input->post('user_id');
         $old = $this->super_model->select_column_where("users","password","user_id",$userid);
-        $opw = md5($old);
+        //$opw = md5($old);
         if($old!=$oldpw){
             echo "error";
         }else {
