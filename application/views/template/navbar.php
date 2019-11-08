@@ -64,8 +64,9 @@
                                 <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="fa fa-times"></i></a>
                             </form>
                         </li>
+                        
                         <li class="nav-item ">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/user_list" title="Reminder"><i class="fa fa-user "></i></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/user_list" title="User List"><i class="fa fa-user "></i></a>
                         </li>
                         <li class="nav-item dropdown" style="border-left:1px solid rgba(0, 0, 0, 0.1)"></li>
                         <li class="nav-item dropdown">

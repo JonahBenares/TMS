@@ -159,12 +159,20 @@
                     <div class="card-body">
                         <h4 class="card-title">Users
                             <span data-toggle="modal" data-target="#addCompany">
+                                <?php 
+
+                                if($usertype==1){ ?>
                                 <a href="#" class="btn btn-primary btn-sm bor-radius pull-right" data-toggle="tooltip" data-placement="top" title="Add Employee" >
                                     <span class="fa fa-plus" ></span>
                                 </a>
+                                <?php } ?>
                             </span>
-                        </h4>                   
-                        <h6 class="card-subtitle"><br></h6>
+                        </h4>               
+                          <?php if($usertype!=1){ ?>    
+                        <h6 class="card-subtitle"><?php  echo "<span style='color:red; '>Sorry. You are not allowed to view the users list.</span>"; ?></h6>
+                       
+                          
+                        <?php } ?> 
                         <div class="table-responsive">                            
                             <table id="myTable" class="table table-hover table-bordered" >
                                 <thead>
@@ -179,41 +187,43 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($users AS $us){ ?>
-                                    <tr>
-                                        <td><?php echo $us['fullname']; ?></td>
-                                        <td><?php echo $us['username']; ?></td>
-                                        <td><?php echo $us['company']; ?></td>
-                                        <td><?php echo $us['department']; ?></td>
-                                        <td><?php echo $us['email']; ?></td>
-                                        <td>
-                                            <?php if($us['status']==1){ ?>
-                                            <label class="label label-success">Active</label>
-                                            <?php } else { ?>
-                                            <label class="label label-default bg-default">Inactive</label>
-                                            <?php } 
-                                            
-                                             if($us['usertype']==1){ ?>
-                                                 <label class="label label-warning">Admin</label>
-                                            <?php } else { ?>
-                                                 <label class="label label-secondary">Employee</label>
-                                            <?php } ?>
-                                        </td>
-                                        <td>      
-                                        <center>                                      
-                                            <div class="table-data-feature">
-                                                <span data-toggle="modal" data-target="#updateUser">
-                                                    <a  class="btn btn-info item update_user  btn-sm" data-toggle="tooltip" data-id = "<?php echo $us['id']; ?>" data-name = "<?php echo $us['fullname']; ?>" data-company ="<?php echo $us['company_id']; ?>" data-department ="<?php echo $us['department_id']; ?>" data-email ="<?php echo $us['email']; ?>" data-status ="<?php echo $us['status']; ?>" data-usertype ="<?php echo $us['usertype']; ?>" id = "updateEmp_button" data-placement="top" title="Update" >
-                                                        <i class="fa fa-pencil-square-o"></i>
-                                                    </a>
-                                                </span>
-                                                
-                                               
-                                            </div>
-                                        </center>
-                                        </td>                                        
-                                    </tr>
-                                    <?php } ?>
+                                    <?php if($usertype==1){ 
+                                        foreach($users AS $us){ ?>
+                                            <tr>
+                                                <td><?php echo $us['fullname']; ?></td>
+                                                <td><?php echo $us['username']; ?></td>
+                                                <td><?php echo $us['company']; ?></td>
+                                                <td><?php echo $us['department']; ?></td>
+                                                <td><?php echo $us['email']; ?></td>
+                                                <td>
+                                                    <?php if($us['status']==1){ ?>
+                                                    <label class="label label-success">Active</label>
+                                                    <?php } else { ?>
+                                                    <label class="label label-default bg-default">Inactive</label>
+                                                    <?php } 
+                                                    
+                                                     if($us['usertype']==1){ ?>
+                                                         <label class="label label-warning">Admin</label>
+                                                    <?php } else { ?>
+                                                         <label class="label label-secondary">Employee</label>
+                                                    <?php } ?>
+                                                </td>
+                                                <td>      
+                                                <center>                                      
+                                                    <div class="table-data-feature">
+                                                        <span data-toggle="modal" data-target="#updateUser">
+                                                            <a  class="btn btn-info item update_user  btn-sm" data-toggle="tooltip" data-id = "<?php echo $us['id']; ?>" data-name = "<?php echo $us['fullname']; ?>" data-company ="<?php echo $us['company_id']; ?>" data-department ="<?php echo $us['department_id']; ?>" data-email ="<?php echo $us['email']; ?>" data-status ="<?php echo $us['status']; ?>" data-usertype ="<?php echo $us['usertype']; ?>" id = "updateEmp_button" data-placement="top" title="Update" >
+                                                                <i class="fa fa-pencil-square-o"></i>
+                                                            </a>
+                                                        </span>
+                                                        
+                                                       
+                                                    </div>
+                                                </center>
+                                                </td>                                        
+                                            </tr>
+                                    <?php }
+                                    }  ?>
                                 </tbody>
                             </table>
                         </div>

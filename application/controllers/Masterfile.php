@@ -39,6 +39,7 @@ class Masterfile extends CI_Controller {
             }
         }
 
+
 	}
 
     public function index(){  
@@ -56,15 +57,21 @@ class Masterfile extends CI_Controller {
                 $userid = $d->user_id;
                 $username = $d->username;
                 $fullname = $d->fullname;
+                $department=$d->department_id;
+                $company=$d->company_id;
+                $usertype=$d->usertype;
             }
             $newdata = array(
                'user_id'=> $userid,
                'username'=> $username,
                'fullname'=> $fullname,
+               'department'=> $department,
+               'company'=> $company,
+               'usertype'=> $usertype,
                'logged_in'=> TRUE
             );
             $this->session->set_userdata($newdata);
-            redirect(base_url().'index.php/masterfile/dashboard/');
+            redirect(base_url().'masterfile/dashboard/');
         }
         else{
             $this->session->set_flashdata('error_msg', 'Username And Password Do not Exist!');
@@ -76,7 +83,7 @@ class Masterfile extends CI_Controller {
         $this->session->sess_destroy();
         $this->load->view('masterfile/login');
         echo "<script>alert('You have successfully logged out.'); 
-        window.location ='".base_url()."index.php/masterfile/index'; </script>";
+        window.location ='".base_url()."masterfile/index'; </script>";
     }
 
 	public function employee_list()
@@ -227,62 +234,186 @@ class Masterfile extends CI_Controller {
 
     public function dashboard()
     {
-
-        $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' ORDER BY completion_date ASC");
+        $userid = $this->session->userdata['user_id'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+        if($usertype==1){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' ORDER BY completion_date ASC");
+        } else if($usertype==2){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND company_id = '$usercomp' ORDER BY completion_date ASC");
+        } else if($usertype==3){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND department_id = '$userdept' ORDER BY completion_date ASC");
+        }
         $company_id = $this->super_model->select_column_custom_where("project_head","company_id","status='0' AND priority_no = '1' ORDER BY completion_date ASC");
         $data['companys']=$this->super_model->select_column_where("company","company_name","company_id",$company_id);
-        foreach($this->super_model->select_custom_where("reminders","status = '0' ORDER BY due_date ASC") AS $rem){
-            $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
-            $today=date("Y-m-d");
-            $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
-            $data['reminders'][]=array(
-                'reminder_id'=>$rem->reminder_id,
-                'project_id'=>0,
-                'notes'=>$rem->notes,
-                'followup_date'=>'',
-                'employee'=>$employee,
-                'due_date'=>$rem->due_date,
-                'company_id'=>0,
-                'days_left'=>$days_left,
-            );
-        }
 
-        foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '30'") AS $due){
-            $employee = explode(", ", $due->employee);              
-            $count = count($employee);
-            $emp='';
-            for($x=0;$x<$count;$x++){
-                $emp.= $this->get_updated_name($employee[$x]). ", ";
-            } 
-            $employees = substr($emp, 0, -2);
-            $today=date("Y-m-d");
-            $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
-            //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
-            $data['reminders'][]=array(
-                'reminder_id'=>0,
-                'project_id'=>$due->project_id,
-                'notes'=>$due->project_title,
-                'followup_date'=>'',
-                'employee'=>$employees,
-                'due_date'=>$due->completion_date,
-                'company_id'=>$due->company_id,
-                'days_left'=>$days_left,
-            );
-        }
-
-        foreach($this->super_model->custom_query("SELECT * FROM project_details WHERE DATEDIFF(followup_date, NOW()) <= '7'") AS $fol){
-            $today=date("Y-m-d");
-            $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
-            foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
-                $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
-                $data['followup'][]=array(
-                    'notes'=>$head->project_title,
-                    'followup_date'=>$fol->followup_date,
-                    'employee'=>$employees,
-                    'company_id'=>$head->company_id,
+        if($usertype==1){
+            foreach($this->super_model->select_custom_where("reminders","status = '0' ORDER BY due_date ASC") AS $rem){
+                $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
+                $today=date("Y-m-d");
+                $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
+                $data['reminders'][]=array(
+                    'reminder_id'=>$rem->reminder_id,
+                    'project_id'=>0,
+                    'notes'=>$rem->notes,
+                    'followup_date'=>'',
+                    'employee'=>$employee,
+                    'due_date'=>$rem->due_date,
+                    'company_id'=>0,
                     'days_left'=>$days_left,
                 );
             }
+
+            foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '30'") AS $due){
+                $employee = explode(", ", $due->employee);              
+                $count = count($employee);
+                $emp='';
+                for($x=0;$x<$count;$x++){
+                    $emp.= $this->get_updated_name($employee[$x]). ", ";
+                } 
+                $employees = substr($emp, 0, -2);
+                $today=date("Y-m-d");
+                $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
+                //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
+                $data['reminders'][]=array(
+                    'reminder_id'=>0,
+                    'project_id'=>$due->project_id,
+                    'notes'=>$due->project_title,
+                    'followup_date'=>'',
+                    'employee'=>$employees,
+                    'due_date'=>$due->completion_date,
+                    'company_id'=>$due->company_id,
+                    'days_left'=>$days_left,
+                );
+            }
+
+            foreach($this->super_model->custom_query("SELECT * FROM project_details WHERE DATEDIFF(followup_date, NOW()) <= '7'") AS $fol){
+                $today=date("Y-m-d");
+                $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
+                foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
+                    $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
+                    $data['followup'][]=array(
+                        'notes'=>$head->project_title,
+                        'followup_date'=>$fol->followup_date,
+                        'employee'=>$employees,
+                        'company_id'=>$head->company_id,
+                        'days_left'=>$days_left,
+                    );
+                }
+            }
+        } else if($usertype==2){
+
+              foreach($this->super_model->select_custom_where("reminders","status = '0' AND employee_id = '$userid' ORDER BY due_date ASC") AS $rem){
+                $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
+                $today=date("Y-m-d");
+                $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
+                $data['reminders'][]=array(
+                    'reminder_id'=>$rem->reminder_id,
+                    'project_id'=>0,
+                    'notes'=>$rem->notes,
+                    'followup_date'=>'',
+                    'employee'=>$employee,
+                    'due_date'=>$rem->due_date,
+                    'company_id'=>0,
+                    'days_left'=>$days_left,
+                );
+            }
+
+            foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '30' AND company_id = '$usercomp'") AS $due){
+                $employee = explode(", ", $due->employee);              
+                $count = count($employee);
+                $emp='';
+                for($x=0;$x<$count;$x++){
+                    $emp.= $this->get_updated_name($employee[$x]). ", ";
+                } 
+                $employees = substr($emp, 0, -2);
+                $today=date("Y-m-d");
+                $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
+                //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
+                $data['reminders'][]=array(
+                    'reminder_id'=>0,
+                    'project_id'=>$due->project_id,
+                    'notes'=>$due->project_title,
+                    'followup_date'=>'',
+                    'employee'=>$employees,
+                    'due_date'=>$due->completion_date,
+                    'company_id'=>$due->company_id,
+                    'days_left'=>$days_left,
+                );
+            }
+
+            foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON pd.project_id = ph.project_id WHERE DATEDIFF(pd.followup_date, NOW()) <= '7' AND company_id ='$usercomp'") AS $fol){
+                $today=date("Y-m-d");
+                $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
+                foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
+                    $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
+                    $data['followup'][]=array(
+                        'notes'=>$head->project_title,
+                        'followup_date'=>$fol->followup_date,
+                        'employee'=>$employees,
+                        'company_id'=>$head->company_id,
+                        'days_left'=>$days_left,
+                    );
+                }
+            }
+
+        }  else if($usertype==3){
+
+              foreach($this->super_model->select_custom_where("reminders","status = '0' AND employee_id = '$userid' ORDER BY due_date ASC") AS $rem){
+                $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
+                $today=date("Y-m-d");
+                $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
+                $data['reminders'][]=array(
+                    'reminder_id'=>$rem->reminder_id,
+                    'project_id'=>0,
+                    'notes'=>$rem->notes,
+                    'followup_date'=>'',
+                    'employee'=>$employee,
+                    'due_date'=>$rem->due_date,
+                    'company_id'=>0,
+                    'days_left'=>$days_left,
+                );
+            }
+
+            foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '30' AND department_id = '$userdept'") AS $due){
+                $employee = explode(", ", $due->employee);              
+                $count = count($employee);
+                $emp='';
+                for($x=0;$x<$count;$x++){
+                    $emp.= $this->get_updated_name($employee[$x]). ", ";
+                } 
+                $employees = substr($emp, 0, -2);
+                $today=date("Y-m-d");
+                $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
+                //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
+                $data['reminders'][]=array(
+                    'reminder_id'=>0,
+                    'project_id'=>$due->project_id,
+                    'notes'=>$due->project_title,
+                    'followup_date'=>'',
+                    'employee'=>$employees,
+                    'due_date'=>$due->completion_date,
+                    'company_id'=>$due->company_id,
+                    'days_left'=>$days_left,
+                );
+            }
+
+            foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON pd.project_id = ph.project_id WHERE DATEDIFF(pd.followup_date, NOW()) <= '7' AND department_id ='$userdept'") AS $fol){
+                $today=date("Y-m-d");
+                $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
+                foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
+                    $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
+                    $data['followup'][]=array(
+                        'notes'=>$head->project_title,
+                        'followup_date'=>$fol->followup_date,
+                        'employee'=>$employees,
+                        'company_id'=>$head->company_id,
+                        'days_left'=>$days_left,
+                    );
+                }
+            }
+
         }
 
         $data['employees'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
@@ -350,6 +481,7 @@ class Masterfile extends CI_Controller {
     }
 
     public function user_list(){
+        $data['usertype']= $this->session->userdata['usertype'];
         $data['company'] =  $this->super_model->select_all_order_by('company', 'company_name', 'ASC');
         $data['department'] =  $this->super_model->select_all_order_by('department', 'department_name', 'ASC');
         foreach($this->super_model->select_all_order_by('users','fullname', 'ASC') AS $users){

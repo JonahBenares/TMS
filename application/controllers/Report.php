@@ -53,10 +53,23 @@ class Report extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
 
+        $userid = $this->session->userdata['user_id'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+
+
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
+
+        if($usertype==1){
+         $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
+        } else if($usertype==2) {
+          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND company_id = '$usercomp' ORDER BY start_date DESC");
+        } else if($usertype==3) {
+          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND department_id = '$userdept' ORDER BY start_date DESC");
+        }
 
         $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
@@ -169,17 +182,42 @@ class Report extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND $query");
+
+        $userid = $this->session->userdata['user_id'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+
+        if($usertype==1){
+            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND $query");
+        } else if($usertype==2){
+            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND company_id='$usercomp' AND $query");
+        } else if($usertype==3){
+            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND department_id='$userdept' AND $query");
+        }
         $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
     }
 
     public function completed_list()
     {   
+        $userid = $this->session->userdata['user_id'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' ORDER BY start_date DESC");
+
+
+        if($usertype==1){
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' ORDER BY start_date DESC");
+        } else if($usertype==2){
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND company_id='$usercomp' ORDER BY start_date DESC");
+        } else if($usertype==3){
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND department_id='$userdept' ORDER BY start_date DESC");
+        }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('report/completed_list',$data);
@@ -293,17 +331,42 @@ class Report extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND $query");
+
+        $userid = $this->session->userdata['user_id'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+
+        if($usertype==1){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND $query");
+        } else if($usertype==2){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND company_id='$usercomp' AND $query");
+        } else if($usertype==3){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND department_id='$userdept' AND $query");
+        }
+
+
         $this->load->view('report/completed_list',$data);
         $this->load->view('template/footer');
     }
 
     public function cancelled_list()
     {
+        $userid = $this->session->userdata['user_id'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' ORDER BY start_date DESC");
+        if($usertype==1){
+          $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' ORDER BY start_date DESC");
+        } else if($usertype==2){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND company_id='$usercomp' ORDER BY start_date DESC");
+        } else if($usertype==3){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND department_id='$userdept' ORDER BY start_date DESC");
+        }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('report/cancelled_list', $data);
@@ -417,7 +480,19 @@ class Report extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND $query");
+
+        $userid = $this->session->userdata['user_id'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+
+        if($usertype==1){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND $query");
+        } else if($usertype==2){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND company_id = '$usercomp' AND $query");
+        } else if($usertype==3){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND department_id = '$userdept' AND $query");
+        }
         $this->load->view('report/cancelled_list',$data);
         $this->load->view('template/footer');
     }
@@ -530,7 +605,19 @@ class Report extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['projects'] = $this->super_model->select_custom_where("project_head", "$query");
+
+        $userid = $this->session->userdata['user_id'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+
+        if($usertype==1){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "$query");
+        } else if($usertype==2){
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "company_id = '$usercomp' AND  $query");
+        } else if($usertype==3){
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "department_id = '$userdept' AND  $query");
+        }
         $this->load->view('report/alltask_list',$data);
         $this->load->view('template/footer');
     }
