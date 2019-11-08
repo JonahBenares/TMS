@@ -80,6 +80,8 @@ class Task extends CI_Controller {
            $data['percent'] = $pd->status_percentage;
            $data['updated_by'] = $pd->updated_by;
        }
+
+       $data['usertype']=$this->session->userdata['usertype'];
        
         $this->load->view('template/header');
         $this->load->view('template/navbar');
