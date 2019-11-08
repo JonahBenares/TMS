@@ -531,7 +531,7 @@ class Masterfile extends CI_Controller {
 
     }
 
-     public function update_user(){
+    public function update_user(){
         $id = $this->input->post('user_id');
         $data=array(
             'fullname'=>$this->input->post('employee_name'),
@@ -545,5 +545,11 @@ class Masterfile extends CI_Controller {
              redirect(base_url().'masterfile/user_list');
         }
 
+    }
+    public function update_profile(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/update_profile');
+        $this->load->view('template/footer');
     }
 }
