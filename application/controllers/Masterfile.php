@@ -515,10 +515,11 @@ class Masterfile extends CI_Controller {
     }
 
     public function add_user(){
+        $pw=md5('12345');
         $data=array(
             'fullname'=>$this->input->post('employee_name'),
             'username'=>$this->input->post('username'),
-            'password'=>'12345',
+            'password'=>$pw,
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
             'status'=>$this->input->post('status'),
@@ -546,10 +547,39 @@ class Masterfile extends CI_Controller {
         }
 
     }
-    public function update_profile(){
+    public function change_password(){
+        $data['company'] =  $this->super_model->select_all_order_by('company', 'company_name', 'ASC');
+        $data['department'] =  $this->super_model->select_all_order_by('department', 'department_name', 'ASC');
+        $userid = $this->session->userdata['user_id'];
+       
+        $data['userid'] = $this->session->userdata['user_id'];
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('masterfile/update_profile');
+        $this->load->view('masterfile/change_password',$data);
         $this->load->view('template/footer');
+    }
+
+    public function update_password(){
+        $oldpw = md5($this->input->post('old_password'));
+        $newpw = $this->input->post('new_password');
+        $userid = $this->input->post('user_id');
+
+        $old = $this->super_model->select_column_where("users","password","user_id",$userid);
+        $opw = md5($old);
+
+        if($opw != $oldpw){
+            echo "error";
+        } else {
+            $hashed = md5($newpw);
+           
+            $data=array(
+                'password'=>$hashed
+            );
+             if($this->super_model->update_where("users", $data, "user_id", $userid)){
+                echo "ok";
+             }
+
+        }
+
     }
 }

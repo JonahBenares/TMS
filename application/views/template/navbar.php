@@ -72,7 +72,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog"></span></a>
                             <div class="dropdown-menu shadow ">
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/update_profile/" >Update Profile</a>
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/change_password/" >Change Password</a>
                               <hr class="m-0">
                               
                               <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/user_logout">Logout</a>
