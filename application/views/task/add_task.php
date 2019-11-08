@@ -155,7 +155,8 @@
                         </div>
                         <?php } else { ?>
                             <div id="add_project" class="tabcontent">
-                                <center><h4 style='color:red'>Sorry. You are not allowed to add new project.</h4></center>
+                                <center><h1 style="font-size: 200px; color:#ff7a7a" class="animated pulse infinite m-t-50"><span class="fa fa-warning"></span></h1></center>
+                                <center><h2 style='color:#ff7a7a; text-transform: uppercase;'>Sorry, You are not allowed <br> to add new project.</h2></center>
                             </div>
                         <?php } ?>
                         <div id="project_updates" class="tabcontent">
