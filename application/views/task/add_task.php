@@ -18,6 +18,8 @@
             <div class="col-md-5 align-self-center">
             </div>  
         </div>
+
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -28,6 +30,7 @@
                           <button class="tablinks" onclick="openCity(event, 'project_updates')" <?php echo (!empty($update) ? " id='defaultOpen'" : ""); ?>>Project Updates</button>
                           <?php } ?>
                         </div>
+                        <?php if($usertype==1){ ?>
                         <div id="add_project" class="tabcontent">
                             <?php 
                             if(empty($project_id)){
@@ -150,6 +153,11 @@
                                 </div>
                             </div>
                         </div>
+                        <?php } else { ?>
+                            <div id="add_project" class="tabcontent">
+                                <center><h4 style='color:red'>Sorry. You are not allowed to add new project.</h4></center>
+                            </div>
+                        <?php } ?>
                         <div id="project_updates" class="tabcontent">
                             <div class="p-25">
                                 <div class="row">
