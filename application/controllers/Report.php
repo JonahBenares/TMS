@@ -743,7 +743,7 @@ class Report extends CI_Controller {
         if($details_count==0){
             $pd_id =1;
         }else{
-            $maxno = $this->super_model->get_max_where("project_details", "pd_id", "project_id = '$project_id'");
+            $maxno = $this->super_model->get_max("project_details", "pd_id");
             $pd_id = $maxno+1;
         }
 
