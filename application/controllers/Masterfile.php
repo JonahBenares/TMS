@@ -74,7 +74,7 @@ class Masterfile extends CI_Controller {
             redirect(base_url().'masterfile/dashboard/');
         }
         else{
-            $this->session->set_flashdata('error_msg', 'Username And Password Do not Exist!');
+            $this->session->set_flashdata('error_msg', 'Username and password do not exist! Please contact your administrator.');
             $this->load->view('masterfile/login');    
         }
 	}

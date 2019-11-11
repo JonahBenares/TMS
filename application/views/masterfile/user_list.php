@@ -47,7 +47,8 @@
                         <select name='usertype' class="form-control" required>
                             <option value='' selected>-Choose Usertype-</option>
                             <option value='1'>Admin</option>
-                            <option value='2'>Employee</option>
+                            <option value='2'>Head</option>
+                            <option value='3'>Employee</option>
                         </select>
                     </div>
                    <div class="form-group">
@@ -112,7 +113,8 @@
                         <select name='usertype' id='usertype' class="form-control" required>
                             <option value='' selected>-Choose Usertype-</option>
                             <option value='1'>Admin</option>
-                            <option value='2'>Employee</option>
+                            <option value='2'>Head</option>
+                            <option value='3'>Employee</option>
                         </select>
                     </div>
                       <div class="form-group">

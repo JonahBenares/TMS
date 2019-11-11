@@ -516,7 +516,7 @@ class super_model extends CI_Model
     public function login_user($username, $password){
         $this->db->select('*');
         $this->db->from('users');
-        $this->db->where("username='$username' AND (password = '$password' OR password = '".md5($password)."')");
+        $this->db->where("username='$username' AND (password = '$password' OR password = '".md5($password)."') AND status='1'");
         $query=$this->db->get();
         $rows=$query->num_rows();
         return $rows;
