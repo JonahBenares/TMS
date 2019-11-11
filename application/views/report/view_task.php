@@ -158,7 +158,7 @@
                                 <small class="proj-title "><?php echo $employees; ?></small><br>
                                 <div class="m-t-10"><?php echo nl2br($project_description); ?></div>
 
-                                <?php if(!empty($followup_date)) { ?>
+                                <?php if(!empty($followup_date) && $status !='Cancelled') { ?>
                                 <center>
                                     <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: <?php echo date('M j, Y', strtotime($followup_date)); ?></label>
                                 </center>    
@@ -191,8 +191,8 @@
                                     if($status == 'Cancelled'){ ?>  
                                     <div class="sl-item">
                                         <div class="sl-right">
-                                            <div class="font-medium text-danger"><?php echo date('F j, Y', strtotime($cancel_date)); ?></div>
-                                            <div class="desc text-danger"><?php echo $cancel_reason; ?>
+                                            <div class="font-medium text-danger"><?php echo "Date Cancelled: ". date('F j, Y', strtotime($cancel_date)); ?></div>
+                                            <div class="desc text-danger"><?php echo "Cancel Reason: " .$cancel_reason; ?>
                                             </div>                                            
                                         </div>
                                     </div>
