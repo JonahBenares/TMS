@@ -140,26 +140,27 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="progress m-b-20">
-                            <div class="progress-bar <?php if($status == 'Pending') { ?> bg-warning <?php } else if ($status == 'Cancelled') { ?>
-                                        bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%">
-                                        
-                            <?php if($ci->project_percent($project_id) <= '50') { ?>    
-                            </div>
-                                <span class=" m-l-5 " style="font-size:12px;color: #6c757d!important">
-                                    <?php echo $ci->project_percent($project_id); ?>%
-                                </span>
-                            <?php } else { ?>
-                                <span class=" m-l-5 " style="font-size:12px;">
-                                    <?php echo $ci->project_percent($project_id); ?>%
-                                </span>
-                            </div>
-                            <?php } ?>            
-                        </div> 
+                    <div class="progress" style="border-radius: 20px 20px 0px 0px">
+                        <div class="progress-bar <?php if($status == 'Pending') { ?> bg-warning <?php } else if ($status == 'Cancelled') { ?>
+                                    bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%">
+                                    
+                        <?php if($ci->project_percent($project_id) <= '50') { ?>    
+                        </div>
+                            <span class=" m-l-5 " style="font-size:20px;color: #6c757d!important">
+                                <?php echo $ci->project_percent($project_id); ?>%
+                            </span>
+                        <?php } else { ?>
+                            <span class=" m-l-5 " style="font-size:20px;">
+                                <?php echo $ci->project_percent($project_id); ?>%
+                            </span>
+                        </div>
+                        <?php } ?>            
+                    </div> 
+                    
                     <div class="card-body p-b-100">
                         <div class="row">
                             <div class="col-lg-9">
-                                <h3 class="proj-title m-b-20" style="font-weight: 500">#<?php echo $task_no; ?></h3>
+                                <h4 class="proj-title m-b-5" style="font-weight: 500">#<?php echo $task_no; ?></h4>
                                 <h3 class="proj-title m-b-0" style="font-weight: 600"><?php echo $project_title; ?></h3>
                                    <?php $employee = explode(", ", $employee);  
                                                      
@@ -173,12 +174,8 @@
                                 <small class="proj-title "><?php echo $employees; ?></small><br>
                                 <div class="m-t-10"><?php echo nl2br($project_description); ?></div>
 
-                                <?php if(!empty($followup_date) && $status !='Cancelled') { ?>
-                                <center>
-                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: <?php echo date('M j, Y', strtotime($followup_date)); ?></label>
-                                </center>    
-                                <?php } ?>                                        
-                                <div class="steamline m-t-40">
+                                                                    
+                                <div class="steamline m-t-20">
                                     <?php
                                         $msg_updates= $this->session->flashdata('msg_updates');  
                                         if($msg_updates){
@@ -263,6 +260,11 @@
                                 </div>
                             </div>
                             <div class="col-lg-3">
+                                 <?php if(!empty($followup_date) && $status !='Cancelled') { ?>
+                                <center>
+                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite" style="font-size: 12px">Next Follow Up Date: <?php echo date('M j, Y', strtotime($followup_date)); ?></label>
+                                </center>    
+                                <?php } ?>   
                                 <div style="text-align: left" class="btn-block">
                                     <small class="proj-title">Company:</small><br>
                                     <span class="proj-title"><b style="font-weight: 500"><?php echo $company; ?></b></span>

@@ -577,4 +577,12 @@ class Masterfile extends CI_Controller {
             }
         }
     }
+
+    public function location_list()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/location_list');
+        $this->load->view('template/footer');
+    }
 }
