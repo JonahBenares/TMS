@@ -49,6 +49,7 @@ class Task extends CI_Controller {
         $data['project_id'] = $project_id;
         $data['pd_id'] = $pd_id;
         $data['update'] = $update;
+        $data['location'] = $this->super_model->select_all_order_by("location", "location_name", "ASC");
         $data['company'] = $this->super_model->select_all_order_by("company", "company_name", "ASC");
         $data['department'] = $this->super_model->select_all_order_by("department", "department_name", "ASC");
         $data['employee'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");

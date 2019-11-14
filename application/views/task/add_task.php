@@ -53,7 +53,14 @@
                                     <?php } ?>
 
                                     <div class="col-lg-6 offset-lg-3">
-                                  
+                                         <div class="form-group">
+                                            <select class="form-control" required name='company'>
+                                                <option value="">-Select Location-</option>
+                                                <?php foreach($location AS $lc){ ?>
+                                                    <option value="<?php echo $lc->location_id; ?>" <?php echo (!empty($project_id) ? (($location_id == $lc->location_id) ? ' selected' : '') : ''); ?>><?php echo $lc->location_name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
                                      
                                         <div class="form-group">
                                             <select class="form-control" required name='company'>
