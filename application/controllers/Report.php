@@ -739,7 +739,7 @@ class Report extends CI_Controller {
             $this->super_model->update_where("project_head", $data_head, "project_id", $project_id);
         }
 
-        $details_count = $this->super_model->count_rows_where("project_details", "project_id", $project_id);
+        $details_count = $this->super_model->count_rows("project_details");
         if($details_count==0){
             $pd_id =1;
         }else{
