@@ -14,6 +14,12 @@
                         Location Name
                         <input type="text" name="company" class="form-control">
                     </div>
+                    <div class="form-group">
+                        Monitoring Person
+                        <select type="text" name="company" class="form-control">
+                            <option></option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-primary btn-block">Add</button>
@@ -38,6 +44,12 @@
                     <div class="form-group">
                         Location Name
                         <input type="text" name="company" id ="company_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        Monitoring Person
+                        <select type="text" name="company" class="form-control">
+                            <option></option>
+                        </select>
                     </div>
                 </div>
                 <input type="hidden" name="company_id" id = "company_id">
@@ -95,11 +107,13 @@
                                 <thead>
                                     <tr>
                                         <th>Location Name</th>
+                                        <th>Monitoring Person</th>
                                         <th width="7%" class="text-center"><span class="fa fa-bars"></span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td>                                            
                                             <div class="table-data-feature">
