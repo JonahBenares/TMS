@@ -12,11 +12,11 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="<?php echo base_url(); ?>masterfile/dashboard/">
                         <b>
-                            <img src="<?php echo base_url(); ?>assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="<?php echo base_url(); ?>assets/images/logo-iconW.png" alt="homepage" class="dark-logo" />
                             <img src="<?php echo base_url(); ?>assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
                         </b>
                         <span>
-                         	<img src="<?php echo base_url(); ?>assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                         	<img src="<?php echo base_url(); ?>assets/images/logo-textW.png" alt="homepage" class="dark-logo" />
                          	<img src="<?php echo base_url(); ?>assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
                      	</span> 
                  	</a>
@@ -25,10 +25,10 @@
                     <ul class="navbar-nav mr-auto">
                         
                         <li class="nav-item">
-                            <a class="nav-link text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/dashboard/" title="Dashboard"><i class="fa fa-tachometer "></i></a>
+                            <a class="nav-link text-white waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/dashboard/" title="Dashboard"><i class="fa fa-tachometer "></i></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Masterfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-key "></i></a>
+                            <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="" title="Masterfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-key "></i></a>
                             <div class="dropleft dropdown-menu drop-left">
                               <span class="dropdown-item bg-main text-white" disable><center><small>MASTERFILE</small></center></span>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/company_list/">Company</a>
@@ -37,10 +37,10 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>task/add_task/" title="Add New Task"><i class="fa fa-pencil-square-o "></i></a>
+                            <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="<?php echo base_url(); ?>task/add_task/" title="Add New Task"><i class="fa fa-pencil-square-o "></i></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tasks "></i></a>
+                            <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tasks "></i></a>
                             <div class="dropleft dropdown-menu drop-left">
                               <span class="dropdown-item bg-main text-white" disable><center><small>TASK REPORT</small></center></span>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>report/alltask_list/">
@@ -54,23 +54,23 @@
                             </div>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>reminder/reminder_list" title="Reminder"><i class="fa fa-bell animated infinite headShake "></i></a>
+                            <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="<?php echo base_url(); ?>reminder/reminder_list" title="Reminder"><i class="fa fa-bell animated infinite headShake "></i></a>
                         </li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item hidden-sm-up"> <a class="nav-link nav-toggler waves-effect waves-light" href="javascript:void(0)"><i class="ti-menu"></i></a></li>
-                        <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-search "></i></a>
+                        <li class="nav-item search-box"> <a class="nav-link text-white waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-search "></i></a>
                             <form class="app-search">
                                 <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="fa fa-times"></i></a>
                             </form>
                         </li>
                         
                         <li class="nav-item ">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/user_list" title="User List"><i class="fa fa-user "></i></a>
+                            <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/user_list" title="User List"><i class="fa fa-user "></i></a>
                         </li>
                         <li class="nav-item dropdown" style="border-left:1px solid rgba(0, 0, 0, 0.1)"></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog"></span></a>
+                            <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog"></span></a>
                             <div class="dropdown-menu shadow ">
                               <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/change_password/" >Change Password</a>
                               <hr class="m-0">

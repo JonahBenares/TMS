@@ -27,7 +27,17 @@ File: scss
 @import url(../../../assets/dist/css/googleapis.css);
 .skin-default-dark {
 /*Theme Colors*/ }
-.skin-default-dark .topbar {background: #fff; }
+.skin-default-dark .topbar {
+  background: #4242425e;
+  background-image: url("../../../assets/images/bg/7.jpg")!important; 
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0px 1px 15px 1px rgba(45, 45, 45, 0.1);
+}
+/*.skin-default-dark .scrolled {
+  background-color: #fff !important;
+  transition: background-color 200ms linear;
+}*/
 .skin-default-dark .topbar .navbar-dark .navbar-nav .nav-link {color: #adb5bd; }
 .skin-default-dark .sidebar-nav ul li a.active, .skin-default-dark .sidebar-nav ul li a:hover {color: #009efb; }
 .skin-default-dark .sidebar-nav ul li a.active i, .skin-default-dark .sidebar-nav ul li a:hover i {color: #009efb; }
@@ -127,6 +137,9 @@ body {
     color: #212529;
     text-align: left;
     background-color: #edf1f5;
+    background-image: url("../../../assets/images/bg/7.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 [tabindex="-1"]:focus { outline: 0 !important; }
@@ -4933,7 +4946,9 @@ tbody.collapse.show {
   list-style: none;
   background-color: #fff;
   border-radius: 0.25rem; }
-
+.breadcrumb-item a, .text-themecolor{
+  color: #fff!important 
+}
 .breadcrumb-item + .breadcrumb-item::before {
   display: inline-block;
   padding-right: 0.5rem;
@@ -11405,7 +11420,8 @@ ul.list-style-none {
 Card
 ******************/
 .card {
-  margin-bottom: 20px; }
+  margin-bottom: 20px; 
+  border-radius: 20px;}
   .card .card-subtitle {
     font-weight: 300;
     margin-bottom: 15px;
@@ -12414,7 +12430,8 @@ icons path
   overflow: hidden; }
 
 .page-wrapper {
-  background: #edf1f5;
+
+  /*background: #edf1f5;*/
   position: relative;
   -webkit-transition: 0.2s ease-in;
   -o-transition: 0.2s ease-in;

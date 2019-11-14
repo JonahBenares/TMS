@@ -1,6 +1,6 @@
-        <footer class="footer">
-            <!-- © 2018 Elegent Admin by wrappixel.com -->
-        </footer>
+        <!-- <footer class="footer">
+            © 2018 Elegent Admin by wrappixel.com
+        </footer> -->
     </div>
     <script src="<?php echo base_url(); ?>assets/dist/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/dist/js/jquery.dataTables.min.js"></script>
@@ -110,6 +110,21 @@
             }
           });
         }
+
+
+        // var nav = document.querySelector('nav'); // Identify target
+
+        // window.addEventListener('scroll', function(event) { // To listen for event
+        //     event.preventDefault();
+
+        //     if (window.scrollY <= 150) { // Just an example
+        //         nav.style.backgroundColor = '#4242425e'; 
+        //         nav.style.transition = '0.5s';// or default color
+        //     } else {
+        //         nav.style.backgroundImage = "url('../../assets/images/bg/1.jpg')";
+        //         nav.style.transition = '0.5s';
+        //     }
+        // });
     </script>
 </body>
 
