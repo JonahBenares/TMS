@@ -202,7 +202,10 @@ class Task extends CI_Controller {
     public function update_project(){
 
         $project_id = $this->input->post('project_id');
-        $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
+        $update_hour = $this->input->post('update_hour');
+        $update_minute = $this->input->post('update_minute');
+        $update = date('Y-m-d', strtotime($this->input->post('update_date')));
+         $update_date = $update . " " . $update_hour.":".$update_minute;
         $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
         $create_date = date('Y-m-d H:i:s');
         $emp = $this->input->post('updated_by');

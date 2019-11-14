@@ -15,6 +15,20 @@
                 <div class="form-group">
                     <input placeholder="Updated Date" class="form-control" name='update_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
                 </div> 
+                 <div class="form-group">
+                      <select class="custom-select"  name="update_hour" style='width:49%' required>
+                        <option value="">-Update Time (Hour)-</option>
+                        <?php for($x=0;$x<=23;$x++){ ?>
+                            <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>" ><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
+                        <?php } ?>
+                    </select>       
+                      <select class="custom-select"  name="update_minute" style='width:49%' required>
+                        <option value="">-Update Time (Minute)-</option>
+                        <?php for($x=0;$x<=59;$x++){ ?>
+                            <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>" ><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
+                        <?php } ?>
+                    </select>       
+                </div> 
                 <div class="form-group">
                     <textarea class="form-control" rows="5" placeholder="Remarks" name="remarks"></textarea>
                 </div>  
@@ -31,7 +45,7 @@
                     </select>                    
                 </div>
                 <div class="form-group">
-                    <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="followup_date">
+                    <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="followup_date" required>
                 </div> 
 
                 <div class="form-group">
