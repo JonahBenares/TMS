@@ -31,10 +31,10 @@
                             <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="" title="Masterfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-key "></i></a>
                             <div class="dropleft dropdown-menu drop-left">
                               <span class="dropdown-item bg-main text-white" disable><center><small>MASTERFILE</small></center></span>
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/employee_list/">Employee</a>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/company_list/">Company</a>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/department_list/">Department</a>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/location_list/">Location</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/employee_list/">Employee</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
