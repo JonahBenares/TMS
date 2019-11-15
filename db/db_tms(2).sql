@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2019 at 08:08 AM
+-- Generation Time: Nov 15, 2019 at 01:56 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -50,7 +50,7 @@ INSERT INTO `company` (`company_id`, `company_name`) VALUES
 CREATE TABLE IF NOT EXISTS `department` (
 `department_id` int(11) NOT NULL,
   `department_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `department`
@@ -60,7 +60,8 @@ INSERT INTO `department` (`department_id`, `department_name`) VALUES
 (1, 'Accounting Department'),
 (2, 'IT Department'),
 (3, 'Human Resource Department'),
-(4, 'Finance Department');
+(4, 'Finance Department'),
+(5, 'asdasd');
 
 -- --------------------------------------------------------
 
@@ -90,6 +91,26 @@ INSERT INTO `employees` (`employee_id`, `employee_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `location`
+--
+
+CREATE TABLE IF NOT EXISTS `location` (
+`location_id` int(11) NOT NULL,
+  `location_name` varchar(150) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `location`
+--
+
+INSERT INTO `location` (`location_id`, `location_name`) VALUES
+(2, 'Bacolod'),
+(3, 'Calapan'),
+(4, 'Manila');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `project_details`
 --
 
@@ -102,17 +123,15 @@ CREATE TABLE IF NOT EXISTS `project_details` (
   `followup_date` varchar(20) DEFAULT NULL,
   `updated_by` int(11) NOT NULL DEFAULT '0',
   `create_date` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project_details`
 --
 
 INSERT INTO `project_details` (`pd_id`, `project_id`, `remarks`, `status_percentage`, `update_date`, `followup_date`, `updated_by`, `create_date`) VALUES
-(1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '10.00', '2019-11-05', '2019-11-11', 2, '2019-11-04 03:46:10'),
-(2, 1, 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '15.00', '2019-11-08', '2019-11-20', 2, '2019-11-04 03:47:06'),
-(3, 1, 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', '20.00', '2019-11-11', NULL, 2, '2019-11-04 03:49:16'),
-(4, 2, 'Lorem ipsum dolor sit amet.', '10.00', '2019-11-07', '2019-11-14', 2, '2019-11-07 07:36:43');
+(1, 1, 'test', '10.00', '2019-11-15 10:15', '2019-11-22', 2, '2019-11-15 01:52:40'),
+(2, 1, 'test remarks', '100.00', '2019-11-15 14:48', '2019-11-22', 2, '2019-11-15 01:55:00');
 
 -- --------------------------------------------------------
 
@@ -126,15 +145,7 @@ CREATE TABLE IF NOT EXISTS `project_extension` (
   `pd_id` int(11) NOT NULL DEFAULT '0',
   `extension_date` varchar(20) DEFAULT NULL,
   `extension_reason` text
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `project_extension`
---
-
-INSERT INTO `project_extension` (`extension_id`, `project_id`, `pd_id`, `extension_date`, `extension_reason`) VALUES
-(1, 1, 3, '2019-11-30', 'Sample extension reason'),
-(2, 1, 2, '2019-11-25', 'sample sample sample');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -156,18 +167,18 @@ CREATE TABLE IF NOT EXISTS `project_head` (
   `status` int(11) DEFAULT '0' COMMENT '0=pending, 1=done, 2=cancelled',
   `cancel_date` varchar(20) DEFAULT NULL,
   `cancel_reason` text,
+  `cancel_timestamp` varchar(20) DEFAULT NULL,
   `create_date` varchar(20) DEFAULT NULL,
   `monitor_person` int(11) NOT NULL DEFAULT '0',
   `from` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project_head`
 --
 
-INSERT INTO `project_head` (`project_id`, `start_date`, `completion_date`, `project_title`, `project_description`, `priority_no`, `company_id`, `department_id`, `employee`, `task_no`, `status`, `cancel_date`, `cancel_reason`, `create_date`, `monitor_person`, `from`) VALUES
-(1, '2019-11-04', '2019-11-20', 'Sample Project', 'Sample Project Description', 1, 1, 1, '2', '001', 0, NULL, NULL, '2019-11-04 03:45:12', 8, 'Verbally'),
-(2, '2019-11-07', '2019-11-30', 'Hello World!', 'This is the project description of Hello World Project.', 1, 2, 2, '8', '002', 0, NULL, NULL, '2019-11-07 07:36:23', 2, 'Verbally');
+INSERT INTO `project_head` (`project_id`, `start_date`, `completion_date`, `project_title`, `project_description`, `priority_no`, `company_id`, `department_id`, `employee`, `task_no`, `status`, `cancel_date`, `cancel_reason`, `cancel_timestamp`, `create_date`, `monitor_person`, `from`) VALUES
+(1, '2019-11-15', '2019-11-30', 'test project', 'description', 1, 1, 1, '2, 3', '001', 1, NULL, NULL, NULL, '2019-11-15 01:52:16', 3, 'Emailed');
 
 -- --------------------------------------------------------
 
@@ -197,23 +208,25 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
   `fullname` varchar(255) DEFAULT NULL,
+  `employee_id` int(11) NOT NULL DEFAULT '0',
   `company_id` int(11) NOT NULL DEFAULT '0',
   `department_id` int(11) NOT NULL DEFAULT '0',
   `status` int(11) NOT NULL DEFAULT '0',
   `email` varchar(100) DEFAULT NULL,
   `usertype` int(11) NOT NULL DEFAULT '0' COMMENT '1=admin, 2=head, 3=employee'
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `fullname`, `company_id`, `department_id`, `status`, `email`, `usertype`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', 1, 1, 1, NULL, 1),
-(2, 'hen', 'e811af40e80c396fb9dd59c45a1c9ce5', 'Hennelen Tanan', 2, 3, 1, NULL, 2),
-(3, 'jason', 'd38e99d9790733c939e88698afbc30b6', 'Jason Flor', 3, 4, 2, 'jasonflor.cenpri@gmail.com', 2),
-(4, 'tep', 'e6893ef750669444cb220cd64888e617', 'Stephine David Severino', 4, 1, 2, NULL, 2),
-(6, 'jonah', '827ccb0eea8a706c4c34a16891f84e7b ', 'Jonah Faye Benares', 1, 2, 1, 'jonahbenares.cenpri@gmail.com', 2);
+INSERT INTO `users` (`user_id`, `username`, `password`, `fullname`, `employee_id`, `company_id`, `department_id`, `status`, `email`, `usertype`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', 0, 1, 1, 1, NULL, 1),
+(2, 'hen', 'e811af40e80c396fb9dd59c45a1c9ce5', 'Hennelen Tanan', 0, 2, 3, 1, NULL, 2),
+(3, 'jason', 'd38e99d9790733c939e88698afbc30b6', 'Jason Flor', 0, 3, 4, 2, 'jasonflor.cenpri@gmail.com', 2),
+(4, 'tep', 'e6893ef750669444cb220cd64888e617', 'Stephine David Severino', 0, 4, 1, 2, NULL, 2),
+(6, 'jonah', '827ccb0eea8a706c4c34a16891f84e7b ', 'Jonah Faye Benares', 0, 1, 2, 1, 'jonahbenares.cenpri@gmail.com', 2),
+(7, 'lloyd', '344c8024766ac77d11d5346b85cab6ad', 'Lloyd Jamero', 0, 1, 2, 1, 'lloyd@gmail.com', 3);
 
 --
 -- Indexes for dumped tables
@@ -236,6 +249,12 @@ ALTER TABLE `department`
 --
 ALTER TABLE `employees`
  ADD PRIMARY KEY (`employee_id`);
+
+--
+-- Indexes for table `location`
+--
+ALTER TABLE `location`
+ ADD PRIMARY KEY (`location_id`);
 
 --
 -- Indexes for table `project_details`
@@ -280,27 +299,32 @@ MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
 MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT for table `location`
+--
+ALTER TABLE `location`
+MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `project_details`
 --
 ALTER TABLE `project_details`
-MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `project_extension`
 --
 ALTER TABLE `project_extension`
-MODIFY `extension_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `extension_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `project_head`
 --
 ALTER TABLE `project_head`
-MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `reminders`
 --
@@ -310,7 +334,7 @@ MODIFY `reminder_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -144,6 +144,37 @@ class Masterfile extends CI_Controller {
         }
     }
 
+     public function insert_location(){
+        $location = trim($this->input->post('location')," ");
+        $data = array(
+            'location_name'=>$location,
+        );
+        if($this->super_model->insert_into("location", $data)){
+             redirect(base_url().'masterfile/location_list');
+        }
+    }
+
+
+    public function edit_location(){
+        $data = array(
+            'location_name'=>$this->input->post('location'),
+        );
+        $location_id = $this->input->post('location_id');
+        if($this->super_model->update_where('location', $data, 'location_id', $location_id)){
+            $this->session->set_flashdata('msg', 'Location successfully updated!');
+             redirect(base_url().'masterfile/location_list');
+        }
+    }
+
+     public function delete_location(){
+        $id=$this->uri->segment(3);
+        if($this->super_model->delete_where('location', 'location_id', $id)){
+             $this->session->set_flashdata('msg', 'Location successfully deleted!');
+             redirect(base_url().'masterfile/location_list');
+        }
+    }
+
+
     public function edit_company(){
         $data = array(
             'company_name'=>$this->input->post('company'),
@@ -582,7 +613,8 @@ class Masterfile extends CI_Controller {
     {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('masterfile/location_list');
+        $data['location']=$this->super_model->select_all_order_by("location","location_name","ASC");
+        $this->load->view('masterfile/location_list', $data);
         $this->load->view('template/footer');
     }
 }

@@ -66,6 +66,13 @@
              $("#employee").val(employee);
         });
 
+        $(document).on("click", "#updateLoc_button", function () {
+             var location_id = $(this).attr("data-id");
+             var location = $(this).attr("data-name");
+             $("#location_id").val(location_id);
+             $("#location").val(location);
+        });
+
         $(document).on("click", "#updateRem_button", function () {
              var reminder_id = $(this).attr("data-id");
              var notes = $(this).attr("data-name");

@@ -8,18 +8,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action = "<?php echo base_url(); ?>masterfile/">
+            <form method="POST" action = "<?php echo base_url(); ?>masterfile/insert_location">
                 <div class="modal-body">
                     <div class="form-group">
                         Location Name
-                        <input type="text" name="company" class="form-control">
+                        <input type="text" name="location" class="form-control">
                     </div>
-                    <div class="form-group">
-                        Monitoring Person
-                        <select type="text" name="company" class="form-control">
-                            <option></option>
-                        </select>
-                    </div>
+                   
                 </div>
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-primary btn-block">Add</button>
@@ -39,20 +34,15 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action = "<?php echo base_url(); ?>masterfile/">
+            <form method="POST" action = "<?php echo base_url(); ?>masterfile/edit_location">
                 <div class="modal-body">
                     <div class="form-group">
                         Location Name
-                        <input type="text" name="company" id ="company_name" class="form-control">
+                        <input type="text" name="location" id ="location" class="form-control">
                     </div>
-                    <div class="form-group">
-                        Monitoring Person
-                        <select type="text" name="company" class="form-control">
-                            <option></option>
-                        </select>
-                    </div>
+                
                 </div>
-                <input type="hidden" name="company_id" id = "company_id">
+                <input type="hidden" name="location_id" id = "location_id">
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-info btn-block">Update</button>
                 </div>
@@ -107,28 +97,29 @@
                                 <thead>
                                     <tr>
                                         <th>Location Name</th>
-                                        <th>Monitoring Person</th>
+                                       
                                         <th width="7%" class="text-center"><span class="fa fa-bars"></span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                  <?php foreach($location AS $lc){ ?>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
+                                        <td><?php echo $lc->location_name; ?></td>
                                         <td>                                            
                                             <div class="table-data-feature">
                                                 <span data-toggle="modal" data-target="#updateCompany">
-                                                    <a  class="btn btn-info item btn-sm" data-toggle="tooltip" data-id = "" data-name = "" id = "updateComp_button" data-placement="top" title="Update" >
+                                                    <a  class="btn btn-info item btn-sm" data-toggle="tooltip" data-id = "<?php echo $lc->location_id; ?>" data-name = "<?php echo $lc->location_name; ?>" id = "updateLoc_button" data-placement="top" title="Update" >
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </span>
                                                 
-                                                <a href="<?php echo base_url(); ?>masterfile/delete_company/" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
+                                                <a href="<?php echo base_url(); ?>masterfile/delete_location/<?php echo $lc->location_id; ?>" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
                                         </td>                                        
                                     </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
