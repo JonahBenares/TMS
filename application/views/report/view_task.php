@@ -140,17 +140,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="progress" style="border-radius: 20px 20px 0px 0px">
-                        <div class="progress-bar <?php if($status == 'Pending') { ?> bg-warning <?php } else if ($status == 'Cancelled') { ?>
+                    <div class="progress progress-bar-animated active" style="border-radius: 20px 20px 0px 0px">
+                        <div role="progressbar" class="progress-bar <?php if($status == 'Pending') { ?> bg-warning <?php } else if ($status == 'Cancelled') { ?>
                                     bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%">
                                     
                         <?php if($ci->project_percent($project_id) <= '50') { ?>    
                         </div>
-                            <span class=" m-l-5 " style="font-size:20px;color: #6c757d!important">
+                            <span class=" m-l-5 m-t-5 m-b-5" style="font-size:15px;color: #6c757d!important">
                                 <?php echo $ci->project_percent($project_id); ?>%
                             </span>
                         <?php } else { ?>
-                            <span class=" m-l-5 " style="font-size:20px;">
+                            <span class=" m-l-5 m-t-5 m-b-5" style="font-size:15px;">
                                 <?php echo $ci->project_percent($project_id); ?>%
                             </span>
                         </div>

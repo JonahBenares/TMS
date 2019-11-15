@@ -198,7 +198,7 @@
                                                 <?php } else if($us['usertype']==2){ ?>
                                                      <label class="label label-secondary">Head</label>
                                                 <?php } else if($us['usertype']==3){ ?>
-                                                     <label class="label label-secondary">Employee</label>
+                                                     <label class="label label-info">Employee</label>
                                                 <?php } ?>
                                             </td>
                                             <td><?php echo $us['fullname']; ?></td>

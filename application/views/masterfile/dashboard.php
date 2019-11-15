@@ -135,7 +135,7 @@
                                                         <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
                                                         <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>
                                                         <div class="progress progress-bar-animated active">
-                                                            <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
+                                                            <div role="progressbar" class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
                                                             <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    
                                                             </div>
                                                                 <span class="" style="font-size: 12px;color: #6c757d!important">
@@ -192,7 +192,7 @@
                                 $today = date('Y-m-d');
                                 foreach($followup AS $r){ 
                         ?>
-                        <div class="steamline m-t-40">
+                        <div class="steamline ">
                             <div class="sl-item">
                                 <div class="sl-left bg-success"></div>
                                 <div class="sl-right">
