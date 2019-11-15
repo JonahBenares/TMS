@@ -45,7 +45,7 @@
                     </select>                    
                 </div>
                 <div class="form-group">
-                    <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="followup_date" required>
+                    <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="followup_date">
                 </div> 
 
                 <div class="form-group">
@@ -221,7 +221,7 @@
                                     ?>
                                     <div class="sl-item">
                                         <div class="sl-right">
-                                            <div class="font-medium"><?php echo date('F j, Y', strtotime($det->update_date)); ?></div>
+                                            <div class="font-medium"><?php echo date('F j, Y H:i', strtotime($det->update_date)); ?></div>
                                             <span></span> <small class="proj-title">Updated By: <?php echo $updated_by; ?></small></span>
                                             <div class="desc m-t-20"><?php echo nl2br($det->remarks); ?>
                                             </div>

@@ -57,7 +57,7 @@
                                             <select class="form-control" required name='company'>
                                                 <option value="">-Select Location-</option>
                                                 <?php foreach($location AS $lc){ ?>
-                                                    <option value="<?php echo $lc->location_id; ?>" <?php echo (!empty($project_id) ? (($location_id == $lc->location_id) ? ' selected' : '') : ''); ?>><?php echo $lc->location_name; ?></option>
+                                                    <option value="<?php echo $lc->location_id; ?>" <?php echo (!empty($project_id) ? (($location == $lc->location_id) ? ' selected' : '') : ''); ?>><?php echo $lc->location_name; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -218,13 +218,13 @@
                                           <select class="custom-select"  name="update_hour" style='width:49%' required>
                                             <option value="">-Update Time (Hour)-</option>
                                             <?php for($x=0;$x<=23;$x++){ ?>
-                                                <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>" ><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
+                                                <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>" <?php echo (!empty($pd_id) ? (($hour==str_pad($x, 2, "0", STR_PAD_LEFT)) ? ' selected' : ' ') : ''); ?>><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
                                             <?php } ?>
                                         </select>       
                                           <select class="custom-select"  name="update_minute" style='width:49%' required>
                                             <option value="">-Update Time (Minute)-</option>
                                             <?php for($x=0;$x<=59;$x++){ ?>
-                                                <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>" ><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
+                                                <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>"  <?php echo (!empty($pd_id) ? (($minute==str_pad($x, 2, "0", STR_PAD_LEFT)) ? ' selected' : ' ') : ''); ?>><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
                                             <?php } ?>
                                         </select>       
                                     </div> 
@@ -244,7 +244,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input placeholder="Follow Up Date" required class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"  value="<?php echo (!empty($pd_id) ? $followup_date : ''); ?>">
+                                            <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"  value="<?php echo (!empty($pd_id) ? $followup_date : ''); ?>">
                                         </div>
                                         <div class="form-group">
                                             <input type="submit" name="" class="btn btn-success btn-block"  value="Save Update">
@@ -295,7 +295,7 @@
                                                          $updated = substr($upda, 0, -2);
                                                         ?>
                                                     <tr>
-                                                        <td class="text-center"><?php echo date('M d, Y', strtotime($upd->update_date)); ?></td>
+                                                        <td class="text-center"><?php echo date('M d, Y H:i', strtotime($upd->update_date)); ?></td>
                                                         <td class="text-center"><?php echo $upd->status_percentage."%"; ?></td>
                                                         <td><?php echo $upd->remarks; ?></td>
                                                         <td><?php echo $updated; ?></td>

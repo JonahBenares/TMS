@@ -513,13 +513,30 @@ class Masterfile extends CI_Controller {
 
     public function user_list(){
         $data['usertype']= $this->session->userdata['usertype'];
+        $users = "";
+        foreach($this->super_model->select_all_column('employee_id', 'users') AS $us){
+            $users .= $us->employee_id.",";
+        }
+        $users = substr($users, 0, -1);
+
+         $loc = "";
+        foreach($this->super_model->select_all_column('location_id', 'users') AS $lc){
+            $loc .= $lc->location_id.",";
+        }
+        $loc = substr($loc, 0, -1);
+       
+        $data['employee'] =  $this->super_model->custom_query("SELECT * FROM employees WHERE employee_id NOT IN ($users)");
+
+        $data['location'] =  $this->super_model->custom_query("SELECT * FROM location WHERE location_id NOT IN ($loc)");
         $data['company'] =  $this->super_model->select_all_order_by('company', 'company_name', 'ASC');
         $data['department'] =  $this->super_model->select_all_order_by('department', 'department_name', 'ASC');
-        foreach($this->super_model->select_all_order_by('users','fullname', 'ASC') AS $users){
+        foreach($this->super_model->select_custom_where("users", "usertype!=0") AS $users){
             $data['users'][]=array(
                 'id'=>$users->user_id,
-                'fullname'=>$users->fullname,
+                'fullname'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$users->employee_id),
+                'employee_id'=>$users->employee_id,
                 'username'=>$users->username,
+                'location'=>$this->super_model->select_column_where("location","location_name","location_id",$users->location_id),
                 'company'=>$this->super_model->select_column_where("company","company_name","company_id",$users->company_id),
                 'department'=>$this->super_model->select_column_where("department","department_name","department_id",$users->department_id),
                 'status'=>$users->status,
@@ -527,6 +544,7 @@ class Masterfile extends CI_Controller {
                 'usertype'=>$users->usertype,
                 'company_id'=>$users->company_id,
                 'department_id'=>$users->department_id,
+                'location_id'=>$users->location_id
             );
         }
         $this->load->view('template/header');
@@ -565,14 +583,40 @@ class Masterfile extends CI_Controller {
 
     public function update_user(){
         $id = $this->input->post('user_id');
-        $data=array(
-            'fullname'=>$this->input->post('employee_name'),
-            'company_id'=>$this->input->post('company'),
-            'department_id'=>$this->input->post('department'),
-            'status'=>$this->input->post('status'),
-            'email'=>$this->input->post('email'),
-            'usertype'=>$this->input->post('usertype'),
-        );
+        $location=$this->input->post('location');
+        $usertype=$this->input->post('usertype');
+        if($usertype==2){
+            if(empty($location)){
+                $data=array(
+                    'fullname'=>$this->input->post('employee_name'),
+                    'company_id'=>$this->input->post('company'),
+                    'department_id'=>$this->input->post('department'),
+                    'status'=>$this->input->post('status'),
+                    'email'=>$this->input->post('email'),
+                    'usertype'=>$this->input->post('usertype'),
+                );
+            } else {
+                $data=array(
+                    'fullname'=>$this->input->post('employee_name'),
+                    'company_id'=>$this->input->post('company'),
+                    'department_id'=>$this->input->post('department'),
+                    'status'=>$this->input->post('status'),
+                    'email'=>$this->input->post('email'),
+                    'usertype'=>$this->input->post('usertype'),
+                    'location_id'=>$location,
+                );
+            }
+        } else {
+             $data=array(
+                    'fullname'=>$this->input->post('employee_name'),
+                    'company_id'=>$this->input->post('company'),
+                    'department_id'=>$this->input->post('department'),
+                    'status'=>$this->input->post('status'),
+                    'email'=>$this->input->post('email'),
+                    'usertype'=>$this->input->post('usertype'),
+                    'location_id'=>0
+                );
+        }
         if($this->super_model->update_where("users", $data, "user_id", $id)){
              redirect(base_url().'masterfile/user_list');
         }

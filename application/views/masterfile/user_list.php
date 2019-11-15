@@ -13,7 +13,12 @@
                 <div class="modal-body">
                     <div class="form-group">
                         Employee Name
-                        <input type="text" name="employee_name" id = "employee" class="form-control">
+                          <select name='employee_name' id="employee" class="form-control" required>
+                            <option value='' selected>-Choose Employee-</option>
+                            <?php foreach($employee AS $emp){ ?>
+                                <option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         Username
@@ -44,11 +49,20 @@
                     </div>
                     <div class="form-group">
                         User Type
-                        <select name='usertype' class="form-control" required>
+                        <select name='usertype' id='usertype' class="form-control" required>
                             <option value='' selected>-Choose Usertype-</option>
                             <option value='1'>Admin</option>
-                            <option value='2'>Head</option>
+                            <option value='2'>Monitoring Person</option>
                             <option value='3'>Employee</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id='location'>
+                        Location
+                        <select name='location' class="form-control">
+                            <option value='' selected>-Choose Location-</option>
+                             <?php foreach($location AS $lc){ ?>
+                                <option value="<?php echo $lc->location_id; ?>"><?php echo $lc->location_name; ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                    <div class="form-group">
@@ -83,7 +97,7 @@
                 <div class="modal-body updateUser">
                     <div class="form-group">
                         Employee Name
-                        <input type="text" name="employee_name" id = "employee" class="form-control">
+                       <input type="text" name="employee" id = "employee" class="form-control" readonly>
                     </div>
                    
                     <div class="form-group">
@@ -110,11 +124,21 @@
                     </div>
                      <div class="form-group">
                         User Type
-                        <select name='usertype' id='usertype' class="form-control" required>
+                        <select name='usertype' id='usertype_update' class="form-control" required>
                             <option value='' selected>-Choose Usertype-</option>
                             <option value='1'>Admin</option>
-                            <option value='2'>Head</option>
+                            <option value='2'>Monitoring Person</option>
                             <option value='3'>Employee</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id='location_update'>
+                        Location<br>
+                        Current Location: <span id="location_name"></span>
+                        <select name='location' class="form-control">
+                            <option  selected>-Choose New Location-</option>
+                             <?php foreach($location AS $lc){ ?>
+                                <option value="<?php echo $lc->location_id; ?>"><?php echo $lc->location_name; ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                       <div class="form-group">
@@ -181,6 +205,7 @@
                                         <th width="1%"></th>
                                         <th>Employee Name</th>
                                         <th>Username</th>
+                                        <th>Location</th>
                                         <th>Company</th>
                                         <th>Department</th>
                                         <th>Email</th>
@@ -196,13 +221,14 @@
                                                  if($us['usertype']==1){ ?>
                                                      <label class="label label-warning">Admin</label>
                                                 <?php } else if($us['usertype']==2){ ?>
-                                                     <label class="label label-secondary">Head</label>
+                                                     <label class="label label-secondary">Monitoring Person</label>
                                                 <?php } else if($us['usertype']==3){ ?>
                                                      <label class="label label-info">Employee</label>
                                                 <?php } ?>
                                             </td>
                                             <td><?php echo $us['fullname']; ?></td>
                                             <td><?php echo $us['username']; ?></td>
+                                            <td><?php echo $us['location']; ?></td>
                                             <td><?php echo $us['company']; ?></td>
                                             <td><?php echo $us['department']; ?></td>
                                             <td><?php echo $us['email']; ?></td>
@@ -219,7 +245,7 @@
                                             <center>                                      
                                                 <div class="table-data-feature">
                                                     <span data-toggle="modal" data-target="#updateUser">
-                                                        <a  class="btn btn-info item update_user  btn-sm" data-toggle="tooltip" data-id = "<?php echo $us['id']; ?>" data-name = "<?php echo $us['fullname']; ?>" data-company ="<?php echo $us['company_id']; ?>" data-department ="<?php echo $us['department_id']; ?>" data-email ="<?php echo $us['email']; ?>" data-status ="<?php echo $us['status']; ?>" data-usertype ="<?php echo $us['usertype']; ?>" id = "updateEmp_button" data-placement="top" title="Update" >
+                                                        <a  class="btn btn-info item update_user  btn-sm" data-toggle="tooltip" data-id = "<?php echo $us['id']; ?>" data-name = "<?php echo $us['fullname']; ?>" data-company ="<?php echo $us['company_id']; ?>" data-department ="<?php echo $us['department_id']; ?>" data-email ="<?php echo $us['email']; ?>" data-status ="<?php echo $us['status']; ?>" data-usertype ="<?php echo $us['usertype']; ?>" data-locationid ="<?php echo $us['location_id']; ?>" data-location ="<?php echo $us['location']; ?>" id = "updateEmp_button" data-placement="top" title="Update" >
                                                             <i class="fa fa-pencil-square-o"></i>
                                                         </a>
                                                     </span>
@@ -240,6 +266,34 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    $(document).ready(function() {
+         $('#location').hide();
+       
+      
+
+        $('#usertype').on('change',function(){
+             var type = $('#usertype').val();
+            if(type==2){
+                $('#location').show();
+             
+            } else {
+                 $('#location').hide();
+            }
+        });
+
+         $('#usertype_update').on('change',function(){
+           var type_change = $('#usertype_update').val();
+
+            if(type_change==2){
+                $('#location_update').show();
+            } else {
+                 $('#location_update').hide();
+            }
+        });
+    });
+
+
     function checkusername(){
         var username = $('#username').val();
         if (username == '') {
@@ -270,6 +324,9 @@
     }
 
  jQuery(document).on("click", ".update_user", function () {
+      
+     
+
      var user_id = $(this).data('id');
      var name = $(this).data('name');
      var company = $(this).data('company');
@@ -277,14 +334,31 @@
      var email = $(this).data('email');
      var status = $(this).data('status');
      var usertype = $(this).data('usertype');
+     var locationid = $(this).data('locationid');
+     var location = $(this).data('location');
+ 
+    if(usertype==2){
+        $('#location_update').show();
+     } else{
+         $('#location_update').hide();
+     }
+
+     if(locationid!=''){
+        $(".updateUser #location_upd").val(locationid);
+        document.getElementById("location_name").innerHTML = location
+     }
+
      $(".updateUser #user_id").val(user_id);
      $(".updateUser #employee").val(name);
      $(".updateUser #company").val(company);
      $(".updateUser #department").val(department);
      $(".updateUser #email").val(email);
      $(".updateUser #status").val(status);
-     $(".updateUser #usertype").val(usertype);
+     $(".updateUser #usertype_update").val(usertype);
+
    
 });
+
+
 
 </script>

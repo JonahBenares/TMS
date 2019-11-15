@@ -75,7 +75,11 @@ class Task extends CI_Controller {
         $data['updates'] = $this->super_model->select_custom_where("project_details","project_id='$project_id' ORDER BY update_date DESC");
 
        foreach($this->super_model->select_row_where("project_details","pd_id","$pd_id") AS $pd){
-           $data['upd_date'] = $pd->update_date;
+           $update = explode(" ", $pd->update_date);
+           $data['upd_date'] = $update[0];
+           $uptime = explode(":",$update[1]);
+           $data['hour']=$uptime[0];
+           $data['minute']=$uptime[1];
            $data['followup_date'] = $pd->followup_date;
            $data['remarks'] = $pd->remarks;
            $data['percent'] = $pd->status_percentage;
