@@ -146,11 +146,11 @@
                                     
                         <?php if($ci->project_percent($project_id) <= '50') { ?>    
                         </div>
-                            <span class=" m-l-5 m-t-5 m-b-5" style="font-size:15px;color: #6c757d!important">
+                            <span class=" m-l-5 m-t-5 m-b-5" style="font-size:20px;color: #6c757d!important">
                                 <?php echo $ci->project_percent($project_id); ?>%
                             </span>
                         <?php } else { ?>
-                            <span class=" m-l-5 m-t-5 m-b-5" style="font-size:15px;">
+                            <span class=" m-l-5 m-t-5 m-b-5" style="font-size:20px;">
                                 <?php echo $ci->project_percent($project_id); ?>%
                             </span>
                         </div>
@@ -270,6 +270,10 @@
                                     <span class="proj-title"><b style="font-weight: 500"><?php echo $company; ?></b></span>
                                     <br>
                                     <br>
+                                    <small class="proj-title">Location:</small><br>
+                                    <span class="">Bacolod City</span>
+                                    <br>  
+                                    <br>
                                     <small class="proj-title">Department:</small><br>
                                     <span class=""><?php echo $department; ?></span>
                                     <br>  
@@ -330,6 +334,10 @@
                                     <small class="proj-title">Date Completed: </small><br>
                                     <span class=""><?php echo date('M j, Y', strtotime($ci->project_completed($project_id))); ?></span>
                                     <?php } ?>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">NO. OF WORKING DAYS: <b>82</b></small><br>
+                                    <small class="proj-title">REMAINING DAYS:  <b>82</b></small>
                                     <br>
                                     <br>
                                     <small class="proj-title">From: <?php echo $from; ?></small><br>

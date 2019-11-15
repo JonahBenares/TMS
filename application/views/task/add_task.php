@@ -171,26 +171,32 @@
                                 <div class="row">
                                     <div class="col-lg-4"> 
 
-                                        <h3 class="proj-title"><?php echo $project_title; ?></h3>
-                                        <small class="proj-title"><b><?php echo $companys; ?></b></small>
-                                        <h6>Start Date: <?php echo date('F j, Y', strtotime($start_date)); ?></h6>
-                                        <h6>Due Date: <?php echo date('F j, Y', strtotime($completion_date)); ?></h6>
-                                     
-                                        <?php if($priority_no==1){ ?>
-                                        <span class="text-warning fa fa-flag"></span>
-                                        <span class="text-warning fa fa-flag"></span>
-                                        <span class="text-warning fa fa-flag"></span>
-                                        <?php } else if($priority_no==2) { ?>
-                                         <span class="text-warning fa fa-flag"></span>
-                                        <span class="text-warning fa fa-flag"></span>
-                                        <span class="text-dfault2 fa fa-flag"></span>
-                                        <?php } else if($priority_no==3) { ?>
-                                         <span class="text-warning fa fa-flag"></span>
-                                         <span class="text-dfault2 fa fa-flag"></span>
-                                         <span class="text-dfault2 fa fa-flag"></span>
-                                        <?php } ?>
-                                       
+                                        <h4 class="proj-title fw500"><?php echo $project_title; ?></h4>
+                                        <h6 class="proj-title m-b-0">- <?php echo $companys; ?></h6>
+                                        <h6 class="proj-title">- Location</h6>
 
+                                        <h6 class="proj-title m-b-0"> 
+                                            <b>#005</b> -
+                                            <?php if($priority_no==1){ ?>
+                                            <span class="text-warning fa fa-flag"></span>
+                                            <span class="text-warning fa fa-flag"></span>
+                                            <span class="text-warning fa fa-flag"></span>
+                                            <?php } else if($priority_no==2) { ?>
+                                             <span class="text-warning fa fa-flag"></span>
+                                            <span class="text-warning fa fa-flag"></span>
+                                            <span class="text-dfault2 fa fa-flag"></span>
+                                            <?php } else if($priority_no==3) { ?>
+                                             <span class="text-warning fa fa-flag"></span>
+                                             <span class="text-dfault2 fa fa-flag"></span>
+                                             <span class="text-dfault2 fa fa-flag"></span>
+                                            <?php } ?>
+                                        </h6>
+                                       
+                                        <br>
+                                        <small class="proj-title m-0 btn-block">Start Date: <span class="pull-right"><?php echo date('F j, Y', strtotime($start_date)); ?></span></small>
+                                        <small class="proj-title m-0 btn-block">Due Date: <span class="pull-right"><?php echo date('F j, Y', strtotime($completion_date)); ?></span></small>
+                                        <small class="proj-title m-0 btn-block">NO. OF WORKING DAYS: <span class="pull-right">82</span></small>
+                                        <small class="proj-title m-0 btn-block">REMAINING DAYS: <span class="pull-right">98</span></small>
                                         <hr>
                                          <?php
                                         $msg_updates= $this->session->flashdata('msg_updates');  

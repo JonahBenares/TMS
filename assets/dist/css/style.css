@@ -10996,7 +10996,7 @@ Preloader
 body {
   margin: 0;
   overflow-x: hidden;
-  color: #6c757d; }
+  color: #4c4c4c; }
 
 html {
   position: relative;
@@ -22039,7 +22039,7 @@ File: scss
     color: #343a40;
 }
 .text-dfault {
-    color: #6c757d;
+    color: #4c4c4c;
 }
 .text-dfault2 {
     color: #d8d8d8!important;

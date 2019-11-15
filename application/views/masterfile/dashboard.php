@@ -113,11 +113,8 @@
                                                     ?>
                                                 <tr>
                                                     <td class="bg-hovr" class="nobor-top">
-                                                        <h4 class="proj-title m-0 fw500"><?php echo $proj->project_title; ?></h4>
-                                                        <div class="proj-title fw500 h7 m-b-10">#<?php echo $proj->task_no; ?> | <?php echo $ci->get_company_name($proj->company_id); ?></div>
-                                                        <small class="proj-title"><?php echo $employees; ?></small>  
-                                                        <br>
                                                         <h6 class="proj-title">
+                                                            <span class="fw500">#<?php echo $proj->task_no; ?></span> |
                                                             <?php if($proj->priority_no==1){ ?>
                                                             <span class="text-warning fa fa-flag"></span>
                                                             <span class="text-warning fa fa-flag"></span>
@@ -132,8 +129,16 @@
                                                             <span class="text-dfault2 fa fa-flag"></span>
                                                             <?php } ?> 
                                                         </h6>  
+                                                        <h4 class="proj-title m-0 fw500"> <?php echo $proj->project_title; ?></h4>
+                                                        <div class="proj-title fw500 h7 m-t-5"><?php echo $ci->get_company_name($proj->company_id); ?></div>
+                                                        <div class="proj-title fw500 h7 m-b-10"> BACOLOD CITY</div>
+                                                        <small class="proj-title"><?php echo $employees; ?></small>  
+                                                        <br>
+                                                        
                                                         <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
                                                         <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>
+                                                        <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right">82</span></small>
+                                                        <small class="proj-title btn-block m-0">REMAINING DAYS: <span class="pull-right">98</span></small>
                                                         <div class="progress progress-bar-animated active">
                                                             <div role="progressbar" class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
                                                             <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    
