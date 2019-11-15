@@ -1,11 +1,11 @@
 
 <body class="skin-default-dark fixed-layout">
-    <!-- <div class="preloader">
+    <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
             <p class="loader__label">TASK MONITORING SYSTEM</p>
         </div>
-    </div> -->
+    </div>
     <div id="main-wrapper">
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
@@ -72,7 +72,7 @@
                         <li class="nav-item dropdown" style="border-left:1px solid rgba(0, 0, 0, 0.1)"></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog"></span></a>
-                            <div class="dropdown-menu shadow ">
+                            <div class="dropdown-menu  ">
                               <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/change_password/" >Change Password</a>
                               <hr class="m-0">
                               

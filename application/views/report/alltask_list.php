@@ -161,6 +161,10 @@
                                                         </td>
 
                                                         <td class="bg-hovr" width="35%" class="nobor-top">
+                                                            <!-- <div class="progress progress-striped active">
+                                                              <div role="progressbar progress-striped" style="width: 95%;" class="progress-bar"><span>Primary</span></div>
+                                                            </div> -->
+                                                            
                                                             <div class="progress progress-bar-animated active">
                                                                 <?php if($proj->status == 0){
                                                                     $bg= "bg-warning";
@@ -169,7 +173,7 @@
                                                                 } else if($proj->status == 2){
                                                                      $bg= "bg-danger";
                                                                 } ?>
-                                                                <div class="progress-bar <?php echo $bg; ?> progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>%" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
+                                                                <div role="progressbar" class="progress-bar <?php echo $bg; ?> progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>%" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
                                                                     <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    
                                                                 </div>
 
@@ -182,7 +186,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <?php } ?>
-                                                            </div>                                                            
+                                                            </div>                                                       
                                                         </td>
                                                     </tr>
                                                 </table>
