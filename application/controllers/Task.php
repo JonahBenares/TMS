@@ -57,6 +57,7 @@ class Task extends CI_Controller {
         foreach($this->super_model->select_row_where("project_head", "project_id", $project_id) AS $proj){
             $data['company_id']=$proj->company_id;
             $data['companys']=$this->super_model->select_column_where("company","company_name","company_id",$proj->company_id);
+            $data['locations']=$this->super_model->select_column_where("location","location_name","location_id",$proj->location_id);
             $data['from']=$proj->from;
             $data['department_id']=$proj->department_id;
             $data['employee_id']=$proj->employee;
@@ -66,7 +67,7 @@ class Task extends CI_Controller {
             $data['priority_no']=$proj->priority_no;
             $data['project_title']=$proj->project_title;
             $data['project_desc']=$proj->project_description;
-
+            $data['status']=$proj->status;
         }
 
         $data['current_percent']=$this->project_percent($project_id);
@@ -136,9 +137,9 @@ class Task extends CI_Controller {
         $empid='';
         $count= count($this->input->post('employee'));
         for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].", ";
+            $empid .= $emp[$x].",";
         }
-        $empid = substr($empid, 0, -2);
+        $empid = substr($empid, 0, -1);
        
        $data = array(
             'project_id'=>$project_id,
@@ -150,6 +151,7 @@ class Task extends CI_Controller {
             'monitor_person'=>$monitor,
             'from'=>$from,
             'priority_no'=>$this->input->post('priority_no'),
+            'location_id'=>$this->input->post('location'),
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
             'employee'=>$empid,
@@ -177,7 +179,7 @@ class Task extends CI_Controller {
         $empid='';
         $count= count($this->input->post('employee'));
         for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].", ";
+            $empid .= $emp[$x].",";
         }
         $empid = substr($empid, 0, -2);
 
@@ -190,6 +192,7 @@ class Task extends CI_Controller {
             'monitor_person'=>$monitor,
             'from'=>$from,
             'priority_no'=>$this->input->post('priority_no'),
+            'location_id'=>$this->input->post('location'),
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
             'employee'=>$empid,
@@ -216,10 +219,13 @@ class Task extends CI_Controller {
         $emp = $this->input->post('updated_by');
         $empid='';
         $count= count($this->input->post('updated_by'));
+      
         for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].", ";
+            $empid .= $emp[$x].",";
         }
-        $empid = substr($empid, 0, -2);
+
+        echo $empid;
+        $empid = substr($empid, 0, -1);
 
         if($this->input->post('percentage')=='100'){
             $data_head = array(
@@ -252,10 +258,12 @@ class Task extends CI_Controller {
         $emp = $this->input->post('updated_by');
         $empid='';
         $count= count($this->input->post('updated_by'));
+
         for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].", ";
+            $empid .= $emp[$x].",";
         }
-        $empid = substr($empid, 0, -2);
+
+        $empid = substr($empid, 0, -1);
 
         $data = array(
             'remarks'=>utf8_encode($this->input->post('remarks')),
@@ -282,5 +290,25 @@ class Task extends CI_Controller {
         $this->load->view('template/navbar');
         $this->load->view('task/task_list');
         $this->load->view('template/footer');
+    }
+
+
+    public function project_completed($project_id){
+        $completed_date = $this->super_model->custom_query_single("completed_date", "SELECT MAX(update_date) AS completed_date FROM project_details WHERE project_id = '$project_id'");
+       
+        return $completed_date;
+    }
+
+      public function date_diff($date1, $date2){
+        $ts1 = strtotime($date1);
+        $ts2 = strtotime($date2);
+
+        $diff = $ts2 - $ts1;
+        return abs(round($diff / 86400)); 
+    }
+
+       public function latest_extension($project_id){
+        $due = $this->super_model->custom_query_single("due","SELECT MAX(extension_date) as due FROM project_extension WHERE project_id = '$project_id'");
+        return $due;
     }
 }

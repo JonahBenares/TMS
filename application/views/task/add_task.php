@@ -1,5 +1,6 @@
     <?php
     $ci =& get_instance();
+    $now=date('Y-m-d');
     ?>
 
 <div class="page-wrapper">
@@ -30,7 +31,7 @@
                           <button class="tablinks" onclick="openCity(event, 'project_updates')" <?php echo (!empty($update) ? " id='defaultOpen'" : ""); ?>>Project Updates</button>
                           <?php } ?>
                         </div>
-                        <?php if($usertype==1){ ?>
+                        <?php if($usertype==1 || $usertype==0){ ?>
                         <div id="add_project" class="tabcontent">
                             <?php 
                             if(empty($project_id)){
@@ -54,7 +55,7 @@
 
                                     <div class="col-lg-6 offset-lg-3">
                                          <div class="form-group">
-                                            <select class="form-control" required name='company'>
+                                            <select class="form-control" required name='location'>
                                                 <option value="">-Select Location-</option>
                                                 <?php foreach($location AS $lc){ ?>
                                                     <option value="<?php echo $lc->location_id; ?>" <?php echo (!empty($project_id) ? (($location == $lc->location_id) ? ' selected' : '') : ''); ?>><?php echo $lc->location_name; ?></option>
@@ -173,7 +174,7 @@
 
                                         <h4 class="proj-title fw500"><?php echo $project_title; ?></h4>
                                         <h6 class="proj-title m-b-0">- <?php echo $companys; ?></h6>
-                                        <h6 class="proj-title">- Location</h6>
+                                        <h6 class="proj-title">- <?php echo $locations; ?></h6>
 
                                         <h6 class="proj-title m-b-0"> 
                                             <b>#005</b> -
@@ -195,8 +196,24 @@
                                         <br>
                                         <small class="proj-title m-0 btn-block">Start Date: <span class="pull-right"><?php echo date('F j, Y', strtotime($start_date)); ?></span></small>
                                         <small class="proj-title m-0 btn-block">Due Date: <span class="pull-right"><?php echo date('F j, Y', strtotime($completion_date)); ?></span></small>
-                                        <small class="proj-title m-0 btn-block">NO. OF WORKING DAYS: <span class="pull-right">82</span></small>
-                                        <small class="proj-title m-0 btn-block">REMAINING DAYS: <span class="pull-right">98</span></small>
+                                        <small class="proj-title m-0 btn-block">NO. OF WORKING DAYS: <span class="pull-right">
+                                          <?php if($status == 1) { 
+                                             
+                                                 echo $ci->date_diff($start_date, $ci->project_completed($project_id));
+                                               } else { 
+                                                echo $ci->date_diff($start_date, $now);
+                                               } ?>
+                                                   
+                                         </span></small>
+                                        <small class="proj-title m-0 btn-block">REMAINING DAYS: <span class="pull-right">
+
+                                         <?php   if(empty($ci->latest_extension($project_id))){
+                                                echo $ci->date_diff($now, $completion_date); 
+                                            } else {
+                                                  echo $ci->date_diff($now, $ci->latest_extension($project_id)); 
+                                            } ?>
+                                                                    
+                                          </span></small>
                                         <hr>
                                          <?php
                                         $msg_updates= $this->session->flashdata('msg_updates');  
@@ -291,7 +308,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach($updates AS $upd){ 
-                                                        $updated_by = explode(", ", $upd->updated_by);  
+                                                        $updated_by = explode(",", $upd->updated_by);  
                                                      
                                                         $count = count($updated_by);
                                                         $upda='';
@@ -301,11 +318,11 @@
                                                          $updated = substr($upda, 0, -2);
                                                         ?>
                                                     <tr>
-                                                        <td class="text-center"><?php echo date('M d, Y H:i', strtotime($upd->update_date)); ?></td>
+                                                        <td class="text-center"><?php echo date('m-d-Y H:i', strtotime($upd->update_date)); ?></td>
                                                         <td class="text-center"><?php echo $upd->status_percentage."%"; ?></td>
                                                         <td><?php echo $upd->remarks; ?></td>
                                                         <td><?php echo $updated; ?></td>
-                                                        <td class="text-center"><?php echo date('M d, Y', strtotime($upd->followup_date)); ?></td>
+                                                        <td class="text-center"><?php echo date('m-d-Y', strtotime($upd->followup_date)); ?></td>
                                                         <td>
                                                             <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update/<?php echo $upd->pd_id; ?>" class="btn btn-primary btn-xs bor-radius "  title="Add Project Update" ><span class="fa fa-pencil"></span>
                                                             </a>

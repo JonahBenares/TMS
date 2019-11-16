@@ -184,8 +184,8 @@
                         <h4 class="card-title">Users
                             <span data-toggle="modal" data-target="#addCompany">
                                 <?php 
-
-                                if($usertype==1){ ?>
+                             
+                                if($usertype==1 || $usertype==0){ ?>
                                 <a href="#" class="btn btn-primary btn-sm bor-radius pull-right" data-toggle="tooltip" data-placement="top" title="Add Employee" >
                                     <span class="fa fa-plus" ></span>
                                 </a>
@@ -198,7 +198,7 @@
                        
                           
                         <?php } ?> 
-                        <div class="table-responsive" <?php if($usertype!=1){ ?>  style="display: none" <?php } ?> >                            
+                        <div class="table-responsive" <?php if($usertype!=1 && $usertype!=0){ ?>  style="display: none" <?php } ?> >                            
                             <table id="myTable" class="table table-hover table-bordered" >
                                 <thead>
                                     <tr>

@@ -1,5 +1,7 @@
   <?php
     $ci =& get_instance();
+    $now=date('Y-m-d');
+
     ?>
 <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -119,7 +121,7 @@
                                         <td class="p-0">                                         
                                             <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $proj->project_id; ?>" >
                                                 <table width="100%" >
-                                                      <?php $employee = explode(", ", $proj->employee);  
+                                                      <?php $employee = explode(",", $proj->employee);  
                                                      
                                                         $count = count($employee);
                                                         $emp='';
@@ -148,17 +150,39 @@
                                                             </h6>     
                                                             <h4 class="proj-title fw500 m-b-10"><?php echo $proj->project_title; ?></h4>
                                                             <div class="proj-title fw500 h7 m-0"><?php echo $ci->get_name("company", "company_name", "company_id", $proj->company_id); ?></div>
-                                                            <div class="proj-title fw500 h7 m-0">Bacolod City</div>
+                                                            <div class="proj-title fw500 h7 m-0"><?php echo $ci->get_name("location", "location_name", "location_id", $proj->location_id); ?></div>
                                                             <small class="proj-title m-0 btn-block"><?php echo $employees; ?></small>  
                                                         </td>
                                                         <td class="bg-hovr" width="20%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
-                                                            <small class="proj-title btn-block m-0">DUE DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>
+                                                            <small class="proj-title btn-block m-0">DUE DATE: <span class="pull-right">
+                                                                <?php 
+                                                                if(empty($ci->latest_extension($proj->project_id))){
+                                                                    echo date('m-d-Y', strtotime($proj->completion_date)); 
+                                                                } else {
+                                                                     echo date('m-d-Y', strtotime($ci->latest_extension($proj->project_id))); 
+                                                                } 
+                                                                  ?>
+                                                            </span></small>
 
-                                                            <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right">98</span></small>
+                                                            <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right">
+                                                                  <?php if($proj->status == 1) { 
+                                                                 
+                                                                     echo $ci->date_diff($proj->start_date, $ci->project_completed($proj->project_id));
+                                                                   } else { 
+                                                                    echo $ci->date_diff($proj->start_date, $now);
+                                                                   } ?>
+                                                            </span></small>
 
-                                                            <small class="proj-title btn-block m-0">REMAINING DAYS: <span class="pull-right">999</span></small>
-
+                                                            <?php if($proj->status != 1) { ?>
+                                                            <small class="proj-title btn-block m-0">REMAINING DAYS: <span class="pull-right">
+                                                                <?php   if(empty($ci->latest_extension($proj->project_id))){
+                                                                    echo $ci->date_diff($now, $proj->completion_date); 
+                                                                } else {
+                                                                      echo $ci->date_diff($now, $ci->latest_extension($proj->project_id)); 
+                                                                } ?>
+                                                            </span></small>
+                                                            <?php } ?>
                                                             <?php if($proj->status == 1) {  ?>
                                                             <small class="proj-title btn-block m-0">COMPLETED DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($ci->project_completed($proj->project_id))); ?></span></small>
                                                             <?php } else if($proj->status == 2) { ?> 

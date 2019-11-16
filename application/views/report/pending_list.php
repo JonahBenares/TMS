@@ -1,5 +1,6 @@
 <?php
     $ci =& get_instance();
+     $now=date('Y-m-d');
 ?>
 <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -154,6 +155,24 @@
                                                         <td class="bg-hovr" width="20%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->start_date)); ?></span></small>
                                                             <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->completion_date)); ?></span></small>
+                                                              <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right">
+                                                                  <?php if($p->status == 1) { 
+                                                                 
+                                                                     echo $ci->date_diff($p->start_date, $ci->project_completed($p->project_id));
+                                                                   } else { 
+                                                                    echo $ci->date_diff($p->start_date, $now);
+                                                                   } ?>
+                                                            </span></small>
+
+                                                            <?php if($p->status != 1) { ?>
+                                                            <small class="proj-title btn-block m-0">REMAINING DAYS: <span class="pull-right">
+                                                                <?php   if(empty($ci->latest_extension($p->project_id))){
+                                                                    echo $ci->date_diff($now, $p->completion_date); 
+                                                                } else {
+                                                                      echo $ci->date_diff($now, $ci->latest_extension($p->project_id)); 
+                                                                } ?>
+                                                            </span></small>
+                                                            <?php } ?>
                                                         </td>
                                                         <td class="bg-hovr" width="35%" class="nobor-top">
                                                             <div class="progress progress-bar-animated active">

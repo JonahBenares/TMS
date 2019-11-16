@@ -44,6 +44,7 @@
                             </form>   
                             <br>
                             <?php
+                           
                             $error_msg= $this->session->flashdata('error_msg');  
                                 ?>
                             <?php 

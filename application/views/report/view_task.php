@@ -1,5 +1,6 @@
     <?php
     $ci =& get_instance();
+     $now=date('Y-m-d');
     ?>
 <div class="modal fade" id="project_updates" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -37,7 +38,7 @@
                 </div>  
                 <div class="form-group">
                     <select class="custom-select" multiple name="updated_by[]">
-                        <option value="">-Select Accountable Employee-</option>
+                        <option value="">-Updated By-</option>
                         <?php foreach($employees AS $emp){ ?>
 
                             <option value="<?php echo $emp->employee_id; ?>" ><?php echo $emp->employee_name; ?></option>
@@ -162,7 +163,7 @@
                             <div class="col-lg-9">
                                 <h4 class="proj-title m-b-5" style="font-weight: 500">#<?php echo $task_no; ?></h4>
                                 <h3 class="proj-title m-b-0" style="font-weight: 600"><?php echo $project_title; ?></h3>
-                                   <?php $employee = explode(", ", $employee);  
+                                   <?php $employee = explode(",", $employee);  
                                                      
                                     $count = count($employee);
                                     $emp='';
@@ -210,7 +211,7 @@
                                     </div>
                                     <?php }       
                                     foreach($details AS $det){ 
-                                    $updated = explode(", ", $det->updated_by);                                                       
+                                    $updated = explode(",", $det->updated_by);                                                       
                                     $count_upd = count($updated);
                                     $upd='';
                                     for($x=0;$x<$count_upd;$x++){
@@ -226,8 +227,10 @@
                                             <div class="desc m-t-20"><?php echo nl2br($det->remarks); ?>
                                             </div>
                                             <br>
-                                            <small class="proj-title h7"><b>Follow Up Date:</b> October 19, 2019</small><br>
+                                            <?php  if($det->followup_date != '1970-01-01'){ ?>
+                                            <small class="proj-title h7"><b>Follow Up Date:</b> <?php echo date('F j, Y', strtotime($det->followup_date)); ?></small><br>
                                             <?php 
+                                            }
                                             if(!empty($ci->project_extension($det->pd_id))){ 
                                               foreach($ci->project_extension($det->pd_id) AS $e){
                                              ?>
@@ -271,7 +274,7 @@
                                     <br>
                                     <br>
                                     <small class="proj-title">Location:</small><br>
-                                    <span class="">Bacolod City</span>
+                                    <span class=""><?php echo $location; ?></span>
                                     <br>  
                                     <br>
                                     <small class="proj-title">Department:</small><br>
@@ -336,8 +339,27 @@
                                     <?php } ?>
                                     <br>
                                     <br>
-                                    <small class="proj-title">NO. OF WORKING DAYS: <b>82</b></small><br>
-                                    <small class="proj-title">REMAINING DAYS:  <b>82</b></small>
+                                    <small class="proj-title">NO. OF WORKING DAYS: <b><?php
+                                        if($status == 'Done'){
+                                              echo $ci->date_diff($start_date, $ci->project_completed($project_id));
+                                        } else {
+                                              echo $ci->date_diff($start_date, $now);
+                                        }
+                                     ?></b></small>
+                                     <?php  if($status != 'Done' && $status != 'Cancelled'){ ?>
+                                        <br>
+                                    <small class="proj-title">REMAINING DAYS:  <b>
+                                       <?php 
+                                       
+                                            if(empty($ci->latest_extension($project_id))){
+                                                echo $ci->date_diff($now, $completion_date); 
+                                            } else {
+                                                  echo $ci->date_diff($now, $ci->latest_extension($project_id)); 
+                                            } 
+                                        ?>
+
+                                    </b></small>
+                                    <?php } ?>
                                     <br>
                                     <br>
                                     <small class="proj-title">From: <?php echo $from; ?></small><br>
@@ -376,6 +398,9 @@
                                 <?php if($status == 'Pending') { ?>
                                     <a href="#" class="btn btn-primary btn-sm bor-radius "  data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
                                         Add Project Update
+                                    </a>
+                                     <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update" class="btn btn-warning btn-sm bor-radius " title="Edit Project Update" >
+                                        Edit Project Update
                                     </a>
                                     <a href="#" class="btn btn-danger btn-sm bor-radius "  data-toggle="modal" data-target="#cancel_proj" title="Cancel" >
                                         Cancel

@@ -55,18 +55,22 @@ class Masterfile extends CI_Controller {
             $fetch=$this->super_model->select_custom_where("users", "username = '$username' AND (password = '$password' OR password = '$password1')");
             foreach($fetch AS $d){
                 $userid = $d->user_id;
+                $empid = $d->employee_id;
                 $username = $d->username;
                 $fullname = $d->fullname;
                 $department=$d->department_id;
                 $company=$d->company_id;
+                $location=$d->location_id;
                 $usertype=$d->usertype;
             }
             $newdata = array(
                'user_id'=> $userid,
+               'employee'=> $empid,
                'username'=> $username,
                'fullname'=> $fullname,
                'department'=> $department,
                'company'=> $company,
+               'location'=>$location,
                'usertype'=> $usertype,
                'logged_in'=> TRUE
             );
@@ -213,6 +217,11 @@ class Masterfile extends CI_Controller {
         return $compname;
     }
 
+    public function get_name($table, $name, $column, $value){
+        $col = $this->super_model->select_column_where($table, $name, $column, $value);
+        return $col;
+    }   
+
     public function project_percent($project_id){
            $rows_detail = $this->super_model->count_rows_where("project_details", "project_id", $project_id);
         if($rows_detail==0){
@@ -266,21 +275,24 @@ class Masterfile extends CI_Controller {
     public function dashboard()
     {
         $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
         $usertype = $this->session->userdata['usertype'];
         $userdept = $this->session->userdata['department'];
         $usercomp = $this->session->userdata['company'];
-        if($usertype==1){
+        $userloc = $this->session->userdata['location'];
+        if($usertype==1 || $usertype==0){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' ORDER BY completion_date ASC");
         } else if($usertype==2){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND company_id = '$usercomp' ORDER BY completion_date ASC");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND location_id = '$userloc' ORDER BY completion_date ASC");
         } else if($usertype==3){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND department_id = '$userdept' ORDER BY completion_date ASC");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND FIND_IN_SET($useremp, employee) != 0");
+            //echo "status='0' AND priority_no = '1' AND FIND_IN_SET($useremp, employee) != 0";
         }
         $company_id = $this->super_model->select_column_custom_where("project_head","company_id","status='0' AND priority_no = '1' ORDER BY completion_date ASC");
         $data['companys']=$this->super_model->select_column_where("company","company_name","company_id",$company_id);
 
-        if($usertype==1){
-            foreach($this->super_model->select_custom_where("reminders","status = '0' ORDER BY due_date ASC") AS $rem){
+       
+            foreach($this->super_model->select_custom_where("reminders","status = '0' AND (added_by = '$useremp' OR employee_id = '$useremp') ORDER BY due_date ASC") AS $rem){
                 $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
                 $today=date("Y-m-d");
                 $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
@@ -296,8 +308,11 @@ class Masterfile extends CI_Controller {
                 );
             }
 
-            foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '30'") AS $due){
-                $employee = explode(", ", $due->employee);              
+
+            if($usertype==1 || $usertype==0){
+
+            foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '4'") AS $due){
+                $employee = explode(",", $due->employee);              
                 $count = count($employee);
                 $emp='';
                 for($x=0;$x<$count;$x++){
@@ -319,7 +334,7 @@ class Masterfile extends CI_Controller {
                 );
             }
 
-            foreach($this->super_model->custom_query("SELECT * FROM project_details WHERE DATEDIFF(followup_date, NOW()) <= '7'") AS $fol){
+            foreach($this->super_model->custom_query("SELECT * FROM project_details WHERE DATEDIFF(followup_date, NOW()) <= '4'") AS $fol){
                 $today=date("Y-m-d");
                 $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
@@ -333,26 +348,10 @@ class Masterfile extends CI_Controller {
                     );
                 }
             }
-        } else if($usertype==2){
+        } else if ($usertype==2){
 
-              foreach($this->super_model->select_custom_where("reminders","status = '0' AND employee_id = '$userid' ORDER BY due_date ASC") AS $rem){
-                $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
-                $today=date("Y-m-d");
-                $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
-                $data['reminders'][]=array(
-                    'reminder_id'=>$rem->reminder_id,
-                    'project_id'=>0,
-                    'notes'=>$rem->notes,
-                    'followup_date'=>'',
-                    'employee'=>$employee,
-                    'due_date'=>$rem->due_date,
-                    'company_id'=>0,
-                    'days_left'=>$days_left,
-                );
-            }
-
-            foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '30' AND company_id = '$usercomp'") AS $due){
-                $employee = explode(", ", $due->employee);              
+             foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') AND DATEDIFF(completion_date, NOW()) <= '4'") AS $due){
+                $employee = explode(",", $due->employee);              
                 $count = count($employee);
                 $emp='';
                 for($x=0;$x<$count;$x++){
@@ -374,7 +373,7 @@ class Masterfile extends CI_Controller {
                 );
             }
 
-            foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON pd.project_id = ph.project_id WHERE DATEDIFF(pd.followup_date, NOW()) <= '7' AND company_id ='$usercomp'") AS $fol){
+            foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON ph.project_id = pd.project_id WHERE (FIND_IN_SET($useremp, ph.employee) != 0  OR ph.monitor_person = '$useremp' OR ph.location_id = '$userloc') AND DATEDIFF(pd.followup_date, NOW()) <= '4'") AS $fol){
                 $today=date("Y-m-d");
                 $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
@@ -389,26 +388,10 @@ class Masterfile extends CI_Controller {
                 }
             }
 
-        }  else if($usertype==3){
+        }  else if ($usertype==3){
 
-              foreach($this->super_model->select_custom_where("reminders","status = '0' AND employee_id = '$userid' ORDER BY due_date ASC") AS $rem){
-                $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
-                $today=date("Y-m-d");
-                $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
-                $data['reminders'][]=array(
-                    'reminder_id'=>$rem->reminder_id,
-                    'project_id'=>0,
-                    'notes'=>$rem->notes,
-                    'followup_date'=>'',
-                    'employee'=>$employee,
-                    'due_date'=>$rem->due_date,
-                    'company_id'=>0,
-                    'days_left'=>$days_left,
-                );
-            }
-
-            foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND DATEDIFF(completion_date, NOW()) <= '30' AND department_id = '$userdept'") AS $due){
-                $employee = explode(", ", $due->employee);              
+             foreach($this->super_model->custom_query("SELECT * FROM project_head WHERE status='0' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp') AND DATEDIFF(completion_date, NOW()) <= '4'") AS $due){
+                $employee = explode(",", $due->employee);              
                 $count = count($employee);
                 $emp='';
                 for($x=0;$x<$count;$x++){
@@ -430,7 +413,7 @@ class Masterfile extends CI_Controller {
                 );
             }
 
-            foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON pd.project_id = ph.project_id WHERE DATEDIFF(pd.followup_date, NOW()) <= '7' AND department_id ='$userdept'") AS $fol){
+            foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON ph.project_id = pd.project_id WHERE (FIND_IN_SET($useremp, ph.employee) != 0  OR monitor_person = '$useremp') AND DATEDIFF(pd.followup_date, NOW()) <= '4'") AS $fol){
                 $today=date("Y-m-d");
                 $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
@@ -446,6 +429,8 @@ class Masterfile extends CI_Controller {
             }
 
         }
+        
+        
 
         $data['employees'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $this->load->view('template/header');
@@ -455,6 +440,8 @@ class Masterfile extends CI_Controller {
     }
 
     public function insert_reminder(){
+        $timestamp=date('Y-m-d H:i:s');
+        $useremp = $this->session->userdata['employee'];
         $employee = trim($this->input->post('employee')," ");
         $notes = trim($this->input->post('notes')," ");
         $due_date = trim($this->input->post('due_date')," ");
@@ -462,6 +449,9 @@ class Masterfile extends CI_Controller {
             'employee_id'=>$employee,
             'notes'=>$notes,
             'due_date'=>$due_date,
+            'added_by'=>$useremp,
+            'timestamp'=>$timestamp
+
         );
         if($this->super_model->insert_into("reminders", $data)){
              $this->session->set_flashdata('msg', 'Reminder successfully added!');
@@ -566,7 +556,7 @@ class Masterfile extends CI_Controller {
     public function add_user(){
         $pw=md5('12345');
         $data=array(
-            'fullname'=>$this->input->post('employee_name'),
+            'employee_id'=>$this->input->post('employee_name'),
             'username'=>$this->input->post('username'),
             'password'=>$pw,
             'company_id'=>$this->input->post('company'),
@@ -588,7 +578,7 @@ class Masterfile extends CI_Controller {
         if($usertype==2){
             if(empty($location)){
                 $data=array(
-                    'fullname'=>$this->input->post('employee_name'),
+                    'employee_id'=>$this->input->post('employee_name'),
                     'company_id'=>$this->input->post('company'),
                     'department_id'=>$this->input->post('department'),
                     'status'=>$this->input->post('status'),
@@ -597,7 +587,7 @@ class Masterfile extends CI_Controller {
                 );
             } else {
                 $data=array(
-                    'fullname'=>$this->input->post('employee_name'),
+                    'employee_id'=>$this->input->post('employee_name'),
                     'company_id'=>$this->input->post('company'),
                     'department_id'=>$this->input->post('department'),
                     'status'=>$this->input->post('status'),
@@ -660,5 +650,19 @@ class Masterfile extends CI_Controller {
         $data['location']=$this->super_model->select_all_order_by("location","location_name","ASC");
         $this->load->view('masterfile/location_list', $data);
         $this->load->view('template/footer');
+    }
+
+
+    public function date_diff($date1, $date2){
+        $ts1 = strtotime($date1);
+        $ts2 = strtotime($date2);
+
+        $diff = $ts2 - $ts1;
+        return abs(round($diff / 86400)); 
+    }
+
+       public function latest_extension($project_id){
+        $due = $this->super_model->custom_query_single("due","SELECT MAX(extension_date) as due FROM project_extension WHERE project_id = '$project_id'");
+        return $due;
     }
 }

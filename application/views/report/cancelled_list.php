@@ -155,8 +155,9 @@
                                                         <td class="bg-hovr" width="20%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
                                                             <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->completion_date)); ?></span></small>
-                                                            <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right">98</span></small>
-                                                            <small class="proj-title btn-block m-0">REMAINING DAYS: <span class="pull-right">999</span></small>
+                                                             <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right">
+                                                                  <?php echo $ci->date_diff($proj->start_date, $proj->cancel_date); ?>
+                                                            </span></small>
                                                              <small class="proj-title btn-block m-0">CANCELLED DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->cancel_date)); ?></span></small>
                                                         </td>
                                                         <td class="bg-hovr" width="29%" class="nobor-top">

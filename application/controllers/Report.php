@@ -54,21 +54,23 @@ class Report extends CI_Controller {
         $this->load->view('template/navbar');
 
         $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
         $usertype = $this->session->userdata['usertype'];
         $userdept = $this->session->userdata['department'];
         $usercomp = $this->session->userdata['company'];
+        $userloc = $this->session->userdata['location'];
 
 
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
 
-        if($usertype==1){
+        if($usertype==1 || $usertype==0){
          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
         } else if($usertype==2) {
-          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND company_id = '$usercomp' ORDER BY start_date DESC");
+          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND location_id = '$userloc' ORDER BY start_date DESC");
         } else if($usertype==3) {
-          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND department_id = '$userdept' ORDER BY start_date DESC");
+          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND FIND_IN_SET($useremp, employee) != 0");
         }
 
         $this->load->view('report/pending_list',$data);
@@ -184,16 +186,18 @@ class Report extends CI_Controller {
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
 
         $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
         $usertype = $this->session->userdata['usertype'];
         $userdept = $this->session->userdata['department'];
         $usercomp = $this->session->userdata['company'];
+        $userloc = $this->session->userdata['location'];
 
-        if($usertype==1){
+        if($usertype==1 || $usertype==0){
             $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND $query");
         } else if($usertype==2){
-            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND company_id='$usercomp' AND $query");
+            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND location_id='$userloc' AND $query");
         } else if($usertype==3){
-            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND department_id='$userdept' AND $query");
+            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND FIND_IN_SET($useremp, employee) != 0 AND $query");
         }
         $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
@@ -202,21 +206,23 @@ class Report extends CI_Controller {
     public function completed_list()
     {   
         $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
         $usertype = $this->session->userdata['usertype'];
         $userdept = $this->session->userdata['department'];
         $usercomp = $this->session->userdata['company'];
+        $userloc = $this->session->userdata['location'];
 
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
 
 
-        if($usertype==1){
+        if($usertype==1 || $usertype==0){
              $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' ORDER BY start_date DESC");
         } else if($usertype==2){
-             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND company_id='$usercomp' ORDER BY start_date DESC");
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND location_id='$userloc' ORDER BY start_date DESC");
         } else if($usertype==3){
-             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND department_id='$userdept' ORDER BY start_date DESC");
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND FIND_IN_SET($useremp, employee) != 0");
         }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
@@ -333,16 +339,18 @@ class Report extends CI_Controller {
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
 
         $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
         $usertype = $this->session->userdata['usertype'];
         $userdept = $this->session->userdata['department'];
         $usercomp = $this->session->userdata['company'];
+        $userloc = $this->session->userdata['location'];
 
-        if($usertype==1){
+        if($usertype==1 || $usertype==0){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND $query");
         } else if($usertype==2){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND company_id='$usercomp' AND $query");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND location_id='$userloc' AND $query");
         } else if($usertype==3){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND department_id='$userdept' AND $query");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND FIND_IN_SET($useremp, employee) != 0 AND $query");
         }
 
 
@@ -353,19 +361,21 @@ class Report extends CI_Controller {
     public function cancelled_list()
     {
         $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
         $usertype = $this->session->userdata['usertype'];
         $userdept = $this->session->userdata['department'];
         $usercomp = $this->session->userdata['company'];
+        $userloc = $this->session->userdata['location'];
 
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        if($usertype==1){
+        if($usertype==1  || $usertype==0){
           $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' ORDER BY start_date DESC");
         } else if($usertype==2){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND company_id='$usercomp' ORDER BY start_date DESC");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND location_id='$userloc' ORDER BY start_date DESC");
         } else if($usertype==3){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND department_id='$userdept' ORDER BY start_date DESC");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND FIND_IN_SET($useremp, employee) != 0");
         }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
@@ -452,7 +462,7 @@ class Report extends CI_Controller {
             $emp='';
             for($x=0;$x<count($employee); $x++){
                 $q.=' instr(employee, '.$employee[$x].') OR';
-                $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee[$x]) .", ";
+                $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee[$x]) .",";
             }
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -2);
@@ -482,16 +492,18 @@ class Report extends CI_Controller {
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
 
         $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
         $usertype = $this->session->userdata['usertype'];
         $userdept = $this->session->userdata['department'];
         $usercomp = $this->session->userdata['company'];
+        $userloc = $this->session->userdata['location'];
 
-        if($usertype==1){
+        if($usertype==1 || $usertype==0){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND $query");
         } else if($usertype==2){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND company_id = '$usercomp' AND $query");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND location_id = '$userloc' AND $query");
         } else if($usertype==3){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND department_id = '$userdept' AND $query");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND FIND_IN_SET($useremp, employee) != 0 AND $query");
         }
         $this->load->view('report/cancelled_list',$data);
         $this->load->view('template/footer');
@@ -575,13 +587,13 @@ class Report extends CI_Controller {
             $emp='';
             for($x=0;$x<count($employee); $x++){
                 $q.=' instr(employee, '.$employee[$x].') OR';
-                $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee[$x]) .", ";
+                $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee[$x]) .",";
             }
             $q = substr($q, 0, -3);
-            $emp = substr($emp, 0, -2);
+            $emp = substr($emp, 0, -1);
             $sql.=" $q AND";
         
-            $filter .= "<b>Employees</b> - ".$emp.", ";
+            $filter .= "<b>Employees</b> - ".$emp.",";
         }
 
         if(!empty($this->input->post('priority'))){
@@ -607,16 +619,18 @@ class Report extends CI_Controller {
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
 
         $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
         $usertype = $this->session->userdata['usertype'];
         $userdept = $this->session->userdata['department'];
         $usercomp = $this->session->userdata['company'];
+        $userloc = $this->session->userdata['location'];
 
-        if($usertype==1){
+        if($usertype==1 || $usertype==0){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "$query");
         } else if($usertype==2){
-             $data['projects'] = $this->super_model->select_custom_where("project_head", "company_id = '$usercomp' AND  $query");
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "location_id = '$userloc' AND  $query");
         } else if($usertype==3){
-             $data['projects'] = $this->super_model->select_custom_where("project_head", "department_id = '$userdept' AND  $query");
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "FIND_IN_SET($useremp, employee) != 0  AND  $query");
         }
         $this->load->view('report/alltask_list',$data);
         $this->load->view('template/footer');
@@ -646,11 +660,20 @@ class Report extends CI_Controller {
         return $completed_date;
     }
 
+    public function date_diff($date1, $date2){
+        $ts1 = strtotime($date1);
+        $ts2 = strtotime($date2);
+
+        $diff = $ts2 - $ts1;
+        return abs(round($diff / 86400)); 
+    }
     public function view_task()
     {
         $project_id = $this->uri->segment(3);
         $data['project_id'] = $project_id;
+    
         foreach($this->super_model->select_row_where('project_head', 'project_id', $project_id) AS $proj){
+
             $data['start_date']=$proj->start_date;
             $data['completion_date']=$proj->completion_date;
             $data['task_no']=$proj->task_no;
@@ -659,6 +682,7 @@ class Report extends CI_Controller {
             $data['project_title']=$proj->project_title;
             $data['project_description']=$proj->project_description;
             $data['priority_no']=$proj->priority_no;
+            $data['location']=$this->super_model->select_column_where("location", "location_name", "location_id", $proj->location_id);
             $data['company']=$this->super_model->select_column_where("company", "company_name", "company_id", $proj->company_id);
             $data['department']=$this->super_model->select_column_where("department", "department_name", "department_id", $proj->department_id);
             $data['employee']=$proj->employee;
@@ -730,9 +754,9 @@ class Report extends CI_Controller {
         $empid='';
         $count= count($this->input->post('updated_by'));
         for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].", ";
+            $empid .= $emp[$x].",";
         }
-        $empid = substr($empid, 0, -2);
+        $empid = substr($empid, 0, -1);
 
         if($this->input->post('percentage')=='100'){
             $data_head = array(
@@ -803,10 +827,26 @@ class Report extends CI_Controller {
     }   
 
     public function alltask_list(){
+        $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+        $userloc = $this->session->userdata['location'];
+
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['projects'] = $this->super_model->select_all_order_by("project_head", "start_date", "DESC");
+      // /  $data['projects'] = $this->super_model->select_all_order_by("project_head", "start_date", "DESC");
+
+        if($usertype==1){
+            $data['projects'] = $this->super_model->select_all_order_by("project_head", "start_date", "DESC");
+        } else if($usertype==2){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND location_id = '$userloc' ORDER BY start_date DESC");
+        } else if($usertype==3){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND FIND_IN_SET($useremp, employee) != 0");
+        }
+
         $this->load->view('template/header');
         $this->load->view('template/navbar');
 
