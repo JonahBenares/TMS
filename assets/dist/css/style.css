@@ -22147,10 +22147,10 @@ a table tr:hover{
 }
 
 @keyframes glowing2 {
-  0% { box-shadow: 0 0 -5px #6dffff; }
-  40% { box-shadow: 0 0 15px #6dffff; }
-  60% { box-shadow: 0 0 15px #6dffff; }
-  100% { box-shadow: 0 0 -5px #6dffff; }
+  0% { box-shadow: 0 0 -5px  4px #ff3939; }
+  40% { box-shadow: 0 0 15px  8px #ff3939; }
+  60% { box-shadow: 0 0 15px  8px #ff3939; }
+  100% { box-shadow: 0 0 -5px  4px #ff3939; }
 }
 
 .button-glow {
