@@ -103,6 +103,7 @@ class Masterfile extends CI_Controller {
         $employee = trim($this->input->post('employee')," ");
         $data = array(
             'employee_name'=>$employee,
+            'email'=>$this->input->post('email')
         );
         if($this->super_model->insert_into("employees", $data)){
              $this->session->set_flashdata('msg', 'Employee successfully added!');
@@ -113,6 +114,7 @@ class Masterfile extends CI_Controller {
     public function edit_employee(){
         $data = array(
             'employee_name'=>$this->input->post('employee'),
+            'email'=>$this->input->post('email')
         );
         $employee_id = $this->input->post('employee_id');
         if($this->super_model->update_where('employees', $data, 'employee_id', $employee_id)){
@@ -339,6 +341,7 @@ class Masterfile extends CI_Controller {
                 $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
+                    if($days_left>0){
                     $data['followup'][]=array(
                         'notes'=>$head->project_title,
                         'followup_date'=>$fol->followup_date,
@@ -346,6 +349,7 @@ class Masterfile extends CI_Controller {
                         'company_id'=>$head->company_id,
                         'days_left'=>$days_left,
                     );
+                    }
                 }
             }
         } else if ($usertype==2){
@@ -442,21 +446,65 @@ class Masterfile extends CI_Controller {
     public function insert_reminder(){
         $timestamp=date('Y-m-d H:i:s');
         $useremp = $this->session->userdata['employee'];
+
+        $sender = $this->super_model->select_column_where("employees","email","employee_id",$useremp);
         $employee = trim($this->input->post('employee')," ");
         $notes = trim($this->input->post('notes')," ");
         $due_date = trim($this->input->post('due_date')," ");
-        $data = array(
-            'employee_id'=>$employee,
-            'notes'=>$notes,
-            'due_date'=>$due_date,
-            'added_by'=>$useremp,
-            'timestamp'=>$timestamp
+        $email = $this->super_model->select_column_where("employees","email","employee_id",$employee);
+        $reminded_by = $this->super_model->select_column_where("employees","employee_name","employee_id",$useremp);
+        if($this->send_email($email, $notes,$due_date, $reminded_by, $timestamp, $sender)){
+            $data = array(
+                'employee_id'=>$employee,
+                'notes'=>$notes,
+                'due_date'=>$due_date,
+                'added_by'=>$useremp,
+                'timestamp'=>$timestamp
 
-        );
-        if($this->super_model->insert_into("reminders", $data)){
-             $this->session->set_flashdata('msg', 'Reminder successfully added!');
-             redirect(base_url().'masterfile/dashboard');
+            );
+            if($this->super_model->insert_into("reminders", $data)){
+                 $this->session->set_flashdata('msg', 'Reminder successfully added!');
+                 redirect(base_url().'masterfile/dashboard');
+            }
         }
+    }
+
+    public function sanitize_my_email($field) {
+        $field = filter_var($field, FILTER_SANITIZE_EMAIL);
+        if (filter_var($field, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function send_email($email,$notes, $due, $reminded_by, $timestamp, $sender){
+            $to_email = $email;
+            $subject = 'Task Monitoring System - Auto Reminder';
+            $message = "<html>
+           
+            <body>
+              <p>".$reminded_by ." has reminded you to ". $notes."</p>
+              <p>Due Date: ". date('F j, Y', strtotime($due))."</p>
+              <br><br>
+              <p>Reminder timestamp: ". date('F j, Y H:i:s', strtotime($timestamp)) ."</p>
+              <p>This is an auto-email sent by Task Monitoring System. Do not reply.</p>
+              
+            </body>
+            </html>";
+            $headers  = "MIME-Version: 1.0 \r\n";
+            $headers .= "Content-type: text/html; charset=iso-8859-1 \r\n";
+            $headers .= "From: ".$sender;
+
+            //echo $to_email.", ". $subject.", ". $message.", ". $headers.", ". $sender."<br>";
+        
+
+               if(mail($to_email, $subject, $message, $headers)){
+                    return true;
+                }
+                
+                
+           
     }
 
      public function done_reminder(){
@@ -530,7 +578,6 @@ class Masterfile extends CI_Controller {
                 'company'=>$this->super_model->select_column_where("company","company_name","company_id",$users->company_id),
                 'department'=>$this->super_model->select_column_where("department","department_name","department_id",$users->department_id),
                 'status'=>$users->status,
-                'email'=>$users->email,
                 'usertype'=>$users->usertype,
                 'company_id'=>$users->company_id,
                 'department_id'=>$users->department_id,
@@ -561,8 +608,8 @@ class Masterfile extends CI_Controller {
             'password'=>$pw,
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
+            'location_id'=>$this->input->post('location'),
             'status'=>$this->input->post('status'),
-            'email'=>$this->input->post('email'),
             'usertype'=>$this->input->post('usertype'),
         );
         if($this->super_model->insert_into("users", $data)){
@@ -578,31 +625,25 @@ class Masterfile extends CI_Controller {
         if($usertype==2){
             if(empty($location)){
                 $data=array(
-                    'employee_id'=>$this->input->post('employee_name'),
                     'company_id'=>$this->input->post('company'),
                     'department_id'=>$this->input->post('department'),
                     'status'=>$this->input->post('status'),
-                    'email'=>$this->input->post('email'),
                     'usertype'=>$this->input->post('usertype'),
                 );
             } else {
                 $data=array(
-                    'employee_id'=>$this->input->post('employee_name'),
                     'company_id'=>$this->input->post('company'),
                     'department_id'=>$this->input->post('department'),
                     'status'=>$this->input->post('status'),
-                    'email'=>$this->input->post('email'),
                     'usertype'=>$this->input->post('usertype'),
                     'location_id'=>$location,
                 );
             }
         } else {
              $data=array(
-                    'fullname'=>$this->input->post('employee_name'),
                     'company_id'=>$this->input->post('company'),
                     'department_id'=>$this->input->post('department'),
                     'status'=>$this->input->post('status'),
-                    'email'=>$this->input->post('email'),
                     'usertype'=>$this->input->post('usertype'),
                     'location_id'=>0
                 );

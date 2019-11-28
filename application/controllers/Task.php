@@ -46,6 +46,7 @@ class Task extends CI_Controller {
         $project_id = $this->uri->segment(3);
         $update = $this->uri->segment(4);
         $pd_id = $this->uri->segment(5);
+
         $data['project_id'] = $project_id;
         $data['pd_id'] = $pd_id;
         $data['update'] = $update;
@@ -124,6 +125,7 @@ class Task extends CI_Controller {
             $maxno = $this->super_model->get_max("project_head", "task_no");
             $task_no1 = $maxno+1;
         }
+         $userid = $this->session->userdata['user_id'];
 
         $task_no = "00".$task_no1;
         $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
@@ -156,7 +158,8 @@ class Task extends CI_Controller {
             'department_id'=>$this->input->post('department'),
             'employee'=>$empid,
             'status'=>0,
-            'create_date'=>$create_date
+            'create_date'=>$create_date,
+            'user_id'=>$userid
         );
 
         if($this->super_model->insert_into("project_head", $data)){
@@ -166,7 +169,7 @@ class Task extends CI_Controller {
     }
 
     public function update_task(){
-
+        $userid = $this->session->userdata['user_id'];
         $project_id = $this->input->post('project_id');
         $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
         $completion_date = date('Y-m-d', strtotime($this->input->post('completion_date')));
@@ -196,7 +199,8 @@ class Task extends CI_Controller {
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
             'employee'=>$empid,
-            'create_date'=>$create_date
+            'create_date'=>$create_date,
+            'user_id'=>$userid
         );
 
 
@@ -208,7 +212,8 @@ class Task extends CI_Controller {
     }
 
     public function update_project(){
-
+        $userid = $this->session->userdata['user_id'];
+       
         $project_id = $this->input->post('project_id');
         $update_hour = $this->input->post('update_hour');
         $update_minute = $this->input->post('update_minute');
@@ -242,6 +247,7 @@ class Task extends CI_Controller {
             'followup_date'=>$followup_date,
             'updated_by'=>$empid,
             'create_date'=>$create_date,
+            'user_id'=>$userid
         );
           if($this->super_model->insert_into("project_details", $data)){
               $this->session->set_flashdata('msg_updates', 'Project updates successfully added!');
@@ -250,6 +256,7 @@ class Task extends CI_Controller {
     }
 
     public function update_changes_project(){
+        $userid = $this->session->userdata['user_id'];
         $project_id = $this->input->post('project_id');
         $pd_id = $this->input->post('pd_id');
         $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
@@ -272,6 +279,7 @@ class Task extends CI_Controller {
             'followup_date'=>$followup_date,
             'updated_by'=>$empid,
             'create_date'=>$create_date,
+            'user_id'=>$userid
         );
         if($this->super_model->update_where("project_details", $data, "pd_id", $pd_id)){
               $this->session->set_flashdata('msg_updates', 'Project updates successfully changed!');

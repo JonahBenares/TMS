@@ -43,10 +43,10 @@
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="form-group">
+                   <!--  <div class="form-group">
                         Email
                         <input type="email" name="email" id="email" class="form-control" required>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         User Type
                         <select name='usertype' id='usertype' class="form-control" required>
@@ -118,10 +118,10 @@
                             <?php } ?>
                         </select>
                     </div>
-                     <div class="form-group">
+                    <!--  <div class="form-group">
                         Email
                         <input type="email" name="email" id = "email" class="form-control">
-                    </div>
+                    </div> -->
                      <div class="form-group">
                         User Type
                         <select name='usertype' id='usertype_update' class="form-control" required>
@@ -208,7 +208,7 @@
                                         <th>Location</th>
                                         <th>Company</th>
                                         <th>Department</th>
-                                        <th>Email</th>
+                                       <!--  <th>Email</th> -->
                                         <th width="1%">Status</th>
                                         <th width="2%" class="text-center"><span class="fa fa-bars"></span></th>
                                     </tr>
@@ -231,7 +231,7 @@
                                             <td><?php echo $us['location']; ?></td>
                                             <td><?php echo $us['company']; ?></td>
                                             <td><?php echo $us['department']; ?></td>
-                                            <td><?php echo $us['email']; ?></td>
+                                           <!--  <td><?php echo $us['email']; ?></td> -->
                                             <td>
                                                 <?php if($us['status']==1){ ?>
                                                 <label class="label label-success">Active</label>
@@ -245,7 +245,7 @@
                                             <center>                                      
                                                 <div class="table-data-feature">
                                                     <span data-toggle="modal" data-target="#updateUser">
-                                                        <a  class="btn btn-info item update_user  btn-sm" data-toggle="tooltip" data-id = "<?php echo $us['id']; ?>" data-name = "<?php echo $us['fullname']; ?>" data-company ="<?php echo $us['company_id']; ?>" data-department ="<?php echo $us['department_id']; ?>" data-email ="<?php echo $us['email']; ?>" data-status ="<?php echo $us['status']; ?>" data-usertype ="<?php echo $us['usertype']; ?>" data-locationid ="<?php echo $us['location_id']; ?>" data-location ="<?php echo $us['location']; ?>" id = "updateEmp_button" data-placement="top" title="Update" >
+                                                        <a  class="btn btn-info item update_user  btn-sm" data-toggle="tooltip" data-id = "<?php echo $us['id']; ?>" data-name = "<?php echo $us['fullname']; ?>" data-company ="<?php echo $us['company_id']; ?>" data-department ="<?php echo $us['department_id']; ?>"  data-status ="<?php echo $us['status']; ?>" data-usertype ="<?php echo $us['usertype']; ?>" data-locationid ="<?php echo $us['location_id']; ?>" data-location ="<?php echo $us['location']; ?>" id = "updateEmp_button" data-placement="top" title="Update" >
                                                             <i class="fa fa-pencil-square-o"></i>
                                                         </a>
                                                     </span>

@@ -741,7 +741,7 @@ class Report extends CI_Controller {
     }
 
     public function update_project(){
-
+         $userid = $this->session->userdata['user_id'];
         $project_id = $this->input->post('project_id');
         $update_hour = $this->input->post('update_hour');
         $update_minute = $this->input->post('update_minute');
@@ -795,7 +795,8 @@ class Report extends CI_Controller {
             'update_date'=>$update_date,
             'updated_by'=>$empid,
             'create_date'=>$create_date,
-            'followup_date'=>$followup_date
+            'followup_date'=>$followup_date,
+            'user_id'=>$userid
         );
           if($this->super_model->insert_into("project_details", $data)){
               $this->session->set_flashdata('msg_updates', 'Project updates successfully added!');
@@ -804,6 +805,7 @@ class Report extends CI_Controller {
     }
 
     public function cancel_project(){
+         $userid = $this->session->userdata['user_id'];
         $project_id = $this->input->post('project_id');
         $cancel_date = date('Y-m-d', strtotime($this->input->post('cancel_date')));
         $timestamp = date('Y-m-d H:i:s');
@@ -812,7 +814,8 @@ class Report extends CI_Controller {
             'status'=>2,
             'cancel_date'=>$cancel_date,
             'cancel_reason'=>$this->input->post('cancel_reason'),
-            'cancel_timestamp'=>$timestamp
+            'cancel_timestamp'=>$timestamp,
+            'cancel_by'=>$userid
         );
 
         if($this->super_model->update_where("project_head", $data, "project_id", $project_id)){
