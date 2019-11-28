@@ -150,11 +150,11 @@
                                                             <h4 class="proj-title fw500 m-b-10"><?php echo $p->project_title; ?></h4>
                                                             <div class="proj-title fw500 h7 m-0"><?php echo $ci->get_name("company", "company_name", "company_id", $p->company_id); ?></div>
                                                             <div class="proj-title fw500 h7 m-0">Bacolod City</div>
-                                                            <small class="proj-title m-0 btn-block"><?php echo $employee; ?></small>  
+                                                            <small class="proj-title m-0 btn-block fw500"><?php echo $employee; ?></small>  
                                                         </td>
                                                         <td class="bg-hovr" width="20%" class="nobor-top">
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->start_date)); ?></span></small>
-                                                            <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->completion_date)); ?></span></small>
+                                                            <small class="proj-title btn-block m-0 text-danger">Due DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->completion_date)); ?></span></small>
                                                               <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right">
                                                                   <?php if($p->status == 1) { 
                                                                  

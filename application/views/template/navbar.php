@@ -22,8 +22,7 @@
                  	</a>
                 </div>
                 <div class="navbar-collapse">
-                    <ul class="navbar-nav mr-auto">
-                        
+                    <ul class="navbar-nav mr-auto">                        
                         <li class="nav-item">
                             <a class="nav-link text-white waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/dashboard/" title="Dashboard"><i class="fa fa-tachometer "></i></a>
                         </li>
@@ -53,9 +52,131 @@
                               <a class="dropdown-item" href="<?php echo base_url(); ?>report/cancelled_list/">
                                 <span class="text-danger fa fa-circle"></span> Cancelled</a>
                             </div>
-                        </li>
+                        </li>   
                         <li class="nav-item ">
                             <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="<?php echo base_url(); ?>reminder/reminder_list" title="Reminder"><i class="fa fa-bell animated infinite headShake "></i></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <!--  <span class="fa fa-envelope-o"></span> -->
+                               <span class="fa fa-envelope button-glow"></span>
+
+
+                            </a>
+                            <div class="dropleft dropdown-menu drop-left" style="width:350px">
+                                <span class="dropdown-item bg-main text-white  title-back" disable ><h5 class="card-title m-b-0">5 New</h5><small>NOTIFICATION</small></span>
+                                <div class="message-box">
+                                    <div class="message-widget message-scroll">
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        <a href="">
+                                            <div class="mail-contnet" style="width: 100%;">
+                                                <h5>Pavan kumar</h5> 
+                                                <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
+                                                <span class="time">9:30 AM</span> 
+                                            </div>
+                                        </a>
+
+                                       
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
