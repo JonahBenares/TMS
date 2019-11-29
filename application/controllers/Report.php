@@ -707,7 +707,10 @@ class Report extends CI_Controller {
             );
         }
 
-
+        $data['usertype']=$this->session->userdata['usertype'];
+        $useremp = $this->session->userdata['employee'];
+        $data['emp'] = $this->super_model->select_column_where("employees","employee_name","employee_id",$useremp);
+        
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('report/view_task',$data);

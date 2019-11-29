@@ -343,6 +343,7 @@ class Masterfile extends CI_Controller {
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     if($days_left>0){
                     $data['followup'][]=array(
+                        'project_id'=>$head->project_id,
                         'notes'=>$head->project_title,
                         'followup_date'=>$fol->followup_date,
                         'employee'=>$employees,
@@ -383,6 +384,7 @@ class Masterfile extends CI_Controller {
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     $data['followup'][]=array(
+                        'project_id'=>$head->project_id,
                         'notes'=>$head->project_title,
                         'followup_date'=>$fol->followup_date,
                         'employee'=>$employees,
@@ -423,6 +425,7 @@ class Masterfile extends CI_Controller {
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     $data['followup'][]=array(
+                        'project_id'=>$head->project_id,
                         'notes'=>$head->project_title,
                         'followup_date'=>$fol->followup_date,
                         'employee'=>$employees,
@@ -441,6 +444,37 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/navbar');
         $this->load->view('masterfile/dashboard', $data);
         $this->load->view('template/footer');
+    }
+
+    public function send_ffmail(){
+        $useremp = $this->session->userdata['employee'];
+        $userloc = $this->session->userdata['location'];
+        $project_id = $this->uri->segment(3);
+        $sender = $this->super_model->select_column_where("employees","email","employee_id",$useremp);
+        $subject="Task Monitoring System - Follow Up Reminder";
+        $message='';
+        foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON ph.project_id = pd.project_id WHERE (FIND_IN_SET($useremp, ph.employee) != 0  OR ph.monitor_person = '$useremp' OR ph.location_id = '$userloc') AND DATEDIFF(pd.followup_date, NOW()) <= '4' AND ph.project_id='$project_id' GROUP BY ph.project_title") AS $fol){
+            foreach($this->super_model->select_custom_where("project_head","project_id = '$project_id' GROUP BY project_id") AS $head){
+                $employeee = explode(",", $head->employee);              
+                $count = count($employeee);
+                $emp='';
+                for($x=0;$x<$count;$x++){
+                    $email = $this->super_model->select_column_custom_where("employees","email","employee_id = '$employeee[$x]'");
+                    $emp.= $email. ", ";
+                } 
+                $employees = substr($emp, 0, -2);
+                $to= $employees;
+                $message.="<p>This is a reminder that our next follow up date for project <b><u>".$head->project_title."</u></b> is on <b><u>".$fol->followup_date."</u></b>.</p>";
+                $message.="<p>Please come on time. Thank you.</p><br>";
+                $message.="<p>This is an auto-email sent by Task Monitoring System. Do not reply.</p>";
+            }
+        }
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= 'From: '.$sender. "\r\n";
+        mail($to,$subject,$message,$headers);
+        $this->session->set_flashdata('msg_email', 'Email successfully sent!');
+        redirect(base_url().'masterfile/dashboard', 'refresh');
     }
 
     public function insert_reminder(){

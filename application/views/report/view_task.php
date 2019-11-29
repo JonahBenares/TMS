@@ -37,13 +37,17 @@
                     <input type="number" class="form-control" name="percentage" placeholder="Status Percentage" min="<?php echo $ci->project_percent($project_id); ?>" max="100" value="<?php echo $ci->project_percent($project_id); ?>">
                 </div>  
                 <div class="form-group">
+                    <?php if($usertype==3){ ?>
+                    <input placeholder="Updated By" class="form-control" name='updated_by[]' type="text" value="<?php echo $emp;?>" style="pointer-events: none;">
+                    <?php } else { ?>
                     <select class="custom-select" multiple name="updated_by[]">
                         <option value="">-Updated By-</option>
                         <?php foreach($employees AS $emp){ ?>
 
                             <option value="<?php echo $emp->employee_id; ?>" ><?php echo $emp->employee_name; ?></option>
                         <?php } ?>
-                    </select>                    
+                    </select> 
+                    <?php } ?>                   
                 </div>
                 <div class="form-group">
                     <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="followup_date">
@@ -395,7 +399,7 @@
                                 </div>                                
                             </div>
                             <div style="position: fixed; left: 0;bottom: 0; margin: 50px; background: white">
-                                <?php if($status == 'Pending') { ?>
+                                <?php if($status == 'Pending' || $status == 'Done') { ?>
                                     <a href="#" class="btn btn-primary btn-sm bor-radius "  data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
                                         Add Project Update
                                     </a>

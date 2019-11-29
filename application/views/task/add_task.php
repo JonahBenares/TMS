@@ -258,6 +258,9 @@
                                             <input type="number" class="form-control" name="percentage" placeholder="Status Percentage"  min="<?php echo (!empty($pd_id) ? 0 : $current_percent); ?>" max ='100' value="<?php echo (!empty($pd_id) ? $percent : $current_percent); ?>">
                                         </div>  
                                           <div class="form-group">
+                                            <?php if($usertype==3){ ?>
+                                            <input placeholder="Updated By" class="form-control" name='updated_by[]' type="text" value="<?php echo $emp;?>" style="pointer-events: none;">
+                                            <?php }else { ?>
                                             <select class="custom-select" multiple name="updated_by[]">
                                                 <option value="">-Updated By-</option>
                                                 <?php foreach($employee AS $emp){ ?>
@@ -265,6 +268,7 @@
                                                     <option value="<?php echo $emp->employee_id; ?>"  <?php echo (!empty($pd_id) ? ((strstr($updated_by, $emp->employee_id)) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <?php } ?>
                                         </div>
                                         <div class="form-group">
                                             <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"  value="<?php echo (!empty($pd_id) ? $followup_date : ''); ?>">

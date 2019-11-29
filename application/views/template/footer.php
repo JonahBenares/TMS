@@ -27,9 +27,11 @@
 
         $(document).ready(function(){
             $('#prior').DataTable({
-                "lengthMenu": false
+                "order":[0, "asc"],
+                "lengthMenu": [[50, 70, 100, -1], [50, 70, 100, "All"]]
             });
         });
+        
     </script>
     <script type="text/javascript">
         function confirmationDelete(anchor){

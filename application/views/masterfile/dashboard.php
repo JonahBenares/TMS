@@ -99,11 +99,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                        <?php foreach($projects AS $proj){ ?>
                                 <tr>
                                     <td class="p-0">
-                                           <?php foreach($projects AS $proj){ ?>
                                         <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $proj->project_id; ?>" >
-                                            <table width="100%" >                                             
+                                            <table  width="100%" id = "rrur">                                             
                                                     <?php $employee = explode(",", $proj->employee);                                                   
                                                     $count = count($employee);
                                                     $emp='';
@@ -114,6 +114,14 @@
                                                     ?>
                                                 <tr>
                                                     <td class="bg-hovr" class="nobor-top">
+                                                        <!--  <span class="" style="display: none"><?php 
+
+                                                          if(empty($ci->latest_extension($proj->project_id))){
+                                                                    echo date('m-d-Y', strtotime($proj->completion_date)); 
+                                                                } else {
+                                                                     echo date('m-d-Y', strtotime($ci->latest_extension($proj->project_id))); 
+                                                                } 
+                                                                ?></span> -->
                                                         <h6 class="proj-title">
                                                             <span class="fw500">#<?php echo $proj->task_no; ?></span> |
                                                             <?php if($proj->priority_no==1){ ?>
@@ -171,10 +179,10 @@
                                                 </tr>
                                               
                                             </table>
-                                              <?php } ?>
                                         </a> 
                                     </td>                                       
                                 </tr>
+                                              <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -204,6 +212,18 @@
                             </span> -->
                         </h5>
                         <h6 class="card-subtitle">check out your weekly schedule</h6>
+                        <?php
+                            $msg_email= $this->session->flashdata('msg_email');  
+                            if($msg_email){
+                        ?>
+                            <div class="row">
+                                 <div class="col-lg-12">
+                                    <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                        <center><?php echo $msg_email; ?></center>                    
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?> 
                         <?php 
                             if(!empty($followup)){
                                 $columns = array_column($followup, 'followup_date');
@@ -228,6 +248,13 @@
                                             <span class="m-l-5 text-info"><?php echo $r['days_left']; ?></span>
                                         <?php } ?>
                                     </small>
+                                     <div class="pull-right">
+                                        <span data-toggle="modal" class="pull-right">
+                                            <a href = "<?php echo base_url(); ?>masterfile/send_ffmail/<?php echo $r['project_id']?>" onclick="return confirm('Are you sure you want to send email?')" class="btn btn-info item btn-xs" data-toggle="tooltip" data-placement="top" title="Email" alt='Email'>
+                                                <i class="fa fa-paper-plane"></i>
+                                            </a>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
