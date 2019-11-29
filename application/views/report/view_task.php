@@ -176,7 +176,7 @@
                                      } 
                                      $employees = substr($emp, 0, -2);
                                       ?>
-                                <small class="proj-title "><?php echo $employees; ?></small><br>
+                                <small class="proj-title fw500"><?php echo $employees; ?></small><br>
                                 <div class="m-t-10"><?php echo nl2br($project_description); ?></div>
 
                                                                     
@@ -315,8 +315,8 @@
                                             <span class=""><?php echo date('M j, Y', strtotime($start_date)); ?></span>
                                         </div>
                                         <div class="col-lg-6">
-                                            <small class="proj-title">Due Date: </small><br>
-                                            <span class=""><b><?php 
+                                            <small class="proj-title text-danger">Due Date: </small><br>
+                                            <span class="text-danger"><b><?php 
                                             if(empty($ci->latest_extension($project_id))){
                                                 echo date('M j, Y', strtotime($completion_date)); 
                                             } else {

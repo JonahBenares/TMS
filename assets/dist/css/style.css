@@ -22145,6 +22145,18 @@ a table tr:hover{
 .button-glow {
   animation: glowing 900ms infinite;
 }
+
+@keyframes glowing2 {
+  0% { box-shadow: 0 0 -5px  4px #ff3939; }
+  40% { box-shadow: 0 0 15px  8px #ff3939; }
+  60% { box-shadow: 0 0 15px  8px #ff3939; }
+  100% { box-shadow: 0 0 -5px  4px #ff3939; }
+}
+
+.button-glow {
+  animation: glowing2 900ms infinite;
+}
+
 .fw500{
   font-weight: 500;
 }
@@ -22204,4 +22216,29 @@ a table tr:hover{
   padding: 10px 0px;
 }
 
+.message-scroll{
+  overflow-y: scroll;
+  height: 400px;
+}
+
+.message-box .message-widget a .user-img .online {
+    background: #36bea6;
+}
+.message-box .message-widget a .user-img .profile-status {
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    left: 33px;
+    position: absolute;
+    top: -1px;
+    width: 10px;
+}
 /*-----------------------accordion----------------------*/ 
+
+/*.title-back{
+  background-image:  url("../../../assets/images/background/title1.jpg");
+  padding: 10px!important;
+  background-size: 50%;
+  background-position: center;
+}*/
