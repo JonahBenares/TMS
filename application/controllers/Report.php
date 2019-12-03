@@ -800,10 +800,24 @@ class Report extends CI_Controller {
     }   
 
     public function alltask_list(){
+
+        $userid = $this->session->userdata['user_id'];
+        $usertype = $this->session->userdata['usertype'];
+        $userdept = $this->session->userdata['department'];
+        $usercomp = $this->session->userdata['company'];
+
+        if($usertype==1){
+            $data['projects'] = $this->super_model->select_all_order_by("project_head", "start_date", "DESC");
+        } else if($usertype==2){
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "company_id = '$usercomp' ORDER BY start_date DESC");
+        } else if($usertype==3){
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "department_id = '$userdept' ORDER BY start_date DESC");
+        }
+
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
-        $data['projects'] = $this->super_model->select_all_order_by("project_head", "start_date", "DESC");
+       // $data['projects'] = $this->super_model->select_all_order_by("project_head", "start_date", "DESC");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
 
