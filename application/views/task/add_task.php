@@ -1,4 +1,5 @@
     <?php
+
     $ci =& get_instance();
     $now=date('Y-m-d');
     ?>

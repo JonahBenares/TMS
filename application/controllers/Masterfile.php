@@ -92,8 +92,22 @@ class Masterfile extends CI_Controller {
 
 	public function employee_list()
 	{
+           $useremp = $this->session->userdata['employee'];
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+
+            );
+        }
+
 		$this->load->view('template/header');
-		$this->load->view('template/navbar');
+		$this->load->view('template/navbar',$data_notif);
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
 		$this->load->view('masterfile/employee_list',$data);
 		$this->load->view('template/footer');
@@ -132,8 +146,21 @@ class Masterfile extends CI_Controller {
     }
 
     public function company_list(){
+             $useremp = $this->session->userdata['employee'];
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+
+            );
+        }
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $this->load->view('masterfile/company_list',$data);
         $this->load->view('template/footer');
@@ -201,8 +228,21 @@ class Masterfile extends CI_Controller {
     }
 
     public function department_list(){
+             $useremp = $this->session->userdata['employee'];
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+
+            );
+        }
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
         $this->load->view('masterfile/department_list',$data);
         $this->load->view('template/footer');
@@ -437,13 +477,28 @@ class Masterfile extends CI_Controller {
 
         }
         
-        
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
 
         $data['employees'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('masterfile/dashboard', $data);
         $this->load->view('template/footer');
+    }
+
+    public function notification_count($employee_id){
+        $count = $this->super_model->count_custom_where("notification_logs","recipient = '$employee_id' AND open = 0");
+        return $count;
     }
 
     public function send_ffmail(){
@@ -618,8 +673,22 @@ class Masterfile extends CI_Controller {
                 'location_id'=>$users->location_id
             );
         }
+        $useremp = $this->session->userdata['employee'];
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+
+            );
+        }
+
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar', $data_notif);
         $this->load->view('masterfile/user_list', $data);
         $this->load->view('template/footer');
     }
@@ -693,8 +762,22 @@ class Masterfile extends CI_Controller {
         $userid = $this->session->userdata['user_id'];
        
         $data['userid'] = $this->session->userdata['user_id'];
+           $useremp = $this->session->userdata['employee'];
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+
+            );
+        }
+
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('masterfile/change_password',$data);
         $this->load->view('template/footer');
     }
@@ -720,8 +803,23 @@ class Masterfile extends CI_Controller {
 
     public function location_list()
     {
+        $useremp = $this->session->userdata['employee'];
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+
+            );
+        }
+
+
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $data['location']=$this->super_model->select_all_order_by("location","location_name","ASC");
         $this->load->view('masterfile/location_list', $data);
         $this->load->view('template/footer');

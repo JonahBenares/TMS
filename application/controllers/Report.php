@@ -41,18 +41,37 @@ class Report extends CI_Controller {
 
 	}
 
+    public function notification_count($employee_id){
+        $count = $this->super_model->count_custom_where("notification_logs","recipient = '$employee_id' AND open = 0");
+        return $count;
+    }
+
     public function report_list()
     {
+         $useremp = $this->session->userdata['employee'];
+         $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar', $data_notif);
         $this->load->view('report/report_list');
         $this->load->view('template/footer');
     }
 
     public function pending_list(){
-        $this->load->view('template/header');
-        $this->load->view('template/navbar');
+         
+       
 
+       
         $userid = $this->session->userdata['user_id'];
         $useremp = $this->session->userdata['employee'];
         $usertype = $this->session->userdata['usertype'];
@@ -73,6 +92,19 @@ class Report extends CI_Controller {
           $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND FIND_IN_SET($useremp, employee) != 0");
         }
 
+          $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+         $this->load->view('template/header');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
     }
@@ -179,8 +211,7 @@ class Report extends CI_Controller {
 
         $query=substr($sql, 0, -3);
         $data['filt']=substr($filter, 0, -2);
-        $this->load->view('template/header');
-        $this->load->view('template/navbar');
+       
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
@@ -199,6 +230,21 @@ class Report extends CI_Controller {
         } else if($usertype==3){
             $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND FIND_IN_SET($useremp, employee) != 0 AND $query");
         }
+
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+
+         $this->load->view('template/header');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('report/pending_list',$data);
         $this->load->view('template/footer');
     }
@@ -224,8 +270,20 @@ class Report extends CI_Controller {
         } else if($usertype==3){
              $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND FIND_IN_SET($useremp, employee) != 0");
         }
+
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('report/completed_list',$data);
         $this->load->view('template/footer');
     }
@@ -332,8 +390,7 @@ class Report extends CI_Controller {
 
         $query=substr($sql, 0, -3);
         $data['filt']=substr($filter, 0, -2);
-        $this->load->view('template/header');
-        $this->load->view('template/navbar');
+       
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
@@ -353,7 +410,20 @@ class Report extends CI_Controller {
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND FIND_IN_SET($useremp, employee) != 0 AND $query");
         }
 
+        $data_notif['count']=$this->notification_count($useremp);
 
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+
+        $this->load->view('template/header');
+        $this->load->view('template/navbar', $data_notif);
         $this->load->view('report/completed_list',$data);
         $this->load->view('template/footer');
     }
@@ -377,8 +447,22 @@ class Report extends CI_Controller {
         } else if($usertype==3){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND FIND_IN_SET($useremp, employee) != 0");
         }
+
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+
+
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('report/cancelled_list', $data);
         $this->load->view('template/footer');
     }
@@ -485,8 +569,7 @@ class Report extends CI_Controller {
 
         $query=substr($sql, 0, -3);
         $data['filt']=substr($filter, 0, -2);
-        $this->load->view('template/header');
-        $this->load->view('template/navbar');
+       
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
@@ -505,6 +588,21 @@ class Report extends CI_Controller {
         } else if($usertype==3){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND FIND_IN_SET($useremp, employee) != 0 AND $query");
         }
+
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+
+         $this->load->view('template/header');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('report/cancelled_list',$data);
         $this->load->view('template/footer');
     }
@@ -612,8 +710,7 @@ class Report extends CI_Controller {
        // echo $query;
 
         $data['filt']=substr($filter, 0, -2);
-        $this->load->view('template/header');
-        $this->load->view('template/navbar');
+       
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
@@ -632,6 +729,21 @@ class Report extends CI_Controller {
         } else if($usertype==3){
              $data['projects'] = $this->super_model->select_custom_where("project_head", "FIND_IN_SET($useremp, employee) != 0  AND  $query");
         }
+
+         $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+
+         $this->load->view('template/header');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('report/alltask_list',$data);
         $this->load->view('template/footer');
     }
@@ -670,7 +782,17 @@ class Report extends CI_Controller {
     public function view_task()
     {
         $project_id = $this->uri->segment(3);
+        $notification_id = $this->uri->segment(4);
         $data['project_id'] = $project_id;
+        $seen=date('Y-m-d H:i:s');
+        if(!empty($notification_id)){
+            $open = array(
+                'open'=>1,
+                'open_date'=>$seen
+            );
+
+            $this->super_model->update_where("notification_logs", $open, "notification_id", $notification_id);
+        }
     
         foreach($this->super_model->select_row_where('project_head', 'project_id', $project_id) AS $proj){
 
@@ -709,10 +831,24 @@ class Report extends CI_Controller {
 
         $data['usertype']=$this->session->userdata['usertype'];
         $useremp = $this->session->userdata['employee'];
+        $data['useremp']=$useremp;
         $data['emp'] = $this->super_model->select_column_where("employees","employee_name","employee_id",$useremp);
         
+
+         $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('report/view_task',$data);
         $this->load->view('template/footer');
     }
@@ -744,6 +880,7 @@ class Report extends CI_Controller {
     }
 
     public function update_project(){
+         $useremp = $this->session->userdata['employee'];
          $userid = $this->session->userdata['user_id'];
         $project_id = $this->input->post('project_id');
         $update_hour = $this->input->post('update_hour');
@@ -755,11 +892,90 @@ class Report extends CI_Controller {
         $create_date = date('Y-m-d H:i:s');
         $emp = $this->input->post('updated_by');
         $empid='';
+
+        $location =$this->super_model->select_column_where("project_head","location_id","project_id",$project_id);
+        $monitor =$this->super_model->select_column_where("project_head","monitor_person","project_id",$project_id);
+        $accountable =$this->super_model->select_column_where("project_head","employee","project_id",$project_id);
+
+        $monitor_location =$this->super_model->select_column_custom_where("users","employee_id","location_id='$location' AND usertype='2'");
+        $project_title = $this->super_model->select_column_where("project_head","project_title","project_id",$project_id);
+        $update_mssg = 'Added an update in project '.$project_title;
         $count= count($this->input->post('updated_by'));
+
+            $details_count = $this->super_model->count_rows("project_details");
+        if($details_count==0){
+            $pd_id =1;
+        }else{
+            $maxno = $this->super_model->get_max("project_details", "pd_id");
+            $pd_id = $maxno+1;
+        }
+
+
         for($x=0; $x<$count;$x++){
             $empid .= $emp[$x].",";
+           
+
         }
         $empid = substr($empid, 0, -1);
+
+        $account = explode(",",$accountable);
+        $ct =count($account);
+        for($y=0; $y<$ct; $y++){
+              if($account[$y]!=$useremp){
+
+              $logs = array(
+                'employee_id'=>$useremp,
+                'recipient'=>$account[$y],
+                'role'=>'Accountable Person',
+                'notification_message'=>$update_mssg,
+                'project_id'=>$project_id,
+                'pd_id'=>$pd_id,
+                'notification_date'=>$create_date
+              );
+              $this->super_model->insert_into("notification_logs", $logs);
+             }
+
+        }
+
+          if($monitor!=$useremp)  {
+            $logs_monitor = array(
+                'employee_id'=>$useremp,
+                'recipient'=>$monitor,
+                'role'=>'Monitor Person/Task',
+                'notification_message'=>$update_mssg,
+                'project_id'=>$project_id,
+                'pd_id'=>$pd_id,
+                'notification_date'=>$create_date
+              );
+             $this->super_model->insert_into("notification_logs", $logs_monitor);
+         }
+          
+          if($monitor!=$monitor_location)  {
+            $logs_monitorloc = array(
+                'employee_id'=>$useremp,
+                'recipient'=>$monitor_location,
+                'role'=>'Monitor Person/Location',
+                'notification_message'=>$update_mssg,
+                'project_id'=>$project_id,
+                'pd_id'=>$pd_id,
+                'notification_date'=>$create_date
+              );
+             $this->super_model->insert_into("notification_logs", $logs_monitorloc);
+          }
+
+        foreach($this->super_model->select_custom_where('users', "usertype='1' OR usertype='0'") AS $logadmin){
+            $logs_admin = array(
+                'employee_id'=>$useremp,
+                'recipient'=>$logadmin->employee_id,
+                'role'=>'Admin',
+                'notification_message'=>$update_mssg,
+                'project_id'=>$project_id,
+                'pd_id'=>$pd_id,
+                'notification_date'=>$create_date
+              );
+             $this->super_model->insert_into("notification_logs", $logs_admin);
+        }
+
 
         if($this->input->post('percentage')=='100'){
             $data_head = array(
@@ -769,14 +985,7 @@ class Report extends CI_Controller {
             $this->super_model->update_where("project_head", $data_head, "project_id", $project_id);
         }
 
-        $details_count = $this->super_model->count_rows("project_details");
-        if($details_count==0){
-            $pd_id =1;
-        }else{
-            $maxno = $this->super_model->get_max("project_details", "pd_id");
-            $pd_id = $maxno+1;
-        }
-
+    
         if(!empty($extend_date)){
             $extend_date = date('Y-m-d', strtotime($extend_date));
             $extension_reason = $this->input->post('extension_reason');
@@ -853,8 +1062,20 @@ class Report extends CI_Controller {
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND FIND_IN_SET($useremp, employee) != 0");
         }
 
+          $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
 
         $this->load->view('report/alltask_list', $data);
         $this->load->view('template/footer');

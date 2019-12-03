@@ -38,7 +38,8 @@
                 </div>  
                 <div class="form-group">
                     <?php if($usertype==3){ ?>
-                    <input placeholder="Updated By" class="form-control" name='updated_by[]' type="text" value="<?php echo $emp;?>" style="pointer-events: none;">
+                    <input class="form-control" type="text" value="<?php echo $emp;?>" style="pointer-events: none;">
+                    <input class="form-control" type="hidden" name="updated_by[]" value="<?php echo $useremp;?>" style="pointer-events: none;">
                     <?php } else { ?>
                     <select class="custom-select" multiple name="updated_by[]">
                         <option value="">-Updated By-</option>

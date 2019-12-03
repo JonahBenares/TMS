@@ -39,10 +39,17 @@ class Task extends CI_Controller {
             }
         }
 
-	}  
+	}
+
+    public function notification_count($employee_id){
+        $count = $this->super_model->count_custom_where("notification_logs","recipient = '$employee_id' AND open = 0");
+        return $count;
+    }
 
     public function add_task()
     {
+      
+
         $project_id = $this->uri->segment(3);
         $update = $this->uri->segment(4);
         $pd_id = $this->uri->segment(5);
@@ -91,9 +98,22 @@ class Task extends CI_Controller {
        $data['usertype']=$this->session->userdata['usertype'];
        $useremp = $this->session->userdata['employee'];
        $data['emp'] = $this->super_model->select_column_where("employees","employee_name","employee_id",$useremp);
+
+
+         $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
        
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('task/add_task', $data);
         $this->load->view('template/footer');
     }
@@ -128,6 +148,7 @@ class Task extends CI_Controller {
             $task_no1 = $maxno+1;
         }
          $userid = $this->session->userdata['user_id'];
+          $useremp = $this->session->userdata['employee'];
 
         $task_no = "00".$task_no1;
         $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
@@ -140,9 +161,63 @@ class Task extends CI_Controller {
         $from = $this->input->post('from');
         $empid='';
         $count= count($this->input->post('employee'));
+        $mssg = "A new project titled ".$project_title." has been assigned to you.";
         for($x=0; $x<$count;$x++){
             $empid .= $emp[$x].",";
+
+              $logs = array(
+                'employee_id'=>$useremp,
+                'recipient'=>$emp[$x],
+                'role'=>'Accountable Person',
+                'notification_message'=>$mssg,
+                'project_id'=>$project_id,
+                'notification_date'=>$create_date
+              );
+              $this->super_model->insert_into("notification_logs", $logs);
+
         }
+
+        $mssg_mon = "A new project titled ".$project_title." has been added for monitoring.";
+          $logs_monitor = array(
+            'employee_id'=>$useremp,
+            'recipient'=>$monitor,
+            'role'=>'Monitor Person/Task',
+            'notification_message'=>$mssg_mon,
+            'project_id'=>$project_id,
+            'notification_date'=>$create_date
+          );
+           $this->super_model->insert_into("notification_logs", $logs_monitor);
+
+           $location =$this->input->post('location');
+           $monitor_location =$this->super_model->select_column_custom_where("users","employee_id","location_id='$location' AND usertype='2'");
+         if($monitor!=$monitor_location)  {
+            $logs_monitorloc = array(
+                'employee_id'=>$useremp,
+                'recipient'=>$monitor_location,
+                'role'=>'Monitor Person/Location',
+                'notification_message'=>$mssg_mon,
+                'project_id'=>$project_id,
+                'notification_date'=>$create_date
+              );
+             $this->super_model->insert_into("notification_logs", $logs_monitorloc);
+          }
+
+         $mssg = "A new project titled ".$project_title." has been added.";     
+        foreach($this->super_model->select_custom_where('users', "usertype='1' OR usertype='0'") AS $logadmin){
+            if($useremp!=$logadmin->employee_id){
+                $logs_admin = array(
+                    'employee_id'=>$useremp,
+                    'recipient'=>$logadmin->employee_id,
+                    'role'=>'Admin',
+                    'notification_message'=>$mssg,
+                    'project_id'=>$project_id,
+                    'notification_date'=>$create_date
+                  );
+                 $this->super_model->insert_into("notification_logs", $logs_admin);
+            }
+        }
+          
+
         $empid = substr($empid, 0, -1);
        
        $data = array(
@@ -165,6 +240,7 @@ class Task extends CI_Controller {
         );
 
         if($this->super_model->insert_into("project_head", $data)){
+
               $this->session->set_flashdata('msg', 'Project successfully added!');
               redirect(base_url().'task/add_task/'.$project_id.'/update');
         }
@@ -183,10 +259,49 @@ class Task extends CI_Controller {
         $monitor = $this->input->post('monitor');
         $empid='';
         $count= count($this->input->post('employee'));
+
+        $location =$this->super_model->select_column_where("project_head","location_id","project_id",$project_id);
+        $monitor_location =$this->super_model->select_column_custom_where("users","employee_id","location_id='$location' AND usertype='2'");
+
+        $update_mssg = 'Added an update in project '.$project_title;
         for($x=0; $x<$count;$x++){
             $empid .= $emp[$x].",";
+
+            if($emp[$x]!=$useremp){
+
+              $logs = array(
+                'employee_id'=>$useremp,
+                'recipient'=>$emp[$x],
+                'role'=>'Accountable Person',
+                'notification_message'=>$update_mssg,
+                'project_id'=>$project_id,
+                'notification_date'=>$create_date
+              );
+              $this->super_model->insert_into("notification_logs", $logs);
+             }
+
         }
-        $empid = substr($empid, 0, -2);
+            $empid = substr($empid, 0, -2);
+
+           $logs_monitor = array(
+                'employee_id'=>$useremp,
+                'recipient'=>$monitor,
+                'role'=>'Monitor Person/Task',
+                'notification_message'=>$update_mssg,
+                'project_id'=>$project_id,
+                'notification_date'=>$create_date
+              );
+             $this->super_model->insert_into("notification_logs", $logs_monitor);
+            
+            $logs_monitorloc = array(
+                'employee_id'=>$useremp,
+                'recipient'=>$monitor_location,
+                'role'=>'Monitor Person/Location',
+                'notification_message'=>$update_mssg,
+                'project_id'=>$project_id,
+                'notification_date'=>$create_date
+              );
+             $this->super_model->insert_into("notification_logs", $logs_monitorloc);
 
          $data = array(
             'project_id'=>$project_id,
@@ -231,7 +346,7 @@ class Task extends CI_Controller {
             $empid .= $emp[$x].",";
         }
 
-        echo $empid;
+     
         $empid = substr($empid, 0, -1);
 
         if($this->input->post('percentage')=='100'){
@@ -296,8 +411,22 @@ class Task extends CI_Controller {
 
     public function task_list()
     {
+             $useremp = $this->session->userdata['employee'];
+         $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+       
+
         $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $this->load->view('template/navbar',$data_notif);
         $this->load->view('task/task_list');
         $this->load->view('template/footer');
     }

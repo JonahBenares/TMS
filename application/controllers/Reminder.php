@@ -50,9 +50,29 @@ class Reminder extends CI_Controller {
 	   
 	}
 
+     public function notification_count($employee_id){
+        $count = $this->super_model->count_custom_where("notification_logs","recipient = '$employee_id' AND open = 0");
+        return $count;
+    }
+
+
 	public function reminder_list(){
+           $useremp = $this->session->userdata['employee'];
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'notification_id'=>$logs->notification_id,
+            );
+        }
+
+
 		$this->load->view('template/header');
-		$this->load->view('template/navbar');
+		$this->load->view('template/navbar', $data_notif);
 		foreach($this->super_model->select_all_order_by("reminders","due_date","ASC") AS $rem){
 			$today=date("Y-m-d");
 			$employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
