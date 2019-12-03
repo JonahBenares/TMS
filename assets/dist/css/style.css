@@ -27,7 +27,17 @@ File: scss
 @import url(../../../assets/dist/css/googleapis.css);
 .skin-default-dark {
 /*Theme Colors*/ }
-.skin-default-dark .topbar {background: #fff; }
+.skin-default-dark .topbar {
+  background: #4242425e;
+  background-image: url("../../../assets/images/bg/7.jpg")!important; 
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0px 1px 15px 1px rgba(45, 45, 45, 0.1);
+}
+/*.skin-default-dark .scrolled {
+  background-color: #fff !important;
+  transition: background-color 200ms linear;
+}*/
 .skin-default-dark .topbar .navbar-dark .navbar-nav .nav-link {color: #adb5bd; }
 .skin-default-dark .sidebar-nav ul li a.active, .skin-default-dark .sidebar-nav ul li a:hover {color: #009efb; }
 .skin-default-dark .sidebar-nav ul li a.active i, .skin-default-dark .sidebar-nav ul li a:hover i {color: #009efb; }
@@ -127,6 +137,9 @@ body {
     color: #212529;
     text-align: left;
     background-color: #edf1f5;
+    background-image: url("../../../assets/images/bg/7.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 [tabindex="-1"]:focus { outline: 0 !important; }
@@ -4933,7 +4946,9 @@ tbody.collapse.show {
   list-style: none;
   background-color: #fff;
   border-radius: 0.25rem; }
-
+.breadcrumb-item a, .text-themecolor{
+  color: #fff!important 
+}
 .breadcrumb-item + .breadcrumb-item::before {
   display: inline-block;
   padding-right: 0.5rem;
@@ -5286,34 +5301,69 @@ tbody.collapse.show {
   -o-transition: width 0.6s ease;
   transition: width 0.6s ease; }
 
-.progress-bar-striped {
+/*.progress-bar-striped {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 200px 200px; 
   -webkit-animation: mymove 0.1s linear infinite;
   animation: mymove 0.1s infinite;
+}*/
+
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100px 0;
+  }
+}
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100px 0;
+  }
+}
+.progress.active .progress-bar,
+.progress-bar.active {
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
+  animation: progress-bar-stripes 2s linear infinite;
 }
 
-@keyframes mymove {
-    from {left: -95px;}
-    to {left: 230px;}
+.progress-striped .progress-bar,
+.progress-bar-striped {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 100px 100px; 
 }
 
-.progress-bar-animated {
-   }
+.progress-bar-secondary {
+  background-color: #323a45;
+}
 
-  @-webkit-keyframes progress {
-  from {
-    background-position: auto 0; }
-  to {
-    background-position: 0 0; } }
+.progress-bar-default {
+  background-color: #B0BEC5;
+}
 
-@keyframes progress {
-  from {
-    background-position: auto 0; }
-  to {
-    background-position: 0 0; } }
+.progress-bar-success {
+  background-color: #64DD17;
+}
+
+.progress-bar-info {
+  background-color: #29B6F6;
+}
+
+.progress-bar-warning {
+  background-color: #FFD600;
+}
+
+.progress-bar-danger {
+  background-color: #ef1c1c;
+}
 
 .media {
   display: -webkit-box;
@@ -10946,7 +10996,7 @@ Preloader
 body {
   margin: 0;
   overflow-x: hidden;
-  color: #6c757d; }
+  color: #4c4c4c; }
 
 html {
   position: relative;
@@ -11405,7 +11455,8 @@ ul.list-style-none {
 Card
 ******************/
 .card {
-  margin-bottom: 20px; }
+  margin-bottom: 20px; 
+  border-radius: 20px;}
   .card .card-subtitle {
     font-weight: 300;
     margin-bottom: 15px;
@@ -12414,7 +12465,8 @@ icons path
   overflow: hidden; }
 
 .page-wrapper {
-  background: #edf1f5;
+
+  /*background: #edf1f5;*/
   position: relative;
   -webkit-transition: 0.2s ease-in;
   -o-transition: 0.2s ease-in;
@@ -21987,7 +22039,7 @@ File: scss
     color: #343a40;
 }
 .text-dfault {
-    color: #6c757d;
+    color: #4c4c4c;
 }
 .text-dfault2 {
     color: #d8d8d8!important;
@@ -22093,6 +22145,18 @@ a table tr:hover{
 .button-glow {
   animation: glowing 900ms infinite;
 }
+
+@keyframes glowing2 {
+  0% { box-shadow: 0 0 -5px  4px #ff3939; }
+  40% { box-shadow: 0 0 15px  8px #ff3939; }
+  60% { box-shadow: 0 0 15px  8px #ff3939; }
+  100% { box-shadow: 0 0 -5px  4px #ff3939; }
+}
+
+.button-glow {
+  animation: glowing2 900ms infinite;
+}
+
 .fw500{
   font-weight: 500;
 }
@@ -22152,4 +22216,29 @@ a table tr:hover{
   padding: 10px 0px;
 }
 
+.message-scroll{
+  overflow-y: scroll;
+  height: 400px;
+}
+
+.message-box .message-widget a .user-img .online {
+    background: #36bea6;
+}
+.message-box .message-widget a .user-img .profile-status {
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    left: 33px;
+    position: absolute;
+    top: -1px;
+    width: 10px;
+}
 /*-----------------------accordion----------------------*/ 
+
+/*.title-back{
+  background-image:  url("../../../assets/images/background/title1.jpg");
+  padding: 10px!important;
+  background-size: 50%;
+  background-position: center;
+}*/

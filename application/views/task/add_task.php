@@ -1,5 +1,6 @@
     <?php
     $ci =& get_instance();
+    $now=date('Y-m-d');
     ?>
 
 <div class="page-wrapper">
@@ -30,7 +31,7 @@
                           <button class="tablinks" onclick="openCity(event, 'project_updates')" <?php echo (!empty($update) ? " id='defaultOpen'" : ""); ?>>Project Updates</button>
                           <?php } ?>
                         </div>
-                        <?php if($usertype==1){ ?>
+                        <?php if($usertype==1 || $usertype==0){ ?>
                         <div id="add_project" class="tabcontent">
                             <?php 
                             if(empty($project_id)){
@@ -53,7 +54,14 @@
                                     <?php } ?>
 
                                     <div class="col-lg-6 offset-lg-3">
-                                  
+                                         <div class="form-group">
+                                            <select class="form-control" required name='location'>
+                                                <option value="">-Select Location-</option>
+                                                <?php foreach($location AS $lc){ ?>
+                                                    <option value="<?php echo $lc->location_id; ?>" <?php echo (!empty($project_id) ? (($location == $lc->location_id) ? ' selected' : '') : ''); ?>><?php echo $lc->location_name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
                                      
                                         <div class="form-group">
                                             <select class="form-control" required name='company'>
@@ -164,26 +172,48 @@
                                 <div class="row">
                                     <div class="col-lg-4"> 
 
-                                        <h3 class="proj-title"><?php echo $project_title; ?></h3>
-                                        <small class="proj-title"><b><?php echo $companys; ?></b></small>
-                                        <h6>Start Date: <?php echo date('F j, Y', strtotime($start_date)); ?></h6>
-                                        <h6>Due Date: <?php echo date('F j, Y', strtotime($completion_date)); ?></h6>
-                                     
-                                        <?php if($priority_no==1){ ?>
-                                        <span class="text-warning fa fa-flag"></span>
-                                        <span class="text-warning fa fa-flag"></span>
-                                        <span class="text-warning fa fa-flag"></span>
-                                        <?php } else if($priority_no==2) { ?>
-                                         <span class="text-warning fa fa-flag"></span>
-                                        <span class="text-warning fa fa-flag"></span>
-                                        <span class="text-dfault2 fa fa-flag"></span>
-                                        <?php } else if($priority_no==3) { ?>
-                                         <span class="text-warning fa fa-flag"></span>
-                                         <span class="text-dfault2 fa fa-flag"></span>
-                                         <span class="text-dfault2 fa fa-flag"></span>
-                                        <?php } ?>
-                                       
+                                        <h4 class="proj-title fw500"><?php echo $project_title; ?></h4>
+                                        <h6 class="proj-title m-b-0">- <?php echo $companys; ?></h6>
+                                        <h6 class="proj-title">- <?php echo $locations; ?></h6>
 
+                                        <h6 class="proj-title m-b-0"> 
+                                            <b>#005</b> -
+                                            <?php if($priority_no==1){ ?>
+                                            <span class="text-warning fa fa-flag"></span>
+                                            <span class="text-warning fa fa-flag"></span>
+                                            <span class="text-warning fa fa-flag"></span>
+                                            <?php } else if($priority_no==2) { ?>
+                                             <span class="text-warning fa fa-flag"></span>
+                                            <span class="text-warning fa fa-flag"></span>
+                                            <span class="text-dfault2 fa fa-flag"></span>
+                                            <?php } else if($priority_no==3) { ?>
+                                             <span class="text-warning fa fa-flag"></span>
+                                             <span class="text-dfault2 fa fa-flag"></span>
+                                             <span class="text-dfault2 fa fa-flag"></span>
+                                            <?php } ?>
+                                        </h6>
+                                       
+                                        <br>
+                                        <small class="proj-title m-0 btn-block">Start Date: <span class="pull-right"><?php echo date('F j, Y', strtotime($start_date)); ?></span></small>
+                                        <small class="proj-title m-0 btn-block">Due Date: <span class="pull-right"><?php echo date('F j, Y', strtotime($completion_date)); ?></span></small>
+                                        <small class="proj-title m-0 btn-block">NO. OF WORKING DAYS: <span class="pull-right">
+                                          <?php if($status == 1) { 
+                                             
+                                                 echo $ci->date_diff($start_date, $ci->project_completed($project_id));
+                                               } else { 
+                                                echo $ci->date_diff($start_date, $now);
+                                               } ?>
+                                                   
+                                         </span></small>
+                                        <small class="proj-title m-0 btn-block">REMAINING DAYS: <span class="pull-right">
+
+                                         <?php   if(empty($ci->latest_extension($project_id))){
+                                                echo $ci->date_diff($now, $completion_date); 
+                                            } else {
+                                                  echo $ci->date_diff($now, $ci->latest_extension($project_id)); 
+                                            } ?>
+                                                                    
+                                          </span></small>
                                         <hr>
                                          <?php
                                         $msg_updates= $this->session->flashdata('msg_updates');  
@@ -207,6 +237,20 @@
                                         <div class="form-group">
                                             <input placeholder="Update Date" class="form-control" name='update_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"  value="<?php echo (!empty($pd_id) ? $upd_date : ''); ?>">
                                         </div> 
+                                         <div class="form-group">
+                                          <select class="custom-select"  name="update_hour" style='width:49%' required>
+                                            <option value="">-Update Time (Hour)-</option>
+                                            <?php for($x=0;$x<=23;$x++){ ?>
+                                                <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>" <?php echo (!empty($pd_id) ? (($hour==str_pad($x, 2, "0", STR_PAD_LEFT)) ? ' selected' : ' ') : ''); ?>><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
+                                            <?php } ?>
+                                        </select>       
+                                          <select class="custom-select"  name="update_minute" style='width:49%' required>
+                                            <option value="">-Update Time (Minute)-</option>
+                                            <?php for($x=0;$x<=59;$x++){ ?>
+                                                <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>"  <?php echo (!empty($pd_id) ? (($minute==str_pad($x, 2, "0", STR_PAD_LEFT)) ? ' selected' : ' ') : ''); ?>><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
+                                            <?php } ?>
+                                        </select>       
+                                    </div> 
                                         <div class="form-group">
                                             <textarea class="form-control" rows="5" placeholder="Remarks" name='remarks'><?php echo (!empty($pd_id) ? $remarks : ''); ?></textarea>
                                         </div>  
@@ -214,6 +258,9 @@
                                             <input type="number" class="form-control" name="percentage" placeholder="Status Percentage"  min="<?php echo (!empty($pd_id) ? 0 : $current_percent); ?>" max ='100' value="<?php echo (!empty($pd_id) ? $percent : $current_percent); ?>">
                                         </div>  
                                           <div class="form-group">
+                                            <?php if($usertype==3){ ?>
+                                            <input placeholder="Updated By" class="form-control" name='updated_by[]' type="text" value="<?php echo $emp;?>" style="pointer-events: none;">
+                                            <?php }else { ?>
                                             <select class="custom-select" multiple name="updated_by[]">
                                                 <option value="">-Updated By-</option>
                                                 <?php foreach($employee AS $emp){ ?>
@@ -221,6 +268,7 @@
                                                     <option value="<?php echo $emp->employee_id; ?>"  <?php echo (!empty($pd_id) ? ((strstr($updated_by, $emp->employee_id)) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <?php } ?>
                                         </div>
                                         <div class="form-group">
                                             <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"  value="<?php echo (!empty($pd_id) ? $followup_date : ''); ?>">
@@ -236,7 +284,7 @@
                                     </form>
                                     <div class="col-lg-8">
                                         <div class="progress progress-bar-animated active">
-                                            <div class="progress-bar progress-bar-striped bg-primary " role="progressbar" aria-valuenow="<?php echo $current_percent; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $current_percent; ?>%">
+                                            <div role="progressbar" class="progress-bar progress-bar-striped bg-primary " role="progressbar" aria-valuenow="<?php echo $current_percent; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $current_percent; ?>%">
                                             <?php if(($current_percent) <= '50') { ?>    
                                             </div>
                                                 <span class="m-l-5" style="color: #6c757d!important">
@@ -264,7 +312,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach($updates AS $upd){ 
-                                                        $updated_by = explode(", ", $upd->updated_by);  
+                                                        $updated_by = explode(",", $upd->updated_by);  
                                                      
                                                         $count = count($updated_by);
                                                         $upda='';
@@ -274,11 +322,11 @@
                                                          $updated = substr($upda, 0, -2);
                                                         ?>
                                                     <tr>
-                                                        <td class="text-center"><?php echo date('M d, Y', strtotime($upd->update_date)); ?></td>
+                                                        <td class="text-center"><?php echo date('m-d-Y H:i', strtotime($upd->update_date)); ?></td>
                                                         <td class="text-center"><?php echo $upd->status_percentage."%"; ?></td>
                                                         <td><?php echo $upd->remarks; ?></td>
                                                         <td><?php echo $updated; ?></td>
-                                                        <td class="text-center"><?php echo date('M d, Y', strtotime($upd->followup_date)); ?></td>
+                                                        <td class="text-center"><?php echo date('m-d-Y', strtotime($upd->followup_date)); ?></td>
                                                         <td>
                                                             <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update/<?php echo $upd->pd_id; ?>" class="btn btn-primary btn-xs bor-radius "  title="Add Project Update" ><span class="fa fa-pencil"></span>
                                                             </a>

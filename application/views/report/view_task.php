@@ -1,5 +1,6 @@
     <?php
     $ci =& get_instance();
+     $now=date('Y-m-d');
     ?>
 <div class="modal fade" id="project_updates" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -15,6 +16,20 @@
                 <div class="form-group">
                     <input placeholder="Updated Date" class="form-control" name='update_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
                 </div> 
+                 <div class="form-group">
+                      <select class="custom-select"  name="update_hour" style='width:49%' required>
+                        <option value="">-Update Time (Hour)-</option>
+                        <?php for($x=0;$x<=23;$x++){ ?>
+                            <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>" ><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
+                        <?php } ?>
+                    </select>       
+                      <select class="custom-select"  name="update_minute" style='width:49%' required>
+                        <option value="">-Update Time (Minute)-</option>
+                        <?php for($x=0;$x<=59;$x++){ ?>
+                            <option value="<?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?>" ><?php echo str_pad($x, 2, "0", STR_PAD_LEFT); ?></option>
+                        <?php } ?>
+                    </select>       
+                </div> 
                 <div class="form-group">
                     <textarea class="form-control" rows="5" placeholder="Remarks" name="remarks"></textarea>
                 </div>  
@@ -22,13 +37,17 @@
                     <input type="number" class="form-control" name="percentage" placeholder="Status Percentage" min="<?php echo $ci->project_percent($project_id); ?>" max="100" value="<?php echo $ci->project_percent($project_id); ?>">
                 </div>  
                 <div class="form-group">
+                    <?php if($usertype==3){ ?>
+                    <input placeholder="Updated By" class="form-control" name='updated_by[]' type="text" value="<?php echo $emp;?>" style="pointer-events: none;">
+                    <?php } else { ?>
                     <select class="custom-select" multiple name="updated_by[]">
-                        <option value="">-Select Accountable Employee-</option>
+                        <option value="">-Updated By-</option>
                         <?php foreach($employees AS $emp){ ?>
 
                             <option value="<?php echo $emp->employee_id; ?>" ><?php echo $emp->employee_name; ?></option>
                         <?php } ?>
-                    </select>                    
+                    </select> 
+                    <?php } ?>                   
                 </div>
                 <div class="form-group">
                     <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="followup_date">
@@ -126,28 +145,29 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="progress m-b-20">
-                            <div class="progress-bar <?php if($status == 'Pending') { ?> bg-warning <?php } else if ($status == 'Cancelled') { ?>
-                                        bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%">
-                                        
-                            <?php if($ci->project_percent($project_id) <= '50') { ?>    
-                            </div>
-                                <span class=" m-l-5 " style="font-size:12px;color: #6c757d!important">
-                                    <?php echo $ci->project_percent($project_id); ?>%
-                                </span>
-                            <?php } else { ?>
-                                <span class=" m-l-5 " style="font-size:12px;">
-                                    <?php echo $ci->project_percent($project_id); ?>%
-                                </span>
-                            </div>
-                            <?php } ?>            
-                        </div> 
+                    <div class="progress progress-bar-animated active" style="border-radius: 20px 20px 0px 0px">
+                        <div role="progressbar" class="progress-bar <?php if($status == 'Pending') { ?> bg-warning <?php } else if ($status == 'Cancelled') { ?>
+                                    bg-danger <?php } else if ($status == 'Done') { ?> bg-success <?php } ?> progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($project_id); ?>%">
+                                    
+                        <?php if($ci->project_percent($project_id) <= '50') { ?>    
+                        </div>
+                            <span class=" m-l-5 m-t-5 m-b-5" style="font-size:20px;color: #6c757d!important">
+                                <?php echo $ci->project_percent($project_id); ?>%
+                            </span>
+                        <?php } else { ?>
+                            <span class=" m-l-5 m-t-5 m-b-5" style="font-size:20px;">
+                                <?php echo $ci->project_percent($project_id); ?>%
+                            </span>
+                        </div>
+                        <?php } ?>            
+                    </div> 
+                    
                     <div class="card-body p-b-100">
                         <div class="row">
                             <div class="col-lg-9">
-                                <h3 class="proj-title m-b-20" style="font-weight: 500">#<?php echo $task_no; ?></h3>
+                                <h4 class="proj-title m-b-5" style="font-weight: 500">#<?php echo $task_no; ?></h4>
                                 <h3 class="proj-title m-b-0" style="font-weight: 600"><?php echo $project_title; ?></h3>
-                                   <?php $employee = explode(", ", $employee);  
+                                   <?php $employee = explode(",", $employee);  
                                                      
                                     $count = count($employee);
                                     $emp='';
@@ -156,15 +176,11 @@
                                      } 
                                      $employees = substr($emp, 0, -2);
                                       ?>
-                                <small class="proj-title "><?php echo $employees; ?></small><br>
+                                <small class="proj-title fw500"><?php echo $employees; ?></small><br>
                                 <div class="m-t-10"><?php echo nl2br($project_description); ?></div>
 
-                                <?php if(!empty($followup_date) && $status !='Cancelled') { ?>
-                                <center>
-                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite">Next Follow Up Date: <?php echo date('M j, Y', strtotime($followup_date)); ?></label>
-                                </center>    
-                                <?php } ?>                                        
-                                <div class="steamline m-t-40">
+                                                                    
+                                <div class="steamline m-t-20">
                                     <?php
                                         $msg_updates= $this->session->flashdata('msg_updates');  
                                         if($msg_updates){
@@ -199,7 +215,7 @@
                                     </div>
                                     <?php }       
                                     foreach($details AS $det){ 
-                                    $updated = explode(", ", $det->updated_by);                                                       
+                                    $updated = explode(",", $det->updated_by);                                                       
                                     $count_upd = count($updated);
                                     $upd='';
                                     for($x=0;$x<$count_upd;$x++){
@@ -210,13 +226,15 @@
                                     ?>
                                     <div class="sl-item">
                                         <div class="sl-right">
-                                            <div class="font-medium"><?php echo date('F j, Y', strtotime($det->update_date)); ?></div>
+                                            <div class="font-medium"><?php echo date('F j, Y H:i', strtotime($det->update_date)); ?></div>
                                             <span></span> <small class="proj-title">Updated By: <?php echo $updated_by; ?></small></span>
                                             <div class="desc m-t-20"><?php echo nl2br($det->remarks); ?>
                                             </div>
                                             <br>
-                                            <small class="proj-title h7"><b>Follow Up Date:</b> October 19, 2019</small><br>
+                                            <?php  if($det->followup_date != '1970-01-01'){ ?>
+                                            <small class="proj-title h7"><b>Follow Up Date:</b> <?php echo date('F j, Y', strtotime($det->followup_date)); ?></small><br>
                                             <?php 
+                                            }
                                             if(!empty($ci->project_extension($det->pd_id))){ 
                                               foreach($ci->project_extension($det->pd_id) AS $e){
                                              ?>
@@ -249,10 +267,19 @@
                                 </div>
                             </div>
                             <div class="col-lg-3">
+                                 <?php if(!empty($followup_date) && $status !='Cancelled') { ?>
+                                <center>
+                                    <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite" style="font-size: 12px">Next Follow Up Date: <?php echo date('M j, Y', strtotime($followup_date)); ?></label>
+                                </center>    
+                                <?php } ?>   
                                 <div style="text-align: left" class="btn-block">
                                     <small class="proj-title">Company:</small><br>
                                     <span class="proj-title"><b style="font-weight: 500"><?php echo $company; ?></b></span>
                                     <br>
+                                    <br>
+                                    <small class="proj-title">Location:</small><br>
+                                    <span class=""><?php echo $location; ?></span>
+                                    <br>  
                                     <br>
                                     <small class="proj-title">Department:</small><br>
                                     <span class=""><?php echo $department; ?></span>
@@ -288,8 +315,8 @@
                                             <span class=""><?php echo date('M j, Y', strtotime($start_date)); ?></span>
                                         </div>
                                         <div class="col-lg-6">
-                                            <small class="proj-title">Due Date: </small><br>
-                                            <span class=""><b><?php 
+                                            <small class="proj-title text-danger">Due Date: </small><br>
+                                            <span class="text-danger"><b><?php 
                                             if(empty($ci->latest_extension($project_id))){
                                                 echo date('M j, Y', strtotime($completion_date)); 
                                             } else {
@@ -313,6 +340,29 @@
                                     <br>
                                     <small class="proj-title">Date Completed: </small><br>
                                     <span class=""><?php echo date('M j, Y', strtotime($ci->project_completed($project_id))); ?></span>
+                                    <?php } ?>
+                                    <br>
+                                    <br>
+                                    <small class="proj-title">NO. OF WORKING DAYS: <b><?php
+                                        if($status == 'Done'){
+                                              echo $ci->date_diff($start_date, $ci->project_completed($project_id));
+                                        } else {
+                                              echo $ci->date_diff($start_date, $now);
+                                        }
+                                     ?></b></small>
+                                     <?php  if($status != 'Done' && $status != 'Cancelled'){ ?>
+                                        <br>
+                                    <small class="proj-title">REMAINING DAYS:  <b>
+                                       <?php 
+                                       
+                                            if(empty($ci->latest_extension($project_id))){
+                                                echo $ci->date_diff($now, $completion_date); 
+                                            } else {
+                                                  echo $ci->date_diff($now, $ci->latest_extension($project_id)); 
+                                            } 
+                                        ?>
+
+                                    </b></small>
                                     <?php } ?>
                                     <br>
                                     <br>
@@ -349,9 +399,12 @@
                                 </div>                                
                             </div>
                             <div style="position: fixed; left: 0;bottom: 0; margin: 50px; background: white">
-                                <?php if($status == 'Pending') { ?>
+                                <?php if($status == 'Pending' || $status == 'Done') { ?>
                                     <a href="#" class="btn btn-primary btn-sm bor-radius "  data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
                                         Add Project Update
+                                    </a>
+                                     <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update" class="btn btn-warning btn-sm bor-radius " title="Edit Project Update" >
+                                        Edit Project Update
                                     </a>
                                     <a href="#" class="btn btn-danger btn-sm bor-radius "  data-toggle="modal" data-target="#cancel_proj" title="Cancel" >
                                         Cancel

@@ -14,6 +14,10 @@
                         Employee Name
                         <input type="text" name="employee" class="form-control">
                     </div>
+                    <div class="form-group">
+                        Email
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
                 </div>
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-primary btn-block">Add</button>
@@ -38,6 +42,10 @@
                     <div class="form-group">
                         Employee Name
                         <input type="text" name="employee" id = "employee" class="form-control">
+                    </div>
+                     <div class="form-group">
+                        Email
+                        <input type="email" name="email" id = "email" class="form-control" required>
                     </div>
                 </div>
                 <input type="hidden" name="employee_id" id = "employee_id" class="form-control">
@@ -97,13 +105,16 @@
                                 <thead>
                                     <tr>
                                         <th>Employee Name</th>
+                                        <th>Email</th>
                                         <th width="7%" class="text-center"><span class="fa fa-bars"></span></th>
                                     </tr>
+                                 
                                 </thead>
                                 <tbody>
                                     <?php foreach($employee AS $e){ ?>
                                     <tr>
                                         <td><?php echo $e->employee_name; ?></td>
+                                        <td><?php echo $e->email; ?></td>
                                         <td>                                            
                                             <div class="table-data-feature">
                                                 <span data-toggle="modal" data-target="#updateCompany">

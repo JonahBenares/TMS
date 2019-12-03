@@ -16,7 +16,7 @@
     <link href="<?php echo base_url(); ?>assets/dist/css/jquery.dataTables.min.css" rel="stylesheet">      
 </head>
 
-<body style="background: #fff">
+<body style="background: #fff!important">
     <div class="container-fluid">                
             <div class=" m-t-60"> 
                 <div class="row">  
@@ -44,6 +44,7 @@
                             </form>   
                             <br>
                             <?php
+                           
                             $error_msg= $this->session->flashdata('error_msg');  
                                 ?>
                             <?php 

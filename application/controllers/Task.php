@@ -46,9 +46,11 @@ class Task extends CI_Controller {
         $project_id = $this->uri->segment(3);
         $update = $this->uri->segment(4);
         $pd_id = $this->uri->segment(5);
+
         $data['project_id'] = $project_id;
         $data['pd_id'] = $pd_id;
         $data['update'] = $update;
+        $data['location'] = $this->super_model->select_all_order_by("location", "location_name", "ASC");
         $data['company'] = $this->super_model->select_all_order_by("company", "company_name", "ASC");
         $data['department'] = $this->super_model->select_all_order_by("department", "department_name", "ASC");
         $data['employee'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
@@ -56,6 +58,7 @@ class Task extends CI_Controller {
         foreach($this->super_model->select_row_where("project_head", "project_id", $project_id) AS $proj){
             $data['company_id']=$proj->company_id;
             $data['companys']=$this->super_model->select_column_where("company","company_name","company_id",$proj->company_id);
+            $data['locations']=$this->super_model->select_column_where("location","location_name","location_id",$proj->location_id);
             $data['from']=$proj->from;
             $data['department_id']=$proj->department_id;
             $data['employee_id']=$proj->employee;
@@ -65,7 +68,7 @@ class Task extends CI_Controller {
             $data['priority_no']=$proj->priority_no;
             $data['project_title']=$proj->project_title;
             $data['project_desc']=$proj->project_description;
-
+            $data['status']=$proj->status;
         }
 
         $data['current_percent']=$this->project_percent($project_id);
@@ -74,7 +77,11 @@ class Task extends CI_Controller {
         $data['updates'] = $this->super_model->select_custom_where("project_details","project_id='$project_id' ORDER BY update_date DESC");
 
        foreach($this->super_model->select_row_where("project_details","pd_id","$pd_id") AS $pd){
-           $data['upd_date'] = $pd->update_date;
+           $update = explode(" ", $pd->update_date);
+           $data['upd_date'] = $update[0];
+           $uptime = explode(":",$update[1]);
+           $data['hour']=$uptime[0];
+           $data['minute']=$uptime[1];
            $data['followup_date'] = $pd->followup_date;
            $data['remarks'] = $pd->remarks;
            $data['percent'] = $pd->status_percentage;
@@ -82,6 +89,8 @@ class Task extends CI_Controller {
        }
 
        $data['usertype']=$this->session->userdata['usertype'];
+       $useremp = $this->session->userdata['employee'];
+       $data['emp'] = $this->super_model->select_column_where("employees","employee_name","employee_id",$useremp);
        
         $this->load->view('template/header');
         $this->load->view('template/navbar');
@@ -118,6 +127,7 @@ class Task extends CI_Controller {
             $maxno = $this->super_model->get_max("project_head", "task_no");
             $task_no1 = $maxno+1;
         }
+         $userid = $this->session->userdata['user_id'];
 
         $task_no = "00".$task_no1;
         $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
@@ -131,9 +141,9 @@ class Task extends CI_Controller {
         $empid='';
         $count= count($this->input->post('employee'));
         for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].", ";
+            $empid .= $emp[$x].",";
         }
-        $empid = substr($empid, 0, -2);
+        $empid = substr($empid, 0, -1);
        
        $data = array(
             'project_id'=>$project_id,
@@ -145,11 +155,13 @@ class Task extends CI_Controller {
             'monitor_person'=>$monitor,
             'from'=>$from,
             'priority_no'=>$this->input->post('priority_no'),
+            'location_id'=>$this->input->post('location'),
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
             'employee'=>$empid,
             'status'=>0,
-            'create_date'=>$create_date
+            'create_date'=>$create_date,
+            'user_id'=>$userid
         );
 
         if($this->super_model->insert_into("project_head", $data)){
@@ -159,7 +171,7 @@ class Task extends CI_Controller {
     }
 
     public function update_task(){
-
+        $userid = $this->session->userdata['user_id'];
         $project_id = $this->input->post('project_id');
         $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
         $completion_date = date('Y-m-d', strtotime($this->input->post('completion_date')));
@@ -172,7 +184,7 @@ class Task extends CI_Controller {
         $empid='';
         $count= count($this->input->post('employee'));
         for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].", ";
+            $empid .= $emp[$x].",";
         }
         $empid = substr($empid, 0, -2);
 
@@ -185,10 +197,12 @@ class Task extends CI_Controller {
             'monitor_person'=>$monitor,
             'from'=>$from,
             'priority_no'=>$this->input->post('priority_no'),
+            'location_id'=>$this->input->post('location'),
             'company_id'=>$this->input->post('company'),
             'department_id'=>$this->input->post('department'),
             'employee'=>$empid,
-            'create_date'=>$create_date
+            'create_date'=>$create_date,
+            'user_id'=>$userid
         );
 
 
@@ -200,18 +214,25 @@ class Task extends CI_Controller {
     }
 
     public function update_project(){
-
+        $userid = $this->session->userdata['user_id'];
+       
         $project_id = $this->input->post('project_id');
-        $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
+        $update_hour = $this->input->post('update_hour');
+        $update_minute = $this->input->post('update_minute');
+        $update = date('Y-m-d', strtotime($this->input->post('update_date')));
+         $update_date = $update . " " . $update_hour.":".$update_minute;
         $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
         $create_date = date('Y-m-d H:i:s');
         $emp = $this->input->post('updated_by');
         $empid='';
         $count= count($this->input->post('updated_by'));
+      
         for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].", ";
+            $empid .= $emp[$x].",";
         }
-        $empid = substr($empid, 0, -2);
+
+        echo $empid;
+        $empid = substr($empid, 0, -1);
 
         if($this->input->post('percentage')=='100'){
             $data_head = array(
@@ -228,6 +249,7 @@ class Task extends CI_Controller {
             'followup_date'=>$followup_date,
             'updated_by'=>$empid,
             'create_date'=>$create_date,
+            'user_id'=>$userid
         );
           if($this->super_model->insert_into("project_details", $data)){
               $this->session->set_flashdata('msg_updates', 'Project updates successfully added!');
@@ -236,6 +258,7 @@ class Task extends CI_Controller {
     }
 
     public function update_changes_project(){
+        $userid = $this->session->userdata['user_id'];
         $project_id = $this->input->post('project_id');
         $pd_id = $this->input->post('pd_id');
         $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
@@ -244,10 +267,12 @@ class Task extends CI_Controller {
         $emp = $this->input->post('updated_by');
         $empid='';
         $count= count($this->input->post('updated_by'));
+
         for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].", ";
+            $empid .= $emp[$x].",";
         }
-        $empid = substr($empid, 0, -2);
+
+        $empid = substr($empid, 0, -1);
 
         $data = array(
             'remarks'=>utf8_encode($this->input->post('remarks')),
@@ -256,6 +281,7 @@ class Task extends CI_Controller {
             'followup_date'=>$followup_date,
             'updated_by'=>$empid,
             'create_date'=>$create_date,
+            'user_id'=>$userid
         );
         if($this->super_model->update_where("project_details", $data, "pd_id", $pd_id)){
               $this->session->set_flashdata('msg_updates', 'Project updates successfully changed!');
@@ -274,5 +300,25 @@ class Task extends CI_Controller {
         $this->load->view('template/navbar');
         $this->load->view('task/task_list');
         $this->load->view('template/footer');
+    }
+
+
+    public function project_completed($project_id){
+        $completed_date = $this->super_model->custom_query_single("completed_date", "SELECT MAX(update_date) AS completed_date FROM project_details WHERE project_id = '$project_id'");
+       
+        return $completed_date;
+    }
+
+      public function date_diff($date1, $date2){
+        $ts1 = strtotime($date1);
+        $ts2 = strtotime($date2);
+
+        $diff = $ts2 - $ts1;
+        return abs(round($diff / 86400)); 
+    }
+
+       public function latest_extension($project_id){
+        $due = $this->super_model->custom_query_single("due","SELECT MAX(extension_date) as due FROM project_extension WHERE project_id = '$project_id'");
+        return $due;
     }
 }
