@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Hong_Kong");
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Task extends CI_Controller {
@@ -108,6 +109,7 @@ class Task extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -420,6 +422,7 @@ class Task extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }

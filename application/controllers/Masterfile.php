@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Hong_Kong");
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Masterfile extends CI_Controller {
@@ -101,6 +102,7 @@ class Masterfile extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
 
             );
@@ -155,6 +157,7 @@ class Masterfile extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
 
             );
@@ -237,6 +240,7 @@ class Masterfile extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
 
             );
@@ -327,7 +331,7 @@ class Masterfile extends CI_Controller {
         } else if($usertype==2){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND location_id = '$userloc' ORDER BY completion_date ASC");
         } else if($usertype==3){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND FIND_IN_SET($useremp, employee) != 0");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp')");
             //echo "status='0' AND priority_no = '1' AND FIND_IN_SET($useremp, employee) != 0";
         }
         $company_id = $this->super_model->select_column_custom_where("project_head","company_id","status='0' AND priority_no = '1' ORDER BY completion_date ASC");
@@ -485,6 +489,7 @@ class Masterfile extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -682,6 +687,7 @@ class Masterfile extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
 
             );
@@ -771,6 +777,7 @@ class Masterfile extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
 
             );
@@ -812,6 +819,7 @@ class Masterfile extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
 
             );
@@ -838,4 +846,32 @@ class Masterfile extends CI_Controller {
         $due = $this->super_model->custom_query_single("due","SELECT MAX(extension_date) as due FROM project_extension WHERE project_id = '$project_id'");
         return $due;
     }
+
+    public function notif_list()
+    {
+        $useremp = $this->session->userdata['employee'];
+        $data_notif['count']=$this->notification_count($useremp);
+
+        foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
+            $data_notif['logs'][] = array(
+                'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
+                'message'=>$logs->notification_message,
+                'notif_date'=>$logs->notification_date,
+                'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
+                'notification_id'=>$logs->notification_id,
+
+            );
+        }
+
+        $data['notif']= $this->super_model->select_row_where_order_by("notification_logs", "recipient", $useremp, "notification_date", "DESC");
+
+        $this->load->view('template/header');
+        $this->load->view('template/navbar',$data_notif);
+        $this->load->view('masterfile/notif_list',$data);
+        $this->load->view('template/footer');
+    }
+
+
+
 }

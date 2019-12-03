@@ -75,16 +75,29 @@
                                         if(!empty($logs)){
 
                                          foreach($logs AS $l){ ?>
-                                        <a href="<?php echo base_url(); ?>report/view_task/<?php echo $l['project_id']; ?>/<?php echo $l['notification_id']; ?>">
+                                        <a href="<?php echo base_url(); ?>report/view_task/<?php echo $l['project_id']; ?>/<?php echo $l['notification_id']; ?>/<?php echo $l['pd_id']; ?>">
                                             <div class="mail-contnet" style="width: 100%;">
                                                 <h5><?php echo $l['employee']; ?></h5> 
                                                 <span class="mail-desc"><?php echo $l['message']; ?></span> 
                                                 <span class="time"><?php echo $l['notif_date']; ?></span> 
                                             </div>
+
                                         </a>
                                         <?php }
                                         } ?>
+
+                                        </a>                                      
                                     </div>
+                                    <div class="message-widget">
+                                        <center>
+                                            <a href="<?php echo base_url(); ?>masterfile/notif_list/" style="background: #e8e8e8">
+                                                <div class="mail-contnet" style="width: 100%;">
+                                                    <h4 class="text-dark p-t-5">See All Notifications</h4> 
+                                                </div>
+                                            </a>
+                                        </center>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </li>

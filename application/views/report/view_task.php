@@ -225,7 +225,7 @@
                                     $updated_by = substr($upd, 0, -2);
 
                                     ?>
-                                    <div class="sl-item">
+                                    <div class="sl-item <?php echo (($det->pd_id == $notif_update) ? 'highnotif p-r-20 p-t-20' : ''); ?>">
                                         <div class="sl-right">
                                             <div class="font-medium"><?php echo date('F j, Y H:i', strtotime($det->update_date)); ?></div>
                                             <span></span> <small class="proj-title">Updated By: <?php echo $updated_by; ?></small></span>

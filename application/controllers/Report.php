@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Hong_Kong");
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Report extends CI_Controller {
@@ -57,6 +58,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -79,18 +81,19 @@ class Report extends CI_Controller {
         $usercomp = $this->session->userdata['company'];
         $userloc = $this->session->userdata['location'];
 
-
+            //echo "usertype".$usertype;
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
 
         if($usertype==1 || $usertype==0){
          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' ORDER BY start_date DESC");
-        } else if($usertype==2) {
-          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND location_id = '$userloc' ORDER BY start_date DESC");
-        } else if($usertype==3) {
-          $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND FIND_IN_SET($useremp, employee) != 0");
+         } else if($usertype==2){
+            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') ORDER BY start_date DESC");
+        } else if($usertype==3){
+            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp')");
         }
+
 
           $data_notif['count']=$this->notification_count($useremp);
 
@@ -100,6 +103,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -226,9 +230,9 @@ class Report extends CI_Controller {
         if($usertype==1 || $usertype==0){
             $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND $query");
         } else if($usertype==2){
-            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND location_id='$userloc' AND $query");
+            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0'  AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') AND $query");
         } else if($usertype==3){
-            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0' AND FIND_IN_SET($useremp, employee) != 0 AND $query");
+            $data['pending'] = $this->super_model->select_custom_where("project_head", "status='0'  AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp') AND $query");
         }
 
         $data_notif['count']=$this->notification_count($useremp);
@@ -239,6 +243,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -265,10 +270,10 @@ class Report extends CI_Controller {
 
         if($usertype==1 || $usertype==0){
              $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' ORDER BY start_date DESC");
-        } else if($usertype==2){
-             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND location_id='$userloc' ORDER BY start_date DESC");
+         } else if($usertype==2){
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') ORDER BY start_date DESC");
         } else if($usertype==3){
-             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND FIND_IN_SET($useremp, employee) != 0");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp')");
         }
 
         $data_notif['count']=$this->notification_count($useremp);
@@ -279,6 +284,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -405,9 +411,9 @@ class Report extends CI_Controller {
         if($usertype==1 || $usertype==0){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND $query");
         } else if($usertype==2){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND location_id='$userloc' AND $query");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') AND $query");
         } else if($usertype==3){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND FIND_IN_SET($useremp, employee) != 0 AND $query");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='1' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp') AND $query");
         }
 
         $data_notif['count']=$this->notification_count($useremp);
@@ -418,6 +424,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -443,9 +450,9 @@ class Report extends CI_Controller {
         if($usertype==1  || $usertype==0){
           $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' ORDER BY start_date DESC");
         } else if($usertype==2){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND location_id='$userloc' ORDER BY start_date DESC");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') ORDER BY start_date DESC");
         } else if($usertype==3){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND FIND_IN_SET($useremp, employee) != 0");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp')");
         }
 
         $data_notif['count']=$this->notification_count($useremp);
@@ -456,6 +463,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -584,9 +592,9 @@ class Report extends CI_Controller {
         if($usertype==1 || $usertype==0){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND $query");
         } else if($usertype==2){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND location_id = '$userloc' AND $query");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') AND $query");
         } else if($usertype==3){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND FIND_IN_SET($useremp, employee) != 0 AND $query");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='2' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp') AND $query");
         }
 
         $data_notif['count']=$this->notification_count($useremp);
@@ -597,6 +605,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -725,9 +734,9 @@ class Report extends CI_Controller {
         if($usertype==1 || $usertype==0){
             $data['projects'] = $this->super_model->select_custom_where("project_head", "$query");
         } else if($usertype==2){
-             $data['projects'] = $this->super_model->select_custom_where("project_head", "location_id = '$userloc' AND  $query");
+             $data['projects'] = $this->super_model->select_custom_where("project_head", "(FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') AND  $query");
         } else if($usertype==3){
-             $data['projects'] = $this->super_model->select_custom_where("project_head", "FIND_IN_SET($useremp, employee) != 0  AND  $query");
+             $data['projects'] = $this->super_model->select_custom_where("project_head", " AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') AND  $query");
         }
 
          $data_notif['count']=$this->notification_count($useremp);
@@ -738,6 +747,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -783,6 +793,8 @@ class Report extends CI_Controller {
     {
         $project_id = $this->uri->segment(3);
         $notification_id = $this->uri->segment(4);
+        $pd_id = $this->uri->segment(5);
+        $data['notif_update']=$pd_id;
         $data['project_id'] = $project_id;
         $seen=date('Y-m-d H:i:s');
         if(!empty($notification_id)){
@@ -843,6 +855,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
@@ -1052,15 +1065,17 @@ class Report extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
         $data['company']=$this->super_model->select_all_order_by("company","company_name","ASC");
         $data['department']=$this->super_model->select_all_order_by("department","department_name","ASC");
+
       // /  $data['projects'] = $this->super_model->select_all_order_by("project_head", "start_date", "DESC");
 
         if($usertype==1){
             $data['projects'] = $this->super_model->select_all_order_by("project_head", "start_date", "DESC");
         } else if($usertype==2){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND location_id = '$userloc' ORDER BY start_date DESC");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp' OR location_id = '$userloc') ORDER BY start_date DESC");
         } else if($usertype==3){
-            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND priority_no = '1' AND FIND_IN_SET($useremp, employee) != 0");
+            $data['projects'] = $this->super_model->select_custom_where("project_head", "status='0' AND (FIND_IN_SET($useremp, employee) != 0 OR monitor_person = '$useremp')");
         }
+
 
           $data_notif['count']=$this->notification_count($useremp);
 
@@ -1070,6 +1085,7 @@ class Report extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }
