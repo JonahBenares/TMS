@@ -740,4 +740,12 @@ class Masterfile extends CI_Controller {
         $due = $this->super_model->custom_query_single("due","SELECT MAX(extension_date) as due FROM project_extension WHERE project_id = '$project_id'");
         return $due;
     }
+
+    public function notif_list()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/notif_list');
+        $this->load->view('template/footer');
+    }
 }

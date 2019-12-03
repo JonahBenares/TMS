@@ -171,10 +171,18 @@
                                                 <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> 
                                                 <span class="time">9:30 AM</span> 
                                             </div>
-                                        </a>
-
-                                       
+                                        </a>                                      
                                     </div>
+                                    <div class="message-widget">
+                                        <center>
+                                            <a href="<?php echo base_url(); ?>masterfile/notif_list/" style="background: #e8e8e8">
+                                                <div class="mail-contnet" style="width: 100%;">
+                                                    <h4 class="text-dark p-t-5">See All Notifications</h4> 
+                                                </div>
+                                            </a>
+                                        </center>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </li>
