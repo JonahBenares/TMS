@@ -404,9 +404,9 @@
                                     <a href="#" class="btn btn-primary btn-sm bor-radius "  data-toggle="modal" data-target="#project_updates" title="Add Project Update" >
                                         Add Project Update
                                     </a>
-                                     <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update" class="btn btn-warning btn-sm bor-radius " title="Edit Project Update" >
+                                    <!--  <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update" class="btn btn-warning btn-sm bor-radius " title="Edit Project Update" >
                                         Edit Project Update
-                                    </a>
+                                    </a> -->
                                     <a href="#" class="btn btn-danger btn-sm bor-radius "  data-toggle="modal" data-target="#cancel_proj" title="Cancel" >
                                         Cancel
                                     </a>

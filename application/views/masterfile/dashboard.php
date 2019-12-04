@@ -141,11 +141,11 @@
                                                         <h4 class="proj-title m-0 fw500"> <?php echo $proj->project_title; ?></h4>
                                                         <div class="proj-title fw500 h7 m-t-5"><?php echo $ci->get_company_name($proj->company_id); ?></div>
                                                         <div class="proj-title fw500 h7 m-b-10"><?php echo $ci->get_name("location", "location_name", "location_id", $proj->location_id); ?></div>
-                                                        <small class="proj-title"><?php echo $employees; ?></small>  
+                                                        <small class="proj-title fw500"><?php echo $employees; ?></small>  
                                                         <br>
                                                         
                                                         <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date('m-d-Y', strtotime($proj->start_date)); ?></span></small>
-                                                        <small class="proj-title btn-block m-0">Due DATE: <span class="pull-right"><?php 
+                                                        <small class="proj-title btn-block m-0 text-danger">Due DATE: <span class="pull-right"><?php 
 
                                                           if(empty($ci->latest_extension($proj->project_id))){
                                                                     echo date('m-d-Y', strtotime($proj->completion_date)); 
@@ -250,7 +250,7 @@
                                     </small>
                                      <div class="pull-right">
                                         <span data-toggle="modal" class="pull-right">
-                                            <a href = "<?php echo base_url(); ?>masterfile/send_ffmail/<?php echo $r['project_id']?>" onclick="return confirm('Are you sure you want to send email?')" class="btn btn-info item btn-xs" data-toggle="tooltip" data-placement="top" title="Email" alt='Email'>
+                                            <a href = "<?php echo base_url(); ?>masterfile/send_ffmail/<?php echo $r['project_id']?>/<?php echo $r['pd_id']; ?>" onclick="return confirm('Are you sure you want to send email?')" class="btn btn-info item btn-xs" data-toggle="tooltip" data-placement="top" title="Email" alt='Email'>
                                                 <i class="fa fa-paper-plane"></i>
                                             </a>
                                         </span>

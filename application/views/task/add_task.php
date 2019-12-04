@@ -308,7 +308,7 @@
                                                         <th>Update Description</th>
                                                         <th>Updated By</th>
                                                         <th>Follow Up Date</th>
-                                                        <th><span class="fa fa-bars"></span></th>
+                                                       <!--  <th><span class="fa fa-bars"></span></th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -328,10 +328,10 @@
                                                         <td><?php echo $upd->remarks; ?></td>
                                                         <td><?php echo $updated; ?></td>
                                                         <td class="text-center"><?php echo date('m-d-Y', strtotime($upd->followup_date)); ?></td>
-                                                        <td>
+                                                     <!--    <td>
                                                             <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update/<?php echo $upd->pd_id; ?>" class="btn btn-primary btn-xs bor-radius "  title="Add Project Update" ><span class="fa fa-pencil"></span>
                                                             </a>
-                                                        </td>
+                                                        </td> -->
                                                     </tr>
                                                 <?php } ?>
 

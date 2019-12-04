@@ -66,6 +66,7 @@ class Reminder extends CI_Controller {
                 'message'=>$logs->notification_message,
                 'notif_date'=>$logs->notification_date,
                 'project_id'=>$logs->project_id,
+                'pd_id'=>$logs->pd_id,
                 'notification_id'=>$logs->notification_id,
             );
         }

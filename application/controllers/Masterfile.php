@@ -388,6 +388,7 @@ class Masterfile extends CI_Controller {
                     if($days_left>0){
                     $data['followup'][]=array(
                         'project_id'=>$head->project_id,
+                        'pd_id'=>$fol->pd_id,
                         'notes'=>$head->project_title,
                         'followup_date'=>$fol->followup_date,
                         'employee'=>$employees,
@@ -429,6 +430,7 @@ class Masterfile extends CI_Controller {
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     $data['followup'][]=array(
                         'project_id'=>$head->project_id,
+                        'pd_id'=>$fol->pd_id,
                         'notes'=>$head->project_title,
                         'followup_date'=>$fol->followup_date,
                         'employee'=>$employees,
@@ -470,6 +472,7 @@ class Masterfile extends CI_Controller {
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     $data['followup'][]=array(
                         'project_id'=>$head->project_id,
+                        'pd_id'=>$fol->pd_id,
                         'notes'=>$head->project_title,
                         'followup_date'=>$fol->followup_date,
                         'employee'=>$employees,
@@ -510,31 +513,34 @@ class Masterfile extends CI_Controller {
         $useremp = $this->session->userdata['employee'];
         $userloc = $this->session->userdata['location'];
         $project_id = $this->uri->segment(3);
+        $pd_id = $this->uri->segment(4);
         $sender = $this->super_model->select_column_where("employees","email","employee_id",$useremp);
         $subject="Task Monitoring System - Follow Up Reminder";
         $message='';
-        foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON ph.project_id = pd.project_id WHERE (FIND_IN_SET($useremp, ph.employee) != 0  OR ph.monitor_person = '$useremp' OR ph.location_id = '$userloc') AND DATEDIFF(pd.followup_date, NOW()) <= '4' AND ph.project_id='$project_id' GROUP BY ph.project_title") AS $fol){
-            foreach($this->super_model->select_custom_where("project_head","project_id = '$project_id' GROUP BY project_id") AS $head){
-                $employeee = explode(",", $head->employee);              
-                $count = count($employeee);
-                $emp='';
-                for($x=0;$x<$count;$x++){
-                    $email = $this->super_model->select_column_custom_where("employees","email","employee_id = '$employeee[$x]'");
-                    $emp.= $email. ", ";
-                } 
-                $employees = substr($emp, 0, -2);
-                $to= $employees;
-                $message.="<p>This is a reminder that our next follow up date for project <b><u>".$head->project_title."</u></b> is on <b><u>".$fol->followup_date."</u></b>.</p>";
-                $message.="<p>Please come on time. Thank you.</p><br>";
-                $message.="<p>This is an auto-email sent by Task Monitoring System. Do not reply.</p>";
-            }
+
+        $recipients = $this->super_model->select_column_where("project_head","employee","project_id",$project_id);
+        $project_title = $this->super_model->select_column_where("project_head","project_title","project_id",$project_id);
+        $followup_date = $this->super_model->select_column_where("project_details","followup_date","pd_id",$pd_id);
+        $rec = explode(",", $recipients);
+        $ct=count($rec);
+
+        $email="";
+        for($x=0;$x<$ct;$x++){
+            $email .= $this->super_model->select_column_where("employees","email","employee_id", $rec[$x]).", ";
         }
+
+        $to = substr($email, 0, -2);
+        $message="<p>This is a reminder that our next follow up date for project <b><u>".$project_title."</u></b> is on <b><u>".$followup_date."</u></b>.</p>
+                    <p>Please come on time. Thank you.</p><br>
+                    <p>This is an auto-email sent by Task Monitoring System. Do not reply.</p>";
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $headers .= 'From: '.$sender. "\r\n";
-        mail($to,$subject,$message,$headers);
-        $this->session->set_flashdata('msg_email', 'Email successfully sent!');
-        redirect(base_url().'masterfile/dashboard', 'refresh');
+    
+        if(mail($to,$subject,$message,$headers)){
+            $this->session->set_flashdata('msg_email', 'Email successfully sent!');
+            redirect(base_url().'masterfile/dashboard', 'refresh');
+        }
     }
 
     public function insert_reminder(){
