@@ -95,6 +95,7 @@ class Masterfile extends CI_Controller {
 	{
            $useremp = $this->session->userdata['employee'];
         $data_notif['count']=$this->notification_count($useremp);
+         $data['usertype']=$this->session->userdata['usertype'];
 
         foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
             $data_notif['logs'][] = array(
@@ -148,8 +149,9 @@ class Masterfile extends CI_Controller {
     }
 
     public function company_list(){
-             $useremp = $this->session->userdata['employee'];
+        $useremp = $this->session->userdata['employee'];
         $data_notif['count']=$this->notification_count($useremp);
+        $data['usertype']=$this->session->userdata['usertype'];
 
         foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
             $data_notif['logs'][] = array(
@@ -233,6 +235,7 @@ class Masterfile extends CI_Controller {
     public function department_list(){
              $useremp = $this->session->userdata['employee'];
         $data_notif['count']=$this->notification_count($useremp);
+        $data['usertype']=$this->session->userdata['usertype'];
 
         foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
             $data_notif['logs'][] = array(
@@ -818,6 +821,7 @@ class Masterfile extends CI_Controller {
     {
         $useremp = $this->session->userdata['employee'];
         $data_notif['count']=$this->notification_count($useremp);
+        $data['usertype']=$this->session->userdata['usertype'];
 
         foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
             $data_notif['logs'][] = array(
