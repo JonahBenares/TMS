@@ -15,6 +15,10 @@
                         <input type="text" name="employee" class="form-control">
                     </div>
                     <div class="form-group">
+                        Contact No.
+                        <input type="text" name="contact_no" class="form-control">
+                    </div>
+                    <div class="form-group">
                         Email
                         <input type="email" name="email" class="form-control" required>
                     </div>
@@ -43,7 +47,11 @@
                         Employee Name
                         <input type="text" name="employee" id = "employee" class="form-control">
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
+                        Contact No.
+                        <input type="text" name="contact_no" id = "contact" class="form-control">
+                    </div>
+                    <div class="form-group">
                         Email
                         <input type="email" name="email" id = "email" class="form-control" required>
                     </div>
@@ -107,6 +115,7 @@
                                 <thead>
                                     <tr>
                                         <th>Employee Name</th>
+                                        <th>Contact No.</th>
                                         <th>Email</th>
                                         <th width="7%" class="text-center"><span class="fa fa-bars"></span></th>
                                     </tr>
@@ -116,11 +125,12 @@
                                     <?php foreach($employee AS $e){ ?>
                                     <tr>
                                         <td><?php echo $e->employee_name; ?></td>
+                                        <td><?php echo $e->contact_no; ?></td>
                                         <td><?php echo $e->email; ?></td>
                                         <td>                                            
                                             <div class="table-data-feature">
                                                 <span data-toggle="modal" data-target="#updateCompany">
-                                                    <a  class="btn btn-info item btn-sm" data-toggle="tooltip" data-id = "<?php echo $e->employee_id; ?>" data-name = "<?php echo $e->employee_name; ?>" id = "updateEmp_button" data-placement="top" title="Update" >
+                                                    <a  class="btn btn-info item btn-sm" data-toggle="tooltip" data-id = "<?php echo $e->employee_id; ?>" data-name = "<?php echo $e->employee_name; ?>" data-email = "<?php echo $e->email; ?>" data-contact = "<?php echo $e->contact_no; ?>" id = "updateEmp_button" data-placement="top" title="Update" >
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </span>

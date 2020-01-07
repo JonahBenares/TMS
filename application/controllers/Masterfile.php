@@ -120,7 +120,8 @@ class Masterfile extends CI_Controller {
         $employee = trim($this->input->post('employee')," ");
         $data = array(
             'employee_name'=>$employee,
-            'email'=>$this->input->post('email')
+            'contact_no'=>$this->input->post('contact_no'),
+            'email'=>$this->input->post('email'),
         );
         if($this->super_model->insert_into("employees", $data)){
              $this->session->set_flashdata('msg', 'Employee successfully added!');
@@ -131,6 +132,7 @@ class Masterfile extends CI_Controller {
     public function edit_employee(){
         $data = array(
             'employee_name'=>$this->input->post('employee'),
+            'contact_no'=>$this->input->post('contact_no'),
             'email'=>$this->input->post('email')
         );
         $employee_id = $this->input->post('employee_id');

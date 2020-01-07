@@ -178,7 +178,7 @@
                                         <h6 class="proj-title">- <?php echo $locations; ?></h6>
 
                                         <h6 class="proj-title m-b-0"> 
-                                            <b>#005</b> -
+                                            <b>#<?php echo $task_no; ?></b> -
                                             <?php if($priority_no==1){ ?>
                                             <span class="text-warning fa fa-flag"></span>
                                             <span class="text-warning fa fa-flag"></span>

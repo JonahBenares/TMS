@@ -64,8 +64,12 @@
         $(document).on("click", "#updateEmp_button", function () {
              var employee_id = $(this).attr("data-id");
              var employee = $(this).attr("data-name");
+             var email = $(this).attr("data-email");
+             var contact = $(this).attr("data-contact");
              $("#employee_id").val(employee_id);
              $("#employee").val(employee);
+             $("#email").val(email);
+             $("#contact").val(contact);
         });
 
         $(document).on("click", "#updateLoc_button", function () {

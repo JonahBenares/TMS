@@ -68,6 +68,7 @@ class Task extends CI_Controller {
             $data['companys']=$this->super_model->select_column_where("company","company_name","company_id",$proj->company_id);
             $data['locations']=$this->super_model->select_column_where("location","location_name","location_id",$proj->location_id);
             $data['from']=$proj->from;
+            $data['task_no']=$proj->task_no;
             $data['department_id']=$proj->department_id;
             $data['employee_id']=$proj->employee;
             $data['monitor_person']=$proj->monitor_person;
