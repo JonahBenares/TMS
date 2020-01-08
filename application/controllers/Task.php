@@ -178,7 +178,6 @@ class Task extends CI_Controller {
                 'notification_date'=>$create_date
               );
               $this->super_model->insert_into("notification_logs", $logs);
-
         }
 
         $mssg_mon = "A new project titled ".$project_title." has been added for monitoring.";

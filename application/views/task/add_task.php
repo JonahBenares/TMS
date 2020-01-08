@@ -8,11 +8,10 @@
         var empDiv = $('#p_emp');
         var i = document.getElementById('counter').value;
         //var i = $('#p_emp p').size() + 1;
-        $('#addEmp').on('click', function() {
+        $('#addEmp').live('click', function() {
             i++;
             $('<div class="pmp'+i+'"><div class = "row"><div class = "col-md-10"><select class="form-control" id ="employee'+i+'" name="employee'+i+'"><option value="">-Select Accountable Employee-</option><?php foreach($employee AS $emp){ ?><option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($project_id) ? ((strstr( $employee_id, $emp->employee_id)) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?></option><?php } ?></select></div><div class = "col-md-2"><a href="#" class="btn-primary btn-sm btn-fill" id="addEmp">+</a> <a href="#" class= "btn-danger btn-sm btn-fill" id="remEmp">x</a></div></div></div>').appendTo(empDiv);
-            var count = i;
-            $('<input type="hidden" id="counterX" name="counterX" value="'+count+'" />').appendTo(empDiv); 
+            $('<input type="hidden" id="counterX" name="counterX" value="'+i+'" />').appendTo(empDiv); 
             return false;
         });
 
