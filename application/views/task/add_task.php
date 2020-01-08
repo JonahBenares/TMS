@@ -21,7 +21,7 @@
                 i--;
             } 
             return false;
-        });
+        });s
     });
 </script>
 <div class="page-wrapper">
