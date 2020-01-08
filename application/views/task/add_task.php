@@ -15,6 +15,14 @@
             $('<input type="hidden" id="counterX" name="counterX" value="'+i+'" />').appendTo(empDiv); 
             return false;
         });
+        $('#remEmp').on('click', function() { 
+            if( i >= 2 ) {
+                $("div").remove(".pmp" + i);
+                i--;
+            } 
+            return false;
+        });
+    });
 </script>
 
 <div class="page-wrapper">
