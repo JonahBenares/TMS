@@ -1,30 +1,9 @@
-<?php
+    <?php
+
     $ci =& get_instance();
     $now=date('Y-m-d');
-?>
-<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-<script>
-    $(function() {
-        var empDiv = $('#p_emp');
-        var i = document.getElementById('counter').value;
-        //var i = $('#p_emp p').size() + 1;
-        $('#addEmp').on('click', function() {
-            i++;
-            $('<div class="pmp'+i+'"><div class = "row"><div class = "col-md-10"><select class="form-control" id ="employee'+i+'" name="employee'+i+'"><option value="">-Select Accountable Employee-</option><?php foreach($employee AS $emp){ ?><option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($project_id) ? ((strstr( $employee_id, $emp->employee_id)) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?></option><?php } ?></select></div><div class = "col-md-2"><a href="#" class="btn-primary btn-sm btn-fill" id="addEmp">+</a> <a href="#" class= "btn-danger btn-sm btn-fill" id="remEmp">x</a></div></div></div>').appendTo(empDiv);
-            var count = i;
-            $('<input type="hidden" id="counterX" name="counterX" value="'+count+'" />').appendTo(empDiv); 
-            return false;
-        });
+    ?>
 
-        $('#remEmp').on('click', function() { 
-            if( i >= 2 ) {
-                $("div").remove(".pmp" + i);
-                i--;
-            } 
-            return false;
-        });
-    });
-</script>
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row page-titles">
@@ -61,7 +40,7 @@
                             } else {
                                 $url = base_url().'task/update_task';
                             } ?>
-                            <form method='POST' action='<?php echo $url; ?>'  onsubmit="return confirm('Do you really want to submit the form? Please Check all information before saving.');">
+                            <form method='POST' action='<?php echo $url; ?>'  onsubmit="return confirm('Do you really want to submit the form?');">
                             <div class="p-25">
                                 <div class="row">
                                      <?php
@@ -126,24 +105,18 @@
                                             </div>
                                         </div>
                                         
-                                        <!-- <input placeholder="Accountable Employee" class="form-control" id="employee1" name="employee1" type="text"> -->
-                                        <div class="form-group" id ="p_emp">
-                                            <div class = "row">
-                                                <div class = "col-md-10">
-                                                    <select class="form-control" name='employee1' id ="employee1">
-                                                        <option value="">-Select Accountable Employee-</option>
-                                                        <?php foreach($employee AS $emp){ ?>
-                                                            <option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($project_id) ? ((strstr( $employee_id, $emp->employee_id)) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?>
-                                                            </option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <div class = "col-md-2">
-                                                    <a href="#" class="btn-primary btn-sm btn-fill" id="addEmp">+</a> <a href="#" class= "btn-danger btn-sm btn-fill" id="remEmp">x</a>
-                                                </div>  
-                                            </div>
-                                            <input type="hidden" id="counterX" name="counterX" value="1">
-                                            <input type = "hidden" value = "1" id = "counter" name  = "counter">
+                                        
+                                        <div class="form-group">
+                                            <select class="custom-select" multiple name="employee[]">
+                                                <option value="">-Select Accountable Employee-</option>
+                                                <?php foreach($employee AS $emp){ ?>
+
+                                                    <option value="<?php echo $emp->employee_id; ?>"
+                                                   <?php echo (!empty($project_id) ? ((strstr( $employee_id, $emp->employee_id)) ? ' selected' : '') : ''); ?>
+                                                        ><?php echo $emp->employee_name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
@@ -183,7 +156,8 @@
                                           <?php if(!empty($project_id)){ ?>
                                         <input type='hidden' name='project_id' value="<?php echo $project_id; ?>">
                                    <?php } ?>
-                                    </div>                                  
+                                    </div>
+                                  
                                 </form>
                                 </div>
                             </div>
