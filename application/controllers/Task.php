@@ -159,18 +159,19 @@ class Task extends CI_Controller {
         $project_title = utf8_encode($this->input->post('project_title'));
         $project_desc = utf8_encode($this->input->post('project_desc'));
         $create_date = date('Y-m-d H:i:s');
-        $emp = $this->input->post('employee');
         $monitor = $this->input->post('monitor');
         $from = $this->input->post('from');
         $empid='';
-        $count= count($this->input->post('employee'));
+        //$count= count($this->input->post('employee'));
+        $count= $this->input->post('counterX');
         $mssg = "A new project titled ".$project_title." has been assigned to you.";
-        for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].",";
+        for($x=1; $x<=$count;$x++){
+            $emp = $this->input->post('employee'.$x);
+            $empid .= $emp.",";
 
               $logs = array(
                 'employee_id'=>$useremp,
-                'recipient'=>$emp[$x],
+                'recipient'=>$emp,
                 'role'=>'Accountable Person',
                 'notification_message'=>$mssg,
                 'project_id'=>$project_id,
