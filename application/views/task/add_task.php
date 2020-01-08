@@ -156,8 +156,7 @@
                                           <?php if(!empty($project_id)){ ?>
                                         <input type='hidden' name='project_id' value="<?php echo $project_id; ?>">
                                    <?php } ?>
-                                    </div>
-                                  
+                                    </div>                                  
                                 </form>
                                 </div>
                             </div>
