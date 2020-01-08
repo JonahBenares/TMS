@@ -25,4 +25,6 @@ date_default_timezone_set("Asia/Hong_Kong");
     <link href="<?php echo base_url(); ?>assets/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
     <link href="<?php echo base_url(); ?>assets/dist/css/pages/dashboard1.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/dist/css/jquery.dataTables.min.css" rel="stylesheet">      
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/dist/css/datepicker.css" rel="stylesheet">      
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/dist/css/jquery-ui.css" rel="stylesheet">      
 </head>

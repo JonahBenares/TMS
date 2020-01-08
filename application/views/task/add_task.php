@@ -39,6 +39,7 @@
                 </div>
             </div>
             <div class="col-md-5 align-self-center">
+                
             </div>  
         </div>
 
@@ -145,14 +146,16 @@
                                             <input type = "hidden" value = "1" id = "counter" name  = "counter">
                                         </div>
                                         <div class="row">
+                                            <!-- <input id="datepicker1" type="text">
+                                            <input id="end" type="text"> -->
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <input placeholder="Start Date" class="form-control" name="start_date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" value="<?php echo (!empty($project_id) ? $start_date : ''); ?>">
+                                                    <input id="datepicker1" placeholder="Start Date" class="form-control" name="start_date" type="text" value="<?php echo (!empty($project_id) ? $start_date : ''); ?>" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <input placeholder="Due Date" class="form-control"  name="completion_date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" value="<?php echo (!empty($project_id) ? $completion_date : ''); ?>">
+                                                    <input id="end" placeholder="Due Date" class="form-control"  name="completion_date" type="text" value="<?php echo (!empty($project_id) ? $completion_date : ''); ?>" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -392,3 +395,40 @@ function openCity(evt, cityName) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 </script>
+<script type="text/javascript">
+    var dateToday = new Date(); 
+$( function() {
+  $( "#datepicker1" ).datepicker({
+    changeMonth: true,
+    changeYear: true,
+    dateFormat:'dd-M-yy',
+    //   minDate: dateToday,
+    onClose: function (selected) {
+      if(selected.length <= 0) {
+          // selected is empty
+          $("#end").datepicker('disable');
+      } else {
+          $("#end").datepicker('enable');
+      }
+      $("#end").datepicker("option", "minDate", selected);
+    }
+  });
+  $( "#end" ).datepicker({
+    changeMonth: true,
+    changeYear: true,
+    dateFormat:'dd-M-yy',
+    // minDate: dateToday,
+    onClose: function (selected) {
+      if(selected.length <= 0) {
+          // selected is empty
+          $("#datepicker1").datepicker('disable');
+      } else {
+          $("#datepicker1").datepicker('enable');
+      }
+      $("#datepicker1").datepicker("option", "maxDate", selected);
+    }
+  });
+}); 
+</script>
+<script src="<?php echo base_url(); ?>assets/dist/js/jquery-1.12.4.js"></script>
+<script src="<?php echo base_url(); ?>assets/dist/js/jquery-ui.js"></script>
