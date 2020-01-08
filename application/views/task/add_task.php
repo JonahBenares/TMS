@@ -116,20 +116,25 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        
-                                        
-                                        <div class="form-group">
-                                            <select class="custom-select" multiple name="employee[]">
-                                                <option value="">-Select Accountable Employee-</option>
-                                                <?php foreach($employee AS $emp){ ?>
-
-                                                    <option value="<?php echo $emp->employee_id; ?>"
-                                                   <?php echo (!empty($project_id) ? ((strstr( $employee_id, $emp->employee_id)) ? ' selected' : '') : ''); ?>
-                                                        ><?php echo $emp->employee_name; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                            
+                                        </div>                                        
+                                       
+                                        <div class="form-group" id ="p_emp">
+                                            <div class = "row">
+                                                <div class = "col-md-10">
+                                                    <select class="form-control" name='employee1' id ="employee1">
+                                                        <option value="">-Select Accountable Employee-</option>
+                                                        <?php foreach($employee AS $emp){ ?>
+                                                            <option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($project_id) ? ((strstr( $employee_id, $emp->employee_id)) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                <div class = "col-md-2">
+                                                    <a href="#" class="btn-primary btn-sm btn-fill" id="addEmp">+</a> <a href="#" class= "btn-danger btn-sm btn-fill" id="remEmp">x</a>
+                                                </div>  
+                                            </div>
+                                            <input type="hidden" id="counterX" name="counterX" value="1">
+                                            <input type = "hidden" value = "1" id = "counter" name  = "counter">
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
