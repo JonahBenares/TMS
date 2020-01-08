@@ -74,6 +74,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                         <?php if($usertype==1 || $usertype==0){ ?>
                         <h4 class="card-title">Location
                             <span data-toggle="modal" data-target="#addCompany">
                                 <a href="#" class="btn btn-primary btn-sm bor-radius pull-right" data-toggle="tooltip" data-placement="top" title="Add Location" >
@@ -113,9 +114,9 @@
                                                     </a>
                                                 </span>
                                                 
-                                                <a href="<?php echo base_url(); ?>masterfile/delete_location/<?php echo $lc->location_id; ?>" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
+                                               <!--  <a href="<?php echo base_url(); ?>masterfile/delete_location/<?php echo $lc->location_id; ?>" onclick="confirmationDelete(this);return false;" class="btn btn-danger item btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
                                                     <i class="fa fa-trash"></i>
-                                                </a>
+                                                </a> -->
                                             </div>
                                         </td>                                        
                                     </tr>
@@ -123,6 +124,12 @@
                                 </tbody>
                             </table>
                         </div>
+                        <?php } else { ?>
+                            <div id="add_project" class="tabcontent">
+                                <center><h1 style="font-size: 200px; color:#ff7a7a" class="animated pulse infinite m-t-50"><span class="fa fa-warning"></span></h1></center>
+                                <center><h2 style='color:#ff7a7a; text-transform: uppercase;'>Sorry, You are not allowed <br> to add new location.</h2></center>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

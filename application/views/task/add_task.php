@@ -1,4 +1,5 @@
     <?php
+
     $ci =& get_instance();
     $now=date('Y-m-d');
     ?>
@@ -177,7 +178,7 @@
                                         <h6 class="proj-title">- <?php echo $locations; ?></h6>
 
                                         <h6 class="proj-title m-b-0"> 
-                                            <b>#005</b> -
+                                            <b>#<?php echo $task_no; ?></b> -
                                             <?php if($priority_no==1){ ?>
                                             <span class="text-warning fa fa-flag"></span>
                                             <span class="text-warning fa fa-flag"></span>
@@ -258,6 +259,9 @@
                                             <input type="number" class="form-control" name="percentage" placeholder="Status Percentage"  min="<?php echo (!empty($pd_id) ? 0 : $current_percent); ?>" max ='100' value="<?php echo (!empty($pd_id) ? $percent : $current_percent); ?>">
                                         </div>  
                                           <div class="form-group">
+                                            <?php if($usertype==3){ ?>
+                                            <input placeholder="Updated By" class="form-control" name='updated_by[]' type="text" value="<?php echo $emp;?>" style="pointer-events: none;">
+                                            <?php }else { ?>
                                             <select class="custom-select" multiple name="updated_by[]">
                                                 <option value="">-Updated By-</option>
                                                 <?php foreach($employee AS $emp){ ?>
@@ -265,6 +269,7 @@
                                                     <option value="<?php echo $emp->employee_id; ?>"  <?php echo (!empty($pd_id) ? ((strstr($updated_by, $emp->employee_id)) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <?php } ?>
                                         </div>
                                         <div class="form-group">
                                             <input placeholder="Follow Up Date" class="form-control" name='followup_date' type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"  value="<?php echo (!empty($pd_id) ? $followup_date : ''); ?>">
@@ -303,7 +308,7 @@
                                                         <th>Update Description</th>
                                                         <th>Updated By</th>
                                                         <th>Follow Up Date</th>
-                                                        <th><span class="fa fa-bars"></span></th>
+                                                       <!--  <th><span class="fa fa-bars"></span></th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -323,10 +328,10 @@
                                                         <td><?php echo $upd->remarks; ?></td>
                                                         <td><?php echo $updated; ?></td>
                                                         <td class="text-center"><?php echo date('m-d-Y', strtotime($upd->followup_date)); ?></td>
-                                                        <td>
+                                                     <!--    <td>
                                                             <a href="<?php echo base_url(); ?>task/add_task/<?php echo $project_id; ?>/update/<?php echo $upd->pd_id; ?>" class="btn btn-primary btn-xs bor-radius "  title="Add Project Update" ><span class="fa fa-pencil"></span>
                                                             </a>
-                                                        </td>
+                                                        </td> -->
                                                     </tr>
                                                 <?php } ?>
 

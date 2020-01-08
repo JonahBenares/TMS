@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Hong_Kong");
     if (isset($this->session->userdata['logged_in'])) {
     $username = ($this->session->userdata['logged_in']['username']);
     $password = ($this->session->userdata['logged_in']['password']);
