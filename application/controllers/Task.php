@@ -120,7 +120,7 @@ class Task extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar',$data_notif);
         $this->load->view('task/add_task', $data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer_addtask');
     }
 
     public function project_percent($project_id){
