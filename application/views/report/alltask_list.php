@@ -170,7 +170,7 @@
                                                                  
                                                                      echo $ci->date_diff($proj->start_date, $ci->project_completed($proj->project_id));
                                                                    } else { 
-                                                                    echo $ci->date_diff($proj->start_date, $now);
+                                                                    echo $ci->date_diff($proj->completion_date, $proj->start_date);
                                                                    } ?>
                                                             </span></small>
 
