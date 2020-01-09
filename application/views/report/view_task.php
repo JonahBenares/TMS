@@ -1,7 +1,30 @@
-    <?php
+<?php
     $ci =& get_instance();
-     $now=date('Y-m-d');
-    ?>
+    $now=date('Y-m-d');
+?>
+<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.4.js"></script>
+<script>
+    $(function() {
+        var updDiv = $('#p_upd');
+        var o = document.getElementById('counter1').value;
+        //var i = $('#p_emp p').size() + 1;
+        $('#addUpd').on('click', function() {
+            o++;
+            $('<div class="pmu'+o+'"><div class = "row"><div class = "col-md-9"><select class="form-control" id ="updated_by'+o+'" name="updated_by'+o+'"><option value="">-Updated By-</option><?php foreach($employees AS $emp){ ?><option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?></option><?php } ?></select></div></div></div>').appendTo(updDiv);
+            $('<input type="hidden" id="counterX1" name="counterX1" value="'+o+'" />').appendTo(updDiv); 
+            return false;
+        });
+
+        $('#remUpd').on('click', function() { 
+            if( o >= 2 ) {
+                $("div").remove(".pmu" + o);
+                o--;
+            } 
+            return false;
+        });
+    });
+</script>
 <div class="modal fade" id="project_updates" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -39,15 +62,32 @@
                 <div class="form-group">
                     <?php if($usertype==3){ ?>
                     <input class="form-control" type="text" value="<?php echo $emp;?>" style="pointer-events: none;">
-                    <input class="form-control" type="hidden" name="updated_by[]" value="<?php echo $useremp;?>" style="pointer-events: none;">
+                    <input class="form-control" type="hidden" name="updated_by1" value="<?php echo $useremp;?>" style="pointer-events: none;">
                     <?php } else { ?>
-                    <select class="custom-select" multiple name="updated_by[]">
-                        <option value="">-Updated By-</option>
-                        <?php foreach($employees AS $emp){ ?>
-
-                            <option value="<?php echo $emp->employee_id; ?>" ><?php echo $emp->employee_name; ?></option>
+                    <div class="form-group" id ="p_upd">
+                        <?php 
+                            $updated_by = '';
+                            $ems = explode(",", $updated_by);
+                            foreach($ems AS $e){
+                        ?>
+                        <div class = "row">
+                            <div class = "col-md-9">
+                                <select class="form-control" name='updated_by1' id ="updated_by1">
+                                    <option value="">-Updated By-</option>
+                                    <?php foreach($employees AS $emp){ ?>
+                                        <option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class = "col-md-3">
+                                <a href="#" class="btn-primary btn-sm btn-fill" id="addUpd">+</a> 
+                                <a href="#" class= "btn-danger btn-sm btn-fill" id="remUpd">x</a>
+                            </div>  
+                        </div>
+                        <input type="hidden" id="counterX1" name="counterX1" value="1">
+                        <input type = "hidden" value = "1" id = "counter1" name  = "counter1">
                         <?php } ?>
-                    </select> 
+                    </div> 
                     <?php } ?>                   
                 </div>
                 <div class="form-group">

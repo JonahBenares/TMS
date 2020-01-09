@@ -62,11 +62,13 @@ class Task extends CI_Controller {
         $data['company'] = $this->super_model->select_all_order_by("company", "company_name", "ASC");
         $data['department'] = $this->super_model->select_all_order_by("department", "department_name", "ASC");
         $data['employee'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        $data['proj_emp'] = $this->super_model->select_column_where("project_head", "employee","project_id", $project_id);
 
         foreach($this->super_model->select_row_where("project_head", "project_id", $project_id) AS $proj){
             $data['company_id']=$proj->company_id;
             $data['companys']=$this->super_model->select_column_where("company","company_name","company_id",$proj->company_id);
             $data['locations']=$this->super_model->select_column_where("location","location_name","location_id",$proj->location_id);
+            $data['location_id']=$proj->location_id;
             $data['from']=$proj->from;
             $data['task_no']=$proj->task_no;
             $data['department_id']=$proj->department_id;
@@ -134,7 +136,6 @@ class Task extends CI_Controller {
     }
 
     public function insert_task(){
-
         $rows_head = $this->super_model->count_rows("project_head");
         if($rows_head==0){
             $project_id=1;
@@ -142,18 +143,9 @@ class Task extends CI_Controller {
             $max = $this->super_model->get_max("project_head", "project_id");
             $project_id = $max+1;
         }
-
-        $taskno_count = $this->super_model->count_rows("project_head");
-        if($taskno_count==0){
-            $task_no1 =1;
-        }else{
-            $maxno = $this->super_model->get_max("project_head", "task_no");
-            $task_no1 = $maxno+1;
-        }
-         $userid = $this->session->userdata['user_id'];
-          $useremp = $this->session->userdata['employee'];
-
-        $task_no = "00".$task_no1;
+        
+        $userid = $this->session->userdata['user_id'];
+        $useremp = $this->session->userdata['employee'];
         $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
         $completion_date = date('Y-m-d', strtotime($this->input->post('completion_date')));
         $project_title = utf8_encode($this->input->post('project_title'));
@@ -168,32 +160,31 @@ class Task extends CI_Controller {
         for($x=1; $x<=$count;$x++){
             $emp = $this->input->post('employee'.$x);
             $empid .= $emp.",";
-
-              $logs = array(
+            $logs = array(
                 'employee_id'=>$useremp,
                 'recipient'=>$emp,
                 'role'=>'Accountable Person',
                 'notification_message'=>$mssg,
                 'project_id'=>$project_id,
                 'notification_date'=>$create_date
-              );
-              $this->super_model->insert_into("notification_logs", $logs);
+            );
+            $this->super_model->insert_into("notification_logs", $logs);
         }
 
         $mssg_mon = "A new project titled ".$project_title." has been added for monitoring.";
-          $logs_monitor = array(
+        $logs_monitor = array(
             'employee_id'=>$useremp,
             'recipient'=>$monitor,
             'role'=>'Monitor Person/Task',
             'notification_message'=>$mssg_mon,
             'project_id'=>$project_id,
             'notification_date'=>$create_date
-          );
-           $this->super_model->insert_into("notification_logs", $logs_monitor);
+        );
+        $this->super_model->insert_into("notification_logs", $logs_monitor);
 
-           $location =$this->input->post('location');
-           $monitor_location =$this->super_model->select_column_custom_where("users","employee_id","location_id='$location' AND usertype='2'");
-         if($monitor!=$monitor_location)  {
+        $location =$this->input->post('location');
+        $monitor_location =$this->super_model->select_column_custom_where("users","employee_id","location_id='$location' AND usertype='2'");
+        if($monitor!=$monitor_location)  {
             $logs_monitorloc = array(
                 'employee_id'=>$useremp,
                 'recipient'=>$monitor_location,
@@ -201,11 +192,11 @@ class Task extends CI_Controller {
                 'notification_message'=>$mssg_mon,
                 'project_id'=>$project_id,
                 'notification_date'=>$create_date
-              );
-             $this->super_model->insert_into("notification_logs", $logs_monitorloc);
-          }
+            );
+            $this->super_model->insert_into("notification_logs", $logs_monitorloc);
+        }
 
-         $mssg = "A new project titled ".$project_title." has been added.";     
+        $mssg = "A new project titled ".$project_title." has been added.";     
         foreach($this->super_model->select_custom_where('users', "usertype='1' OR usertype='0'") AS $logadmin){
             if($useremp!=$logadmin->employee_id){
                 $logs_admin = array(
@@ -215,15 +206,22 @@ class Task extends CI_Controller {
                     'notification_message'=>$mssg,
                     'project_id'=>$project_id,
                     'notification_date'=>$create_date
-                  );
-                 $this->super_model->insert_into("notification_logs", $logs_admin);
+                );
+                $this->super_model->insert_into("notification_logs", $logs_admin);
             }
         }
           
-
         $empid = substr($empid, 0, -1);
-       
-       $data = array(
+
+        $taskno_count = $this->super_model->count_rows("project_head");
+        if($taskno_count==0){
+            $task_no1 =1;
+        }else{
+            $maxno = $this->super_model->get_max("project_head", "task_no");
+            $task_no1 = $maxno+1;
+        }
+        $task_no = "00".$task_no1;
+        $data = array(
             'project_id'=>$project_id,
             'start_date'=>$start_date,
             'completion_date'=>$completion_date,
@@ -241,11 +239,9 @@ class Task extends CI_Controller {
             'create_date'=>$create_date,
             'user_id'=>$userid
         );
-
         if($this->super_model->insert_into("project_head", $data)){
-
-              $this->session->set_flashdata('msg', 'Project successfully added!');
-              redirect(base_url().'task/add_task/'.$project_id.'/update');
+            $this->session->set_flashdata('msg', 'Project successfully added!');
+            redirect(base_url().'task/add_task/'.$project_id.'/update');
         }
     }
 
@@ -257,24 +253,25 @@ class Task extends CI_Controller {
         $project_title = utf8_encode($this->input->post('project_title'));
         $project_desc = utf8_encode($this->input->post('project_desc'));
         $create_date = date('Y-m-d H:i:s');
-        $emp = $this->input->post('employee');
+        //$emp = $this->input->post('employee');
         $from = $this->input->post('from');
         $monitor = $this->input->post('monitor');
         $empid='';
-        $count= count($this->input->post('employee'));
-
+        //$count= count($this->input->post('employee'));
+        $count= $this->input->post('counterX');
         $location =$this->super_model->select_column_where("project_head","location_id","project_id",$project_id);
         $monitor_location =$this->super_model->select_column_custom_where("users","employee_id","location_id='$location' AND usertype='2'");
-
+        $useremp = $this->session->userdata['employee'];
         $update_mssg = 'Added an update in project '.$project_title;
-        for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].",";
+        for($x=1; $x<=$count;$x++){
+            $emp = $this->input->post('employee'.$x);
+            $empid .= $emp.",";
 
-            if($emp[$x]!=$useremp){
+            if($emp!=$useremp){
 
               $logs = array(
                 'employee_id'=>$useremp,
-                'recipient'=>$emp[$x],
+                'recipient'=>$emp,
                 'role'=>'Accountable Person',
                 'notification_message'=>$update_mssg,
                 'project_id'=>$project_id,
@@ -284,7 +281,7 @@ class Task extends CI_Controller {
              }
 
         }
-            $empid = substr($empid, 0, -2);
+            $empid = substr($empid, 0, -1);
 
            $logs_monitor = array(
                 'employee_id'=>$useremp,
@@ -341,12 +338,14 @@ class Task extends CI_Controller {
          $update_date = $update . " " . $update_hour.":".$update_minute;
         $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
         $create_date = date('Y-m-d H:i:s');
-        $emp = $this->input->post('updated_by');
+        //$emp = $this->input->post('updated_by');
         $empid='';
-        $count= count($this->input->post('updated_by'));
+        $count= $this->input->post('counterX1');
+        //$count= count($this->input->post('updated_by'));
       
-        for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].",";
+        for($x=1; $x<=$count;$x++){
+            $emp = $this->input->post('updated_by'.$x);
+            $empid .= $emp.",";
         }
 
      
@@ -382,12 +381,14 @@ class Task extends CI_Controller {
         $update_date = date('Y-m-d', strtotime($this->input->post('update_date')));
         $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
         $create_date = date('Y-m-d H:i:s');
-        $emp = $this->input->post('updated_by');
+        //$emp = $this->input->post('updated_by');
         $empid='';
-        $count= count($this->input->post('updated_by'));
+        //$count= count($this->input->post('updated_by'));
+        $count= $this->input->post('counterX1');
 
-        for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].",";
+        for($x=1; $x<=$count;$x++){
+            $emp = $this->input->post('updated_by'.$x);
+            $empid .= $emp.",";
         }
 
         $empid = substr($empid, 0, -1);

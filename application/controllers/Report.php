@@ -903,7 +903,7 @@ class Report extends CI_Controller {
         $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
         $extend_date = $this->input->post('extend_date');
         $create_date = date('Y-m-d H:i:s');
-        $emp = $this->input->post('updated_by');
+        //$emp = $this->input->post('updated_by');
         $empid='';
 
         $location =$this->super_model->select_column_where("project_head","location_id","project_id",$project_id);
@@ -913,7 +913,8 @@ class Report extends CI_Controller {
         $monitor_location =$this->super_model->select_column_custom_where("users","employee_id","location_id='$location' AND usertype='2'");
         $project_title = $this->super_model->select_column_where("project_head","project_title","project_id",$project_id);
         $update_mssg = 'Added an update in project '.$project_title;
-        $count= count($this->input->post('updated_by'));
+        //$count= count($this->input->post('updated_by'));
+        $count= $this->input->post('counterX1');
 
             $details_count = $this->super_model->count_rows("project_details");
         if($details_count==0){
@@ -924,8 +925,9 @@ class Report extends CI_Controller {
         }
 
 
-        for($x=0; $x<$count;$x++){
-            $empid .= $emp[$x].",";
+        for($x=1; $x<=$count;$x++){
+            $emp = $this->input->post('updated_by'.$x);
+            $empid .= $emp.",";
            
 
         }
