@@ -394,8 +394,7 @@
                                      <?php  if($status != 'Done' && $status != 'Cancelled'){ ?>
                                         <br>
                                     <small class="proj-title">REMAINING DAYS:  <b>
-                                       <?php 
-                                       
+                                       <?php                                        
                                             if(empty($ci->latest_extension($project_id))){
                                                 echo $ci->date_diff($now, $completion_date); 
                                             } else {
