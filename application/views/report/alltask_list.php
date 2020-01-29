@@ -169,14 +169,16 @@
                                                                   <?php if($proj->status == 1) { 
                                                                  
                                                                      echo $ci->date_diff($proj->start_date, $ci->project_completed($proj->project_id));
-                                                                   } else { 
-                                                                    echo $ci->date_diff($proj->completion_date, $proj->start_date);
+                                                                   } else if($proj->status == 0){ 
+                                                                    echo $ci->date_diff($proj->start_date, $now);
                                                                    } ?>
                                                             </span></small>
 
-                                                            <?php if($proj->status != 1) { ?>
+                                                            <?php if($proj->status != 2) { ?>
                                                             <small class="proj-title btn-block m-0">REMAINING DAYS: <span class="pull-right">
-                                                                <?php   if(empty($ci->latest_extension($proj->project_id))){
+                                                                <?php  
+
+                                                                 if(empty($ci->latest_extension($proj->project_id))){
                                                                     echo $ci->date_diff($now, $proj->completion_date); 
                                                                 } else {
                                                                       echo $ci->date_diff($now, $ci->latest_extension($proj->project_id)); 

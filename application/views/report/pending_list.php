@@ -156,12 +156,9 @@
                                                             <small class="proj-title btn-block m-t-5">START DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->start_date)); ?></span></small>
                                                             <small class="proj-title btn-block m-0 text-danger">Due DATE: <span class="pull-right"><?php echo date("m-d-Y", strtotime($p->completion_date)); ?></span></small>
                                                               <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right">
-                                                                  <?php if($p->status == 1) { 
-                                                                 
-                                                                     echo $ci->date_diff($p->start_date, $ci->project_completed($p->project_id));
-                                                                   } else { 
-                                                                    echo $ci->date_diff($p->completion_date, $p->start_date);
-                                                                   } ?>
+                                                                  <?php 
+                                                                    echo $ci->date_diff($p->start_date, $now);
+                                                                    ?>
                                                             </span></small>
 
                                                             <?php if($p->status != 1) { ?>

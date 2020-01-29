@@ -388,7 +388,7 @@
                                         if($status == 'Done'){
                                               echo $ci->date_diff($start_date, $ci->project_completed($project_id));
                                         } else {
-                                              echo $ci->date_diff($completion_date,$start_date);
+                                              echo $ci->date_diff($start_date,$now);
                                         }
                                      ?></b></small>
                                      <?php  if($status != 'Done' && $status != 'Cancelled'){ ?>

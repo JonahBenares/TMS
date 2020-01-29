@@ -7,6 +7,8 @@ date_default_timezone_set("Asia/Hong_Kong");
         echo "<script>alert('You are not logged in. Please login to continue.'); 
             window.location ='".base_url()."index.php/masterfile/index'; </script>";
     }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
