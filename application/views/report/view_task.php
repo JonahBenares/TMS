@@ -308,7 +308,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3">
-                                 <?php if(!empty($followup_date) && $status !='Cancelled') { ?>
+                                 <?php if($status !='Cancelled' && $status != 'Done' && !empty($followup_date)) { ?>
                                 <center>
                                     <label class="label label-primary p-r-50 p-l-50 p-t-5 p-b-5 animated pulse infinite" style="font-size: 12px">Next Follow Up Date: <?php echo date('M j, Y', strtotime($followup_date)); ?></label>
                                 </center>    
@@ -388,7 +388,7 @@
                                         if($status == 'Done'){
                                               echo $ci->date_diff($start_date, $ci->project_completed($project_id));
                                         } else {
-                                              echo $ci->date_diff($start_date, $now);
+                                              echo $ci->date_diff($start_date,$now);
                                         }
                                      ?></b></small>
                                      <?php  if($status != 'Done' && $status != 'Cancelled'){ ?>
