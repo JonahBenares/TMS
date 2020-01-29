@@ -834,7 +834,7 @@ class Report extends CI_Controller {
         $data['employees'] = $this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $data['details'] = $this->super_model->select_custom_where("project_details", "project_id='$project_id' ORDER BY update_date DESC");
         $data['extension'] = $this->super_model->select_custom_where("project_extension", "project_id='$project_id' ORDER BY extension_date DESC");
-        $data['followup_date']=$this->super_model->select_column_custom_where("project_details", "followup_date", "project_id = '$project_id' ORDER BY followup_date DESC");
+        $data['followup_date']=$this->super_model->select_column_custom_where("project_details", "followup_date", "project_id = '$project_id' ORDER BY update_date DESC");
         foreach($this->super_model->select_custom_where("project_details", "project_id='$project_id' ORDER BY followup_date DESC") AS $fol){
             $data['followup'][]=array(
                 "followup_date"=>$fol->followup_date,
