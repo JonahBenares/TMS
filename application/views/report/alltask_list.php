@@ -130,7 +130,7 @@
                                                          } 
                                                          $employees = substr($emp, 0, -2);
                                                           ?>
-                                                    <tr>
+                                                    <tr <?php if($proj->status == 2){?>style="background: #ffdcdc"<?php } ?> >
                                                         <td class="bg-hovr" width="50%" class="nobor-top">
                                                             <h6 class="proj-title m-b-0" >
                                                                 <span class="fw500"><?php echo $proj->task_no; ?></span> -
