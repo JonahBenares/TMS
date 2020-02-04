@@ -851,7 +851,7 @@ class Masterfile extends CI_Controller {
         $ts2 = strtotime($date2);
 
         $diff = $ts2 - $ts1;
-        return abs(round($diff / 86400)); 
+        return round($diff / 86400); 
     }
 
        public function latest_extension($project_id){

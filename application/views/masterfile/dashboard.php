@@ -154,9 +154,9 @@
                                                                 } 
                                                                 ?></span></small>
 
-                                                        <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right"><?php echo $ci->date_diff($proj->completion_date, $proj->start_date); ?></span></small>
+                                                        <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right"><?php echo $ci->date_diff($proj->start_date,$now); ?></span></small>
                                                         <small class="proj-title btn-block m-0">REMAINING DAYS: <span class="pull-right"> <?php   
-                                                        if(empty($ci->latest_extension($proj->project_id))){
+                                                            if(empty($ci->latest_extension($proj->project_id))){
                                                                     echo $ci->date_diff($now, $proj->completion_date); 
                                                                 } else {
                                                                       echo $ci->date_diff($now, $ci->latest_extension($proj->project_id)); 
