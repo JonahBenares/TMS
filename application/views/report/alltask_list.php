@@ -1,8 +1,28 @@
-  <?php
+<?php
     $ci =& get_instance();
     $now=date('Y-m-d');
-
-    ?>
+?>
+<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+<script>
+    $(function() {
+        var empDiv = $('#p_emp');
+        var i = document.getElementById('counter').value;
+        //var i = $('#p_emp p').size() + 1;
+        $('#addEmp').live('click', function() {
+            i++;
+            $('<div class="pmp'+i+'"><div class = "row"><div class = "col-md-10"><select class="form-control" id ="employee'+i+'" name="employee'+i+'"><option value="">-Select Accountable Employee-</option><?php foreach($employee AS $emp){ ?><option value="<?php echo $emp->employee_id; ?>"><?php echo "$emp->employee_name"; ?></option><?php } ?></select></div><div class = "col-md-2"><a href="#" class="btn-primary btn-sm btn-fill" id="addEmp">+</a> <a href="#" class= "btn-danger btn-sm btn-fill" id="remEmp">x</a></div></div></div>').appendTo(empDiv);
+            $('<input type="hidden" id="counterX" name="counterX" value="'+i+'" />').appendTo(empDiv); 
+            return false;
+        });
+        $('#remEmp').live('click', function() { 
+            if( i >= 2 ) {
+                $("div").remove(".pmp" + i);
+                i--;
+            } 
+            return false;
+        });
+    });
+</script>
 <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -42,14 +62,32 @@
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id ="p_emp">
+                        <div class = "row">
+                            <div class = "col-md-10">
+                                <select class="form-control" name='employee1' id ="employee1">
+                                    <option value="">-Select Accountable Employee-</option>
+                                    <?php foreach($employee AS $emp){ ?>
+                                        <option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class = "col-md-2">
+                                <a href="#" class="btn-primary btn-sm btn-fill" id="addEmp">+</a> 
+                                <a href="#" class= "btn-danger btn-sm btn-fill" id="remEmp">x</a>
+                            </div>  
+                        </div>
+                        <input type="hidden" id="counterX" name="counterX" value="1">
+                        <input type = "hidden" value = "1" id = "counter" name  = "counter">
+                    </div>
+                    <!-- <div class="form-group">
                         <select class="form-control" placeholder="Employee" class="custom-select" multiple name="employee[]">
                             <option value = "">--Select Employee--</option>
                             <?php foreach($employee AS $e){ ?>
                             <option value = "<?php echo $e->employee_id; ?>"><?php echo $e->employee_name; ?></option>
                             <?php } ?>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <input type="number" name="priority" class="form-control" placeholder="Priority Number">
                     </div>

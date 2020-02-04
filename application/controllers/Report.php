@@ -186,13 +186,21 @@ class Report extends CI_Controller {
         }
 
         
-        if(!empty($this->input->post('employee'))){
-            $employee = $this->input->post('employee');
+        if(!empty($this->input->post('employee1'))){
+            $count= $this->input->post('counterX');
             $q='';
             $emp='';
-            for($x=0;$x<count($employee); $x++){
-                $q.=' instr(employee, '.$employee[$x].') OR';
-                $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee[$x]) .", ";
+            /*for($x=1; $x<=$count;$x++){
+                $emps = $this->input->post('employee'.$x);
+                $q.=' instr(employee, '.$emps.') OR';
+                $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $emps) .", ";
+            }*/
+            for($x=1;$x<=$count; $x++){
+                if($this->input->post('employee'.$x)!=''){
+                    $employee = $this->input->post('employee'.$x);
+                    $q.=' instr(employee, '.$employee.') OR';
+                    $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee) .", ";
+                }
             }
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -2);
@@ -214,6 +222,7 @@ class Report extends CI_Controller {
         }
 
         $query=substr($sql, 0, -3);
+        echo $query;
         $data['filt']=substr($filter, 0, -2);
        
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
@@ -641,8 +650,8 @@ class Report extends CI_Controller {
             $data['department']= "null";
         }
 
-        if(!empty($this->input->post('employee'))){
-            $data['employee'] = $this->input->post('employee');
+        if(!empty($this->input->post('employee1'))){
+            $data['employee'] = $this->input->post('employee1');
         } else {
             $data['employee']= "null";
         }
@@ -688,14 +697,21 @@ class Report extends CI_Controller {
             $filter .= "<b>Department</b> - ".$dept.", ";
         }
 
-        if(!empty($this->input->post('employee'))){
-            $employee = $this->input->post('employee');
+        if(!empty($this->input->post('employee1'))){
             $q='';
             $emp='';
-            for($x=0;$x<count($employee); $x++){
+            $count= $this->input->post('counterX');
+            for($x=1;$x<=$count; $x++){
+                if($this->input->post('employee'.$x)!=''){
+                    $employee = $this->input->post('employee'.$x);
+                    $q.=' instr(employee, '.$employee.') OR';
+                    $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee) .", ";
+                }
+            }
+            /*for($x=0;$x<count($employee); $x++){
                 $q.=' instr(employee, '.$employee[$x].') OR';
                 $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee[$x]) .",";
-            }
+            }*/
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -1);
             $sql.=" $q AND";
@@ -926,10 +942,10 @@ class Report extends CI_Controller {
 
 
         for($x=1; $x<=$count;$x++){
-            $emp = $this->input->post('updated_by'.$x);
-            $empid .= $emp.",";
-           
-
+            if($this->input->post('updated_by'.$x)!=''){
+                $emp = $this->input->post('updated_by'.$x);
+                $empid .= $emp.",";
+            }
         }
         $empid = substr($empid, 0, -1);
 

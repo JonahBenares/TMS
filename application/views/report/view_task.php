@@ -2,21 +2,22 @@
     $ci =& get_instance();
     $now=date('Y-m-d');
 ?>
+<!-- <script src="<?php echo base_url(); ?>assets/js/jquery-1.12.4.js"></script> -->
 <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.4.js"></script>
+
 <script>
     $(function() {
         var updDiv = $('#p_upd');
         var o = document.getElementById('counter1').value;
         //var i = $('#p_emp p').size() + 1;
-        $('#addUpd').on('click', function() {
+        $('#addUpd').live('click', function() {
             o++;
-            $('<div class="pmu'+o+'"><div class = "row"><div class = "col-md-9"><select class="form-control" id ="updated_by'+o+'" name="updated_by'+o+'"><option value="">-Updated By-</option><?php foreach($employees AS $emp){ ?><option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?></option><?php } ?></select></div></div></div>').appendTo(updDiv);
+            $('<div class="pmu'+o+'"><div class = "row"><div class = "col-md-9"><select class="form-control" id ="updated_by'+o+'" name="updated_by'+o+'"><option value="">-Updated By-</option><?php foreach($employees AS $emp){ ?><option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?></option><?php } ?></select></div><div class = "col-md-3"><a href="#" class="btn-primary btn-sm btn-fill" id="addUpd">+</a> <a href="#" class= "btn-danger btn-sm btn-fill" id="remUpd">x</a></div></div></div>').appendTo(updDiv);
             $('<input type="hidden" id="counterX1" name="counterX1" value="'+o+'" />').appendTo(updDiv); 
             return false;
         });
 
-        $('#remUpd').on('click', function() { 
+        $('#remUpd').live('click', function() { 
             if( o >= 2 ) {
                 $("div").remove(".pmu" + o);
                 o--;

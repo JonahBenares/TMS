@@ -2,7 +2,8 @@
             © 2018 Elegent Admin by wrappixel.com
         </footer> -->
     </div>
-    <script src="<?php echo base_url(); ?>assets/dist/js/jquery.min.js"></script>
+   <script src="<?php echo base_url(); ?>assets/dist/js/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/dist/js/jquery.dataTables.min.js"></script>
     <!-- <script src="<?php echo base_url(); ?>assets/node_modules/jquery/jquery-3.2.1.min.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/node_modules/popper/popper.min.js"></script>

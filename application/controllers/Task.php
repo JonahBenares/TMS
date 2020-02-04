@@ -158,11 +158,14 @@ class Task extends CI_Controller {
         $count= $this->input->post('counterX');
         $mssg = "A new project titled ".$project_title." has been assigned to you.";
         for($x=1; $x<=$count;$x++){
-            $emp = $this->input->post('employee'.$x);
-            $empid .= $emp.",";
+            
+            if($this->input->post('employee'.$x)!=''){
+                $emp = $this->input->post('employee'.$x);
+                $empid .= $emp.",";
+            }
             $logs = array(
                 'employee_id'=>$useremp,
-                'recipient'=>$emp,
+                'recipient'=>$empid,
                 'role'=>'Accountable Person',
                 'notification_message'=>$mssg,
                 'project_id'=>$project_id,
@@ -264,8 +267,10 @@ class Task extends CI_Controller {
         $useremp = $this->session->userdata['employee'];
         $update_mssg = 'Added an update in project '.$project_title;
         for($x=1; $x<=$count;$x++){
-            $emp = $this->input->post('employee'.$x);
-            $empid .= $emp.",";
+            if($this->input->post('employee'.$x)!=''){
+                $emp = $this->input->post('employee'.$x);
+                $empid .= $emp.",";
+            }
 
             if($emp!=$useremp){
 
@@ -344,8 +349,10 @@ class Task extends CI_Controller {
         //$count= count($this->input->post('updated_by'));
       
         for($x=1; $x<=$count;$x++){
-            $emp = $this->input->post('updated_by'.$x);
-            $empid .= $emp.",";
+            if($this->input->post('updated_by'.$x)!=''){
+                $emp = $this->input->post('updated_by'.$x);
+                $empid .= $emp.",";
+            }
         }
 
      
@@ -387,8 +394,10 @@ class Task extends CI_Controller {
         $count= $this->input->post('counterX1');
 
         for($x=1; $x<=$count;$x++){
-            $emp = $this->input->post('updated_by'.$x);
-            $empid .= $emp.",";
+            if($this->input->post('updated_by'.$x)!=''){
+                $emp = $this->input->post('updated_by'.$x);
+                $empid .= $emp.",";
+            }
         }
 
         $empid = substr($empid, 0, -1);
@@ -417,7 +426,7 @@ class Task extends CI_Controller {
     {
              $useremp = $this->session->userdata['employee'];
          $data_notif['count']=$this->notification_count($useremp);
-
+         
         foreach($this->super_model->select_custom_where("notification_logs", "recipient = '$useremp' AND open = 0") AS $logs){
             $data_notif['logs'][] = array(
                 'employee'=>$this->super_model->select_column_where("employees","employee_name","employee_id",$logs->employee_id),
