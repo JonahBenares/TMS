@@ -138,8 +138,8 @@ class Report extends CI_Controller {
             $data['department']= "null";
         }
 
-        if(!empty($this->input->post('employee'))){
-            $data['employee'] = $this->input->post('employee');
+        if(!empty($this->input->post('employee1'))){
+            $data['employee'] = $this->input->post('employee1');
         } else {
             $data['employee']= "null";
         }
@@ -204,7 +204,7 @@ class Report extends CI_Controller {
             }
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -2);
-            $sql.=" $q AND";
+            $sql.=" ($q) AND";
         
             $filter .= "Employees - ".$emp.", ";
         }
@@ -328,8 +328,8 @@ class Report extends CI_Controller {
             $data['department']= "null";
         }
 
-        if(!empty($this->input->post('employee'))){
-            $data['employee'] = $this->input->post('employee');
+        if(!empty($this->input->post('employee1'))){
+            $data['employee'] = $this->input->post('employee1');
         } else {
             $data['employee']= "null";
         }
@@ -376,17 +376,25 @@ class Report extends CI_Controller {
         }
 
        
-        if(!empty($this->input->post('employee'))){
-            $employee = $this->input->post('employee');
+        if(!empty($this->input->post('employee1'))){
+            //$employee = $this->input->post('employee');
+            $count= $this->input->post('counterX');
             $q='';
             $emp='';
-            for($x=0;$x<count($employee); $x++){
+            for($x=1;$x<=$count; $x++){
+                if($this->input->post('employee'.$x)!=''){
+                    $employee = $this->input->post('employee'.$x);
+                    $q.=' instr(employee, '.$employee.') OR';
+                    $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee) .", ";
+                }
+            }
+            /*for($x=0;$x<count($employee); $x++){
                 $q.=' instr(employee, '.$employee[$x].') OR';
                 $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee[$x]) .", ";
-            }
+            }*/
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -2);
-            $sql.=" $q AND";
+            $sql.=" ($q) AND";
         
             $filter .= "Employees - ".$emp.", ";
         }
@@ -509,8 +517,8 @@ class Report extends CI_Controller {
             $data['department']= "null";
         }
 
-        if(!empty($this->input->post('employee'))){
-            $data['employee'] = $this->input->post('employee');
+        if(!empty($this->input->post('employee1'))){
+            $data['employee'] = $this->input->post('employee1');
         } else {
             $data['employee']= "null";
         }
@@ -557,17 +565,25 @@ class Report extends CI_Controller {
         }
 
         
-        if(!empty($this->input->post('employee'))){
-            $employee = $this->input->post('employee');
+        if(!empty($this->input->post('employee1'))){
+            //$employee = $this->input->post('employee');
             $q='';
             $emp='';
-            for($x=0;$x<count($employee); $x++){
+            $count= $this->input->post('counterX');
+            for($x=1;$x<=$count; $x++){
+                if($this->input->post('employee'.$x)!=''){
+                    $employee = $this->input->post('employee'.$x);
+                    $q.=' instr(employee, '.$employee.') OR';
+                    $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee) .", ";
+                }
+            }
+            /*for($x=0;$x<count($employee); $x++){
                 $q.=' instr(employee, '.$employee[$x].') OR';
                 $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee[$x]) .",";
-            }
+            }*/
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -2);
-            $sql.=" $q AND";
+            $sql.=" ($q) AND";
         
             $filter .= "Employees - ".$emp.", ";
         }
