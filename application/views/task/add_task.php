@@ -250,12 +250,12 @@
                             <div class="p-25">
                                 <div class="row">
                                     <div class="col-lg-4"> 
-                                        <?php $employee = explode(",", $employee_id);  
+                                        <?php $emps = explode(",", $employee_id);  
                                                      
-                                            $count = count($employee);
+                                            $count = count($emps);
                                             $emp='';
                                             for($x=0;$x<$count;$x++){
-                                                $emp.= $ci->get_updated_name($employee[$x]). ", ";
+                                                $emp.= $ci->get_updated_name($emps[$x]). ", ";
                                             } 
                                             $employees = substr($emp, 0, -2);
                                         ?>
