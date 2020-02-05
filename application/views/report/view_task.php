@@ -6,24 +6,23 @@
 <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
 
 <script>
-    $(function() {
-        var updDiv = $('#p_upd');
-        var o = document.getElementById('counter1').value;
-        //var i = $('#p_emp p').size() + 1;
-        $('#addUpd').live('click', function() {
-            o++;
-            $('<div class="pmu'+o+'"><div class = "row"><div class = "col-md-9"><select class="form-control" id ="updated_by'+o+'" name="updated_by'+o+'"><option value="">-Updated By-</option><?php foreach($employees AS $emp){ ?><option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?></option><?php } ?></select></div><div class = "col-md-3"><a href="#" class="btn-primary btn-sm btn-fill" id="addUpd">+</a> <a href="#" class= "btn-danger btn-sm btn-fill" id="remUpd">x</a></div></div></div>').appendTo(updDiv);
-            $('<input type="hidden" id="counterX1" name="counterX1" value="'+o+'" />').appendTo(updDiv); 
-            return false;
-        });
+    var ii = 1;
+    $("body").on("click", ".addEmp", function() {
+        ii++;
+        var $append = $(this).parents('.append');
+        var nextHtml = $append.clone().find("select").val("").end();
+        nextHtml.attr('id', 'append' + ii);
+        var hasRmBtn = $('.remEmp', nextHtml).length > 0;
+        if (hasRmBtn==false) {
+            var rm = "<a type='button' class='btn-danger btn-sm btn-fill remEmp'>x</a>"
+            $('.addmoreappend', nextHtml).append(rm);
+        }
+        $append.after(nextHtml); 
 
-        $('#remUpd').live('click', function() { 
-            if( o >= 2 ) {
-                $("div").remove(".pmu" + o);
-                o--;
-            } 
-            return false;
-        });
+    });
+
+    $("body").on("click", ".remEmp", function() {
+        $(this).parents('.append').remove();
     });
 </script>
 <div class="modal fade" id="project_updates" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,28 +65,22 @@
                     <input class="form-control" type="hidden" name="updated_by1" value="<?php echo $useremp;?>" style="pointer-events: none;">
                     <?php } else { ?>
                     <div class="form-group" id ="p_upd">
-                        <?php 
-                            $updated_by = '';
-                            $ems = explode(",", $updated_by);
-                            foreach($ems AS $e){
-                        ?>
-                        <div class = "row">
-                            <div class = "col-md-9">
-                                <select class="form-control" name='updated_by1' id ="updated_by1">
-                                    <option value="">-Updated By-</option>
-                                    <?php foreach($employees AS $emp){ ?>
-                                        <option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?></option>
-                                    <?php } ?>
-                                </select>
+                        <div class="append" id="append0">
+                            <div class = "row">
+                                <div class = "col-md-10">
+                                    <select class="form-control" name='employee[]' id ="employee1">
+                                        <option value="">-Select Accountable Employee-</option>
+                                        <?php foreach($employees AS $emp){ ?>
+                                            <option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 addmoreappend">
+                                    <a type="button" class="btn-primary btn-sm btn-fill addEmp">+</a>
+                                </div>
                             </div>
-                            <div class = "col-md-3">
-                                <a href="#" class="btn-primary btn-sm btn-fill" id="addUpd">+</a> 
-                                <a href="#" class= "btn-danger btn-sm btn-fill" id="remUpd">x</a>
-                            </div>  
                         </div>
-                        <input type="hidden" id="counterX1" name="counterX1" value="1">
-                        <input type = "hidden" value = "1" id = "counter1" name  = "counter1">
-                        <?php } ?>
                     </div> 
                     <?php } ?>                   
                 </div>

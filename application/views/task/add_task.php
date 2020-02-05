@@ -6,44 +6,42 @@
 <script src="<?php echo base_url(); ?>assets/dist/js/jquery-1.12.4.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/dist/js/jquery-ui.js"></script>
-<script>
-    $(function() {
-        var empDiv = $('#p_emp');
-        var i = document.getElementById('counter').value;
-        //var i = $('#p_emp p').size() + 1;
-        $('#addEmp').live('click', function() {
-            i++;
-            $('<div class="pmp'+i+'"><div class = "row"><div class = "col-md-10"><select class="form-control" id ="employee'+i+'" name="employee'+i+'"><option value="">-Select Accountable Employee-</option><?php foreach($employee AS $emp){ ?><option value="<?php echo $emp->employee_id; ?>"><?php echo "$emp->employee_name"; ?></option><?php } ?></select></div><div class = "col-md-2"><a href="#" class="btn-primary btn-sm btn-fill" id="addEmp">+</a> <a href="#" class= "btn-danger btn-sm btn-fill" id="remEmp">x</a></div></div></div>').appendTo(empDiv);
-            $('<input type="hidden" id="counterX" name="counterX" value="'+i+'" />').appendTo(empDiv); 
-            return false;
-        });
-        $('#remEmp').live('click', function() { 
-            if( i >= 2 ) {
-                $("div").remove(".pmp" + i);
-                i--;
-            } 
-            return false;
-        });
+<script type="text/javascript">
+    var ii = 1;
+    $("body").on("click", ".addEmp", function() {
+        ii++;
+        var $append = $(this).parents('.append');
+        var nextHtml = $append.clone().find("select").val("").end();
+        nextHtml.attr('id', 'append' + ii);
+        var hasRmBtn = $('.remEmp', nextHtml).length > 0;
+        if (!hasRmBtn) {
+            var rm = "<a type='button' class='btn-danger btn-sm btn-fill remEmp'>x</a>"
+            $('.addmoreappend', nextHtml).append(rm);
+        }
+        $append.after(nextHtml); 
+
     });
 
-    $(function() {
-        var updDiv = $('#p_upd');
-        var o = document.getElementById('counter1').value;
-        //var i = $('#p_emp p').size() + 1;
-        $('#addUpd').live('click', function() {
-            o++;
-            $('<div class="pmu'+o+'"><div class = "row"><div class = "col-md-9"><select class="form-control" id ="updated_by'+o+'" name="updated_by'+o+'"><option value="">-Updated By-</option><?php foreach($employee AS $emp){ ?><option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?></option><?php } ?></select></div><div class = "col-md-3"><a href="#" class="btn-primary btn-sm btn-fill" id="addUpd">+</a> <a href="#" class= "btn-danger btn-sm btn-fill" id="remUpd">x</a></div></div></div>').appendTo(updDiv);
-            $('<input type="hidden" id="counterX1" name="counterX1" value="'+o+'" />').appendTo(updDiv); 
-            return false;
-        });
+    $("body").on("click", ".remEmp", function() {
+        $(this).parents('.append').remove();
+    });
 
-        $('#remUpd').live('click', function() { 
-            if( o >= 2 ) {
-                $("div").remove(".pmu" + o);
-                o--;
-            } 
-            return false;
-        });
+    var oo = 1;
+    $("body").on("click", ".addUpd", function() {
+        oo++;
+        var $updateappend = $(this).parents('.updateappend');
+        var nextHtmlup = $updateappend.clone().find("select").val("").end();
+        nextHtmlup.attr('id', 'updateappend' + oo);
+        var hasURmBtn = $('.remUpd', nextHtmlup).length > 0;
+        if (!hasURmBtn) {
+            var rmu = "<a type='button' class='btn-danger btn-sm btn-fill remUpd'>x</a>"
+            $('.addmoreupappend', nextHtmlup).append(rmu);
+        }
+        $updateappend.after(nextHtmlup); 
+    });
+
+    $("body").on("click", ".remUpd", function() {
+        $(this).parents('.updateappend').remove();
     });
 </script>
 
@@ -157,38 +155,40 @@
                                                 $x=1;
                                                 foreach($em AS $mp){
                                             ?>
-                                            <div class = "row">
-                                                <div class = "col-md-10">
-                                                    <select class="form-control" name='employee<?php echo $x; ?>' id ="employee<?php echo $x; ?>">
-                                                        <option value="">-Select Accountable Employee-</option>
-                                                        <?php foreach($employee AS $emp){ ?>
-                                                            <option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($project_id) ? (((($emp->employee_id == $mp))) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?>
-                                                            </option>
-                                                        <?php } ?>
-                                                    </select>
+                                            <div class="append" id="append0">
+                                                <div class = "row">
+                                                    <div class = "col-md-10">
+                                                        <select class="form-control" name='employee[]' id ="employee1">
+                                                            <option value="">-Select Accountable Employee-</option>
+                                                            <?php foreach($employee AS $emp){ ?>
+                                                                <option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($project_id) ? (((($emp->employee_id == $mp))) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2 addmoreappend">
+                                                        <a type="button" class="btn-primary btn-sm btn-fill addEmp">+</a>
+                                                    </div>
                                                 </div>
-                                                <div class = "col-md-2">
-                                                    <a href="#" class="btn-primary btn-sm btn-fill" id="addEmp">+</a> 
-                                                    <!-- <a href="#" class= "btn-danger btn-sm btn-fill" id="remEmp">x</a> -->
-                                                </div>  
                                             </div>
                                             <input type="hidden" id="counterX" name="counterX" value="<?php echo $x; ?>">
                                             <input type = "hidden" value = "<?php echo $rowcount; ?>" id = "counter" name  = "counter">
                                             <?php $x++; } }else { ?>
-                                            <div class = "row">
-                                                <div class = "col-md-10">
-                                                    <select class="form-control" name='employee1' id ="employee1">
-                                                        <option value="">-Select Accountable Employee-</option>
-                                                        <?php foreach($employee AS $emp){ ?>
-                                                            <option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($project_id) ? (((($emp->employee_id == $mp))) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?>
-                                                            </option>
-                                                        <?php } ?>
-                                                    </select>
+                                            <div class="append" id="append0">
+                                                <div class = "row">
+                                                    <div class = "col-md-10">
+                                                        <select class="form-control" name='employee[]' id ="employee1">
+                                                            <option value="">-Select Accountable Employee-</option>
+                                                            <?php foreach($employee AS $emp){ ?>
+                                                                <option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($project_id) ? (((($emp->employee_id == $mp))) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2 addmoreappend">
+                                                        <a type="button" class="btn-primary btn-sm btn-fill addEmp">+</a>
+                                                    </div>
                                                 </div>
-                                                <div class = "col-md-2">
-                                                    <a href="#" class="btn-primary btn-sm btn-fill" id="addEmp">+</a> 
-                                                    <a href="#" class= "btn-danger btn-sm btn-fill" id="remEmp">x</a>
-                                                </div>  
                                             </div>
                                             <input type="hidden" id="counterX" name="counterX" value="1">
                                             <input type = "hidden" value = "1" id = "counter" name  = "counter">
@@ -346,23 +346,22 @@
                                                     $ems = explode(",", $updated_by);
                                                     foreach($ems AS $e){
                                                 ?>
-                                                <div class = "row">
-                                                    <div class = "col-md-9">
-                                                        <select class="form-control" name='updated_by1' id ="updated_by1">
-                                                            <option value="">-Updated By-</option>
-                                                            <?php foreach($employee AS $emp){ ?>
-                                                                <option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($pd_id) ? (((($emp->employee_id == $e))) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?>
-                                                                </option>
-                                                            <?php } ?>
-                                                        </select>
+                                                <div class="updateappend" id="updateappend0">
+                                                    <div class = "row">
+                                                        <div class = "col-md-9">
+                                                            <select class="form-control" name='updated_by[]' id ="updated_by1">
+                                                                <option value="">-Select Accountable Employee-</option>
+                                                                <?php foreach($employee AS $emp){ ?>
+                                                                    <option value="<?php echo $emp->employee_id; ?>" <?php echo (!empty($pd_id) ? (((($emp->employee_id == $e))) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?>
+                                                                    </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3 addmoreupappend">
+                                                            <a type="button" class="btn-primary btn-sm btn-fill addUpd">+</a>
+                                                        </div>
                                                     </div>
-                                                    <div class = "col-md-3">
-                                                        <a href="#" class="btn-primary btn-sm btn-fill" id="addUpd">+</a> 
-                                                        <a href="#" class= "btn-danger btn-sm btn-fill" id="remUpd">x</a>
-                                                    </div>  
                                                 </div>
-                                                <input type="hidden" id="counterX1" name="counterX1" value="1">
-                                                <input type = "hidden" value = "1" id = "counter1" name  = "counter1">
                                                 <?php } ?>
                                             </div>
                                             <?php } ?>

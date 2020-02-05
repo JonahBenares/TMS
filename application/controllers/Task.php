@@ -154,13 +154,12 @@ class Task extends CI_Controller {
         $monitor = $this->input->post('monitor');
         $from = $this->input->post('from');
         $empid='';
-        //$count= count($this->input->post('employee'));
-        $count= $this->input->post('counterX');
+        $count= count($this->input->post('employee'));
         $mssg = "A new project titled ".$project_title." has been assigned to you.";
-        for($x=1; $x<=$count;$x++){
+        for($x=0; $x<$count;$x++){
             
-            if($this->input->post('employee'.$x)!=''){
-                $emp = $this->input->post('employee'.$x);
+            if($this->input->post('employee['.$x.']')!=''){
+                $emp = $this->input->post('employee['.$x.']');
                 $empid .= $emp.",";
             }
             $logs = array(
@@ -196,7 +195,7 @@ class Task extends CI_Controller {
                 'project_id'=>$project_id,
                 'notification_date'=>$create_date
             );
-            $this->super_model->insert_into("notification_logs", $logs_monitorloc);
+           $this->super_model->insert_into("notification_logs", $logs_monitorloc);
         }
 
         $mssg = "A new project titled ".$project_title." has been added.";     
@@ -260,15 +259,15 @@ class Task extends CI_Controller {
         $from = $this->input->post('from');
         $monitor = $this->input->post('monitor');
         $empid='';
-        //$count= count($this->input->post('employee'));
-        $count= $this->input->post('counterX');
+        $count= count($this->input->post('employee'));
+        //$count= $this->input->post('counterX');
         $location =$this->super_model->select_column_where("project_head","location_id","project_id",$project_id);
         $monitor_location =$this->super_model->select_column_custom_where("users","employee_id","location_id='$location' AND usertype='2'");
         $useremp = $this->session->userdata['employee'];
         $update_mssg = 'Added an update in project '.$project_title;
-        for($x=1; $x<=$count;$x++){
-            if($this->input->post('employee'.$x)!=''){
-                $emp = $this->input->post('employee'.$x);
+        for($x=0; $x<$count;$x++){
+            if($this->input->post('employee['.$x.']')!=''){
+                $emp = $this->input->post('employee['.$x.']');
                 $empid .= $emp.",";
             }
 
@@ -345,12 +344,11 @@ class Task extends CI_Controller {
         $create_date = date('Y-m-d H:i:s');
         //$emp = $this->input->post('updated_by');
         $empid='';
-        $count= $this->input->post('counterX1');
-        //$count= count($this->input->post('updated_by'));
-      
-        for($x=1; $x<=$count;$x++){
-            if($this->input->post('updated_by'.$x)!=''){
-                $emp = $this->input->post('updated_by'.$x);
+        //$count= $this->input->post('counterX1');
+        $count= count($this->input->post('updated_by'));
+        for($x=0; $x<$count;$x++){
+            if($this->input->post('updated_by['.$x.']')!=''){
+                $emp = $this->input->post('updated_by['.$x.']');
                 $empid .= $emp.",";
             }
         }
@@ -390,12 +388,12 @@ class Task extends CI_Controller {
         $create_date = date('Y-m-d H:i:s');
         //$emp = $this->input->post('updated_by');
         $empid='';
-        //$count= count($this->input->post('updated_by'));
-        $count= $this->input->post('counterX1');
+        $count= count($this->input->post('updated_by'));
+        //$count= $this->input->post('counterX1');
 
-        for($x=1; $x<=$count;$x++){
-            if($this->input->post('updated_by'.$x)!=''){
-                $emp = $this->input->post('updated_by'.$x);
+        for($x=0; $x<$count;$x++){
+            if($this->input->post('updated_by['.$x.']')!=''){
+                $emp = $this->input->post('updated_by['.$x.']');
                 $empid .= $emp.",";
             }
         }

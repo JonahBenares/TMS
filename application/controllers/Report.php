@@ -138,8 +138,8 @@ class Report extends CI_Controller {
             $data['department']= "null";
         }
 
-        if(!empty($this->input->post('employee1'))){
-            $data['employee'] = $this->input->post('employee1');
+        if(!empty($this->input->post('employee'))){
+            $data['employee'] = $this->input->post('employee');
         } else {
             $data['employee']= "null";
         }
@@ -186,8 +186,9 @@ class Report extends CI_Controller {
         }
 
         
-        if(!empty($this->input->post('employee1'))){
-            $count= $this->input->post('counterX');
+        if(!empty($this->input->post('employee'))){
+            $employee=$this->input->post('employee');
+            $count= count($employee);
             $q='';
             $emp='';
             /*for($x=1; $x<=$count;$x++){
@@ -195,9 +196,9 @@ class Report extends CI_Controller {
                 $q.=' instr(employee, '.$emps.') OR';
                 $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $emps) .", ";
             }*/
-            for($x=1;$x<=$count; $x++){
-                if($this->input->post('employee'.$x)!=''){
-                    $employee = $this->input->post('employee'.$x);
+            for($x=0;$x<$count; $x++){
+                if($this->input->post('employee['.$x.']')!=''){
+                    $employee = $this->input->post('employee['.$x.']');
                     $q.=' instr(employee, '.$employee.') OR';
                     $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee) .", ";
                 }
@@ -222,7 +223,6 @@ class Report extends CI_Controller {
         }
 
         $query=substr($sql, 0, -3);
-        echo $query;
         $data['filt']=substr($filter, 0, -2);
        
         $data['employee']=$this->super_model->select_all_order_by("employees","employee_name","ASC");
@@ -328,8 +328,8 @@ class Report extends CI_Controller {
             $data['department']= "null";
         }
 
-        if(!empty($this->input->post('employee1'))){
-            $data['employee'] = $this->input->post('employee1');
+        if(!empty($this->input->post('employee'))){
+            $data['employee'] = $this->input->post('employee');
         } else {
             $data['employee']= "null";
         }
@@ -376,14 +376,14 @@ class Report extends CI_Controller {
         }
 
        
-        if(!empty($this->input->post('employee1'))){
-            //$employee = $this->input->post('employee');
-            $count= $this->input->post('counterX');
+        if(!empty($this->input->post('employee'))){
+            $employee = $this->input->post('employee');
+            $count= count($employee);
             $q='';
             $emp='';
-            for($x=1;$x<=$count; $x++){
-                if($this->input->post('employee'.$x)!=''){
-                    $employee = $this->input->post('employee'.$x);
+            for($x=0;$x<$count; $x++){
+                if($this->input->post('employee['.$x.']')!=''){
+                    $employee = $this->input->post('employee['.$x.']');
                     $q.=' instr(employee, '.$employee.') OR';
                     $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee) .", ";
                 }
@@ -517,8 +517,8 @@ class Report extends CI_Controller {
             $data['department']= "null";
         }
 
-        if(!empty($this->input->post('employee1'))){
-            $data['employee'] = $this->input->post('employee1');
+        if(!empty($this->input->post('employee'))){
+            $data['employee'] = $this->input->post('employee');
         } else {
             $data['employee']= "null";
         }
@@ -565,14 +565,15 @@ class Report extends CI_Controller {
         }
 
         
-        if(!empty($this->input->post('employee1'))){
-            //$employee = $this->input->post('employee');
+        if(!empty($this->input->post('employee'))){
+            $employees = $this->input->post('employee');
+            $count = count($employees);
             $q='';
             $emp='';
-            $count= $this->input->post('counterX');
-            for($x=1;$x<=$count; $x++){
-                if($this->input->post('employee'.$x)!=''){
-                    $employee = $this->input->post('employee'.$x);
+            //$count= $this->input->post('counterX');
+            for($x=0;$x<$count; $x++){
+                if($this->input->post('employee['.$x.']')!=''){
+                    $employee = $this->input->post('employee['.$x.']');
                     $q.=' instr(employee, '.$employee.') OR';
                     $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee) .", ";
                 }
@@ -666,8 +667,8 @@ class Report extends CI_Controller {
             $data['department']= "null";
         }
 
-        if(!empty($this->input->post('employee1'))){
-            $data['employee'] = $this->input->post('employee1');
+        if(!empty($this->input->post('employee'))){
+            $data['employee'] = $this->input->post('employee');
         } else {
             $data['employee']= "null";
         }
@@ -713,13 +714,14 @@ class Report extends CI_Controller {
             $filter .= "<b>Department</b> - ".$dept.", ";
         }
 
-        if(!empty($this->input->post('employee1'))){
+        if(!empty($this->input->post('employee'))){
             $q='';
             $emp='';
-            $count= $this->input->post('counterX');
-            for($x=1;$x<=$count; $x++){
-                if($this->input->post('employee'.$x)!=''){
-                    $employee = $this->input->post('employee'.$x);
+            $employees = $this->input->post('employee');
+            $count = count($employees);
+            for($x=0;$x<$count; $x++){
+                if($this->input->post('employee['.$x.']')!=''){
+                    $employee = $this->input->post('employee['.$x.']');
                     $q.=' instr(employee, '.$employee.') OR';
                     $emp.= $this->super_model->select_column_where("employees", "employee_name", "employee_id", $employee) .", ";
                 }
@@ -945,8 +947,8 @@ class Report extends CI_Controller {
         $monitor_location =$this->super_model->select_column_custom_where("users","employee_id","location_id='$location' AND usertype='2'");
         $project_title = $this->super_model->select_column_where("project_head","project_title","project_id",$project_id);
         $update_mssg = 'Added an update in project '.$project_title;
-        //$count= count($this->input->post('updated_by'));
-        $count= $this->input->post('counterX1');
+        $count= count($this->input->post('updated_by'));
+        //$count= $this->input->post('counterX1');
 
             $details_count = $this->super_model->count_rows("project_details");
         if($details_count==0){
@@ -957,9 +959,9 @@ class Report extends CI_Controller {
         }
 
 
-        for($x=1; $x<=$count;$x++){
-            if($this->input->post('updated_by'.$x)!=''){
-                $emp = $this->input->post('updated_by'.$x);
+        for($x=0; $x<$count;$x++){
+            if($this->input->post('updated_by['.$x.']')!=''){
+                $emp = $this->input->post('updated_by['.$x.']');
                 $empid .= $emp.",";
             }
         }
