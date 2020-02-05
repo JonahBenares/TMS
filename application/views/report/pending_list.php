@@ -89,7 +89,7 @@
                         </select>
                     </div> -->
                     <div class="form-group">
-                        <input type="number" name="priority" class="form-control" placeholder="Priority Number">
+                        <input type="number" name="priority" class="form-control" max='3' placeholder="Priority Number">
                     </div>
                     <div class="form-group">
                         <textarea  name="title" class="form-control" placeholder="Title" rows="5"></textarea> 

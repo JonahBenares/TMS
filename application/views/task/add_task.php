@@ -250,11 +250,19 @@
                             <div class="p-25">
                                 <div class="row">
                                     <div class="col-lg-4"> 
-
+                                        <?php $employee = explode(",", $employee_id);  
+                                                     
+                                            $count = count($employee);
+                                            $emp='';
+                                            for($x=0;$x<$count;$x++){
+                                                $emp.= $ci->get_updated_name($employee[$x]). ", ";
+                                            } 
+                                            $employees = substr($emp, 0, -2);
+                                        ?>
                                         <h4 class="proj-title fw500"><?php echo $project_title; ?></h4>
                                         <h6 class="proj-title m-b-0">- <?php echo $companys; ?></h6>
                                         <h6 class="proj-title">- <?php echo $locations; ?></h6>
-
+                                        <h6 class="proj-title">- <?php echo $employees; ?></h6>
                                         <h6 class="proj-title m-b-0"> 
                                             <b>#<?php echo $task_no; ?></b> -
                                             <?php if($priority_no==1){ ?>

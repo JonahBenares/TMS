@@ -68,7 +68,7 @@
                         <div class="append" id="append0">
                             <div class = "row">
                                 <div class = "col-md-10">
-                                    <select class="form-control" name='employee[]' id ="employee1">
+                                    <select class="form-control" name='updated_by[]' id ="updated_by1">
                                         <option value="">-Select Accountable Employee-</option>
                                         <?php foreach($employees AS $emp){ ?>
                                             <option value="<?php echo $emp->employee_id; ?>"><?php echo $emp->employee_name; ?>
