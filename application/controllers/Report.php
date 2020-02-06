@@ -205,8 +205,9 @@ class Report extends CI_Controller {
             }
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -2);
-            $sql.=" ($q) AND";
-        
+            if(!empty($q)){
+                $sql.=" ($q) AND";
+            }
             $filter .= "Employees - ".$emp.", ";
         }
 
@@ -394,8 +395,9 @@ class Report extends CI_Controller {
             }*/
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -2);
-            $sql.=" ($q) AND";
-        
+            if(!empty($q)){
+                $sql.=" ($q) AND";
+            }
             $filter .= "Employees - ".$emp.", ";
         }
 
@@ -584,7 +586,9 @@ class Report extends CI_Controller {
             }*/
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -2);
-            $sql.=" ($q) AND";
+            if(!empty($q)){
+                $sql.=" ($q) AND";
+            }
         
             $filter .= "Employees - ".$emp.", ";
         }
@@ -732,7 +736,9 @@ class Report extends CI_Controller {
             }*/
             $q = substr($q, 0, -3);
             $emp = substr($emp, 0, -1);
-            $sql.=" $q AND";
+            if(!empty($q)){
+                $sql.=" $q AND";
+            }
         
             $filter .= "<b>Employees</b> - ".$emp.",";
         }
