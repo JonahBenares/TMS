@@ -55,6 +55,14 @@ class Reminder extends CI_Controller {
         return $count;
     }
 
+    public function total_sunday($month,$year){
+        $sundays=0;
+        $total_days=cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        for($i=1;$i<=$total_days;$i++)
+        if(date('N',strtotime($year.'-'.$month.'-'.$i))==7)
+        $sundays++;
+        return $sundays;
+    }
 
 	public function reminder_list(){
            $useremp = $this->session->userdata['employee'];
@@ -75,9 +83,11 @@ class Reminder extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/navbar', $data_notif);
 		foreach($this->super_model->select_all_order_by("reminders","due_date","ASC") AS $rem){
-			$today=date("Y-m-d");
+            $today=date("Y-m-d");
+            $month=date("m");
+			$year=date("Y");
 			$employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
-			$days_left= $this->dateDifference($rem->due_date, $today). " day/s";
+			$days_left= $this->dateDifference($rem->due_date, $today) - $this->total_sunday($month, $year). " day/s";
 			$data['reminders'][]=array(
 				"reminder_id"=>$rem->reminder_id,
 				"employee_id"=>$rem->employee_id,

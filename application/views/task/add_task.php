@@ -2,6 +2,8 @@
 
     $ci =& get_instance();
     $now=date('Y-m-d');
+    $year=date('Y');
+    $month=date('m');
 ?>
 <script src="<?php echo base_url(); ?>assets/dist/js/jquery-1.12.4.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
@@ -284,21 +286,30 @@
                                         <small class="proj-title m-0 btn-block">Start Date: <span class="pull-right"><?php echo date('F j, Y', strtotime($start_date)); ?></span></small>
                                         <small class="proj-title m-0 btn-block">Due Date: <span class="pull-right"><?php echo date('F j, Y', strtotime($completion_date)); ?></span></small>
                                         <small class="proj-title m-0 btn-block">NO. OF WORKING DAYS: <span class="pull-right">
-                                          <?php if($status == 1) { 
-                                             
-                                                 echo $ci->date_diff($start_date, $ci->project_completed($project_id));
-                                               } else { 
-                                                echo $ci->date_diff($start_date, $now);
-                                               } ?>
+                                            <?php 
+                                                $working_days = $ci->date_diff($start_date,$now) - $ci->total_sunday($month,$year);
+                                                if($status == 1) { 
+                                                    echo $ci->date_diff($start_date, $ci->project_completed($project_id));
+                                                } else { 
+                                                    //echo $ci->date_diff($start_date, $now);
+                                                    echo $working_days;
+                                                } 
+                                            ?>
                                                    
                                          </span></small>
                                         <small class="proj-title m-0 btn-block">REMAINING DAYS: <span class="pull-right">
 
-                                         <?php   if(empty($ci->latest_extension($project_id))){
-                                                echo $ci->date_diff($now, $completion_date); 
-                                            } else {
-                                                  echo $ci->date_diff($now, $ci->latest_extension($project_id)); 
-                                            } ?>
+                                            <?php   
+                                                if(empty($ci->latest_extension($project_id))){
+                                                    //echo $ci->date_diff($now, $completion_date); 
+                                                    $remaining_days = $ci->date_diff($now, $completion_date) - $ci->total_sunday($month,$year);
+                                                    echo $remaining_days;
+                                                } else {
+                                                    //echo $ci->date_diff($now, $ci->latest_extension($project_id)); 
+                                                    $remaining_days = $ci->date_diff($now, $ci->latest_extension($project_id)) - $ci->total_sunday($month,$year);
+                                                    echo $remaining_days;
+                                                } 
+                                            ?>
                                                                     
                                           </span></small>
                                         <hr>

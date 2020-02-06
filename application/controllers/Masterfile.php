@@ -323,6 +323,15 @@ class Masterfile extends CI_Controller {
         return $interval->format('%R%a');  
     }
 
+    public function total_sunday($month,$year){
+        $sundays=0;
+        $total_days=cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        for($i=1;$i<=$total_days;$i++)
+        if(date('N',strtotime($year.'-'.$month.'-'.$i))==7)
+        $sundays++;
+        return $sundays;
+    }
+
     public function dashboard()
     {
         $userid = $this->session->userdata['user_id'];
@@ -346,7 +355,9 @@ class Masterfile extends CI_Controller {
             foreach($this->super_model->select_custom_where("reminders","status = '0' AND (added_by = '$useremp' OR employee_id = '$useremp') ORDER BY due_date ASC") AS $rem){
                 $employee = $this->super_model->select_column_where("employees","employee_name","employee_id",$rem->employee_id);
                 $today=date("Y-m-d");
-                $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
+                $year=date("Y");
+                $month=date("m");
+                $days_left= $this->dateDifference($rem->due_date, $today) - $this->total_sunday($month,$year). " day/s left";
                 $data['reminders'][]=array(
                     'reminder_id'=>$rem->reminder_id,
                     'project_id'=>0,
@@ -371,7 +382,9 @@ class Masterfile extends CI_Controller {
                 } 
                 $employees = substr($emp, 0, -2);
                 $today=date("Y-m-d");
-                $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
+                $year=date("Y");
+                $month=date("m");
+                $days_left= $this->dateDifference($due->completion_date, $today) - $this->total_sunday($month,$year). " day/s left";
                 //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
                 $data['reminders'][]=array(
                     'reminder_id'=>0,
@@ -387,7 +400,9 @@ class Masterfile extends CI_Controller {
 
             foreach($this->super_model->custom_query("SELECT * FROM project_details WHERE DATEDIFF(followup_date, NOW()) <= '4'") AS $fol){
                 $today=date("Y-m-d");
-                $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
+                $year=date("Y");
+                $month=date("m");
+                $days_left= $this->dateDifference($fol->followup_date, $today) - $this->total_sunday($month,$year). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     if($days_left>0){
@@ -414,7 +429,9 @@ class Masterfile extends CI_Controller {
                 } 
                 $employees = substr($emp, 0, -2);
                 $today=date("Y-m-d");
-                $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
+                $year=date("Y");
+                $month=date("m");
+                $days_left= $this->dateDifference($due->completion_date, $today) - $this->total_sunday($month,$year). " day/s left";
                 //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
                 $data['reminders'][]=array(
                     'reminder_id'=>0,
@@ -430,7 +447,9 @@ class Masterfile extends CI_Controller {
 
             foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON ph.project_id = pd.project_id WHERE (FIND_IN_SET($useremp, ph.employee) != 0  OR ph.monitor_person = '$useremp' OR ph.location_id = '$userloc') AND DATEDIFF(pd.followup_date, NOW()) <= '4'") AS $fol){
                 $today=date("Y-m-d");
-                $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
+                $year=date("Y");
+                $month=date("m");
+                $days_left= $this->dateDifference($fol->followup_date, $today) - $this->total_sunday($month,$year). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     $data['followup'][]=array(
@@ -456,7 +475,9 @@ class Masterfile extends CI_Controller {
                 } 
                 $employees = substr($emp, 0, -2);
                 $today=date("Y-m-d");
-                $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
+                $year=date("Y");
+                $month=date("m");
+                $days_left= $this->dateDifference($due->completion_date, $today) - $this->total_sunday($month,$year). " day/s left";
                 //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
                 $data['reminders'][]=array(
                     'reminder_id'=>0,
@@ -472,7 +493,9 @@ class Masterfile extends CI_Controller {
 
             foreach($this->super_model->custom_query("SELECT pd.* FROM project_details pd INNER JOIN project_head ph ON ph.project_id = pd.project_id WHERE (FIND_IN_SET($useremp, ph.employee) != 0  OR monitor_person = '$useremp') AND DATEDIFF(pd.followup_date, NOW()) <= '4'") AS $fol){
                 $today=date("Y-m-d");
-                $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
+                $year=date("Y");
+                $month=date("m");
+                $days_left= $this->dateDifference($fol->followup_date, $today) - $this->total_sunday($month,$year). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     $data['followup'][]=array(

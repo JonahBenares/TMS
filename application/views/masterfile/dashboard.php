@@ -1,6 +1,8 @@
     <?php
     $ci =& get_instance();
     $now=date('Y-m-d');
+    $year=date('Y');
+    $month=date('m');
     ?>
 
 <div class="modal fade" id="addCompany" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -99,7 +101,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                        <?php foreach($projects AS $proj){ ?>
+                                        <?php foreach($projects AS $proj){ 
+                                            $working_days = $ci->date_diff($proj->start_date,$now) - $ci->total_sunday($month,$year);
+                                        ?>
                                 <tr>
                                     <td class="p-0">
                                         <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $proj->project_id; ?>" >
@@ -154,13 +158,25 @@
                                                                 } 
                                                                 ?></span></small>
 
-                                                        <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right"><?php echo $ci->date_diff($proj->start_date,$now); ?></span></small>
-                                                        <small class="proj-title btn-block m-0">REMAINING DAYS: <span class="pull-right"> <?php   
-                                                            if(empty($ci->latest_extension($proj->project_id))){
-                                                                    echo $ci->date_diff($now, $proj->completion_date); 
-                                                                } else {
-                                                                      echo $ci->date_diff($now, $ci->latest_extension($proj->project_id)); 
-                                                                } ?></span></small>
+                                                        <small class="proj-title btn-block m-0">NO. OF WORKING DAYS: <span class="pull-right"><?php echo $working_days; ?></span></small>
+                                                        <small class="proj-title btn-block m-0">REMAINING DAYS: 
+                                                            <span class="pull-right"> 
+                                                                <?php  
+                                                                    if(empty($ci->latest_extension($proj->project_id))){
+                                                                        $remaining_days = $ci->date_diff($now, $proj->completion_date) - $ci->total_sunday($month,$year);
+                                                                        echo $remaining_days;
+                                                                    }else {
+                                                                        $remaining_days = $ci->date_diff($now, $ci->latest_extension($proj->project_id)) - $ci->total_sunday($month,$year);
+                                                                        echo $remaining_days;
+                                                                    } 
+                                                                    /*if(empty($ci->latest_extension($proj->project_id))){
+                                                                        echo $remaining_days; 
+                                                                    } else {
+                                                                        echo $remaining_days; 
+                                                                    }*/ 
+                                                                ?>
+                                                            </span>
+                                                        </small>
                                                         <div class="progress progress-bar-animated active">
                                                             <div role="progressbar" class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $ci->project_percent($proj->project_id); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ci->project_percent($proj->project_id); ?>%">
                                                             <?php if($ci->project_percent($proj->project_id) <= '50') { ?>    

@@ -829,6 +829,16 @@ class Report extends CI_Controller {
         $diff = $ts2 - $ts1;
         return round($diff / 86400); 
     }
+
+    public function total_sunday($month,$year){
+        $sundays=0;
+        $total_days=cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        for($i=1;$i<=$total_days;$i++)
+        if(date('N',strtotime($year.'-'.$month.'-'.$i))==7)
+        $sundays++;
+        return $sundays;
+    }
+    
     public function view_task()
     {
         $project_id = $this->uri->segment(3);
