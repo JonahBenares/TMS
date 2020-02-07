@@ -868,13 +868,34 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function countWeekendDays($start, $end){
+           $count =0;
+           $begin = new DateTime($start);
+            $end = new DateTime($end);
+
+            $interval = DateInterval::createFromDateString('1 day');
+            $period = new DatePeriod($begin, $interval, $end);
+
+            foreach ($period as $dt) {
+                if($dt->format("l")=='Sunday'){
+                    $count++;
+                
+                }
+            }
+
+            return $count;
+    }
 
     public function date_diff($date1, $date2){
+
+        $count_sunday = $this->countWeekendDays($date1, $date2);
         $ts1 = strtotime($date1);
         $ts2 = strtotime($date2);
 
         $diff = $ts2 - $ts1;
-        return round($diff / 86400); 
+        $sum= round($diff / 86400); 
+        $days = $sum-$count_sunday;
+        return $days;
     }
 
        public function latest_extension($project_id){

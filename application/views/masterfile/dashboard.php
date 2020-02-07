@@ -102,33 +102,34 @@
                             </thead>
                             <tbody>
                                 <?php   
-                                    function countWeekendDays($start, $end){
-                                        $iter = 24*60*60; // whole day in seconds
-                                        $count = 0; // keep a count of Sats & Suns
-                                        for($i = $start; $i <= $end; $i=$i+$iter){
-                                            if(Date('D',$i) == 'Sun'){
+                                 /*   function countWeekendDays($start, $end){
+                                        $count =0;
+                                       $begin = new DateTime($start);
+                                        $end = new DateTime($end);
+
+                                        $interval = DateInterval::createFromDateString('1 day');
+                                        $period = new DatePeriod($begin, $interval, $end);
+
+                                        foreach ($period as $dt) {
+                                            if($dt->format("l")=='Sunday'){
                                                 $count++;
+                                            
                                             }
                                         }
+
                                         return $count;
                                     }
-                                    
+                                    */
                                     foreach($projects AS $proj){ 
                                         $start = strtotime($proj->start_date);
                                         $end = strtotime($now);
 
-                                        /*$start = date("Y-m-d",strtotime($proj->start_date));
-                                        $current = $start;
-                                        $count = 0;
-                                        while($current != $now){
-                                            if(date('l', strtotime($current)) == 'Sunday'){
-                                                $count++;
-                                            }
+                                     
+                                        //$counts = countWeekendDays($proj->start_date, $now);
+                                        $working_days = $ci->date_diff($proj->start_date,$now);
 
-                                            $current = date('Y-m-d', strtotime($current.' +1 day'));
-                                        };*/
-                                        $counts = countWeekendDays($start, $end);
-                                        $working_days = $ci->date_diff($proj->start_date,$now) - $counts;
+                                      
+                                        
                                 ?>
                                 <tr>
                                     <td class="p-0">
@@ -189,10 +190,10 @@
                                                             <span class="pull-right"> 
                                                                 <?php  
                                                                     if(empty($ci->latest_extension($proj->project_id))){
-                                                                        $remaining_days = $ci->date_diff($now, $proj->completion_date) - $counts;
+                                                                        $remaining_days = $ci->date_diff($now, $proj->completion_date);
                                                                         echo $remaining_days;
                                                                     }else {
-                                                                        $remaining_days = $ci->date_diff($now, $ci->latest_extension($proj->project_id)) - $counts;
+                                                                        $remaining_days = $ci->date_diff($now, $ci->latest_extension($proj->project_id));
                                                                         echo $remaining_days;
                                                                     } 
                                                                     /*if(empty($ci->latest_extension($proj->project_id))){

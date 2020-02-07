@@ -383,7 +383,7 @@
                                     <small class="proj-title">NO. OF WORKING DAYS: 
                                     <b>
                                         <?php
-                                            $working_days = $ci->date_diff($start_date,$now) - $ci->total_sunday($month,$year);
+                                            $working_days = $ci->date_diff($start_date,$now);
                                             if($status == 'Done'){
                                                 echo $ci->date_diff($start_date, $ci->project_completed($project_id));
                                             } else {
@@ -397,10 +397,10 @@
                                     <small class="proj-title">REMAINING DAYS:  <b>
                                        <?php                  
                                             if(empty($ci->latest_extension($project_id))){
-                                                $remaining_days = $ci->date_diff($now, $completion_date) - $ci->total_sunday($month,$year);
+                                                $remaining_days = $ci->date_diff($now, $completion_date);
                                                 echo $remaining_days;
                                             }else {
-                                                $remaining_days = $ci->date_diff($now, $ci->latest_extension($project_id)) - $ci->total_sunday($month,$year);
+                                                $remaining_days = $ci->date_diff($now, $ci->latest_extension($project_id));
                                                 echo $remaining_days;
                                             }
 
