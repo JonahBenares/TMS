@@ -357,7 +357,7 @@ class Masterfile extends CI_Controller {
                 $today=date("Y-m-d");
                 $year=date("Y");
                 $month=date("m");
-                $days_left= $this->dateDifference($rem->due_date, $today) - $this->total_sunday($month,$year). " day/s left";
+                $days_left= $this->dateDifference($rem->due_date, $today). " day/s left";
                 $data['reminders'][]=array(
                     'reminder_id'=>$rem->reminder_id,
                     'project_id'=>0,
@@ -384,7 +384,7 @@ class Masterfile extends CI_Controller {
                 $today=date("Y-m-d");
                 $year=date("Y");
                 $month=date("m");
-                $days_left= $this->dateDifference($due->completion_date, $today) - $this->total_sunday($month,$year). " day/s left";
+                $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
                 //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
                 $data['reminders'][]=array(
                     'reminder_id'=>0,
@@ -402,7 +402,7 @@ class Masterfile extends CI_Controller {
                 $today=date("Y-m-d");
                 $year=date("Y");
                 $month=date("m");
-                $days_left= $this->dateDifference($fol->followup_date, $today) - $this->total_sunday($month,$year). " day/s left";
+                $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     if($days_left>0){
@@ -431,7 +431,7 @@ class Masterfile extends CI_Controller {
                 $today=date("Y-m-d");
                 $year=date("Y");
                 $month=date("m");
-                $days_left= $this->dateDifference($due->completion_date, $today) - $this->total_sunday($month,$year). " day/s left";
+                $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
                 //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
                 $data['reminders'][]=array(
                     'reminder_id'=>0,
@@ -449,7 +449,7 @@ class Masterfile extends CI_Controller {
                 $today=date("Y-m-d");
                 $year=date("Y");
                 $month=date("m");
-                $days_left= $this->dateDifference($fol->followup_date, $today) - $this->total_sunday($month,$year). " day/s left";
+                $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     $data['followup'][]=array(
@@ -477,7 +477,7 @@ class Masterfile extends CI_Controller {
                 $today=date("Y-m-d");
                 $year=date("Y");
                 $month=date("m");
-                $days_left= $this->dateDifference($due->completion_date, $today) - $this->total_sunday($month,$year). " day/s left";
+                $days_left= $this->dateDifference($due->completion_date, $today). " day/s left";
                 //$followup_date = $this->super_model->select_column_where("project_details","followup_date","project_id",$due->project_id);
                 $data['reminders'][]=array(
                     'reminder_id'=>0,
@@ -495,7 +495,7 @@ class Masterfile extends CI_Controller {
                 $today=date("Y-m-d");
                 $year=date("Y");
                 $month=date("m");
-                $days_left= $this->dateDifference($fol->followup_date, $today) - $this->total_sunday($month,$year). " day/s left";
+                $days_left= $this->dateDifference($fol->followup_date, $today). " day/s left";
                 foreach($this->super_model->select_row_where("project_head","project_id",$fol->project_id) AS $head){
                     $employees = $this->super_model->select_column_where("employees","employee_name","employee_id",$head->monitor_person);
                     $data['followup'][]=array(
