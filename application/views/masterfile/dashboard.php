@@ -101,9 +101,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                        <?php foreach($projects AS $proj){ 
-                                            $working_days = $ci->date_diff($proj->start_date,$now) - $ci->total_sunday($month,$year);
-                                        ?>
+                                <?php   
+                                    function countWeekendDays($start, $end){
+                                        $iter = 24*60*60; // whole day in seconds
+                                        $count = 0; // keep a count of Sats & Suns
+                                        for($i = $start; $i <= $end; $i=$i+$iter){
+                                            if(Date('D',$i) == 'Sun'){
+                                                $count++;
+                                            }
+                                        }
+                                        return $count;
+                                    }
+                                    
+                                    foreach($projects AS $proj){ 
+                                        $start = strtotime($proj->start_date);
+                                        $end = strtotime($now);
+
+                                        /*$start = date("Y-m-d",strtotime($proj->start_date));
+                                        $current = $start;
+                                        $count = 0;
+                                        while($current != $now){
+                                            if(date('l', strtotime($current)) == 'Sunday'){
+                                                $count++;
+                                            }
+
+                                            $current = date('Y-m-d', strtotime($current.' +1 day'));
+                                        };*/
+                                        $counts = countWeekendDays($start, $end);
+                                        $working_days = $ci->date_diff($proj->start_date,$now) - $counts;
+                                ?>
                                 <tr>
                                     <td class="p-0">
                                         <a class="text-dfault"  href="<?php echo base_url(); ?>report/view_task/<?php echo $proj->project_id; ?>" >
@@ -163,10 +189,10 @@
                                                             <span class="pull-right"> 
                                                                 <?php  
                                                                     if(empty($ci->latest_extension($proj->project_id))){
-                                                                        $remaining_days = $ci->date_diff($now, $proj->completion_date) - $ci->total_sunday($month,$year);
+                                                                        $remaining_days = $ci->date_diff($now, $proj->completion_date) - $counts;
                                                                         echo $remaining_days;
                                                                     }else {
-                                                                        $remaining_days = $ci->date_diff($now, $ci->latest_extension($proj->project_id)) - $ci->total_sunday($month,$year);
+                                                                        $remaining_days = $ci->date_diff($now, $ci->latest_extension($proj->project_id)) - $counts;
                                                                         echo $remaining_days;
                                                                     } 
                                                                     /*if(empty($ci->latest_extension($proj->project_id))){
