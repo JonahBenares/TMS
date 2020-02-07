@@ -268,7 +268,7 @@
                                             <div class="desc m-t-20"><?php echo nl2br($det->remarks); ?>
                                             </div>
                                             <br>
-                                            <?php  if($det->followup_date != '1970-01-01'){ ?>
+                                            <?php  if(!empty($det->followup_date)){ ?>
                                             <small class="proj-title h7"><b>Follow Up Date:</b> <?php echo date('F j, Y', strtotime($det->followup_date)); ?></small><br>
                                             <?php 
                                             }

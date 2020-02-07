@@ -971,7 +971,12 @@ class Report extends CI_Controller {
         $update_minute = $this->input->post('update_minute');
         $update = date('Y-m-d', strtotime($this->input->post('update_date')));
         $update_date = $update . " " . $update_hour.":".$update_minute;
-        $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
+
+        if(!empty($this->input->post('followup_date'))){
+            $followup_date = date('Y-m-d', strtotime($this->input->post('followup_date')));
+        } else {
+            $followup_date = '';
+        }
         $extend_date = $this->input->post('extend_date');
         $create_date = date('Y-m-d H:i:s');
         //$emp = $this->input->post('updated_by');
