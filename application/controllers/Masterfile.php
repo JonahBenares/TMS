@@ -73,7 +73,8 @@ class Masterfile extends CI_Controller {
                'company'=> $company,
                'location'=>$location,
                'usertype'=> $usertype,
-               'logged_in'=> TRUE
+               'logged_in'=> TRUE,
+               'login_timestamp'=>time()
             );
             $this->session->set_userdata($newdata);
             redirect(base_url().'index.php/masterfile/dashboard/');

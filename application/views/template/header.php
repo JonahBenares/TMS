@@ -9,6 +9,10 @@ date_default_timezone_set("Asia/Hong_Kong");
     }
 
 
+if((time() - $_SESSION['login_timestamp']) > 30) {
+   echo "<script>alert('You have been inactive for 5 minutes.'); 
+            window.location ='".base_url()."index.php/masterfile/user_logout'; </script>";
+}  
 ?>
 <!DOCTYPE html>
 <html lang="en">
