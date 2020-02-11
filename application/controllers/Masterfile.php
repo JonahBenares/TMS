@@ -650,7 +650,14 @@ class Masterfile extends CI_Controller {
 
     public function cancel_reminder(){
         $reason = trim($this->input->post('reason')," ");
-        $cancel_date = trim($this->input->post('cancel_date')," ");
+         if(!empty($this->input->post('cancel_date'))){
+            $cancel_date = trim($this->input->post('cancel_date')," ");
+            $cancel_date = date('Y-m-d', strtotime($cancel_date));
+        } else {
+            $cancel_date = date('Y-m-d');
+        }
+
+        
         $trigger = $this->input->post('trigger');
         if($trigger=='Reminder'){
             $data = array(
@@ -664,6 +671,9 @@ class Masterfile extends CI_Controller {
                 redirect(base_url().'index.php/masterfile/dashboard/');
             }
         }else {
+
+            
+
             $data = array(
                 'cancel_reason'=>$reason,
                 'cancel_date'=>$cancel_date,

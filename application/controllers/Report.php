@@ -1110,7 +1110,11 @@ class Report extends CI_Controller {
     public function cancel_project(){
          $userid = $this->session->userdata['user_id'];
         $project_id = $this->input->post('project_id');
-        $cancel_date = date('Y-m-d', strtotime($this->input->post('cancel_date')));
+        if(!empty($this->input->post('cancel_date'))){
+            $cancel_date = date('Y-m-d', strtotime($this->input->post('cancel_date')));
+        } else {
+            $cancel_date = date('Y-m-d');
+        }
         $timestamp = date('Y-m-d H:i:s');
 
         $data = array(
