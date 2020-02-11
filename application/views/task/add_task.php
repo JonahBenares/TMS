@@ -287,7 +287,7 @@
                                         <small class="proj-title m-0 btn-block">Due Date: <span class="pull-right"><?php echo date('F j, Y', strtotime($completion_date)); ?></span></small>
                                         <small class="proj-title m-0 btn-block">NO. OF WORKING DAYS: <span class="pull-right">
                                             <?php 
-                                                $working_days = $ci->date_diff($start_date,$now) - $ci->total_sunday($month,$year);
+                                                $working_days = $ci->date_diff($start_date,$now);
                                                 if($status == 1) { 
                                                     echo $ci->date_diff($start_date, $ci->project_completed($project_id));
                                                 } else { 
@@ -302,11 +302,11 @@
                                             <?php   
                                                 if(empty($ci->latest_extension($project_id))){
                                                     //echo $ci->date_diff($now, $completion_date); 
-                                                    $remaining_days = $ci->date_diff($now, $completion_date) - $ci->total_sunday($month,$year);
+                                                    $remaining_days = $ci->date_diff($now, $completion_date);
                                                     echo $remaining_days;
                                                 } else {
                                                     //echo $ci->date_diff($now, $ci->latest_extension($project_id)); 
-                                                    $remaining_days = $ci->date_diff($now, $ci->latest_extension($project_id)) - $ci->total_sunday($month,$year);
+                                                    $remaining_days = $ci->date_diff($now, $ci->latest_extension($project_id));
                                                     echo $remaining_days;
                                                 } 
                                             ?>
