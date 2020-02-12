@@ -1,3 +1,4 @@
+<body onload="set_interval()" onmousemove="reset_interval()" onclick="reset_interval()" onkeypress="reset_interval()" onscroll="reset_interval()">
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row page-titles">
@@ -54,6 +55,7 @@
         </div>
     </div>
 </div>
+</body>
 <script type="text/javascript">
     function checkpassword(){
         var re_password = $('#re_password').val();

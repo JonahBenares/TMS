@@ -9,10 +9,10 @@ date_default_timezone_set("Asia/Hong_Kong");
     }
 
 
-if((time() - $_SESSION['login_timestamp']) > 30) {
+/*if((time() - $_SESSION['login_timestamp']) > 300) {
    echo "<script>alert('You have been inactive for 5 minutes.'); 
             window.location ='".base_url()."index.php/masterfile/user_logout'; </script>";
-}  
+}  */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,5 +32,24 @@ if((time() - $_SESSION['login_timestamp']) > 30) {
     <link href="<?php echo base_url(); ?>assets/dist/css/pages/dashboard1.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/dist/css/jquery.dataTables.min.css" rel="stylesheet">      
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/dist/css/datepicker.css" rel="stylesheet">      
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/dist/css/jquery-ui.css" rel="stylesheet">      
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/dist/css/jquery-ui.css" rel="stylesheet">     
+    <script>
+        var timer = 0;
+function set_interval() {
+  timer = setInterval("auto_logout()", 10000);
+}
+
+function reset_interval() {
+
+  if (timer != 0) {
+    clearInterval(timer);
+    timer = 0;
+    timer = setInterval("auto_logout()", 300000);
+  }
+}
+
+function auto_logout() {
+  window.location = "<?php echo base_url(); ?>masterfile/user_logout";
+}
+    </script> 
 </head>
